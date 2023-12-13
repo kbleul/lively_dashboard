@@ -29,9 +29,9 @@ export const metaObject = (
       title: title ? `${title} - Lively` : title,
       description,
       url: "https://lively-expert.vercel.app",
-      siteName: "Lively", // https://developers.google.com/search/docs/appearance/site-names
+      siteName: "Lively - Expert Dashboard", // https://developers.google.com/search/docs/appearance/site-names
       images: {
-        url: "https://s3.amazonaws.com/redqteam.com/isomorphic-furyroad/itemdep/isobanner.png",
+        url: "https://lively-landing-o64h8i5v7-unravel.vercel.app/thumbnail.png",
         width: 1200,
         height: 630,
       },
