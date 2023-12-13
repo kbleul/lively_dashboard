@@ -33,7 +33,7 @@ export default function SignInForm() {
   const initialLoginMutationSubmitHandler = async (values: LoginSchema) => {
     try {
       await postMutation.mutateAsync({
-        url: `login`,
+        url: `https://lively-auth.unravelplc.com/api/login`,
         method: "POST",
         headers,
         body: {
