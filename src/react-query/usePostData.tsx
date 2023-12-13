@@ -30,7 +30,7 @@ const useDynamicMutation = () => {
       } = options;
       try {
         const response = await axios.request({
-          url: `https://lively-auth.unravelplc.com/api/${url}`,
+          url: `${url}`,
           method,
           headers,
           data: body,

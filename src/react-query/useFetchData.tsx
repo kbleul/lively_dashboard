@@ -20,7 +20,7 @@ export const useFetchData = (
     queryKey: queryKey,
     queryFn: async () => {
       const response = await axios.get(
-        `https://lively-auth.unravelplc.com/api/${url}`,
+        `${url}`,
         { headers }
       );
       return response.data;

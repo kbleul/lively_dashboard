@@ -8,11 +8,9 @@ export const loginSchema = z.object({
     .refine((value) => value.length === 9, {
       message: "Phone number must  be 9 digits long",
     }),
-  password: z.string().min(1),
+  password: z.string().min(1, { message: "Password is required" }),
   rememberMe: z.boolean().optional(),
 });
-
-
 
 // generate form types from zod validation schema used for form
 export type LoginSchema = z.infer<typeof loginSchema>;
