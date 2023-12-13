@@ -23,10 +23,10 @@ export const metaObject = (
   description: string = siteConfig.description
 ): Metadata => {
   return {
-    title: title ? `${title} - Lively Expert Dashboard` : siteConfig.title,
+    title: title ? `${title} - Lively` : siteConfig.title,
     description,
     openGraph: openGraph ?? {
-      title: title ? `${title} - Lively  Expert Dashboard` : title,
+      title: title ? `${title} - Lively` : title,
       description,
       url: "https://lively-expert.vercel.app",
       siteName: "Lively - Expert Dashboard", // https://developers.google.com/search/docs/appearance/site-names
