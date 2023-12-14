@@ -5,6 +5,7 @@ import { useField, ErrorMessage } from "formik";
 interface FormikInputProps {
   label: string;
   name: string;
+  disabled?: boolean;
   type?:
     | "number"
     | "text"
@@ -44,6 +45,7 @@ const FormikInput: React.FC<FormikInputProps> = ({
   className,
   inputClassName,
   color,
+  disabled=false
 }) => {
   const [field] = useField(name);
   return (
@@ -61,6 +63,7 @@ const FormikInput: React.FC<FormikInputProps> = ({
           className={cn("[&>label>span]:font-medium ", className)}
           inputClassName={cn("text-sm ", inputClassName)}
           color={color}
+          disabled={disabled}
         />
         <ErrorMessage
           name={name}

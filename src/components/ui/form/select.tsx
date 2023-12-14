@@ -49,39 +49,39 @@ const CustomSelect: React.FC<SelectProps> = ({
   };
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const customStyles = (): StylesConfig => ({
-    control: (base, state) => ({
+    control: (base:any, state:any) => ({
       ...base,
-      background: "transparent", // Set background color to black for the dark theme
+      background: "white", // Set background color to black for the dark theme
       borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
       borderColor: "transparent",
-      color: "transparent",
+      color: "black",
       padding: 2,
       fontWeight: "500",
     }),
-    menu: (base) => ({
+    menu: (base:any) => ({
       ...base,
-      color: "transparent",
-      background: "transparent",
+      color: "black",
+      background: "white",
       fontWeight: "500",
     }),
-    menuList: (base) => ({
+    menuList: (base:any) => ({
       ...base,
-      background: "transparent", // Set background color to black for the dark theme
-      color: "transparent",
+      background: "white", // Set background color to black for the dark theme
+      color: "black",
       fontWeight: "500",
     }),
-    option: (base) => ({
+    option: (base:any) => ({
       ...base,
-      background: "transparent",
-      color: "transparent",
+      background: "white",
+      color: "black",
       fontWeight: "500",
     }),
-    multiValue: (base) => ({
+    multiValue: (base:any) => ({
       ...base,
       background: "#00BA63 ",
-      color: "white", // You can set the text color to be light for both themes
+      color: "black", // You can set the text color to be light for both themes
     }),
-    singleValue: (base) => ({
+    singleValue: (base:any) => ({
       ...base,
       color: "black", // Set the text color for the selected value
     }),

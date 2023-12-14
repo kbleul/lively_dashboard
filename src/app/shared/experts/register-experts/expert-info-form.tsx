@@ -27,9 +27,10 @@ const Select = dynamic(() => import("@/components/ui/select"), {
 });
 interface Props {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ExpertInfoForm = ({ setActiveStep }: Props) => {
+const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
   const intialValues: RegisterExpertInfoValues = {
@@ -65,7 +66,9 @@ const ExpertInfoForm = ({ setActiveStep }: Props) => {
           confirm_password: values.password,
           profile_image: values.profile[0],
         },
-        onSuccess: () => {
+        onSuccess: (res) => {
+          console.log("res,", res);
+          setUserId(res.data.id);
           setActiveStep((prev) => prev + 1);
           toast.success("Information Saved Successfully");
         },

@@ -66,12 +66,14 @@ export const wellbeignYupSchema = yup.object().shape({
     .min(1)
     .required("Phone number is required")
     .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
-  email: yup
-    .string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  latitude: yup.string().min(1).required("Latitude is required"),
-  longitude: yup.string().min(1).required("Longitude is required"),
+
+  latitude: yup.string(),
+  longitude: yup.string(),
+  address: yup.object().shape({
+    city: yup.string().optional(),
+    location: yup.string().required("property location is required"),
+    loc: yup.array().required("property location is required"), //latitude and longitude
+  }),
   telegram: yup.string().optional(),
   facebook: yup.string().optional(),
   whatsapp: yup.string().optional(),
