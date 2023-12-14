@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import isEmpty from 'lodash/isEmpty';
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
-import { FieldHelperText } from 'rizzui';
-import { Listbox, Transition } from '@headlessui/react';
-import { ExtractProps } from '@/components/ui/table';
-import cn from '@/utils/class-names';
-import { PiCaretUpDown } from 'react-icons/pi';
-import { FieldError } from '@/components/ui/field-error';
+import isEmpty from "lodash/isEmpty";
+import isNumber from "lodash/isNumber";
+import isString from "lodash/isString";
+import { FieldHelperText } from "rizzui";
+import { Listbox, Transition } from "@headlessui/react";
+import { ExtractProps } from "@/components/ui/table";
+import cn from "@/utils/class-names";
+import { PiCaretUpDown } from "react-icons/pi";
+import { FieldError } from "@/components/ui/field-error";
 import {
   type Placement,
   flip,
@@ -16,151 +16,151 @@ import {
   offset,
   autoUpdate,
   useFloating,
-} from '@floating-ui/react';
-import { useElementSize } from '@/hooks/use-element-size';
+} from "@floating-ui/react";
+import { useElementSize } from "@/hooks/use-element-size";
 
 const labelClasses = {
   size: {
-    sm: 'text-xs mb-1',
-    DEFAULT: 'text-sm mb-1.5',
-    lg: 'text-sm mb-1.5',
-    xl: 'text-base mb-2',
+    sm: "text-xs mb-1",
+    DEFAULT: "text-sm mb-1.5",
+    lg: "text-sm mb-1.5",
+    xl: "text-base mb-2",
   },
 };
 
 const selectClasses = {
-  base: 'flex items-center peer w-full transition duration-200',
-  disabled: '!bg-gray-100 cursor-not-allowed !border-gray-200',
-  error: '!border-red hover:!border-red focus:!border-red focus:!ring-red',
+  base: "flex items-center peer w-full transition duration-200",
+  disabled: "!bg-gray-100 cursor-not-allowed !border-gray-200",
+  error: "!border-red hover:!border-red focus:!border-red focus:!ring-red",
   size: {
-    sm: 'px-2 py-1 text-xs h-8 leading-[32px]',
-    DEFAULT: 'px-3 py-2 text-sm h-10 leading-[40px]',
-    lg: 'px-4 py-2 text-base h-12 leading-[48px]',
-    xl: 'px-5 py-2.5 text-base h-14 leading-[56px]',
+    sm: "px-2 py-1 text-xs h-8 leading-[32px]",
+    DEFAULT: "px-3 py-2 text-sm h-10 leading-[40px]",
+    lg: "px-4 py-2 text-base h-12 leading-[48px]",
+    xl: "px-5 py-2.5 text-base h-14 leading-[56px]",
   },
   rounded: {
-    none: 'rounded-none',
-    sm: 'rounded-sm',
-    DEFAULT: 'rounded-md',
-    lg: 'rounded-lg',
-    pill: 'rounded-full',
+    none: "rounded-none",
+    sm: "rounded-sm",
+    DEFAULT: "rounded-md",
+    lg: "rounded-lg",
+    pill: "rounded-full",
   },
   variant: {
     active: {
-      base: 'border bg-gray-0 focus:ring-[0.6px]',
+      base: "border bg-gray-0 focus:ring-[0.6px]",
       color: {
         DEFAULT:
-          'border-gray-900 focus:border-gray-1000 focus:ring-gray-1000 text-gray-1000',
+          "border-gray-900 focus:border-gray-1000 focus:ring-gray-1000 text-gray-1000",
         primary:
-          'border-primary focus:border-primary focus:ring-primary text-primary-dark',
+          "border-primary focus:border-primary focus:ring-primary text-primary-dark",
         secondary:
-          'border-secondary focus:border-secondary focus:ring-secondary text-secondary-dark',
-        danger: 'border-red focus:border-red focus:ring-red text-red-dark',
-        info: 'border-blue focus:border-blue focus:ring-blue text-blue-dark',
+          "border-secondary focus:border-secondary focus:ring-secondary text-secondary-dark",
+        danger: "border-red focus:border-red focus:ring-red text-red-dark",
+        info: "border-blue focus:border-blue focus:ring-blue text-blue-dark",
         success:
-          'border-green focus:border-green focus:ring-green text-green-dark',
+          "border-green focus:border-green focus:ring-green text-green-dark",
         warning:
-          'border-orange focus:border-orange-dark focus:ring-orange-dark text-orange-dark',
+          "border-orange focus:border-orange-dark focus:ring-orange-dark text-orange-dark",
       },
     },
     flat: {
-      base: 'focus:ring-2 focus:bg-transparent border-0',
+      base: "focus:ring-2 focus:bg-transparent border-0",
       color: {
-        DEFAULT: 'bg-gray-200/70 focus:ring-gray-900/20 text-gray-1000',
+        DEFAULT: "bg-gray-200/70 focus:ring-gray-900/20 text-gray-1000",
         primary:
-          'bg-primary-lighter/70 focus:ring-primary/30 text-primary-dark',
+          "bg-primary-lighter/70 focus:ring-primary/30 text-primary-dark",
         secondary:
-          'bg-secondary-lighter/70 focus:ring-secondary/30 text-secondary-dark',
-        danger: 'bg-red-lighter/70 focus:ring-red/30 text-red-dark',
-        info: 'bg-blue-lighter/70 focus:ring-blue/30 text-blue-dark',
-        success: 'bg-green-lighter/70 focus:ring-green/30 text-green-dark',
-        warning: 'bg-orange-lighter/80 focus:ring-orange/30 text-orange-dark',
+          "bg-secondary-lighter/70 focus:ring-secondary/30 text-secondary-dark",
+        danger: "bg-red-lighter/70 focus:ring-red/30 text-red-dark",
+        info: "bg-blue-lighter/70 focus:ring-blue/30 text-blue-dark",
+        success: "bg-green-lighter/70 focus:ring-green/30 text-green-dark",
+        warning: "bg-orange-lighter/80 focus:ring-orange/30 text-orange-dark",
       },
     },
     outline: {
-      base: 'bg-transparent focus:ring-[0.6px] border border-gray-300',
+      base: "bg-transparent focus:ring-[0.6px] border border-gray-300",
       color: {
         DEFAULT:
-          'hover:border-gray-1000 focus:border-gray-1000 focus:ring-gray-1000',
-        primary: 'hover:border-primary focus:border-primary focus:ring-primary',
+          "hover:border-gray-1000 focus:border-gray-1000 focus:ring-gray-1000",
+        primary: "hover:border-primary focus:border-primary focus:ring-primary",
         secondary:
-          'hover:border-secondary focus:border-secondary focus:ring-secondary',
-        danger: 'hover:border-red focus:border-red focus:ring-red',
-        info: 'hover:border-blue focus:border-blue focus:ring-blue',
-        success: 'hover:border-green focus:border-green focus:ring-green',
-        warning: 'hover:border-orange focus:border-orange focus:ring-orange',
+          "hover:border-secondary focus:border-secondary focus:ring-secondary",
+        danger: "hover:border-red focus:border-red focus:ring-red",
+        info: "hover:border-blue focus:border-blue focus:ring-blue",
+        success: "hover:border-green focus:border-green focus:ring-green",
+        warning: "hover:border-orange focus:border-orange focus:ring-orange",
       },
     },
     text: {
-      base: 'border-0 focus:ring-2 bg-transparent',
+      base: "border-0 focus:ring-2 bg-transparent",
       color: {
-        DEFAULT: 'hover:text-gray-1000 focus:ring-gray-900/20',
-        primary: 'hover:text-primary-dark focus:ring-primary/30 text-primary',
+        DEFAULT: "hover:text-gray-1000 focus:ring-gray-900/20",
+        primary: "hover:text-primary-dark focus:ring-primary/30 text-primary",
         secondary:
-          'hover:text-secondary-dark focus:ring-secondary/30 text-secondary',
-        danger: 'hover:text-red-600 focus:ring-red/30 text-red',
-        info: 'hover:text-blue-dark focus:ring-blue/30 text-blue',
-        success: 'hover:text-green-dark focus:ring-green/30 text-green',
-        warning: 'hover:text-orange-dark focus:ring-orange/30 text-orange',
+          "hover:text-secondary-dark focus:ring-secondary/30 text-secondary",
+        danger: "hover:text-red-600 focus:ring-red/30 text-red",
+        info: "hover:text-blue-dark focus:ring-blue/30 text-blue",
+        success: "hover:text-green-dark focus:ring-green/30 text-green",
+        warning: "hover:text-orange-dark focus:ring-orange/30 text-orange",
       },
     },
   },
 };
 
 const optionsClasses = {
-  base: 'max-h-[265px] p-2 w-full overflow-auto border border-gray-100 focus:outline-none z-40 bg-gray-0 dark:bg-gray-100 [&>ul]:outline-none [&>ul]:ring-0',
+  base: "max-h-[265px] p-2 w-full overflow-auto border border-gray-100 focus:outline-none z-40 bg-gray-0 dark:bg-gray-100 [&>ul]:outline-none [&>ul]:ring-0",
   shadow: {
-    sm: 'drop-shadow-md',
-    DEFAULT: 'drop-shadow-lg',
-    lg: 'drop-shadow-xl',
-    xl: 'drop-shadow-2xl',
+    sm: "drop-shadow-md",
+    DEFAULT: "drop-shadow-lg",
+    lg: "drop-shadow-xl",
+    xl: "drop-shadow-2xl",
   },
   rounded: {
-    none: 'rounded-none',
-    sm: 'rounded-sm',
-    DEFAULT: 'rounded-md',
-    lg: 'rounded-lg',
-    pill: 'rounded-xl',
+    none: "rounded-none",
+    sm: "rounded-sm",
+    DEFAULT: "rounded-md",
+    lg: "rounded-lg",
+    pill: "rounded-xl",
   },
 };
 
 const optionClasses = {
-  base: 'text-gray-900 relative cursor-pointer select-none text-sm dark:hover:bg-gray-50',
+  base: "text-gray-900 relative cursor-pointer select-none text-sm dark:hover:bg-gray-50",
   notFound:
-    'relative cursor-default select-none text-center text-gray-500 whitespace-nowrap',
+    "relative cursor-default select-none text-center text-gray-500 whitespace-nowrap",
   color: {
-    DEFAULT: 'text-gray-900 bg-gray-100',
-    primary: 'text-primary-dark bg-primary-lighter',
-    secondary: 'text-secondary-dark bg-secondary-lighter',
-    danger: 'text-red-dark bg-red-lighter',
-    info: 'text-blue-dark bg-blue-lighter',
-    success: 'text-green-dark bg-green-lighter',
-    warning: 'text-orange-dark bg-orange-lighter',
+    DEFAULT: "text-gray-900 bg-gray-100",
+    primary: "text-primary-dark bg-primary-lighter",
+    secondary: "text-secondary-dark bg-secondary-lighter",
+    danger: "text-red-dark bg-red-lighter",
+    info: "text-blue-dark bg-blue-lighter",
+    success: "text-green-dark bg-green-lighter",
+    warning: "text-orange-dark bg-orange-lighter",
   },
 };
 
 // actual select field styles
 const selectFieldClasses = {
-  base: 'w-full text-inherit border-0 p-0 focus:outline-none focus:ring-0',
-  disabled: 'cursor-not-allowed placeholder:text-gray-500',
+  base: "w-full text-inherit border-0 p-0 focus:outline-none focus:ring-0",
+  disabled: "cursor-not-allowed placeholder:text-gray-500",
   clearable:
-    '[&:placeholder-shown~.input-clear-btn]:opacity-0 [&:placeholder-shown~.input-clear-btn]:invisible [&:not(:placeholder-shown)~.input-clear-btn]:opacity-100 [&:not(:placeholder-shown)~.input-clear-btn]:visible',
+    "[&:placeholder-shown~.input-clear-btn]:opacity-0 [&:placeholder-shown~.input-clear-btn]:invisible [&:not(:placeholder-shown)~.input-clear-btn]:opacity-100 [&:not(:placeholder-shown)~.input-clear-btn]:visible",
   prefixStartPadding: {
-    base: 'rtl:pl-[inherit]',
+    base: "rtl:pl-[inherit]",
     size: {
-      sm: 'pl-1.5 rtl:pr-1.5',
-      DEFAULT: 'pl-2.5 rtl:pr-2.5',
-      lg: 'pl-3.5 rtl:pr-3.5',
-      xl: 'pl-4 rtl:pr-4',
+      sm: "pl-1.5 rtl:pr-1.5",
+      DEFAULT: "pl-2.5 rtl:pr-2.5",
+      lg: "pl-3.5 rtl:pr-3.5",
+      xl: "pl-4 rtl:pr-4",
     },
   },
   suffixEndPadding: {
-    base: 'rtl:pr-[inherit]',
+    base: "rtl:pr-[inherit]",
     size: {
-      sm: 'pr-1.5 rtl:pl-1.5',
-      DEFAULT: 'pr-2.5 rtl:pl-2.5',
-      lg: 'pr-3.5 rtl:pl-3.5',
-      xl: 'pr-4 rtl:pl-4',
+      sm: "pr-1.5 rtl:pl-1.5",
+      DEFAULT: "pr-2.5 rtl:pl-2.5",
+      lg: "pr-3.5 rtl:pl-3.5",
+      xl: "pr-4 rtl:pl-4",
     },
   },
 };
@@ -180,7 +180,7 @@ export type SelectOption = {
 
 export type SelectBoxProps<Option> = Omit<
   ExtractProps<typeof Listbox>,
-  'color'
+  "color"
 > & {
   /** Options for select */
   options: SelectOption[];
@@ -198,7 +198,7 @@ export type SelectBoxProps<Option> = Omit<
   /** The variants of the component are: */
   variant?: keyof typeof selectClasses.variant;
   /** Change select color */
-  color?: keyof (typeof selectClasses.variant)['outline']['color'];
+  color?: keyof (typeof selectClasses.variant)["outline"]["color"];
   /** add clearable option */
   clearable?: boolean;
   /** if this field is required or not */
@@ -236,7 +236,7 @@ export type SelectBoxProps<Option> = Omit<
   /** This prop allows you to customize the Options Wrapper style */
   dropdownClassName?: string;
   /** Define whether label or value you want to display */
-  displayValue?(value: ExtractProps<typeof Listbox>['value']): React.ReactNode;
+  displayValue?(value: ExtractProps<typeof Listbox>["value"]): React.ReactNode;
   /** Use this when you want to display other than displayValue*/
   getOptionDisplayValue?(option: SelectOption): React.ReactNode;
   /** Select whether label or value you want get on onChange method */
@@ -278,7 +278,7 @@ export default function SelectBox<OptionType extends SelectOption>({
   helperClassName,
   dropdownClassName,
   prefix = null,
-  placeholder = 'Select',
+  placeholder = "Select",
   displayValue = displayValueFn,
   getOptionDisplayValue = getOptionDisplayValueFn,
   getOptionValue = getOptionValueFn,
@@ -287,11 +287,11 @@ export default function SelectBox<OptionType extends SelectOption>({
   clearable,
   isRequired,
   useContainerWidth = true,
-  placement = 'bottom-start',
-  size = 'DEFAULT',
-  rounded = 'DEFAULT',
-  variant = 'outline',
-  color = 'DEFAULT',
+  placement = "bottom-start",
+  size = "DEFAULT",
+  rounded = "DEFAULT",
+  variant = "outline",
+  color = "DEFAULT",
   suffix = <PiCaretUpDown className="h-5 w-5" />,
   onFocus,
   onBlur,
@@ -314,14 +314,14 @@ export default function SelectBox<OptionType extends SelectOption>({
   const emptyValue = !isNumber(value) && isEmpty(value);
 
   return (
-    <div ref={refs.setReference} className={cn('grid', className)}>
+    <div ref={refs.setReference} className={cn("grid", className)}>
       <Listbox value={value} disabled={disabled} {...props}>
         {({ open }) => (
           <>
             {label && (
               <Listbox.Label
                 className={cn(
-                  'block font-medium',
+                  "block font-medium",
                   labelClasses.size[size],
                   labelClassName
                 )}
@@ -355,7 +355,7 @@ export default function SelectBox<OptionType extends SelectOption>({
                 {prefix && (
                   <span
                     className={cn(
-                      'block whitespace-nowrap leading-normal',
+                      "block whitespace-nowrap leading-normal",
                       prefixClassName
                     )}
                   >
@@ -364,8 +364,8 @@ export default function SelectBox<OptionType extends SelectOption>({
                 )}
                 <div
                   className={cn(
-                    'block w-full truncate text-left rtl:text-right',
-                    emptyValue && 'text-gray-500 dark:text-gray-400',
+                    "block w-full truncate text-left rtl:text-right",
+                    emptyValue && "text-gray-500 dark:text-gray-400",
                     prefix && selectFieldClasses.prefixStartPadding.size[size],
                     suffix && selectFieldClasses.suffixEndPadding.size[size]
                   )}
@@ -384,7 +384,7 @@ export default function SelectBox<OptionType extends SelectOption>({
                 {suffix && (
                   <span
                     className={cn(
-                      'whitespace-nowrap leading-normal',
+                      "whitespace-nowrap leading-normal",
                       suffixClassName
                     )}
                   >
@@ -416,7 +416,7 @@ export default function SelectBox<OptionType extends SelectOption>({
                       className={cn(
                         optionClasses.notFound,
                         selectClasses.size[size],
-                        'h-auto'
+                        "h-auto"
                       )}
                     >
                       Nothing found.
@@ -435,7 +435,7 @@ export default function SelectBox<OptionType extends SelectOption>({
                             selectClasses.size[size],
                             optionsClasses.rounded[rounded],
                             option?.disabled && selectClasses.disabled,
-                            option?.disabled && 'text-gray-500',
+                            option?.disabled && "text-gray-500",
                             active && optionClasses.color[color],
                             optionClassName
                           )
@@ -452,7 +452,7 @@ export default function SelectBox<OptionType extends SelectOption>({
                                   size
                                 ],
                               {
-                                'font-medium': selected,
+                                "font-medium": selected,
                               }
                             )}
                           >
@@ -482,18 +482,18 @@ export default function SelectBox<OptionType extends SelectOption>({
 }
 
 const inputIconClearClasses = {
-  base: 'inline-flex shrink-0 transform items-center justify-center rounded-full bg-gray-1000/30 backdrop-blur p-[1px] text-gray-0 transition-all duration-200 ease-in-out hover:bg-gray-1000',
+  base: "inline-flex shrink-0 transform items-center justify-center rounded-full bg-gray-1000/30 backdrop-blur p-[1px] text-gray-0 transition-all duration-200 ease-in-out hover:bg-gray-1000",
   size: {
-    sm: 'h-3.5 w-3.5',
-    DEFAULT: 'h-4 w-4',
-    lg: 'h-4 w-4',
-    xl: 'h-[18px] w-[18px]',
+    sm: "h-3.5 w-3.5",
+    DEFAULT: "h-4 w-4",
+    lg: "h-4 w-4",
+    xl: "h-[18px] w-[18px]",
   },
   hasSuffix: {
-    sm: 'mr-1.5 rtl:ml-1.5 rtl:mr-[inherit]',
-    DEFAULT: 'mr-2 rtl:ml-2 rtl:mr-[inherit]',
-    lg: 'mr-2.5 rtl:ml-2.5 rtl:mr-[inherit]',
-    xl: 'mr-2.5 rtl:ml-2.5 rtl:mr-[inherit]',
+    sm: "mr-1.5 rtl:ml-1.5 rtl:mr-[inherit]",
+    DEFAULT: "mr-2 rtl:ml-2 rtl:mr-[inherit]",
+    lg: "mr-2.5 rtl:ml-2.5 rtl:mr-[inherit]",
+    xl: "mr-2.5 rtl:ml-2.5 rtl:mr-[inherit]",
   },
 };
 
@@ -516,7 +516,7 @@ export function ClearButton({
       tabIndex={0}
       onClick={onClick}
       className={cn(
-        'input-clear-btn', // must contain this CSS class in this component
+        "input-clear-btn", // must contain this CSS class in this component
         inputIconClearClasses.base,
         size && [
           inputIconClearClasses.size[size],
@@ -538,4 +538,4 @@ export function ClearButton({
   );
 }
 
-ClearButton.displayName = 'ClearButton';
+ClearButton.displayName = "ClearButton";

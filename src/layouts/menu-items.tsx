@@ -81,6 +81,10 @@ export const menuItems = [
         name: "register experts",
         href: routes.contentCreator.experts.register,
       },
+      {
+        name: "create Wellbeign Center",
+        href: routes.contentCreator.experts.createWellbeing,
+      },
     ],
   },
 ];

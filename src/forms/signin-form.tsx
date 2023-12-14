@@ -17,8 +17,8 @@ import PageLoader from "@/components/loader/page-loader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 const initialValues: LoginSchema = {
-  phoneNumber: "",
-  password: "",
+  phoneNumber: "738032921",
+  password: "password",
 };
 
 export default function SignInForm() {

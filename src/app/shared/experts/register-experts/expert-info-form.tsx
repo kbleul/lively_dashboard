@@ -11,6 +11,7 @@ import moment from "moment";
 import { Password } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { FileInput } from "@/components/ui/file-input";
 import { Form } from "@/components/ui/form";
 import dynamic from "next/dynamic";
 import SelectLoader from "@/components/loader/select-loader";
@@ -19,6 +20,7 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import FormGroup, { FormBlockWrapper } from "@/components/form-group";
 import { genderOptions } from "@/constants/form-constants";
 import { DatePicker } from "@/components/ui/datepicker";
+import Upload from "@/components/ui/upload";
 const Select = dynamic(() => import("@/components/ui/select"), {
   ssr: false,
   loading: () => <SelectLoader />,
@@ -29,7 +31,7 @@ interface Props {
 
 const ExpertInfoForm = ({ setActiveStep }: Props) => {
   const postMutation = useDynamicMutation();
-  const headers = useGetHeaders({ type: "Json" });
+  const headers = useGetHeaders({ type: "FormData" });
   const intialValues: RegisterExpertInfoValues = {
     firstName: "",
     lastName: "",
@@ -39,8 +41,10 @@ const ExpertInfoForm = ({ setActiveStep }: Props) => {
     birthDate: new Date(),
     phoneNumber: "",
     password: "",
+    profile: null,
   };
   const onSubmit: SubmitHandler<RegisterExpertInfoValues> = (data) => {
+    console.log(data);
     expertInfoSubmitHandler(data);
   };
   const expertInfoSubmitHandler = async (values: RegisterExpertInfoValues) => {
@@ -59,6 +63,7 @@ const ExpertInfoForm = ({ setActiveStep }: Props) => {
           phone: "251".concat(values.phoneNumber),
           password: values.password,
           confirm_password: values.password,
+          profile_image: values.profile[0],
         },
         onSuccess: () => {
           setActiveStep((prev) => prev + 1);
@@ -158,6 +163,7 @@ const ExpertInfoForm = ({ setActiveStep }: Props) => {
                   {...register("phoneNumber")}
                   error={errors.phoneNumber?.message}
                 />
+
                 <Input
                   type="text"
                   label="Email"
@@ -177,6 +183,25 @@ const ExpertInfoForm = ({ setActiveStep }: Props) => {
                   {...register("password")}
                   error={errors.password?.message}
                 />
+                <FileInput
+                  label="Profile"
+                  placeholder="Select Your Profile"
+                  color="info"
+                  className="[&>label>span]:font-medium col-span-2"
+                  inputClassName="text-sm"
+                  {...register("profile")}
+                  error={errors.profile?.message as string}
+                />
+                {/* <Controller
+                  name="profile"
+                  control={control}
+                  render={({ field: { onChange, value } }) => (
+                    <Upload
+                      accept="img"
+                      onChange={(e) => console.log(e.target.files[0])}
+                    />
+                  )}
+                /> */}
               </FormBlockWrapper>
             </div>
           </div>

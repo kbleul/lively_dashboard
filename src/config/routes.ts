@@ -4,9 +4,10 @@ export const routes = {
     city: "/content-creator/city",
     speciality: "/content-creator/speciality",
     occupation: "/content-creator/occupation",
-    experts:{
+    experts: {
       register: "/content-creator/experts/register",
-    }
+      createWellbeing: "/content-creator/create-wellbeing-center",
+    },
   },
 
   eCommerce: {
