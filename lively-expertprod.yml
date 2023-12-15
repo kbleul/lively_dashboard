@@ -33,8 +33,8 @@ steps:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
     Contents: |
        .next/**
-      package.json
-      next.config.js
+       package.json
+       next.config.js
     TargetFolder: '$(Build.ArtifactStagingDirectory)/app'
 - script: |
     echo "VITE_REACT_APP_USERAUTH_API=$(VITE_REACT_APP_USERAUTH_API)" > $(Build.ArtifactStagingDirectory)/app/.env
