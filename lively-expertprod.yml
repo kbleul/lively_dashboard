@@ -43,7 +43,7 @@ steps:
     #echo "VITE_REACT_APP_IMAGE_TOKEN=${VITE_REACT_APP_IMAGE_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
 
 - task: ArchiveFiles@2
-displayName: 'Create zip archive'
+  displayName: 'Create zip archive'
   inputs:
     rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/app'
     includeRootFolder: false
