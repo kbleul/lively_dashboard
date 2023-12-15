@@ -1,0 +1,57 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+  
+variables:
+  - group: lively-expert-prod
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.0'
+  displayName: 'Install Node.js'
+
+- script: |
+        npm install --legacy-peer-deps
+
+  displayName: 'npm install'
+      
+- script: |
+    npm run build
+  displayName: 'npm run build'
+
+- task: CopyFiles@2
+  displayName: 'Copy files to qa directory'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      dist/**
+      tsconfig.json
+      package.json
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/app'
+- script: |
+    echo "VITE_REACT_APP_USERAUTH_API=$(VITE_REACT_APP_USERAUTH_API)" > $(Build.ArtifactStagingDirectory)/app/.env
+    echo "VITE_REACT_APP_WELLBEING_URL=$(VITE_REACT_APP_WELLBEING_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
+    echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
+    #echo "VITE_REACT_APP_IMAGE_TOKEN=${VITE_REACT_APP_IMAGE_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
+
+- task: ArchiveFiles@2
+  displayName: 'Create zip archive'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/app'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/app.zip'
+    ArtifactName: 'livelyexpert'
