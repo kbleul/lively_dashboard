@@ -61,3 +61,45 @@ export const menuItems = [
     ],
   },
 ];
+
+export const expertMenuItems = [
+  {
+    name: "Home",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: "/",
+    // href: routes.file.dashboard,
+    icon: <PiFileImageDuotone />,
+  },
+  {
+    name: "Form",
+    href: "#",
+    icon: <PiShoppingCartDuotone />,
+    dropdownItems: [
+      {
+        name: "City",
+        href: routes.contentCreator.city,
+      },
+
+      {
+        name: "speciality",
+        href: routes.contentCreator.speciality,
+      },
+
+      {
+        name: "occupation",
+        href: routes.contentCreator.occupation,
+      },
+      {
+        name: "register experts",
+        href: routes.contentCreator.experts.register,
+      },
+      {
+        name: "create Wellbeign Center",
+        href: routes.contentCreator.experts.createWellbeing,
+      },
+    ],
+  },
+];

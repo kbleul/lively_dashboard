@@ -8,7 +8,7 @@ import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
 import { PiCaretDownBold } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
-import { menuItems } from "./menu-items";
+import { expertMenuItems, menuItems } from "./menu-items";
 import Logo from "@/components/logo";
 
 export default function Sidebar({ className }: { className?: string }) {

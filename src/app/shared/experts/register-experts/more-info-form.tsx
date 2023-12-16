@@ -1,12 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, SubmitHandler } from "react-hook-form";
 import FormFooter, { negMargin } from "@/components/form-footer";
 import useDynamicMutation from "@/react-query/usePostData";
-import {
-  finishRegisterExpert,
-  FinishRegisterExpertInfoValues,
-} from "@/utils/validations/register-expert.schema";
+import { Checkbox } from "@/components/ui/checkbox";
 import moment from "moment";
 import { Password } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
@@ -17,7 +14,7 @@ import SelectLoader from "@/components/loader/select-loader";
 import { toast } from "sonner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import FormGroup, { FormBlockWrapper } from "@/components/form-group";
-import { genderOptions } from "@/constants/form-constants";
+import { genderOptions, workCustomDays } from "@/constants/form-constants";
 import { DatePicker } from "@/components/ui/datepicker";
 import Upload from "@/components/ui/upload";
 import { Text } from "@/components/ui/text";
@@ -32,6 +29,10 @@ import FilePicker from "@/components/ui/form/dropzone";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { PiTrashBold } from "react-icons/pi";
 import AvaterPicker from "@/components/ui/form/avater-upload";
+import {
+  type FinishRegisterExpert,
+  finishRegisterExpert,
+} from "@/validations/create-expert.schema";
 const Select = dynamic(() => import("@/components/ui/select"), {
   ssr: false,
   loading: () => <SelectLoader />,
@@ -43,36 +44,11 @@ interface Props {
 
 const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
   const postMutation = useDynamicMutation();
+  const [customDaysChecked, setCustomDaysChecked] = useState(
+    Array(7).fill(true)
+  );
   const headers = useGetHeaders({ type: "FormData" });
-  const Yupschema = Yup.object().shape({
-    occupation: Yup.string().required("Occupation is required"),
-    city_id: Yup.string().required("City is required"),
-    education: Yup.array().of(
-      Yup.object().shape({
-        titleEnglish: Yup.string().min(1).required("title English is required"),
-        titleAmharic: Yup.string().min(1).required("title Amharic is required"),
-      })
-    ),
-    specialties: Yup.array().required("please select at leas one tag"),
-    experiences: Yup.array().of(
-      Yup.object().shape({
-        companyNameEnglish: Yup.string().required(
-          "company name English is required"
-        ),
-        companyNameAmharic: Yup.string().required(
-          "company name amharic is required"
-        ),
-        titleEnglish: Yup.string().required("title English is required"),
-        titleAmharic: Yup.string().required("title Amharic is required"),
-      })
-    ),
-    expert_license: Yup.mixed().required("Expert License is required"),
-    educational_document: Yup.mixed().required(
-      "Educational Document is required"
-    ),
-    per_session_price: Yup.string().required("Per Session Price is required"),
-  });
-  const initialValues = {
+  const initialValues: FinishRegisterExpert = {
     occupation: "",
     city_id: "",
     education: [
@@ -93,6 +69,7 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
     expert_license: null,
     educational_document: null,
     per_session_price: "",
+    openingHours: workCustomDays,
   };
   const occupationData = useFetchData(
     [queryKeys.getAllOccupations],
@@ -126,6 +103,11 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
           expert_license: values.expert_license,
           educational_document: values.educational_document,
           per_session: values.per_session_price,
+          availabilities: values.openingHours.map((hours: any) => ({
+            day_of_week: hours.day,
+            opening_time: hours.from,
+            closing_time: hours.to,
+          })),
           // _method: "PATCH",
         },
         onSuccess: () => {
@@ -143,7 +125,7 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={Yupschema}
+      validationSchema={finishRegisterExpert}
       onSubmit={expertInfoSubmitHandler}
     >
       {({ values, setFieldValue, errors }) => {
@@ -360,6 +342,48 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
                   className="col-span-2"
                   color="primary"
                 />
+                {/*  */}
+                <div className="col-span-2">
+                  <Text as="span" className="text-primary block capitalize">
+                    Avalability Time
+                  </Text>
+                  {values.openingHours.map((_: any, index: number) => (
+                    <div className="flex items-end  gap-2 w-full " key={index}>
+                      <Checkbox
+                        checked={customDaysChecked[index]}
+                        variant="flat"
+                        color="primary"
+                        className="font-medium"
+                        onChange={(e) => {
+                          const isChecked = e.target.checked;
+                          setCustomDaysChecked((prevChecked) => {
+                            const newChecked = [...prevChecked];
+                            newChecked[index] = isChecked;
+                            return newChecked;
+                          });
+                        }}
+                      />
+
+                      <FormikInput
+                        name={`openingHours[${index}].day`}
+                        label="Day"
+                        disabled
+                      />
+                      <FormikInput
+                        name={`openingHours[${index}].from`}
+                        label="Opening Time"
+                        disabled={!customDaysChecked[index]}
+                        type="time"
+                      />
+                      <FormikInput
+                        name={`openingHours[${index}].to`}
+                        label="Closing Time"
+                        type="time"
+                        disabled={!customDaysChecked[index]}
+                      />
+                    </div>
+                  ))}
+                </div>
               </FormBlockWrapper>
             </div>
 

@@ -12,7 +12,7 @@ import { genderOptions } from "@/constants/form-constants";
 import { DatePicker } from "@/components/ui/datepicker";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
-  RegisterExpertInfoType,
+  type RegisterExpertInfoType,
   registerExpertInfoSchema,
 } from "@/validations/create-expert.schema";
 import FormikInput from "@/components/ui/form/input";
@@ -44,7 +44,7 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
   const expertInfoSubmitHandler = async (values: RegisterExpertInfoType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/register-expert`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/register-expert`,
         method: "POST",
         headers,
         body: {
