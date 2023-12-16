@@ -37,7 +37,7 @@ export default function AddSpecilaityForm() {
   const createUnit = async (values: SpecialitySchemaVlues) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/specialties`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}specialties`,
         method: "POST",
         headers,
         body: {

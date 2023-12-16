@@ -16,6 +16,9 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import PageLoader from "@/components/loader/page-loader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
+import { Checkbox } from "@/components/ui/checkbox";
+import { routes } from "@/config/routes";
 const initialValues: LoginSchema = {
   phoneNumber: "738032921",
   password: "password",
@@ -33,7 +36,7 @@ export default function SignInForm() {
   const initialLoginMutationSubmitHandler = async (values: LoginSchema) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-auth.unravelplc.com/api/login`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}login`,
         method: "POST",
         headers,
         body: {
@@ -98,7 +101,7 @@ export default function SignInForm() {
                     label="Phone Number"
                     prefix="+251"
                     placeholder="9** *** ***"
-                    color="info"
+                    color="primary"
                     className="[&>label>span]:font-medium"
                     inputClassName="text-sm"
                     {...register("phoneNumber")}
@@ -110,10 +113,25 @@ export default function SignInForm() {
                     size="lg"
                     className="[&>label>span]:font-medium"
                     inputClassName="text-sm"
-                    color="info"
+                    color="primary"
                     {...register("password")}
                     error={errors.password?.message}
                   />
+
+                  <div className="flex items-center justify-between">
+                    <Checkbox
+                      label="Remember me"
+                      variant="flat"
+                      color="primary"
+                      className="font-medium"
+                    />
+                    <Link
+                      href={routes.forgotPassword}
+                      className="font-medium text-primary hover:text-primary-dark"
+                    >
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <Button
                     className="w-full hover:bg-primary"
                     type="submit"

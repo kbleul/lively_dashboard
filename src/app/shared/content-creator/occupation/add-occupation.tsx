@@ -34,7 +34,7 @@ export default function AddOccupationForm() {
   const createRequest = async (values: CommonToolsSchemaVlues) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/occupations`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
         method: "POST",
         headers,
         body: {

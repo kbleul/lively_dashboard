@@ -29,6 +29,9 @@ import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
 import FormikInput from "@/components/ui/form/input";
 import CustomSelect from "@/components/ui/form/select";
 import FilePicker from "@/components/ui/form/dropzone";
+import { ActionIcon } from "@/components/ui/action-icon";
+import { PiTrashBold } from "react-icons/pi";
+import AvaterPicker from "@/components/ui/form/avater-upload";
 const Select = dynamic(() => import("@/components/ui/select"), {
   ssr: false,
   loading: () => <SelectLoader />,
@@ -93,24 +96,24 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
   };
   const occupationData = useFetchData(
     [queryKeys.getAllOccupations],
-    `https://lively-wellbeing.unravelplc.com/api/operation-manager/occupations`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
     headers
   );
   const cityData = useFetchData(
     [queryKeys.getAllCities],
-    `https://lively-wellbeing.unravelplc.com/api/operation-manager/cities`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
     headers
   );
 
   const specialityData = useFetchData(
     [queryKeys.getAllSpecilities],
-    `https://lively-wellbeing.unravelplc.com/api/operation-manager/specialties`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/specialties`,
     headers
   );
   const expertInfoSubmitHandler = async (values: any) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/finish-expert-registration`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/finish-expert-registration`,
         method: "POST",
         headers,
         body: {
@@ -130,7 +133,7 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
           toast.success("Information Saved Successfully");
         },
         onError: (err) => {
-          toast.error(err?.response?.data?.message);
+          toast.error(err?.response?.data?.data);
         },
       });
     } catch (err) {
@@ -138,18 +141,21 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
     }
   };
   return (
-    <div className="flex flex-col items-start space-y-5 w-full">
-      <Title as="h5">Finish Expert Registration</Title>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={Yupschema}
-        onSubmit={expertInfoSubmitHandler}
-      >
-        {({ values, setFieldValue, errors }) => {
-          console.log(errors);
-          return (
-            <Form className="flex flex-col items-start space-y-5 w-full">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+    <Formik
+      initialValues={initialValues}
+      validationSchema={Yupschema}
+      onSubmit={expertInfoSubmitHandler}
+    >
+      {({ values, setFieldValue, errors }) => {
+        console.log(errors);
+        return (
+          <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
+            <div className="grid grid-cols-1 gap-8 divide-y divide-dashed divide-gray-200 @2xl:gap-10 @3xl:gap-12">
+              <FormBlockWrapper
+                title={"Expert Info."}
+                description={"Edit your Expert information from here"}
+                className="py-7 @2xl:pt-9 @3xl:pt-11"
+              >
                 <CustomSelect
                   isSearchable
                   name="city_id"
@@ -192,112 +198,179 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
                   getOptionValue={(furnished: any) => furnished?.id}
                   getOptionLabel={(furnished: any) => furnished?.name?.english}
                   noOptionsMessage={() => "specialties here"}
+                  className="col-span-2"
                 />
-              </div>
-              <FieldArray name={`education`}>
-                {({ push, remove }) => (
-                  <div className="w-full flex flex-col items-start space-y-2 ">
-                    <Text>education</Text>
-                    {values.education.map((info, i) => (
-                      <div
-                        key={i}
-                        className=" grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
-                      >
-                        <FormikInput
-                          name={`education.${i}.titleEnglish`}
-                          label="title English"
-                        />
+                <div className="col-span-2 w-full ">
+                  <FieldArray name={`education`}>
+                    {({ push, remove }) => (
+                      <div className="w-full flex flex-col items-start space-y-2 ">
+                        <Text
+                          as="span"
+                          className="font-medium block capitalize"
+                        >
+                          education
+                        </Text>
+                        {values.education.map((info, i) => (
+                          <div
+                            key={i}
+                            className="border p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
+                          >
+                            <div className="md:col-span-2">
+                              <Text
+                                as="span"
+                                className="text-primary block capitalize"
+                              >
+                                Education {i + 1}
+                              </Text>
+                            </div>
+                            <FormikInput
+                              name={`education.${i}.titleEnglish`}
+                              label="Education Title English"
+                              placeholder="Enter Education Title English"
+                              color="primary"
+                            />
 
-                        <div className="flex flex-col items-end justify-end ">
-                          <FormikInput
-                            name={`education.${i}.titleAmharic`}
-                            label="title amharic"
-                          />
-                          <Button variant="outline" onClick={() => remove(i)}>
-                            Remove
-                          </Button>
-                        </div>
+                            <FormikInput
+                              name={`education.${i}.titleAmharic`}
+                              label="Education Title Amharic"
+                              placeholder="Enter Education Title Amharic"
+                              color="primary"
+                            />
+                            <div className="md:col-span-2 w-full flex items-end justify-end">
+                              <ActionIcon
+                                onClick={() => remove(i)}
+                                size="sm"
+                                variant="flat"
+                                color="danger"
+                                className="ms-auto flex-shrink-0 p-0 dark:bg-red-dark/20 mt-1"
+                              >
+                                <PiTrashBold className="w-6" />
+                              </ActionIcon>
+                            </div>
+                          </div>
+                        ))}
+                        <Button
+                          variant="outline"
+                          color="primary"
+                          onClick={() =>
+                            push({ serviceEnglish: "", titleAmharic: "" })
+                          }
+                        >
+                          Add Education
+                        </Button>
                       </div>
-                    ))}
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        push({ serviceEnglish: "", titleAmharic: "" })
-                      }
-                    >
-                      Add education
-                    </Button>
-                  </div>
-                )}
-              </FieldArray>
-              {/* experiance */}
-              <FieldArray name={`experiences`}>
-                {({ push, remove }) => (
-                  <div className="w-full flex flex-col items-start space-y-2 ">
-                    <Text>experiences</Text>
-                    {values.experiences.map((info, i) => (
-                      <div
-                        key={i}
-                        className=" grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
-                      >
-                        <FormikInput
-                          name={`experiences.${i}.titleEnglish`}
-                          label="title English"
-                        />
-                        <FormikInput
-                          name={`experiences.${i}.titleAmharic`}
-                          label="title amharic"
-                        />
-                        <FormikInput
-                          name={`experiences.${i}.companyNameEnglish`}
-                          label="company name english"
-                        />
-                        <div className="flex flex-col items-end justify-end ">
-                          <FormikInput
-                            name={`experiences.${i}.companyNameAmharic`}
-                            label="company name amharic"
-                          />
-                          <Button variant="outline" onClick={() => remove(i)}>
-                            Remove
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                    <Button
-                      variant="outline"
-                      onClick={() =>
-                        push({
-                          companyNameEnglish: "",
-                          companyNameAmharic: "",
-                          titleEnglish: "",
-                          titleAmharic: "",
-                        })
-                      }
-                    >
-                      Add experience
-                    </Button>
-                  </div>
-                )}
-              </FieldArray>
-              <FilePicker name="expert_license" label="expert_license" />
-              <FilePicker
-                name="educational_document"
-                label="educational document"
-              />
+                    )}
+                  </FieldArray>
+                </div>
+                {/* experiance */}
+                <div className="col-span-2 w-full ">
+                  <FieldArray name={`experiences`}>
+                    {({ push, remove }) => (
+                      <div className="w-full flex flex-col items-start space-y-2 ">
+                        <Text
+                          as="span"
+                          className="font-medium block capitalize"
+                        >
+                          experiences
+                        </Text>
+                        {values.experiences.map((info, i) => (
+                          <div
+                            key={i}
+                            className="border p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
+                          >
+                            <div className="md:col-span-2">
+                              <Text
+                                as="span"
+                                className="text-primary block capitalize"
+                              >
+                                Experiences {i + 1}
+                              </Text>
+                            </div>
+                            <FormikInput
+                              name={`experiences.${i}.titleEnglish`}
+                              label="Experience Title English"
+                              placeholder="Enter Experience Title English"
+                              color="primary"
+                            />
+                            <FormikInput
+                              name={`experiences.${i}.titleAmharic`}
+                              label="Experience Title Amharic"
+                              placeholder="Enter Experience Title Amharic"
+                              color="primary"
+                            />
+                            <FormikInput
+                              name={`experiences.${i}.companyNameEnglish`}
+                              label="Company Name english"
+                              placeholder="Enter Company Name english"
+                              color="primary"
+                            />
+                            <FormikInput
+                              name={`experiences.${i}.companyNameAmharic`}
+                              label="Company Name Amharic"
+                              placeholder="Enter Company Name Amharic"
+                              color="primary"
+                            />
 
-              <FormikInput name="per_session_price" label="per session price" />
-              <Button
-                isLoading={postMutation.isPending}
-                type="submit"
-                color="primary"
-              >
-                Create Center
-              </Button>
-            </Form>
-          );
-        }}
-      </Formik>
-    </div>
+                            <div className="md:col-span-2 w-full flex items-end justify-end">
+                              <ActionIcon
+                                onClick={() => remove(i)}
+                                size="sm"
+                                variant="flat"
+                                color="danger"
+                                className="ms-auto flex-shrink-0 p-0 dark:bg-red-dark/20 mt-1"
+                              >
+                                <PiTrashBold className="w-6" />
+                              </ActionIcon>
+                            </div>
+                          </div>
+                        ))}
+                        <Button
+                          variant="outline"
+                          color="primary"
+                          onClick={() =>
+                            push({
+                              companyNameEnglish: "",
+                              companyNameAmharic: "",
+                              titleEnglish: "",
+                              titleAmharic: "",
+                            })
+                          }
+                        >
+                          Add experience
+                        </Button>
+                      </div>
+                    )}
+                  </FieldArray>
+                </div>
+                <AvaterPicker
+                  name="expert_license"
+                  label="Expert Licence"
+                  className="col-span-2"
+                />
+                <AvaterPicker
+                  name="educational_document"
+                  label="Educational Document"
+                  className="col-span-2"
+                />
+
+                <FormikInput
+                  type="number"
+                  name="per_session_price"
+                  label="Price Per Session"
+                  className="col-span-2"
+                  color="primary"
+                />
+              </FormBlockWrapper>
+            </div>
+
+            <FormFooter
+              isLoading={postMutation.isPending}
+              submitBtnText={"Save & Continue"}
+            />
+          </Form>
+        );
+      }}
+    </Formik>
   );
 };
 

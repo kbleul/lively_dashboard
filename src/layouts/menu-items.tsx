@@ -1,43 +1,5 @@
 import { routes } from "@/config/routes";
-import {
-  PiShoppingCartDuotone,
-  PiHeadsetDuotone,
-  PiPackageDuotone,
-  PiChartBarDuotone,
-  PiFileImageDuotone,
-  PiCurrencyDollarDuotone,
-  PiSquaresFourDuotone,
-  PiGridFourDuotone,
-  PiFeatherDuotone,
-  PiChartLineUpDuotone,
-  // PiImageDuotone,
-  PiMapPinLineDuotone,
-  PiUserGearDuotone,
-  PiBellSimpleRingingDuotone,
-  PiUserDuotone,
-  PiEnvelopeSimpleOpenDuotone,
-  PiStepsDuotone,
-  PiCreditCardDuotone,
-  PiStackDuotone,
-  PiTableDuotone,
-  PiBrowserDuotone,
-  PiBoundingBoxDuotone,
-  PiHourglassSimpleDuotone,
-  PiUserCircleDuotone,
-  PiShootingStarDuotone,
-  PiRocketLaunchDuotone,
-  PiFolderLockDuotone,
-  PiBinocularsDuotone,
-  PiHammerDuotone,
-  PiNoteBlankDuotone,
-  PiUserPlusDuotone,
-  PiShieldCheckDuotone,
-  PiLockKeyDuotone,
-  PiChatCenteredDotsDuotone,
-  PiMagicWandDuotone,
-  PiCalendarPlusDuotone,
-  PiEnvelopeDuotone,
-} from "react-icons/pi";
+import { PiShoppingCartDuotone, PiFileImageDuotone } from "react-icons/pi";
 
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
@@ -84,6 +46,17 @@ export const menuItems = [
       {
         name: "create Wellbeign Center",
         href: routes.contentCreator.experts.createWellbeing,
+      },
+    ],
+  },
+  {
+    name: "Appoitments",
+    href: "#",
+    icon: <PiShoppingCartDuotone />,
+    dropdownItems: [
+      {
+        name: "Appoitments",
+        href: routes.appointments,
       },
     ],
   },

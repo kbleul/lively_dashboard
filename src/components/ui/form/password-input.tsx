@@ -1,8 +1,9 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import cn from "@/utils/class-names";
+import { Password } from "@/components/ui/password";
 import { useField, ErrorMessage } from "formik";
-interface FormikInputProps {
+interface FormikPasswordInputProps {
   label: string;
   name: string;
   disabled?: boolean;
@@ -35,7 +36,7 @@ interface FormikInputProps {
     | undefined;
 }
 
-const FormikInput: React.FC<FormikInputProps> = ({
+const FormikPasswordInput: React.FC<FormikPasswordInputProps> = ({
   label,
   type = "text",
   name,
@@ -51,14 +52,12 @@ const FormikInput: React.FC<FormikInputProps> = ({
   return (
     <div className={cn("w-full", className)}>
       <div className="mt-1">
-        <Input
+        <Password
           autoComplete="off"
           {...field}
-          type={type}
           label={label}
           name={name}
           prefix={prefix}
-          suffix={suffix}
           placeholder={placeholder}
           className={cn("[&>label>span]:font-medium ", className)}
           inputClassName={cn("text-sm ", inputClassName)}
@@ -75,4 +74,4 @@ const FormikInput: React.FC<FormikInputProps> = ({
   );
 };
 
-export default FormikInput;
+export default FormikPasswordInput;

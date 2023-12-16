@@ -34,7 +34,7 @@ export default function AddCityForm() {
   const createUnit = async (values: CommonToolsSchemaVlues) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/cities`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
         method: "POST",
         headers,
         body: {

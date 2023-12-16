@@ -21,7 +21,7 @@ const OccupationList = () => {
   const { openModal } = useModal();
   const cityData = useFetchData(
     [queryKeys.getAllCities],
-    `https://lively-wellbeing.unravelplc.com/api/operation-manager/occupations`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
     headers
   );
 

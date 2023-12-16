@@ -1,7 +1,7 @@
 import React from "react";
 import Select, { StylesConfig } from "react-select";
 import { useField, ErrorMessage } from "formik";
-
+import cn from '@/utils/class-names'
 interface SelectProps {
   label: string;
   name: string;
@@ -18,6 +18,7 @@ interface SelectProps {
   disabled?: boolean;
   isLoading?: boolean;
   isMulti?: boolean;
+  className?:string
 }
 
 const CustomSelect: React.FC<SelectProps> = ({
@@ -36,6 +37,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   disabled,
   isLoading = false,
   isMulti = false,
+  className
 }) => {
   const [, , helpers] = useField(name);
   const { setValue, setTouched } = helpers;
@@ -47,48 +49,48 @@ const CustomSelect: React.FC<SelectProps> = ({
     setTouched(true);
     onBlur && onBlur();
   };
-  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const customStyles = (): StylesConfig => ({
-    control: (base:any, state:any) => ({
+    control: (base: any, state: any) => ({
       ...base,
       background: "white", // Set background color to black for the dark theme
-      borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
-      borderColor: "transparent",
+      borderRadius: state.isFocused ? "5px" : "5px",
+      borderColor: state.isFocused ? "#00BA63" : "darkgray",
       color: "black",
       padding: 2,
+
       fontWeight: "500",
     }),
-    menu: (base:any) => ({
+    menu: (base: any) => ({
       ...base,
       color: "black",
       background: "white",
       fontWeight: "500",
     }),
-    menuList: (base:any) => ({
+    menuList: (base: any) => ({
       ...base,
       background: "white", // Set background color to black for the dark theme
       color: "black",
       fontWeight: "500",
     }),
-    option: (base:any) => ({
+    option: (base: any) => ({
       ...base,
       background: "white",
       color: "black",
       fontWeight: "500",
     }),
-    multiValue: (base:any) => ({
+    multiValue: (base: any) => ({
       ...base,
-      background: "#00BA63 ",
+      background: "#008579 ",
       color: "black", // You can set the text color to be light for both themes
     }),
-    singleValue: (base:any) => ({
+    singleValue: (base: any) => ({
       ...base,
       color: "black", // Set the text color for the selected value
     }),
   });
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full",className)}>
       <label
         className={` block 
        font-medium

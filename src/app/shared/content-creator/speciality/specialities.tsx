@@ -21,7 +21,7 @@ const SpecialityList = () => {
   const { openModal } = useModal();
   const specialityData = useFetchData(
     [queryKeys.getAllSpecilities],
-    `https://lively-wellbeing.unravelplc.com/api/operation-manager/specialties`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}specialties`,
     headers
   );
 
@@ -29,7 +29,7 @@ const SpecialityList = () => {
   const deleteRequest = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/specialties/${id}`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}specialties/${id}`,
         method: "DELETE",
         headers,
         body: {},
