@@ -7,6 +7,7 @@ interface FormFooterProps {
   submitBtnText?: string;
   isLoading?: boolean;
   handleAltBtn?: () => void;
+  showSveBtn?: boolean;
 }
 
 export const negMargin = "-mx-4 md:-mx-5 lg:-mx-6 3xl:-mx-8 4xl:-mx-10";
@@ -17,6 +18,7 @@ export default function FormFooter({
   submitBtnText = "Submit",
   className,
   handleAltBtn,
+  showSveBtn = true,
 }: FormFooterProps) {
   return (
     <div
@@ -26,14 +28,16 @@ export default function FormFooter({
         negMargin
       )}
     >
-      <Button
-        color="primary"
-        variant="outline"
-        className="w-full @xl:w-auto"
-        onClick={handleAltBtn}
-      >
-        {altBtnText}
-      </Button>
+      {showSveBtn && (
+        <Button
+          color="primary"
+          variant="outline"
+          className="w-full @xl:w-auto"
+          onClick={handleAltBtn}
+        >
+          {altBtnText}
+        </Button>
+      )}
       <Button
         type="submit"
         isLoading={isLoading}

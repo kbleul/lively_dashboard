@@ -65,7 +65,7 @@ export default function SignInForm() {
   if (isLoading) return <PageLoader />;
   if (status === "unauthenticated")
     return (
-      <div className="bg-gradient-to-r from-[#008579] to-[#00BA63] flex w-full items-center justify-center min-h-screen">
+      <div className="bg-gradient-to-r from-[#008579] to-[#00BA63] flex w-full items-center justify-center min-h-screen p-2">
         <div className="max-w-lg  mx-auto w-full bg-white  p-5 md:p-10 rounded-xl">
           <div className="flex w-full flex-col items-center justify-center">
             <div className="flex flex-col w-full items-center justify-center">

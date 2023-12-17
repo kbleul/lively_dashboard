@@ -71,17 +71,17 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
     per_session_price: "",
     openingHours: workCustomDays,
   };
-  const occupationData = useFetchData(
-    [queryKeys.getAllOccupations],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
-    headers
-  );
+
   const cityData = useFetchData(
     [queryKeys.getAllCities],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
     headers
   );
-
+  const occupationData = useFetchData(
+    [queryKeys.getAllOccupations],
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
+    headers
+  );
   const specialityData = useFetchData(
     [queryKeys.getAllSpecilities],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/specialties`,

@@ -3,4 +3,5 @@ export const queryKeys={
     getAllSpecilities:"getAllSpecilitiesApi",
     getAllOccupations:"getAllOccupationsApi",
     getAllApoitmentsOp:"getAllApoitmentsOpApi",
+    getExpertProfile:"getExpertProfileApi",
 }

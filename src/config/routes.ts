@@ -13,4 +13,13 @@ export const routes = {
   signIn: "/signin",
   forgotPassword: "/forgot-password",
   appointments: "/content-creator/appointments",
+
+  //expert routes
+  expert: {
+    dashboard: "/expert",
+    profile: "/expert/profile",
+    schedule: "/expert/schedule",
+    appointments: "/expert/appointments",
+    createWellbeing: "/expert/create-wellbeing-center",
+  },
 };
