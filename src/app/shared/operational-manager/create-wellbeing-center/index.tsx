@@ -19,6 +19,7 @@ import AddLocationForm from "./add-location-form";
 import AddSocialMediaForm from "./add-social-media-form";
 import AddOpeninHourForm from "./add-opening-hour-form";
 import { workCustomDays } from "@/constants/form-constants";
+import { appendDefaultSecond } from "@/utils/append-second";
 const CreateWellbeignCenterForm = () => {
   const MAP_STEP_TO_COMPONENT = {
     [formParts.detail]: CenterDetailForm,
@@ -79,8 +80,8 @@ const CreateWellbeignCenterForm = () => {
           services: values.services,
           opening_hours: values.openingHours.map((hours: any) => ({
             day_of_week: hours.day,
-            opening_time: hours.from,
-            closing_time: hours.to,
+            opening_time: appendDefaultSecond(hours.from),
+            closing_time: appendDefaultSecond(hours.to),
           })),
           center_logo: values.logo,
           center_cover: values.center_cover,

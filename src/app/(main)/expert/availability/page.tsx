@@ -1,12 +1,15 @@
-import AppointmentsList from "@/app/shared/expert/appointments/appointments-list";
 import React from "react";
 import { metaObject } from "@/config/site.config";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-
-const Appointment = () => {
+import ExpertAvailability from "@/app/shared/expert/availability/expert-availability";
+export const metadata = {
+    ...metaObject("Availability"),
+  };
+  
+const Availability = () => {
   const pageHeader = {
-    title: "Appointments",
+    title: "Availability",
     breadcrumb: [
       {
         href: routes.expert.dashboard,
@@ -14,7 +17,7 @@ const Appointment = () => {
       },
 
       {
-        name: "Appointments",
+        name: "Availability",
       },
     ],
   };
@@ -24,9 +27,10 @@ const Appointment = () => {
         title={pageHeader.title}
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
-      <AppointmentsList />
+      <ExpertAvailability />
     </>
   );
 };
 
-export default Appointment;
+export default Availability;
+

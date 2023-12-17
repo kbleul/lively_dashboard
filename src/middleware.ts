@@ -2,21 +2,21 @@ import { pagesOptions } from "@/app/api/auth/[...nextauth]/pages-options";
 import withAuth, { NextRequestWithAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 export default withAuth(
-  // function middleware(req: NextRequestWithAuth) {
-  //   console.log(
-  //     !req.nextauth.token?.user?.roles
-  //       ?.map((item) => item.name.toLowerCase())
-  //       .includes("Expert")
-  //   );
-  //   if (
-  //     req.nextUrl.pathname.startsWith("/expert") &&
-  //     !req.nextauth.token?.user.roles
-  //       ?.map((item) => item.name.toLowerCase())
-  //       .includes("Expert")
-  //   ) {
-  //     return NextResponse.rewrite(new URL("/access-denied", req.url));
-  //   }
-  // },
+  function middleware(req: NextRequestWithAuth) {
+    console.log(
+      !req.nextauth.token?.user?.roles
+        ?.map((item) => item.name)
+        .includes("Expert")
+    );
+    if (
+      req.nextUrl.pathname.startsWith("/op") &&
+      !req.nextauth.token?.user.roles
+        ?.map((item) => item.name)
+        .includes("Operation_Manager")
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
+  },
   {
     pages: {
       ...pagesOptions,
@@ -30,5 +30,5 @@ export default withAuth(
 
 export const config = {
   // restricted routes that need authentication
-  matcher: ["/", "/expert/:path*"],
+  matcher: ["/", "/expert/:path*", "/op/:path*"],
 };

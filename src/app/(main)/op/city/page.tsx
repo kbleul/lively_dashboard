@@ -1,4 +1,4 @@
-import CityList from "@/app/shared/content-creator/city/city";
+import CityList from "@/app/shared/operational-manager/city/city";
 import { metaObject } from "@/config/site.config";
 
 export const metadata = {

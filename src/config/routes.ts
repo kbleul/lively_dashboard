@@ -20,6 +20,15 @@ export const routes = {
     profile: "/expert/profile",
     schedule: "/expert/schedule",
     appointments: "/expert/appointments",
-    createWellbeing: "/expert/create-wellbeing-center",
+    availability: "/expert/availability",
+  },
+  // operational routes =>op means operational manager
+  operationalManager: {
+    dashboard: "/op",
+    city: "/op/city",
+    speciality: "/op/speciality",
+    occupation: "/op/occupation",
+    registerExpert: "/op/register-experts",
+    createWellbeing: "/op/create-wellbeing-center",
   },
 };

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { getColumns as getToolsColumns } from "@/app/shared/content-creator/common/tools-column";
+import { getColumns as getToolsColumns } from "@/app/shared/operational-manager/common/tools-column";
 import { useFetchData } from "@/react-query/useFetchData";
 import { Button } from "@/components/ui/button";
 import useDynamicMutation from "@/react-query/usePostData";
@@ -10,18 +10,18 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useModal } from "../../modal-views/use-modal";
 // import CommonToolTableWidget from "../common/tools-table";
-import AddCityForm from "./add-city";
+import AddOccupationForm from "./add-occupation";
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
 import { useTable } from "@/hooks/use-table";
-const CityList = () => {
+const OccupationList = () => {
   const queryClient = useQueryClient();
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
   const { openModal } = useModal();
   const cityData = useFetchData(
     [queryKeys.getAllCities],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
     headers
   );
 
@@ -29,7 +29,7 @@ const CityList = () => {
   const deleteCity = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/cities/${id}`,
+        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/occupations/${id}`,
         method: "DELETE",
         headers,
         body: {},
@@ -71,13 +71,13 @@ const CityList = () => {
         <Button
           onClick={() =>
             openModal({
-              view: <AddCityForm />,
+              view: <AddOccupationForm />,
             })
           }
           size="lg"
           color="primary"
         >
-          Add City
+          Add Occupation
         </Button>
       }
     >
@@ -87,7 +87,7 @@ const CityList = () => {
           data={cityData?.data?.data}
           columns={getToolsColumns({
             onDeleteItem: deleteCity,
-            name: "City",
+            name: "Occupation",
           })}
           scroll={{ x: 400 }}
           //   sticky={sticky}
@@ -113,4 +113,4 @@ const CityList = () => {
   );
 };
 
-export default CityList;
+export default OccupationList;

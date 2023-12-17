@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 
 export const chnagePasswordSchema = Yup.object().shape({
-  oldPassword: Yup.string().min(1).required("Password is required"),
   password: Yup.string().required("New Password is required"),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref("password")],

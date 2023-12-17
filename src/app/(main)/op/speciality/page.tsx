@@ -1,5 +1,5 @@
 import React from "react";
-import SpecialityList from "@/app/shared/content-creator/speciality/specialities";
+import SpecialityList from "@/app/shared/operational-manager/speciality/specialities";
 import { metaObject } from "@/config/site.config";
 
 export const metadata = {

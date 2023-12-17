@@ -78,7 +78,6 @@ export default function ProfileMenu({
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
-  console.log(session);
   return (
     <Popover
       isOpen={isOpen}

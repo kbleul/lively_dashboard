@@ -1,21 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment } from "react";
+import { Fragment, JSXElementConstructor, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal } from "react";
 import { usePathname } from "next/navigation";
 import { Title } from "@/components/ui/text";
 import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
 import { PiCaretDownBold } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
-import { expertMenuItems, menuItems } from "./menu-items";
+import { expertMenuItems, operationalManagetMenuItems } from "./menu-items";
 import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
+import { UrlObject } from "url";
 
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
-  console.log("gggg",session?.user)
+  console.log("gggg", session?.user);
   const determineMenuItems = () => {
     if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
       return expertMenuItems;
@@ -25,7 +26,7 @@ export default function Sidebar({ className }: { className?: string }) {
         .map((role) => role.name)
         .includes("Operation_Manager")
     ) {
-      return menuItems;
+      return operationalManagetMenuItems;
     }
   };
   return (
@@ -46,8 +47,8 @@ export default function Sidebar({ className }: { className?: string }) {
           <div className="mt-4 pb-3 3xl:mt-6">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
-              const pathnameExistInDropdowns: any = item?.dropdownItems?.filter(
-                (dropdownItem) => dropdownItem.href === pathname
+              const pathnameExistInDropdowns: any = item?.dropdownItems && item?.dropdownItems?.filter(
+                (dropdownItem: { href: string; }) => dropdownItem.href === pathname
               );
               const isDropdownOpen = Boolean(pathnameExistInDropdowns?.length);
 
@@ -94,7 +95,7 @@ export default function Sidebar({ className }: { className?: string }) {
                             </div>
                           )}
                         >
-                          {item?.dropdownItems?.map((dropdownItem, index) => {
+                          {item?.dropdownItems?.map((dropdownItem: { href: string | UrlObject; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }, index: any) => {
                             const isChildActive =
                               pathname === (dropdownItem?.href as string);
 

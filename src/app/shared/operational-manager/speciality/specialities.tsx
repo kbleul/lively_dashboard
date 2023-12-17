@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { getColumns as getSpecialityColumns } from "@/app/shared/content-creator/speciality/column";
+import { getColumns as getSpecialityColumns } from "@/app/shared/operational-manager/speciality/column";
 import { useFetchData } from "@/react-query/useFetchData";
 import { Button } from "@/components/ui/button";
 import useDynamicMutation from "@/react-query/usePostData";

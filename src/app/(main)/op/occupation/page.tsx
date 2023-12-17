@@ -1,6 +1,6 @@
 import React from "react";
 import { metaObject } from "@/config/site.config";
-import OccupationList from "@/app/shared/content-creator/occupation/occupations";
+import OccupationList from "@/app/shared/operational-manager/occupation/occupations";
 
 export const metadata = {
   ...metaObject("Occupation"),

@@ -18,20 +18,18 @@ const ChangePasswordForm = ({}: Props) => {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
   const initialValues: ChnagePasswordType = {
-    oldPassword: "",
     password: "",
     confirmPassword: "",
   };
   const changePasswordHandler = async (values: ChnagePasswordType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}change-password`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}create-password`,
         method: "POST",
         headers,
         body: {
-          current_password: values.oldPassword,
-          new_password: values.password,
-          confirm_new_password: values.confirmPassword,
+          password: values.password,
+          confirm_password: values.confirmPassword,
         },
         onSuccess: () => {
           toast.success("Password Changed Successfully");
@@ -58,13 +56,6 @@ const ChangePasswordForm = ({}: Props) => {
               description={"Chnage Your Password Here"}
               className="py-7 @2xl:pt-9 "
             >
-              <FormikPasswordInput
-                label="Old Password"
-                placeholder="Enter Your Old Password"
-                color="primary"
-                name="oldPassword"
-                className="col-span-2"
-              />
               <FormikPasswordInput
                 label="New Password"
                 placeholder="Enter Your New Password"

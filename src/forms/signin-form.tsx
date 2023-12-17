@@ -44,10 +44,21 @@ export default function SignInForm() {
           password: values.password,
         },
         onSuccess: (responseData) => {
+          const role = responseData?.data?.user?.roles?.map(
+            (item: { name: string }) => item.name
+          );
+
+          if (!role.includes("Expert") && !role.includes("Operation_Manager")) {
+            toast.info("Account Not Found");
+            return;
+          }
           setIsLoading(true);
           signIn("credentials", {
             data: JSON.stringify(responseData?.data),
             redirect: true,
+            callbackUrl: role.includes("Expert")
+              ? routes.expert.dashboard
+              : routes.operationalManager.dashboard,
           });
           toast.success("Login Successfull, Redirecting...");
         },
