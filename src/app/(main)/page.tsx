@@ -8,7 +8,7 @@ export default function Home() {
      
       <Link href={"/signin"}>Signin</Link>
       <Link href={"/forgot-password"}>forgot</Link>
-     <button onClick={signOut}>Logout</button>
+     <button onClick={()=>signOut()}>Logout</button>
     </main>
   );
 }

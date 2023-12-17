@@ -57,7 +57,7 @@ const ExpertProfile = () => {
                 id: string;
                 specialty: { name: { english: string; amharic: string } };
               }) => (
-                <Badge color="primary" className="mr-1" variant="outline">
+                <Badge key={specialty.id} color="primary" className="mr-1" variant="outline">
                   {specialty.specialty.name.english}
                 </Badge>
               )

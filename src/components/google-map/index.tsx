@@ -14,7 +14,11 @@ export default function GoogleMap() {
       lng: place.lng,
     });
   };
-
+  const onMapClick = (event: google.maps.MapMouseEvent) => {
+    const lat = event.latLng?.lat();
+    const lng = event.latLng?.lng();
+   
+  };
   return (
     <Autocomplete
       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY as string}
@@ -29,6 +33,7 @@ export default function GoogleMap() {
         inputClassName: 'bg-white dark:bg-gray-100 border-0',
       }}
       mapClassName="rounded-lg"
+      onMapClick={onMapClick}
     />
   );
 }
