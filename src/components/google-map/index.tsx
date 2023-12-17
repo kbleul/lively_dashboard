@@ -1,8 +1,8 @@
 import Autocomplete, {
   locationAtom,
   type Location,
-} from '@/components/google-map/autocomplete';
-import { useSetAtom } from 'jotai';
+} from "@/components/google-map/autocomplete";
+import { useSetAtom } from "jotai";
 
 export default function GoogleMap() {
   const setLocation = useSetAtom(locationAtom);
@@ -17,7 +17,6 @@ export default function GoogleMap() {
   const onMapClick = (event: google.maps.MapMouseEvent) => {
     const lat = event.latLng?.lat();
     const lng = event.latLng?.lng();
-   
   };
   return (
     <Autocomplete
@@ -25,12 +24,12 @@ export default function GoogleMap() {
       onPlaceSelect={handlePlaceSelect}
       className="relative h-[500px] w-full flex-grow rounded-lg bg-gray-50"
       inputProps={{
-        size: 'lg',
-        type: 'text',
-        rounded: 'pill',
-        placeholder: 'Search for a location',
-        className: 'absolute z-10 flex-grow block right-7 left-7 top-7',
-        inputClassName: 'bg-white dark:bg-gray-100 border-0',
+        size: "lg",
+        type: "text",
+        rounded: "pill",
+        placeholder: "Search for a location",
+        className: "absolute z-10 flex-grow block right-7 left-7 top-7",
+        inputClassName: "bg-white dark:bg-gray-100 border-0",
       }}
       mapClassName="rounded-lg"
       onMapClick={onMapClick}

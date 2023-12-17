@@ -1,6 +1,6 @@
 import { routes } from "@/config/routes";
 import { PiShoppingCartDuotone, PiFileImageDuotone } from "react-icons/pi";
-
+import { PiNotepadDuotone } from "react-icons/pi";
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
   // label start
@@ -72,6 +72,12 @@ export const expertMenuItems = [
     href: "/",
     // href: routes.file.dashboard,
     icon: <PiFileImageDuotone />,
+  },
+  {
+    name: "Appointments",
+    href: routes.expert.appointments,
+    // href: routes.file.dashboard,
+    icon: <PiNotepadDuotone />,
   },
   {
     name: "Form",
