@@ -37,9 +37,11 @@ steps:
        next.config.js
     TargetFolder: '$(Build.ArtifactStagingDirectory)/app'
 - script: |
-    echo "VITE_REACT_APP_USERAUTH_API=$(VITE_REACT_APP_USERAUTH_API)" > $(Build.ArtifactStagingDirectory)/app/.env
-    echo "VITE_REACT_APP_WELLBEING_URL=$(VITE_REACT_APP_WELLBEING_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
-    echo "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
+    echo  "NEXTAUTH_SECRET=$(NEXTAUTH_SECRET)" > $(Build.ArtifactStagingDirectory)/app/.env
+    echo  "NEXT_PUBLIC_GOOGLE_MAP_API_KEY=$(NEXT_PUBLIC_GOOGLE_MAP_API_KEY)" >> $(Build.ArtifactStagingDirectory)/app/.env
+    echo  "NEXT_APP_BACKEND_URL=$(NEXT_APP_BACKEND_URL)" > $(Build.ArtifactStagingDirectory)/app/.env
+    echo  "NEXT_PUBLIC_WELLBEING_BACKEND_URL=$(NEXT_PUBLIC_WELLBEING_BACKEND_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
+    echo  "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
     #echo "VITE_REACT_APP_IMAGE_TOKEN=${VITE_REACT_APP_IMAGE_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
 
 - task: ArchiveFiles@2
