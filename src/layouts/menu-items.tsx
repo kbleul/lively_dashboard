@@ -1,8 +1,12 @@
 import { routes } from "@/config/routes";
-import { PiFileImageDuotone, PiTimerDuotone } from "react-icons/pi";
+import {
+  PiChalkboardTeacherBold,
+  PiFileImageDuotone,
+  PiTimerDuotone,
+} from "react-icons/pi";
 import { PiNotepadDuotone } from "react-icons/pi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { FaWpforms } from "react-icons/fa6";
+import { FaUserNurse, FaWpforms } from "react-icons/fa6";
 // Note: do not add href in the label object, it is rendering as label
 
 export const operationalManagetMenuItems = [
@@ -13,7 +17,7 @@ export const operationalManagetMenuItems = [
   // label end
   {
     name: "Dashboard",
-    href: "/",
+    href: routes.operationalManager.dashboard,
     // href: routes.file.dashboard,
     icon: <MdOutlineDashboard />,
   },
@@ -48,21 +52,40 @@ export const operationalManagetMenuItems = [
       },
       {
         name: "create Wellbeign Center",
-        href: routes.operationalManager.createWellbeing,
+        href: routes.operationalManager.centers.create,
       },
     ],
   },
   {
     name: "Appoitments",
-    href: "#",
+    href: routes.operationalManager.appointments,
+    // href: routes.file.dashboard,
     icon: <PiNotepadDuotone />,
-    dropdownItems: [
-      {
-        name: "Appoitments",
-        href: routes.appointments,
-      },
-    ],
   },
+  {
+    name: "Centers",
+    href: routes.operationalManager.centers.list,
+    // href: routes.file.dashboard,
+    icon: <PiChalkboardTeacherBold />,
+  },
+  {
+    name: "Experts",
+    href: routes.operationalManager.experts.list,
+    // href: routes.file.dashboard,
+    icon: <FaUserNurse />,
+  },
+
+  // {
+  //   name: "Appoitments",
+  //   href: "#",
+  //   icon: <PiNotepadDuotone />,
+  //   dropdownItems: [
+  //     {
+  //       name: "Appoitments",
+  //       href: routes.operationalManager.appointments,
+  //     },
+  //   ],
+  // },
 ];
 
 export const expertMenuItems = [

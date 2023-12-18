@@ -1,6 +1,6 @@
 import React from "react";
-import { metaObject } from "@/config/site.config";
 import SignInForm from "@/forms/signin-form";
+import { metaObject } from "@/config/site.config";
 
 export const metadata = {
   ...metaObject("Sign In"),

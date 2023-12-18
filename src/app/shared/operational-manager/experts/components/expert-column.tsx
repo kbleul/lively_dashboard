@@ -9,11 +9,12 @@ import DeletePopover from "@/components/delete-popover";
 import { FaCheck } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import ReusabelPopover from "@/components/reusabel-popover";
+import { AiTwotoneDelete } from "react-icons/ai";
 type Columns = {
-  onApproveItem: (id: string) => void;
+  onDeleteExpert: (id: string) => void;
 };
 
-export const getColumns = ({ onApproveItem }: Columns) => [
+export const getColumns = ({ onDeleteExpert }: Columns) => [
   {
     title: <HeaderCell title="user Profile" />,
     dataIndex: "user",
@@ -62,38 +63,31 @@ export const getColumns = ({ onApproveItem }: Columns) => [
     ),
   },
   {
-    title: <HeaderCell title="date" />,
-    dataIndex: "date",
-    key: "date",
+    title: <HeaderCell title="per session" />,
+    dataIndex: "per_session",
+    key: "per_session",
     width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: <HeaderCell title="payment method" />,
-    dataIndex: "payment_method",
-    key: "payment_method",
+    title: <HeaderCell title="occupation" />,
+    dataIndex: "occupation",
+    key: "occupation",
     width: 50,
-    render: (value: string) => (
-      <Text className="font-medium text-gray-700">{value}</Text>
+    render: (value: { name: { english: string } }) => (
+      <Text className="font-medium text-gray-700">{value?.name?.english}</Text>
     ),
   },
   {
-    title: <HeaderCell title="deposited by" />,
-    dataIndex: "deposited_by",
-    key: "deposited_by",
+    title: <HeaderCell title="city" />,
+    dataIndex: "city",
+    key: "city",
     width: 50,
-    render: (value: string) => (
-      <Text className="font-medium text-gray-700">{value}</Text>
+    render: (value: { name: { english: string } }) => (
+      <Text className="font-medium text-gray-700">{value?.name?.english}</Text>
     ),
-  },
-  {
-    title: <HeaderCell title="status" />,
-    dataIndex: "status",
-    key: "status",
-    width: 50,
-    render: (value: string) => <Badge>{value}</Badge>,
   },
 
   // status
@@ -122,10 +116,10 @@ export const getColumns = ({ onApproveItem }: Columns) => [
         </Tooltip> */}
 
         <ReusabelPopover
-          title={`Approve  Appintment`}
-          icon={<FaCheck className="h-4 w-4" />}
-          description={`Are you sure you want to Approve this #${row.id} Appoitment?`}
-          onDelete={() => onApproveItem(row.id)}
+          title={`Delete Expert`}
+          icon={<AiTwotoneDelete className="h-4 w-4" />}
+          description={`Are you sure you want to Delete this  Expert?`}
+          onDelete={() => onDeleteExpert(row.id)}
         />
       </div>
     ),

@@ -7,7 +7,7 @@ import {
   CreateWellbeingType,
   wellbeignYupSchema,
 } from "@/validations/create-wellbeing-center.schema";
-import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import FormNav, { formParts } from "./form-nav";
 import FormFooter from "@/components/form-footer";
 import React from "react";
@@ -20,6 +20,8 @@ import AddSocialMediaForm from "./add-social-media-form";
 import AddOpeninHourForm from "./add-opening-hour-form";
 import { workCustomDays } from "@/constants/form-constants";
 import { appendDefaultSecond } from "@/utils/append-second";
+import { useRouter } from "next/navigation";
+import { routes } from "@/config/routes";
 const CreateWellbeignCenterForm = () => {
   const MAP_STEP_TO_COMPONENT = {
     [formParts.detail]: CenterDetailForm,
@@ -31,7 +33,7 @@ const CreateWellbeignCenterForm = () => {
   };
 
   const headers = useGetHeaders({ type: "FormData" });
-
+  const router = useRouter();
   const initialWellbeingState: CreateWellbeingType = {
     nameEn: "",
     nameAm: "",
@@ -88,6 +90,7 @@ const CreateWellbeignCenterForm = () => {
           city_id: values.city_id,
         },
         onSuccess: () => {
+          router.push(routes.operationalManager.centers.list);
           toast.success("Center Create Successfully");
         },
         onError: (err) => {
@@ -108,7 +111,7 @@ const CreateWellbeignCenterForm = () => {
         {({ handleSubmit, errors, values }) => {
           console.log(errors);
           return (
-            <Form className={"[&_label.block>span]:font-medium pb-20"}>
+            <Form className={"[&_label.block>span]:font-medium "}>
               <FormNav />
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                 {Object.entries(MAP_STEP_TO_COMPONENT).map(
@@ -122,7 +125,6 @@ const CreateWellbeignCenterForm = () => {
                   )
                 )}
               </div>
-              <button type="submit">submit</button>
               <FormFooter
                 submitBtnText={"Create Cnter"}
                 isLoading={postMutation.isPending}

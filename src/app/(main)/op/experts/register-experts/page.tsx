@@ -11,18 +11,19 @@ const pageHeader = {
   title: "Register Expert",
   breadcrumb: [
     {
-      href: routes.contentCreator.dashboard,
-      name: "Content creator",
+      href: routes.operationalManager.dashboard,
+      name: "Dashboard",
     },
     {
-      href: routes.contentCreator.experts.register,
-      name: "Register Expert",
+      href: routes.operationalManager.experts.list,
+      name: "Expert",
     },
     {
       name: "Create",
     },
   ],
 };
+
 const RegisterExperts = () => {
   return (
     <>
