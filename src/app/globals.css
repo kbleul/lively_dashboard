@@ -43,10 +43,10 @@
     --primary-lighter: 215 227 254;
     /* For rgb(96 142 251 / <alpha-value>) = #608EFB */
     --primary-light: 96 142 251;
-    /* For rgb(56 114 250 / <alpha-value>) = #3872FA */
-    --primary-default: 56 114 250;
-    /* For rgb(29 88 216 / <alpha-value>) = #1d58d8 */
-    --primary-dark: 29 88 216;
+    /* For rgb(0 186 96 / <alpha-value>) = #00BA63  */
+    --primary-default: 0 186 96;
+    /* For rgb(0 133 121 / <alpha-value>) = #008579 */
+    --primary-dark: 0 133 121;
 
     /* ----------------------------------- */
     /* secondary colors */
@@ -110,7 +110,7 @@
   }
 
   /* dark theme */
-  [data-theme='dark'] {
+  [data-theme="dark"] {
     /*
       - gray/natural color shades for texts, borders and disabled elements.
       - If required we can use as background too.
@@ -180,16 +180,16 @@
     @apply hidden;
   }
 
-  input[type='search']::-webkit-search-cancel-button {
+  input[type="search"]::-webkit-search-cancel-button {
     @apply hidden;
   }
 
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     @apply m-0 appearance-none;
   }
 
-  input[type='checkbox']:checked {
+  input[type="checkbox"]:checked {
     @apply bg-none;
   }
 
@@ -362,7 +362,7 @@ select:-webkit-autofill:focus {
   @apply bg-gray-0 font-inter text-gray-600 dark:border-gray-300 dark:bg-gray-100;
 }
 
-input[type='checkbox']:checked ~ svg {
+input[type="checkbox"]:checked ~ svg {
   @apply !text-gray-0;
 }
 
@@ -619,6 +619,7 @@ input[type='checkbox']:checked ~ svg {
 /* year dropdown */
 .react-datepicker .react-datepicker__year-dropdown {
   @apply h-80;
+  @apply overflow-y-scroll;
 }
 
 /* month dropdown */
@@ -690,7 +691,7 @@ td.rc-table-cell-fix-right {
 
 .rc-table-cell-fix-right-first:after,
 .rc-table-cell-fix-right-last:after {
-  content: '';
+  content: "";
   transform: translate(-100%);
   @apply pointer-events-none absolute -bottom-[1px] -left-[1px] top-0 w-5;
 }
@@ -814,7 +815,7 @@ td.rc-table-cell-fix-right {
 
 .ql-formats button:hover::before,
 .ql-formats > span:hover::before {
-  content: '';
+  content: "";
   @apply absolute left-1/2 top-[-9px] z-10 -translate-x-1/2 transform border-x-[7px] border-y-[6px] border-solid border-transparent border-t-[#0d1e42];
 }
 
@@ -825,75 +826,75 @@ td.rc-table-cell-fix-right {
 
 /** Set tooltip content for toolbar options **/
 .ql-bold:hover::after {
-  content: 'Bold';
+  content: "Bold";
 }
 
 .ql-italic:hover::after {
-  content: 'Italic';
+  content: "Italic";
 }
 
 .ql-underline:hover::after {
-  content: 'Underline';
+  content: "Underline";
 }
 
 .ql-strike:hover::after {
-  content: 'Strikeout';
+  content: "Strikeout";
 }
 
 .ql-link:hover::after {
-  content: 'Hyperlink';
+  content: "Hyperlink";
 }
 
 .ql-blockquote:hover::after {
-  content: 'Quote';
+  content: "Quote";
 }
 
 .ql-code-block:hover::after {
-  content: 'Code Block';
+  content: "Code Block";
 }
 
-.ql-list[value='bullet']:hover::after {
-  content: 'Bulleted List';
+.ql-list[value="bullet"]:hover::after {
+  content: "Bulleted List";
 }
 
-.ql-list[value='ordered']:hover::after {
-  content: 'Numbered List';
+.ql-list[value="ordered"]:hover::after {
+  content: "Numbered List";
 }
 
-.ql-script[value='sub']:hover::after {
-  content: 'Sub Script';
+.ql-script[value="sub"]:hover::after {
+  content: "Sub Script";
 }
 
-.ql-script[value='super']:hover::after {
-  content: 'Super Script';
+.ql-script[value="super"]:hover::after {
+  content: "Super Script";
 }
 
-.ql-indent[value='-1']:hover::after {
-  content: 'Indent -1';
+.ql-indent[value="-1"]:hover::after {
+  content: "Indent -1";
 }
 
-.ql-indent[value='+1']:hover::after {
-  content: 'Indent +1';
+.ql-indent[value="+1"]:hover::after {
+  content: "Indent +1";
 }
 
 .ql-color:hover::after {
-  content: 'Text Color';
+  content: "Text Color";
 }
 
 .ql-background:hover::after {
-  content: 'Background Color';
+  content: "Background Color";
 }
 
 .ql-align:hover::after {
-  content: 'Text Align';
+  content: "Text Align";
 }
 
 .ql-clean:hover::after {
-  content: 'Clear Formatting';
+  content: "Clear Formatting";
 }
 
 .ql-font:hover::after {
-  content: 'Font Family';
+  content: "Font Family";
 }
 
 /* react-quill responsive styles */
@@ -927,7 +928,7 @@ td.rc-table-cell-fix-right {
 }
 
 /* colors filter  */
-.colors-filter input[type='checkbox']:checked ~ svg {
+.colors-filter input[type="checkbox"]:checked ~ svg {
   @apply !hidden;
 }
 
@@ -974,7 +975,7 @@ textarea::placeholder {
 /* .gmnoprint {
   @apply hidden;
 } */
-div[style='z-index: 1000001;'],
+div[style="z-index: 1000001;"],
 .gm-style-cc {
   @apply hidden;
 }

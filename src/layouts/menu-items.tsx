@@ -1,56 +1,21 @@
 import { routes } from "@/config/routes";
-import {
-  PiShoppingCartDuotone,
-  PiHeadsetDuotone,
-  PiPackageDuotone,
-  PiChartBarDuotone,
-  PiFileImageDuotone,
-  PiCurrencyDollarDuotone,
-  PiSquaresFourDuotone,
-  PiGridFourDuotone,
-  PiFeatherDuotone,
-  PiChartLineUpDuotone,
-  // PiImageDuotone,
-  PiMapPinLineDuotone,
-  PiUserGearDuotone,
-  PiBellSimpleRingingDuotone,
-  PiUserDuotone,
-  PiEnvelopeSimpleOpenDuotone,
-  PiStepsDuotone,
-  PiCreditCardDuotone,
-  PiStackDuotone,
-  PiTableDuotone,
-  PiBrowserDuotone,
-  PiBoundingBoxDuotone,
-  PiHourglassSimpleDuotone,
-  PiUserCircleDuotone,
-  PiShootingStarDuotone,
-  PiRocketLaunchDuotone,
-  PiFolderLockDuotone,
-  PiBinocularsDuotone,
-  PiHammerDuotone,
-  PiNoteBlankDuotone,
-  PiUserPlusDuotone,
-  PiShieldCheckDuotone,
-  PiLockKeyDuotone,
-  PiChatCenteredDotsDuotone,
-  PiMagicWandDuotone,
-  PiCalendarPlusDuotone,
-  PiEnvelopeDuotone,
-} from "react-icons/pi";
-
+import { PiFileImageDuotone, PiTimerDuotone } from "react-icons/pi";
+import { PiNotepadDuotone } from "react-icons/pi";
+import { MdOutlineDashboard } from "react-icons/md";
+import { FaWpforms } from "react-icons/fa6";
 // Note: do not add href in the label object, it is rendering as label
-export const menuItems = [
+
+export const operationalManagetMenuItems = [
   // label start
   {
     name: "Home",
   },
   // label end
   {
-    name: "File Manager",
+    name: "Dashboard",
     href: "/",
     // href: routes.file.dashboard,
-    icon: <PiFileImageDuotone />,
+    icon: <MdOutlineDashboard />,
   },
 
   // label start
@@ -59,31 +24,73 @@ export const menuItems = [
   },
   // label end
   {
-    name: "Form",
+    name: "Lively Tools",
     href: "#",
-    icon: <PiShoppingCartDuotone />,
+    icon: <FaWpforms />,
     dropdownItems: [
       {
         name: "City",
-        href: routes.contentCreator.city,
+        href: routes.operationalManager.city,
       },
 
       {
         name: "speciality",
-        href: routes.contentCreator.speciality,
+        href: routes.operationalManager.speciality,
       },
 
       {
         name: "occupation",
-        href: routes.contentCreator.occupation,
+        href: routes.operationalManager.occupation,
       },
       {
         name: "register experts",
-        href: routes.contentCreator.experts.register,
+        href: routes.operationalManager.registerExpert,
       },
       {
         name: "create Wellbeign Center",
-        href: routes.contentCreator.experts.createWellbeing,
+        href: routes.operationalManager.createWellbeing,
+      },
+    ],
+  },
+  {
+    name: "Appoitments",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Appoitments",
+        href: routes.appointments,
+      },
+    ],
+  },
+];
+
+export const expertMenuItems = [
+  {
+    name: "Home",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: "/",
+    // href: routes.file.dashboard,
+    icon: <PiFileImageDuotone />,
+  },
+
+  {
+    name: "Availability",
+    href: routes.expert.availability,
+    // href: routes.file.dashboard,
+    icon: <PiTimerDuotone />,
+  },
+  {
+    name: "Appoitments",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Appoitments",
+        href: routes.appointments,
       },
     ],
   },

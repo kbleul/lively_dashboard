@@ -45,11 +45,11 @@ const FormikInput: React.FC<FormikInputProps> = ({
   className,
   inputClassName,
   color,
-  disabled=false
+  disabled = false,
 }) => {
   const [field] = useField(name);
   return (
-    <div className="w-full">
+    <div className={cn("w-full", className)}>
       <div className="mt-1">
         <Input
           autoComplete="off"

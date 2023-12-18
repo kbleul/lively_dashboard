@@ -43,7 +43,7 @@ export default async function RootLayout({
           <ThemeProvider>
             <NextProgress />
             {children}
-            <Toaster />
+            <Toaster richColors />
             <GlobalDrawer />
             <GlobalModal />
           </ThemeProvider>

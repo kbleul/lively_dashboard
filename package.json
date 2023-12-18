@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 5000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@floating-ui/react": "^0.26.4",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@headlessui/react": "^1.7.17",
     "@react-google-maps/api": "^2.19.2",
     "@tailwindcss/container-queries": "^0.1.1",
@@ -26,6 +27,7 @@
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "nextjs-toploader": "^1.6.4",
+    "pretty-bytes": "^6.1.1",
     "prop-types": "^15.8.1",
     "rc-pagination": "^4.0.3",
     "rc-rate": "^2.12.0",
