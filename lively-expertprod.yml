@@ -39,7 +39,7 @@ steps:
 - script: |
     echo  "NEXTAUTH_SECRET=$(NEXTAUTH_SECRET)" > $(Build.ArtifactStagingDirectory)/app/.env
     echo  "NEXT_PUBLIC_GOOGLE_MAP_API_KEY=$(NEXT_PUBLIC_GOOGLE_MAP_API_KEY)" >> $(Build.ArtifactStagingDirectory)/app/.env
-    echo  "NEXT_APP_BACKEND_URL=$(NEXT_APP_BACKEND_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
+    echo  "NEXT_PUBLIC_AUTH_BACKEND_URL=$(NEXT_PUBLIC_AUTH_BACKEND_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
     echo  "NEXT_PUBLIC_WELLBEING_BACKEND_URL=$(NEXT_PUBLIC_WELLBEING_BACKEND_URL)" >> $(Build.ArtifactStagingDirectory)/app/.env
     echo  "SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}" >>$(Build.ArtifactStagingDirectory)/app/.env
     echo  "NEXTAUTH_URL=${NEXTAUTH_URL}" >>$(Build.ArtifactStagingDirectory)/app/.env
