@@ -1,13 +1,37 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
-export default function Home() {
+import { metaObject } from "@/config/site.config";
+import PageHeader from "@/app/shared/page-header";
+import { routes } from "@/config/routes";
+import Dashboard from "@/app/shared/operational-manager/dashboard/dashboard";
+
+export const metadata = {
+  ...metaObject("Dashboard"),
+};
+
+const pageHeader = {
+  title: "Operation Manager",
+  breadcrumb: [
+    {
+      href: routes.operationalManager.dashboard,
+      name: "Operation Manager",
+    },
+
+    {
+      name: "Dashboard",
+    },
+  ],
+};
+
+export default function Appointments() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Link href={"/signin"}>Signin</Link>
-      <Link href={"/forgot-password"}>forgot</Link>
-      <button onClick={() => signOut()}>Logout</button>
-    </main>
+    <>
+      <PageHeader
+        title={pageHeader.title}
+        breadcrumb={pageHeader.breadcrumb}
+      ></PageHeader>
+
+      <Dashboard />
+    </>
   );
 }
+
+// Dashboard

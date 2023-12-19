@@ -60,7 +60,6 @@ export default function ReusabelPopover({
       )}
     >
       <ActionIcon
-        size="sm"
         variant="outline"
         aria-label={"Delete Item"}
         className="cursor-pointer hover:!border-gray-900 hover:text-gray-700"

@@ -1,15 +1,4 @@
 export const routes = {
-  contentCreator: {
-    dashboard: "/content-creator",
-    city: "/content-creator/city",
-    speciality: "/content-creator/speciality",
-    occupation: "/content-creator/occupation",
-    experts: {
-      register: "/content-creator/experts/register",
-      createWellbeing: "/content-creator/create-wellbeing-center",
-    },
-  },
-
   signIn: "/signin",
   forgotPassword: "/forgot-password",
   appointments: "/content-creator/appointments",
@@ -26,9 +15,18 @@ export const routes = {
   operationalManager: {
     dashboard: "/op",
     city: "/op/city",
+    appointments: "/op/appointments",
     speciality: "/op/speciality",
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
-    createWellbeing: "/op/create-wellbeing-center",
+    centers: {
+      list: "/op/centers",
+      create: "/op/centers/create-wellbeing-center",
+      edit: "/op/edit-wellbeing-center",
+    },
+    experts: {
+      list: "/op/experts",
+      create: "/op/experts/register-expert",
+    },
   },
 };

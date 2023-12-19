@@ -1,12 +1,7 @@
 "use client";
 
 import { signIn, useSession } from "next-auth/react";
-import { SubmitHandler } from "react-hook-form";
-import { Password } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Form } from "@/components/ui/form";
-import { loginSchema, LoginSchema } from "@/utils/validations/auth.schema";
 import Image from "next/image";
 import { Title, Text } from "@/components/ui/text";
 import Logo from "@public/logo.png";
@@ -19,28 +14,29 @@ import { useState } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { routes } from "@/config/routes";
-const initialValues: LoginSchema = {
-  phoneNumber: "738032921",
-  password: "password",
-};
-
+import { Formik, Form } from "formik";
+import { LoginType, loginSchema } from "@/validations/auth.schema";
+import FormikInput from "@/components/ui/form/input";
+import FormikPasswordInput from "@/components/ui/form/password-input";
 export default function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
-  const onSubmit: SubmitHandler<LoginSchema> = (data) => {
-    initialLoginMutationSubmitHandler(data);
+
+  const initialValues: LoginType = {
+    phone: "",
+    password: "",
   };
-  const initialLoginMutationSubmitHandler = async (values: LoginSchema) => {
+  const initialLoginMutationSubmitHandler = async (values: LoginType) => {
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}login`,
         method: "POST",
         headers,
         body: {
-          phone: "251".concat(values.phoneNumber),
+          phone: "251".concat(values.phone),
           password: values.password,
         },
         onSuccess: (responseData) => {
@@ -94,41 +90,27 @@ export default function SignInForm() {
                 </Text>
               </div>
             </div>
-            <Form<LoginSchema>
+            <Formik
+              initialValues={initialValues}
               validationSchema={loginSchema}
-              // resetValues={reset}
-              onSubmit={onSubmit}
-              useFormProps={{
-                mode: "onChange",
-                defaultValues: initialValues,
-              }}
-              className="w-full"
+              onSubmit={initialLoginMutationSubmitHandler}
             >
-              {({ register, formState: { errors } }) => (
-                <div className="space-y-5 w-full">
-                  <Input
+              {() => (
+                <Form className="space-y-5 w-full">
+                  <FormikInput
                     type="number"
-                    size="lg"
                     label="Phone Number"
                     prefix="+251"
-                    placeholder="9** *** ***"
+                    name="phone"
+                    placeholder="Enter Your Phone Number"
                     color="primary"
-                    className="[&>label>span]:font-medium"
-                    inputClassName="text-sm"
-                    {...register("phoneNumber")}
-                    error={errors.phoneNumber?.message}
                   />
-                  <Password
+                  <FormikPasswordInput
+                    name="password"
                     label="Password"
-                    placeholder="Enter your password"
-                    size="lg"
-                    className="[&>label>span]:font-medium"
-                    inputClassName="text-sm"
+                    placeholder="Enter Your Password"
                     color="primary"
-                    {...register("password")}
-                    error={errors.password?.message}
                   />
-
                   <div className="flex items-center justify-between">
                     <Checkbox
                       label="Remember me"
@@ -152,9 +134,9 @@ export default function SignInForm() {
                   >
                     <span>Sign in</span>{" "}
                   </Button>
-                </div>
+                </Form>
               )}
-            </Form>
+            </Formik>
           </div>
         </div>
       </div>
