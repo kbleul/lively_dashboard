@@ -33,6 +33,7 @@ import {
   type FinishRegisterExpert,
   finishRegisterExpert,
 } from "@/validations/create-expert.schema";
+import { appendDefaultSecond } from "@/utils/append-second";
 const Select = dynamic(() => import("@/components/ui/select"), {
   ssr: false,
   loading: () => <SelectLoader />,
@@ -105,8 +106,8 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
           per_session: values.per_session_price,
           availabilities: values.openingHours.map((hours: any) => ({
             day_of_week: hours.day,
-            opening_time: hours.from,
-            closing_time: hours.to,
+            opening_time: appendDefaultSecond(hours.from),
+            closing_time: appendDefaultSecond(hours.to),
           })),
           // _method: "PATCH",
         },

@@ -1,7 +1,6 @@
 export const routes = {
   signIn: "/signin",
   forgotPassword: "/forgot-password",
-  appointments: "/content-creator/appointments",
 
   //expert routes
   expert: {
@@ -26,7 +25,7 @@ export const routes = {
     },
     experts: {
       list: "/op/experts",
-      create: "/op/experts/register-expert",
+      create: "/op/experts/register-experts",
     },
   },
 };
