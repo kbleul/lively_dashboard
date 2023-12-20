@@ -10,6 +10,10 @@ const nextConfig = {
         hostname: "lively-wellbeing.unravelplc.com",
         protocol: "https",
       },
+      {
+        hostname: "wellbeing.lively-et",
+        protocol: "https",
+      }
     ],
   },
 };
