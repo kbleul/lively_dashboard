@@ -63,7 +63,7 @@ const CreateWellbeignCenterForm = () => {
   const createCenter = async (values: CreateWellbeingType) => {
     try {
       await postMutation.mutateAsync({
-        url: `https://lively-wellbeing.unravelplc.com/api/operation-manager/centers`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/centers`,
         method: "POST",
         headers,
         body: {
