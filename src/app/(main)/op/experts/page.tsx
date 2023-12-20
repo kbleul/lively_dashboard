@@ -29,7 +29,7 @@ export default function Experts() {
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
         <Link
-          href={routes.operationalManager.centers.create}
+          href={routes.operationalManager.experts.create}
           className="mt-4 w-full @lg:mt-0 @lg:w-auto"
         >
           <Button color="primary">

@@ -48,7 +48,7 @@ export const operationalManagetMenuItems = [
       },
       {
         name: "register experts",
-        href: routes.operationalManager.registerExpert,
+        href: routes.operationalManager.experts.create,
       },
       {
         name: "create Wellbeign Center",
@@ -113,7 +113,7 @@ export const expertMenuItems = [
     dropdownItems: [
       {
         name: "Appoitments",
-        href: routes.appointments,
+        href: routes.expert.appointments,
       },
     ],
   },

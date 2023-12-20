@@ -7,4 +7,5 @@ export const queryKeys={
     getAvialabilityDays:'getAvailabilityDataApi',
     getAllCenters:"getAllCentersApi",
     getAllExperts:`getAllExpertsApi`,
+    getAllAppointmentListEx:`getAllAppointmentListExApi`,
 }
