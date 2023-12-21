@@ -13,7 +13,11 @@ const nextConfig = {
       {
         hostname: "wellbeing.lively-et",
         protocol: "https",
-      }
+      },
+      {
+        hostname: "api.lively-et",
+        protocol: "https",
+      },
     ],
   },
 };

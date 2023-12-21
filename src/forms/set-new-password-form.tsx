@@ -6,49 +6,48 @@ import { Title, Text } from "@/components/ui/text";
 import Logo from "@public/logo.png";
 import { toast } from "sonner";
 import useDynamicMutation from "@/react-query/usePostData";
-import { useGetHeaders } from "@/hooks/use-get-headers";
 import PageLoader from "@/components/loader/page-loader";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
 import { routes } from "@/config/routes";
 import { Formik, Form } from "formik";
 import {
   setNewPasswordType,
   setPasswordSchema,
 } from "@/validations/auth.schema";
-import FormikInput from "@/components/ui/form/input";
 import FormikPasswordInput from "@/components/ui/form/password-input";
 
-interface Props {}
-export default function SetNewPasswordForm() {
+interface Props {
+  tempToken: string;
+}
+export default function SetNewPasswordForm({ tempToken }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const postMutation = useDynamicMutation();
-  const headers = useGetHeaders({ type: "Json" });
-
+  const headers = {
+    Authorization: `Bearer ${tempToken}`,
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
   const initialValues: setNewPasswordType = {
     password: "",
     confirmPassword: "",
   };
-  const initialLoginMutationSubmitHandler = async (
+  const setNewPasswordMutationSubmitHandler = async (
     values: setNewPasswordType
   ) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}login`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}create-password`,
         method: "POST",
         headers,
         body: {
-          phone: values.confirmPassword,
+          confirm_password: values.confirmPassword,
           password: values.password,
         },
         onSuccess: () => {
           router.push(routes.signIn);
-
           setIsLoading(true);
-
           toast.success("Password Reset Successfully");
         },
         onError: (err) => {
@@ -68,18 +67,16 @@ export default function SetNewPasswordForm() {
           <div className="flex flex-col w-full items-center justify-center">
             <Image src={Logo} alt="logo" className="h-[60px] object-contain" />
             <div className="flex flex-col items-center space-y-1 py-4">
-              <Title as="h4" className=" text-center   ">
-                <>Welcome Back!</>
+              <Title as="h6" className=" text-center   ">
+               Set Your New Password
               </Title>
-              <Text as="p" className="font-medium">
-                Please Enter Your New Password
-              </Text>
+             
             </div>
           </div>
           <Formik
             initialValues={initialValues}
             validationSchema={setPasswordSchema}
-            onSubmit={initialLoginMutationSubmitHandler}
+            onSubmit={setNewPasswordMutationSubmitHandler}
           >
             {() => (
               <Form className="space-y-5 w-full">
@@ -95,20 +92,7 @@ export default function SetNewPasswordForm() {
                   placeholder="Confirm Your Password"
                   color="primary"
                 />
-                <div className="flex items-center justify-between">
-                  <Checkbox
-                    label="Remember me"
-                    variant="flat"
-                    color="primary"
-                    className="font-medium"
-                  />
-                  <Link
-                    href={routes.forgotPassword}
-                    className="font-medium text-primary hover:text-primary-dark"
-                  >
-                    Forgot Password?
-                  </Link>
-                </div>
+           
                 <Button
                   className="w-full hover:bg-primary"
                   type="submit"

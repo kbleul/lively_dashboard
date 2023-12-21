@@ -16,7 +16,7 @@ export const forgotPasswordSchema = Yup.object().shape({
 });
 export const otpSchema = Yup.object().shape({
   code: Yup.string()
-    .min(4, "OTP must be 6 digits long")
+    .min(5, "OTP must be 5 digits long")
     .required("Otp is required"),
 });
 

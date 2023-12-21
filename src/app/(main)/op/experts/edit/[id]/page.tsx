@@ -1,10 +1,9 @@
-import Link from "next/link";
-import { PiPlusBold } from "react-icons/pi";
-import PageHeader from "@/app/shared/page-header";
-import { Button } from "@/components/ui/button";
-import { routes } from "@/config/routes";
-import ExpertsList from "@/app/shared/operational-manager/experts/experts-list";
+import React from "react";
 import { metaObject } from "@/config/site.config";
+import { routes } from "@/config/routes";
+import PageHeader from "@/app/shared/page-header";
+import Link from "next/link";
+import EditExpertForm from "@/app/shared/experts/edit-expert/edit-expert-form";
 
 export const metadata = {
   ...metaObject("Experts"),
@@ -17,29 +16,33 @@ const pageHeader = {
       href: routes.operationalManager.dashboard,
       name: "Dashboard",
     },
-
     {
+      href: routes.operationalManager.experts.list,
       name: "Experts",
+    },
+    {
+      name: "Edit",
     },
   ],
 };
 
-export default function Experts() {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+const EditExpertInfo = ({ params }: Props) => {
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>
         <Link
           href={routes.operationalManager.experts.create}
           className="mt-4 w-full @lg:mt-0 @lg:w-auto"
-        >
-          <Button color="primary">
-            <PiPlusBold className="me-1.5 h-[17px] w-[17px]" />
-            Add Expert
-          </Button>
-        </Link>
+        ></Link>
       </PageHeader>
-
-      <ExpertsList />
+      <EditExpertForm id={params.id} />
     </>
   );
-}
+};
+
+export default EditExpertInfo;

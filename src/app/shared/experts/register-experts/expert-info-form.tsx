@@ -42,6 +42,7 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
     profile: undefined,
   };
   const expertInfoSubmitHandler = async (values: RegisterExpertInfoType) => {
+    console.log({ F: values });
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/register-expert`,
@@ -161,8 +162,8 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
                 className="col-span-2"
               />
               <AvaterPicker
-                name="Profile"
-                label="Profile"
+                name="profile"
+                label="Profile Image"
                 className="col-span-2"
               />
               {/*  */}

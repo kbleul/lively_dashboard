@@ -7,8 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import moment from "moment";
 import { Password } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { FileInput } from "@/components/ui/file-input";
+import { FaPerson } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import SelectLoader from "@/components/loader/select-loader";
 import { toast } from "sonner";
@@ -21,11 +20,11 @@ import { Text } from "@/components/ui/text";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import * as Yup from "yup";
-import { Title } from "@/components/ui/text";
+import { AdvancedCheckbox } from "@/components/ui/advanced-checkbox";
 import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
 import FormikInput from "@/components/ui/form/input";
 import CustomSelect from "@/components/ui/form/select";
-import FilePicker from "@/components/ui/form/dropzone";
+import { RiVidiconLine } from "react-icons/ri";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { PiTrashBold } from "react-icons/pi";
 import AvaterPicker from "@/components/ui/form/avater-upload";
@@ -34,16 +33,16 @@ import {
   finishRegisterExpert,
 } from "@/validations/create-expert.schema";
 import { appendDefaultSecond } from "@/utils/append-second";
-const Select = dynamic(() => import("@/components/ui/select"), {
-  ssr: false,
-  loading: () => <SelectLoader />,
-});
+import { useRouter } from "next/navigation";
+import { routes } from "@/config/routes";
+
 interface Props {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   userId: string;
 }
 
 const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
+  const router = useRouter();
   const postMutation = useDynamicMutation();
   const [customDaysChecked, setCustomDaysChecked] = useState(
     Array(7).fill(true)
@@ -69,8 +68,12 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
     ],
     expert_license: null,
     educational_document: null,
-    per_session_price: "",
     openingHours: workCustomDays,
+    online: false,
+    priceInOnline: "",
+    inperson: false,
+    priceInPerson: "",
+    isOneSelected: false,
   };
 
   const cityData = useFetchData(
@@ -103,7 +106,10 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
           experiences: values.experiences,
           expert_license: values.expert_license,
           educational_document: values.educational_document,
-          per_session: values.per_session_price,
+          in_person_active: values.inperson,
+          in_person_per_session: values.priceInPerson,
+          phone_active: values.online,
+          phone_per_session: values.priceInOnline,
           availabilities: values.openingHours.map((hours: any) => ({
             day_of_week: hours.day,
             opening_time: appendDefaultSecond(hours.from),
@@ -112,7 +118,7 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
           // _method: "PATCH",
         },
         onSuccess: () => {
-          setActiveStep((prev) => prev + 1);
+          router.push(routes.operationalManager.experts.list);
           toast.success("Information Saved Successfully");
         },
         onError: (err) => {
@@ -336,13 +342,68 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
                   className="col-span-2"
                 />
 
-                <FormikInput
-                  type="number"
-                  name="per_session_price"
-                  label="Price Per Session"
-                  className="col-span-2"
-                  color="primary"
-                />
+                {/* in person of price */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 col-span-2">
+                  <div className="col-span-2">
+                    <p className="font-medium">Meeting In</p>
+                  </div>
+                  <div>
+                    <AdvancedCheckbox
+                      name="inperson"
+                      color="primary"
+                      onChange={(e) => {
+                        setFieldValue("inperson", e.target.checked);
+                        setFieldValue("isOneSelected", e.target.checked);
+                      }}
+                      className="w-full grid flex-grow gap-3 rounded-xl border border-gray-200 p-6 text-gray-600 hover:cursor-pointer hover:border-gray-700"
+                      inputClassName="[&:checked:enabled~span]:ring-1 [&:checked:enabled~span]:ring-offset-0 [&:checked:enabled~span]:ring-gray-700 [&:checked:enabled~span]:border-gray-700"
+                    >
+                      <FaPerson />
+                      <Text className="font-semibold">Inperson</Text>
+                    </AdvancedCheckbox>
+                    {values.inperson && (
+                      <FormikInput
+                        type="number"
+                        name="priceInPerson"
+                        label="Price In Person"
+                        className="col-span-2"
+                        color="primary"
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <AdvancedCheckbox
+                      name="online"
+                      color="primary"
+                      onChange={(e) => {
+                        setFieldValue("online", e.target.checked);
+                        setFieldValue("isOneSelected", e.target.checked);
+                      }}
+                      className="w-full grid flex-grow gap-3 rounded-xl border border-gray-200 p-6 text-gray-600 hover:cursor-pointer hover:border-gray-700"
+                      inputClassName="[&:checked:enabled~span]:ring-1 [&:checked:enabled~span]:ring-offset-0 [&:checked:enabled~span]:ring-gray-700 [&:checked:enabled~span]:border-gray-700"
+                    >
+                      <RiVidiconLine />
+                      <Text className="font-semibold">Online</Text>
+                    </AdvancedCheckbox>
+                    {values.online && (
+                      <FormikInput
+                        type="number"
+                        name="priceInOnline"
+                        label="Price Online"
+                        className="col-span-2"
+                        color="primary"
+                      />
+                    )}
+                  </div>
+                  <div className="col-span-2">
+                    {!values.isOneSelected && (
+                      <p className="text-sm text-red-500 font-medium">
+                        Pleason Select one of The Meting Type
+                      </p>
+                    )}
+                    <p className="font-medium">Meeting In</p>
+                  </div>
+                </div>
                 {/*  */}
                 <div className="col-span-2">
                   <Text as="span" className="text-primary block capitalize">

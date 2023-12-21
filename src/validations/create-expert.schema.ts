@@ -58,7 +58,17 @@ export const finishRegisterExpert = Yup.object({
   educational_document: Yup.mixed().required(
     "Educational Document is required"
   ),
-  per_session_price: Yup.string().required("Per Session Price is required"),
+  inperson: Yup.boolean().required("Inperson is required"),
+  priceInPerson: Yup.string().when("inperson", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
+  online: Yup.boolean().required("Inperson is required"),
+  isOneSelected: Yup.boolean().required("Inperson is required"),
+  priceInOnline: Yup.string().when("online", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
   openingHours: Yup.array().of(
     Yup.object().shape({
       day: Yup.string().min(1).required("Day is required"),
@@ -90,13 +100,73 @@ type FinishRegisterExpert = {
   specialties: string[];
   expert_license: any;
   educational_document: any;
-  per_session_price: string;
+  inperson: boolean;
+  priceInPerson: string;
+  online: boolean;
+  isOneSelected: boolean;
+  priceInOnline: string;
   openingHours: {
     isActive: boolean;
     day: string;
     from: string;
     to: string;
-}[]
+  }[];
 };
 
-export type { FinishRegisterExpert, RegisterExpertInfoType };
+// edit
+export const editExpertInfoSchema = Yup.object({
+  city_id: Yup.string().min(1).required("City is required"),
+  education: Yup.array()
+    .of(
+      Yup.object({
+        titleEnglish: Yup.string()
+          .min(1)
+          .required("Title (English) is required"),
+        titleAmharic: Yup.string()
+          .min(1)
+          .required("Title (Amharic) is required"),
+      })
+    )
+    .min(1)
+    .required("Education is required"),
+  experiences: Yup.array()
+    .of(
+      Yup.object({
+        titleEnglish: Yup.string()
+          .min(1)
+          .required("Title (English) is required"),
+        titleAmharic: Yup.string()
+          .min(1)
+          .required("Title (Amharic) is required"),
+        companyNameEnglish: Yup.string()
+          .min(1)
+          .required("Company Name (English) Is Required"),
+        companyNameAmharic: Yup.string()
+          .min(1)
+          .required("Company Name (Amharic) Is Required"),
+      })
+    )
+    .min(1)
+    .required("Experience is required"),
+  specialties: Yup.array().of(
+    Yup.string().min(1).required("Specialty is required")
+  ),
+  inperson: Yup.boolean().required("Inperson is required"),
+  priceInPerson: Yup.string().when("inperson", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
+  online: Yup.boolean().required("Inperson is required"),
+  isOneSelected: Yup.boolean().required("Inperson is required"),
+  priceInOnline: Yup.string().when("online", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
+});
+
+type EditExpertInfoType = Yup.InferType<typeof editExpertInfoSchema>;
+export type {
+  FinishRegisterExpert,
+  RegisterExpertInfoType,
+  EditExpertInfoType,
+};
