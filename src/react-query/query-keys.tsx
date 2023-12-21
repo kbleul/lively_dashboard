@@ -8,4 +8,5 @@ export const queryKeys={
     getAllCenters:"getAllCentersApi",
     getAllExperts:`getAllExpertsApi`,
     getAllAppointmentListEx:`getAllAppointmentListExApi`,
+    getSingleExpertInfo:`getSingleExpertInfoApi`,
 }

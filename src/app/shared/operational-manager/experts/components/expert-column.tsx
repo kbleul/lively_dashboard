@@ -3,18 +3,21 @@ import { HeaderCell } from "@/components/ui/table";
 import { Title, Text } from "@/components/ui/text";
 import { Tooltip } from "@/components/ui/tooltip";
 import { ActionIcon } from "@/components/ui/action-icon";
-import PencilIcon from "@/components/icons/pencil";
 import { Avatar } from "@/components/ui/avatar";
 import DeletePopover from "@/components/delete-popover";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaEdit } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import ReusabelPopover from "@/components/reusabel-popover";
 import { AiTwotoneDelete } from "react-icons/ai";
+import { ExpertType } from "../experts-list";
+import Link from "next/link";
+import { routes } from "@/config/routes";
 type Columns = {
   onDeleteExpert: (id: string) => void;
+  type: ExpertType;
 };
 
-export const getColumns = ({ onDeleteExpert }: Columns) => [
+export const getColumns = ({ onDeleteExpert, type }: Columns) => [
   {
     title: <HeaderCell title="user Profile" />,
     dataIndex: "user",
@@ -63,12 +66,23 @@ export const getColumns = ({ onDeleteExpert }: Columns) => [
     ),
   },
   {
-    title: <HeaderCell title="per session" />,
-    dataIndex: "per_session",
-    key: "per_session",
+    title: <HeaderCell title="Online Session" />,
+    dataIndex: "appointment_type",
+    key: "appointment_type",
     width: 50,
-    render: (value: string) => (
-      <Text className="font-medium text-gray-700">{value}</Text>
+    render: (value: { phone: { price: string } }) => (
+      <Text className="font-medium text-gray-700">{value?.phone?.price}</Text>
+    ),
+  },
+  {
+    title: <HeaderCell title="Inperson Session" />,
+    dataIndex: "appointment_type",
+    key: "appointment_type",
+    width: 50,
+    render: (value: { in_person: { price: string } }) => (
+      <Text className="font-medium text-gray-700">
+        {value?.in_person?.price}
+      </Text>
     ),
   },
   {
@@ -99,22 +113,47 @@ export const getColumns = ({ onDeleteExpert }: Columns) => [
     width: 50,
     render: (_: string, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
-        {/* <Tooltip
+        {type === ExpertType.Incomplete && (
+          <Tooltip
+            size="sm"
+            content={() => "Fnish Registration"}
+            placement="top"
+            color="invert"
+          >
+            <Link
+              href={
+                routes.operationalManager.experts.create +
+                `?step=1&userId=${row.id}`
+              }
+            >
+              <ActionIcon
+                tag="span"
+                size="sm"
+                variant="outline"
+                className="hover:text-gray-700"
+              >
+                <FaCheck />
+              </ActionIcon>
+            </Link>
+          </Tooltip>
+        )}
+        <Tooltip
           size="sm"
-          content={() => "Approve Appintment"}
+          content={() => "Edit"}
           placement="top"
           color="invert"
         >
-          <ActionIcon
-            tag="span"
-            size="sm"
-            variant="outline"
-            className="hover:text-gray-700"
-          >
-            <FaCheck />
-          </ActionIcon>
-        </Tooltip> */}
-
+          <Link href={routes.operationalManager.experts.edit(row.id)}>
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <FaEdit />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
         <ReusabelPopover
           title={`Delete Expert`}
           icon={<AiTwotoneDelete className="h-4 w-4" />}

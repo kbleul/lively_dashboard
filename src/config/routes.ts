@@ -26,6 +26,7 @@ export const routes = {
     experts: {
       list: "/op/experts",
       create: "/op/experts/register-experts",
+      edit: (id: string) => `/op/experts/edit/${id}`,
     },
   },
 };
