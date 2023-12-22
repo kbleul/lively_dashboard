@@ -39,9 +39,18 @@ type BillingInfoType = Yup.InferType<typeof billingInfoSchema>;
 export const otherInfoSchema = Yup.object().shape({
   occupation: Yup.string().min(1).required("Occupation is required"),
   specialties: Yup.array().min(1).required("Specialties is required"),
+  inperson: Yup.boolean().required("Inperson is required"),
+  priceInPerson: Yup.string().when("inperson", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
+  online: Yup.boolean().required("Inperson is required"),
+  priceInOnline: Yup.string().when("online", {
+    is: true,
+    then: (schema) => schema.required("Price is required"),
+  }),
 });
 
 type OtherInfoType = Yup.InferType<typeof otherInfoSchema>;
 
-
-export type { ExpertProfileInfo,OtherInfoType,BillingInfoType };
+export type { ExpertProfileInfo, OtherInfoType, BillingInfoType };

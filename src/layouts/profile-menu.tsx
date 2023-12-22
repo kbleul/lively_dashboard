@@ -11,20 +11,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const menuItems = [
-  {
-    name: "My Profile",
-    href: "routes.profile",
-  },
-
-  {
-    name: "Activity Log",
-    href: "#",
-  },
-];
-
 function DropdownMenu() {
   const { data: session } = useSession();
+  const role = session?.user.user.roles?.map(
+    (item: { name: string }) => item.name
+  );
+  const menuItems = [
+    {
+      name: "My Profile",
+      href: role?.includes("Expert")
+        ? routes.expert.profile
+        : "routes.operationalManager.profile",
+    },
+
+    {
+      name: "Activity Log",
+      href: "#",
+    },
+  ];
 
   return (
     <div className="w-64 text-left rtl:text-right">

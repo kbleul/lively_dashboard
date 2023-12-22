@@ -9,6 +9,7 @@ const RegisterExpertForm = () => {
   const searchParams = useSearchParams();
   const user = searchParams.get("userId");
   const step = searchParams.get("step");
+  const name = searchParams.get("name");
   const [userId, setUserId] = React.useState("");
   const [activeStep, setActiveStep] = React.useState(Number(step) ?? 0);
   return (
@@ -18,7 +19,7 @@ const RegisterExpertForm = () => {
         <ExpertInfoForm setActiveStep={setActiveStep} setUserId={setUserId} />
       )}
       {activeStep === 1 && (
-        <MoreInfoForm setActiveStep={setActiveStep} userId={user ?? userId} />
+        <MoreInfoForm setActiveStep={setActiveStep} userId={user ?? userId} name={name}/>
       )}
     </div>
   );
