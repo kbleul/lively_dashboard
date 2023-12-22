@@ -17,7 +17,7 @@ type Columns = {
   type: ExpertType;
 };
 
-export const getColumns = ({ onDeleteExpert, type }: Columns) => [
+export const getIncompleteColumns = ({ onDeleteExpert, type }: Columns) => [
   {
     title: <HeaderCell title="user Profile" />,
     dataIndex: "user",
@@ -40,71 +40,41 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
   },
   {
     title: <HeaderCell title="first name" />,
-    dataIndex: "user",
-    key: "user",
+    dataIndex: "first_name",
+    key: "first_name",
     width: 50,
-    render: (value: { first_name: string }) => (
-      <Text className="font-medium text-gray-700">{value?.first_name}</Text>
+    render: (value: string) => (
+      <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
     title: <HeaderCell title="last name" />,
-    dataIndex: "user",
-    key: "user",
+    dataIndex: "last_name",
+    key: "last_name",
     width: 50,
-    render: (value: { last_name: string }) => (
-      <Text className="font-medium text-gray-700">{value?.last_name}</Text>
+    render: (value: string) => (
+      <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
     title: <HeaderCell title="phone number" />,
-    dataIndex: "user",
-    key: "user",
+    dataIndex: "phone",
+    key: "phone",
     width: 50,
-    render: (value: { phone: string }) => (
-      <Text className="font-medium text-gray-700">{value?.phone}</Text>
+    render: (value: string) => (
+      <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: <HeaderCell title="Online Session" />,
-    dataIndex: "appointment_type",
-    key: "appointment_type",
+    title: <HeaderCell title="username" />,
+    dataIndex: "username",
+    key: "username",
     width: 50,
-    render: (value: { phone: { price: string } }) => (
-      <Text className="font-medium text-gray-700">{value?.phone?.price}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="Inperson Session" />,
-    dataIndex: "appointment_type",
-    key: "appointment_type",
-    width: 50,
-    render: (value: { in_person: { price: string } }) => (
-      <Text className="font-medium text-gray-700">
-        {value?.in_person?.price}
-      </Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="occupation" />,
-    dataIndex: "occupation",
-    key: "occupation",
-    width: 50,
-    render: (value: { name: { english: string } }) => (
-      <Text className="font-medium text-gray-700">{value?.name?.english}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="city" />,
-    dataIndex: "city",
-    key: "city",
-    width: 50,
-    render: (value: { name: { english: string } }) => (
-      <Text className="font-medium text-gray-700">{value?.name?.english}</Text>
+    render: (value: string) => (
+      <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
 
-  // status
   {
     // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -113,6 +83,28 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
     width: 50,
     render: (_: string, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
+        <Tooltip
+          size="sm"
+          content={() => "Fnish Registration"}
+          placement="top"
+          color="invert"
+        >
+          <Link
+            href={
+              routes.operationalManager.experts.create +
+              `?step=1&userId=${row.id}&name=${row?.first_name} ${row?.last_name}`
+            }
+          >
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <FaCheck />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
         <Tooltip
           size="sm"
           content={() => "Edit"}

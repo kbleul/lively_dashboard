@@ -10,6 +10,7 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import ExpertTypeTab from "./components/expert-tab";
+import { getIncompleteColumns } from "./components/incomplete-experts-table";
 export enum ExpertType {
   All = "All",
   Incomplete = "Incomplete",
@@ -65,9 +66,16 @@ export default function ExpertsList() {
             ? expertsList?.data?.data?.data
             : expertsList?.data?.data
         }
-        scroll={{ x: 1300 }}
+        scroll={activeTab === ExpertType.All ? { x: 1300 } : { x: 1000 }}
         // @ts-ignore
-        columns={getColumns({ onDeleteExpert: deleteExpert,type:activeTab })}
+        columns={
+          activeTab === ExpertType.All
+            ? getColumns({ onDeleteExpert: deleteExpert, type: activeTab })
+            : getIncompleteColumns({
+                onDeleteExpert: deleteExpert,
+                type: activeTab,
+              })
+        }
         paginatorOptions={{
           pageSize,
           setPageSize,

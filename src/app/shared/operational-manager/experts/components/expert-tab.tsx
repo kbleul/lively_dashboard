@@ -10,7 +10,7 @@ interface Props {
 const ExpertTypeTab = ({ setActiveTab, activeTab }: Props) => {
   return (
     <div className="pb-5">
-      <Tabs defaultIndex={1}>
+      <Tabs defaultIndex={activeTab === ExpertType.All ? 0 : 1}>
         <TabList className="flex w-full  justify-start space-x-8 border-b border-b-gray-300">
           <Tab
             className={({ selected }) =>

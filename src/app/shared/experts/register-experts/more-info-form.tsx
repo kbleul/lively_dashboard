@@ -4,7 +4,7 @@ import { Controller, SubmitHandler } from "react-hook-form";
 import FormFooter, { negMargin } from "@/components/form-footer";
 import useDynamicMutation from "@/react-query/usePostData";
 import { Checkbox } from "@/components/ui/checkbox";
-import moment from "moment";
+import { Alert } from "@/components/ui/alert";
 import { Password } from "@/components/ui/password";
 import { Button } from "@/components/ui/button";
 import { FaPerson } from "react-icons/fa6";
@@ -16,7 +16,7 @@ import FormGroup, { FormBlockWrapper } from "@/components/form-group";
 import { genderOptions, workCustomDays } from "@/constants/form-constants";
 import { DatePicker } from "@/components/ui/datepicker";
 import Upload from "@/components/ui/upload";
-import { Text } from "@/components/ui/text";
+import { Text, Title } from "@/components/ui/text";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import * as Yup from "yup";
@@ -39,9 +39,10 @@ import { routes } from "@/config/routes";
 interface Props {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   userId: string;
+  name: string | null;
 }
 
-const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
+const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
   const router = useRouter();
   const postMutation = useDynamicMutation();
   const [customDaysChecked, setCustomDaysChecked] = useState(
@@ -139,6 +140,13 @@ const MoreInfoForm = ({ setActiveStep, userId }: Props) => {
         console.log(errors);
         return (
           <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
+            {name && (
+              <div className="flex w-full items-center justify-center py-2">
+                <Alert color="info" variant="flat">
+                  <Text>You Are fnishing Registration for {name}</Text>
+                </Alert>
+              </div>
+            )}
             <div className="grid grid-cols-1 gap-8 divide-y divide-dashed divide-gray-200 @2xl:gap-10 @3xl:gap-12">
               <FormBlockWrapper
                 title={"Expert Info."}
