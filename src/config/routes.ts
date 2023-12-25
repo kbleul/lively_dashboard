@@ -14,6 +14,7 @@ export const routes = {
   operationalManager: {
     dashboard: "/op",
     city: "/op/city",
+    contact: "/op/contact",
     appointments: "/op/appointments",
     speciality: "/op/speciality",
     occupation: "/op/occupation",

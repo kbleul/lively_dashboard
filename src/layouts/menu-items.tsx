@@ -63,6 +63,12 @@ export const operationalManagetMenuItems = [
     icon: <PiNotepadDuotone />,
   },
   {
+    name: "Contacts",
+    href: routes.operationalManager.contact,
+    // href: routes.file.dashboard,
+    icon: <PiNotepadDuotone />,
+  },
+  {
     name: "Centers",
     href: routes.operationalManager.centers.list,
     // href: routes.file.dashboard,

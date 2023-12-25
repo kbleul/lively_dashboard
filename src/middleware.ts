@@ -10,9 +10,14 @@ export default withAuth(
     );
     if (
       req.nextUrl.pathname.startsWith("/op") &&
-      !req.nextauth.token?.user.roles
-        ?.map((item) => item.name)
-        .includes("Operation_Manager")
+      !(
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Operation_Manager") ||
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Admin")
+      )
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }

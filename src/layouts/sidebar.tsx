@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Fragment, JSXElementConstructor, PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal } from "react";
+import {
+  Fragment,
+  JSXElementConstructor,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+} from "react";
 import { usePathname } from "next/navigation";
 import { Title } from "@/components/ui/text";
 import { Collapse } from "@/components/ui/collapse";
@@ -24,7 +31,8 @@ export default function Sidebar({ className }: { className?: string }) {
     if (
       session?.user?.user.roles
         .map((role) => role.name)
-        .includes("Operation_Manager")
+        .includes("Operation_Manager") ||
+      session?.user?.user.roles.map((role) => role.name).includes("Admin")
     ) {
       return operationalManagetMenuItems;
     }
@@ -47,9 +55,12 @@ export default function Sidebar({ className }: { className?: string }) {
           <div className="mt-4 pb-3 3xl:mt-6">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
-              const pathnameExistInDropdowns: any = item?.dropdownItems && item?.dropdownItems?.filter(
-                (dropdownItem: { href: string; }) => dropdownItem.href === pathname
-              );
+              const pathnameExistInDropdowns: any =
+                item?.dropdownItems &&
+                item?.dropdownItems?.filter(
+                  (dropdownItem: { href: string }) =>
+                    dropdownItem.href === pathname
+                );
               const isDropdownOpen = Boolean(pathnameExistInDropdowns?.length);
 
               return (
@@ -95,33 +106,53 @@ export default function Sidebar({ className }: { className?: string }) {
                             </div>
                           )}
                         >
-                          {item?.dropdownItems?.map((dropdownItem: { href: string | UrlObject; name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined; }, index: any) => {
-                            const isChildActive =
-                              pathname === (dropdownItem?.href as string);
+                          {item?.dropdownItems?.map(
+                            (
+                              dropdownItem: {
+                                href: string | UrlObject;
+                                name:
+                                  | string
+                                  | number
+                                  | boolean
+                                  | ReactElement<
+                                      any,
+                                      string | JSXElementConstructor<any>
+                                    >
+                                  | Iterable<ReactNode>
+                                  | ReactPortal
+                                  | PromiseLikeOfReactNode
+                                  | null
+                                  | undefined;
+                              },
+                              index: any
+                            ) => {
+                              const isChildActive =
+                                pathname === (dropdownItem?.href as string);
 
-                            return (
-                              <Link
-                                href={dropdownItem?.href}
-                                key={dropdownItem?.name + index}
-                                className={cn(
-                                  "mx-3.5 mb-0.5 flex items-center rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5",
-                                  isChildActive
-                                    ? "text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
-                                    : "text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900"
-                                )}
-                              >
-                                <span
+                              return (
+                                <Link
+                                  href={dropdownItem?.href}
+                                  key={dropdownItem?.name + index}
                                   className={cn(
-                                    "me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200",
+                                    "mx-3.5 mb-0.5 flex items-center rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5",
                                     isChildActive
-                                      ? "bg-primary ring-[1px] ring-primary"
-                                      : "opacity-40"
+                                      ? "text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
+                                      : "text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900"
                                   )}
-                                />{" "}
-                                {dropdownItem?.name}
-                              </Link>
-                            );
-                          })}
+                                >
+                                  <span
+                                    className={cn(
+                                      "me-[18px] ms-1 inline-flex h-1 w-1 rounded-full bg-current transition-all duration-200",
+                                      isChildActive
+                                        ? "bg-primary ring-[1px] ring-primary"
+                                        : "opacity-40"
+                                    )}
+                                  />{" "}
+                                  {dropdownItem?.name}
+                                </Link>
+                              );
+                            }
+                          )}
                         </Collapse>
                       ) : (
                         <Link

@@ -44,7 +44,11 @@ export default function SignInForm() {
             (item: { name: string }) => item.name
           );
 
-          if (!role.includes("Expert") && !role.includes("Operation_Manager")) {
+          if (
+            !role.includes("Expert") &&
+            !role.includes("Operation_Manager") &&
+            !role.includes("Admin")
+          ) {
             toast.info("Account Not Found");
             return;
           }
