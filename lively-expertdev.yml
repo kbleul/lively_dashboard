@@ -57,4 +57,4 @@ steps:
   displayName: 'Publish artifact'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/app.zip'
-    ArtifactName: 'livelyexpert'
+    ArtifactName: 'livelyexpertdev'
