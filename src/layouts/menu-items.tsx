@@ -124,3 +124,34 @@ export const expertMenuItems = [
     ],
   },
 ];
+
+
+
+export const contentCretorMenuItems = [
+  {
+    name: "Home",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: "/",
+    // href: routes.file.dashboard,
+    icon: <PiFileImageDuotone />,
+  },
+
+  {
+    name: "Contents",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Languages",
+        href: routes.contentCreator.language,
+      },
+      {
+        name: "payment Methods",
+        href: routes.contentCreator.paymentMethod,
+      },
+    ],
+  },
+];

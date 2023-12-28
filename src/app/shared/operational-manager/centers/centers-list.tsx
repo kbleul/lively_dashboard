@@ -15,7 +15,10 @@ import { CenterType } from "@/types/centers";
 import { ActionIcon } from "@/components/ui/action-icon";
 import ReusabelPopover from "@/components/reusabel-popover";
 import Spinner from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
+import { routes } from "@/config/routes";
 const CentersList = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
@@ -93,7 +96,15 @@ const CentersList = () => {
                   onDelete={() => deleteCenter(center.id)}
                 />
 
-                <Button color="primary" variant="outline">
+                <Button
+                  onClick={() =>
+                    router.push(
+                      routes.operationalManager.centers.edit(center.id)
+                    )
+                  }
+                  color="primary"
+                  variant="outline"
+                >
                   Edit
                 </Button>
               </div>

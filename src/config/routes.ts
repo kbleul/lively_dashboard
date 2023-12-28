@@ -22,12 +22,18 @@ export const routes = {
     centers: {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",
-      edit: "/op/edit-wellbeing-center",
+      edit: (id: string) => `/op/centers/edit/${id}`,
     },
     experts: {
       list: "/op/experts",
       create: "/op/experts/register-experts",
       edit: (id: string) => `/op/experts/edit/${id}`,
     },
+  },
+  // content cretor routes
+  contentCreator: {
+    dashboard: "/contentc",
+    language: "/contentc/language",
+    paymentMethod: "/contentc/payment-methods",
   },
 };

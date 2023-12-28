@@ -43,11 +43,19 @@ export default function SignInForm() {
           const role = responseData?.data?.user?.roles?.map(
             (item: { name: string }) => item.name
           );
+          const redirectUrl = role.includes("Expert")
+            ? routes.expert.dashboard
+            : role.includes("Operation_Manager")
+              ? routes.operationalManager.dashboard
+              : role.includes("Content_Creator")
+                ? routes.contentCreator.dashboard
+                : "";
 
           if (
             !role.includes("Expert") &&
             !role.includes("Operation_Manager") &&
-            !role.includes("Admin")
+            !role.includes("Admin") &&
+            !role.includes("Content_Creator")
           ) {
             toast.info("Account Not Found");
             return;
@@ -56,9 +64,7 @@ export default function SignInForm() {
           signIn("credentials", {
             data: JSON.stringify(responseData?.data),
             redirect: true,
-            callbackUrl: role.includes("Expert")
-              ? routes.expert.dashboard
-              : routes.operationalManager.dashboard,
+            callbackUrl: redirectUrl,
           });
           toast.success("Login Successfull, Redirecting...");
         },

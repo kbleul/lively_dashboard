@@ -15,7 +15,11 @@ import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
 import { PiCaretDownBold } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
-import { expertMenuItems, operationalManagetMenuItems } from "./menu-items";
+import {
+  contentCretorMenuItems,
+  expertMenuItems,
+  operationalManagetMenuItems,
+} from "./menu-items";
 import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
@@ -35,6 +39,13 @@ export default function Sidebar({ className }: { className?: string }) {
       session?.user?.user.roles.map((role) => role.name).includes("Admin")
     ) {
       return operationalManagetMenuItems;
+    }
+    if (
+      session?.user?.user.roles
+        .map((role) => role.name)
+        .includes("Content_Creator")
+    ) {
+      return contentCretorMenuItems;
     }
   };
   return (

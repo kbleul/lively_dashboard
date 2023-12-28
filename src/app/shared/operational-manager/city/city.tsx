@@ -61,7 +61,12 @@ const CityList = () => {
     handleRowSelect,
     handleSelectAll,
   } = useTable(cityData?.data ?? [], pageSize);
-  console.log("cityData", cityData?.data);
+
+  const onEditItem = (id: string) => {
+    openModal({
+      view: <AddCityForm id={id} />,
+    });
+  }
   return (
     <WidgetCard
       title={"Cities"}
@@ -71,7 +76,7 @@ const CityList = () => {
         <Button
           onClick={() =>
             openModal({
-              view: <AddCityForm />,
+              view: <AddCityForm/>,
             })
           }
           size="lg"
@@ -87,6 +92,7 @@ const CityList = () => {
           data={cityData?.data?.data}
           columns={getToolsColumns({
             onDeleteItem: deleteCity,
+            onEditItem,
             name: "City",
           })}
           scroll={{ x: 400 }}

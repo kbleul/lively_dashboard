@@ -9,5 +9,11 @@ export const queryKeys={
     getAllExperts:`getAllExpertsApi`,
     getAllAppointmentListEx:`getAllAppointmentListExApi`,
     getSingleExpertInfo:`getSingleExpertInfoApi`,
+    getSingleCity:`getSingleCityApi`,
     getAllContactList:`getAllContactListApi`,
+    getSigleSpeciality:`getSigleSpecialityApi`,
+    getSingleOccupation:`getSingleOccupationApi`,
+    getSingelCenter:`getSingelCenterApi`,
+    getAllLanguages:`getAllLanguagesApi`,
+    getAllPaymentMethods:`getAllPaymentMethodsApi`,
 }

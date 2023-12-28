@@ -35,5 +35,5 @@ export default withAuth(
 
 export const config = {
   // restricted routes that need authentication
-  matcher: ["/", "/expert/:path*", "/op/:path*"],
+  matcher: ["/", "/expert/:path*", "/op/:path*", "/contentc/:path*"],
 };
