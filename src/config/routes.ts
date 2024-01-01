@@ -35,5 +35,9 @@ export const routes = {
     dashboard: "/contentc",
     language: "/contentc/language",
     paymentMethod: "/contentc/payment-methods",
+    tags: "/contentc/tags",
+    unit: "/contentc/units",
+    brand: "/contentc/brands",
+    product: "/contentc/products",
   },
 };

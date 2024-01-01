@@ -16,4 +16,10 @@ export const queryKeys={
     getSingelCenter:`getSingelCenterApi`,
     getAllLanguages:`getAllLanguagesApi`,
     getAllPaymentMethods:`getAllPaymentMethodsApi`,
+    getAllTags:`getAllTagsApi`,
+    getSingelTag:`getSingelTagApi`,
+    getAllBrands:`getAllBrandsApi`,
+    getSingleBrand:`getSingleBrandApi`,
+    getAllUnits:`getAllUnitsApi`,
+    getSingleUnit:`getSingleUnitApi`,
 }

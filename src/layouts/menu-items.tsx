@@ -125,8 +125,6 @@ export const expertMenuItems = [
   },
 ];
 
-
-
 export const contentCretorMenuItems = [
   {
     name: "Home",
@@ -151,6 +149,29 @@ export const contentCretorMenuItems = [
       {
         name: "payment Methods",
         href: routes.contentCreator.paymentMethod,
+      },
+    ],
+  },
+  {
+    name: "Products",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Tags",
+        href: routes.contentCreator.tags,
+      },
+      {
+        name: "Units",
+        href: routes.contentCreator.unit,
+      },
+      {
+        name: "Brands",
+        href: routes.contentCreator.brand,
+      },
+      {
+        name: "Products",
+        href: routes.contentCreator.product,
       },
     ],
   },
