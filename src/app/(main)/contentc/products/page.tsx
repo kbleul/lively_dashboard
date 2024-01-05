@@ -1,9 +1,8 @@
-import React from 'react'
+import CreateProductForm from "@/app/shared/contentc/products/create-product-form";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <CreateProductForm />;
+};
 
-export default page
+export default page;
