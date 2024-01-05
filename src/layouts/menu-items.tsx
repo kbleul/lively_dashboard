@@ -81,17 +81,17 @@ export const operationalManagetMenuItems = [
     icon: <FaUserNurse />,
   },
 
-  // {
-  //   name: "Appoitments",
-  //   href: "#",
-  //   icon: <PiNotepadDuotone />,
-  //   dropdownItems: [
-  //     {
-  //       name: "Appoitments",
-  //       href: routes.operationalManager.appointments,
-  //     },
-  //   ],
-  // },
+  {
+    name: "Places",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Places",
+        href: routes.operationalManager.places.list,
+      },
+    ],
+  },
 ];
 
 export const expertMenuItems = [

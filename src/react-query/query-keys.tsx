@@ -22,4 +22,6 @@ export const queryKeys={
     getSingleBrand:`getSingleBrandApi`,
     getAllUnits:`getAllUnitsApi`,
     getSingleUnit:`getSingleUnitApi`,
+    getAllPlaces:`getAllPlacesApi`,
+    getSinglePlace:`getSinglePlaceApi`,
 }

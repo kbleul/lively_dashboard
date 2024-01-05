@@ -20,12 +20,12 @@ import { TagsAndUnitType, tagsAndUnitSchema } from "@/validations/tag";
 export default function AddTagForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
-  const { closeModal } = useModal();
   const headers = useGetHeaders({ type: "Json" });
+  const { closeModal } = useModal();
 
   const tagsData = useFetchData(
     [queryKeys.getSingelTag, id],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/tags/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags/${id}`,
     headers,
     !!id
   );
@@ -37,8 +37,8 @@ export default function AddTagForm({ id }: { id?: string }) {
     try {
       await postMutation.mutateAsync({
         url: id
-          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/tags/${id}`
-          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/tags`,
+          ? `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags/${id}`
+          : `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags`,
         method: "POST",
         headers,
         body: {

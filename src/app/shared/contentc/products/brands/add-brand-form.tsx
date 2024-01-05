@@ -13,7 +13,7 @@ import Spinner from "@/components/ui/spinner";
 import { Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
-import { BrandType, brandSchema } from "@/validations/tag";
+import { BrandType, brandSchema, editbrandSchema } from "@/validations/tag";
 import FilePicker from "@/components/ui/form/dropzone";
 
 export default function AddBrandForm({ id }: { id?: string }) {
@@ -24,7 +24,7 @@ export default function AddBrandForm({ id }: { id?: string }) {
 
   const brandData = useFetchData(
     [queryKeys.getSingleBrand, id],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/brands/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands/${id}`,
     headers,
     !!id
   );
@@ -37,8 +37,8 @@ export default function AddBrandForm({ id }: { id?: string }) {
     try {
       await postMutation.mutateAsync({
         url: id
-          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/brands/${id}`
-          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/brands`,
+          ? `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands/${id}`
+          : `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands`,
         method: "POST",
         headers,
         body: {
@@ -49,7 +49,7 @@ export default function AddBrandForm({ id }: { id?: string }) {
         },
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllTags],
+            queryKey: [queryKeys.getAllBrands],
           });
           toast.success(
             id ? "Brand Edited Successfully" : "Brand Created Successfully"
@@ -79,7 +79,7 @@ export default function AddBrandForm({ id }: { id?: string }) {
       ) : (
         <Formik
           initialValues={initialValues}
-          validationSchema={brandSchema}
+          validationSchema={id ? editbrandSchema :brandSchema}
           onSubmit={createBrand}
         >
           {() => (

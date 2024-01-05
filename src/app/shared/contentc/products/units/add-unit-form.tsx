@@ -25,7 +25,7 @@ export default function AddUnitForm({ id }: { id?: string }) {
 
   const unitData = useFetchData(
     [queryKeys.getSingleUnit, id],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/units/${id}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/units/${id}`,
     headers,
     !!id
   );
@@ -37,8 +37,8 @@ export default function AddUnitForm({ id }: { id?: string }) {
     try {
       await postMutation.mutateAsync({
         url: id
-          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/units/${id}`
-          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/units`,
+          ? `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/units/${id}`
+          : `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/units`,
         method: "POST",
         headers,
         body: {
@@ -48,7 +48,7 @@ export default function AddUnitForm({ id }: { id?: string }) {
         },
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllTags],
+            queryKey: [queryKeys.getAllUnits],
           });
           toast.success(
             id ? "Unit Edited Successfully" : "Unit Created Successfully"

@@ -29,6 +29,11 @@ export const routes = {
       create: "/op/experts/register-experts",
       edit: (id: string) => `/op/experts/edit/${id}`,
     },
+    places: {
+      list: "/op/places",
+      create: "/op/places/create-place",
+      edit: (id: string) => `/op/places/edit/${id}`,
+    },
   },
   // content cretor routes
   contentCreator: {

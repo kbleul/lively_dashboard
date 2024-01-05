@@ -21,7 +21,7 @@ const UnitsList = () => {
   const { openModal } = useModal();
   const languageData = useFetchData(
     [queryKeys.getAllUnits],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/units`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/units`,
     headers
   );
 
@@ -29,7 +29,7 @@ const UnitsList = () => {
   const deleteCity = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/units/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/units/${id}`,
         method: "DELETE",
         headers,
         body: {},

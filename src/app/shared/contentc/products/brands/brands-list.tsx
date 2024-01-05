@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { getColumns } from "../tag-unit-columns";
+import { getColumns } from "./columns";
 import { useFetchData } from "@/react-query/useFetchData";
 import { Button } from "@/components/ui/button";
 import useDynamicMutation from "@/react-query/usePostData";
@@ -21,7 +21,7 @@ const BrandsList = () => {
   const { openModal } = useModal();
   const languageData = useFetchData(
     [queryKeys.getAllBrands],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/brands`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands`,
     headers
   );
 
@@ -29,7 +29,7 @@ const BrandsList = () => {
   const deleteCity = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/brands/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands/${id}`,
         method: "DELETE",
         headers,
         body: {},

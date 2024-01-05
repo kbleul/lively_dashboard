@@ -5,6 +5,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { ActionIcon } from "@/components/ui/action-icon";
 import PencilIcon from "@/components/icons/pencil";
 import DeletePopover from "@/components/delete-popover";
+import Image from "next/image";
 
 type Columns = {
   onDeleteItem: (id: string) => void;
@@ -12,6 +13,15 @@ type Columns = {
 };
 
 export const getColumns = ({ onDeleteItem, onEditItem }: Columns) => [
+  {
+    title: <HeaderCell title="Brand Image" />,
+    dataIndex: "brand_image",
+    key: "brand_image",
+    width: 50,
+    render: (value: { url: string }) => (
+      <Image src={value.url} alt="Brand Image" width={50} height={50} />
+    ),
+  },
   {
     title: <HeaderCell title="Name English" />,
     dataIndex: "name",

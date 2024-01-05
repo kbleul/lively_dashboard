@@ -21,7 +21,7 @@ const TagsList = () => {
   const { openModal } = useModal();
   const languageData = useFetchData(
     [queryKeys.getAllTags],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/tags`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags`,
     headers
   );
 
@@ -29,7 +29,7 @@ const TagsList = () => {
   const deleteCity = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/tags/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags/${id}`,
         method: "DELETE",
         headers,
         body: {},
