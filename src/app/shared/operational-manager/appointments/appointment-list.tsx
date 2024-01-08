@@ -52,6 +52,28 @@ export default function AppointmentList({
       console.log(err);
     }
   };
+  //on reject aapointment
+  const onRejectItem = async (id: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/reject-expert-appointment/${id}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllApoitmentsOp],
+          });
+          toast.success("Appoitment Rejected Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <ControlledTable
       variant={variant}
@@ -60,7 +82,7 @@ export default function AppointmentList({
       data={appoitmentsList?.data?.data?.data}
       scroll={{ x: 1300 }}
       // @ts-ignore
-      columns={getColumns({ onApproveItem: onApproveItem })}
+      columns={getColumns({ onApproveItem: onApproveItem, onRejectItem })}
       paginatorOptions={{
         pageSize,
         setPageSize,

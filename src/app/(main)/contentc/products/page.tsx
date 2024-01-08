@@ -1,8 +1,12 @@
-import CreateProductForm from "@/app/shared/contentc/products/create-product-form";
-import React from "react";
+import ProductList from "@/app/shared/contentc/products/product-list";
+import { metaObject } from "@/config/site.config";
+
+export const metadata = {
+  ...metaObject("Product List"),
+};
 
 const page = () => {
-  return <CreateProductForm />;
+  return <ProductList />;
 };
 
 export default page;

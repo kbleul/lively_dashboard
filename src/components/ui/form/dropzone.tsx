@@ -66,6 +66,7 @@ const FilePicker: React.FC<FilePickerProps> = ({
       : {
           "image/jpeg": [".jpg", ".jpeg"],
           "image/png": [".png"],
+          "image/svg": [".svg"],
           "image/webp": [".webp"], // Add webp file format
           // Add more file types if needed
         },

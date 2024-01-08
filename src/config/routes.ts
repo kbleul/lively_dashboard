@@ -44,5 +44,10 @@ export const routes = {
     unit: "/contentc/units",
     brand: "/contentc/brands",
     product: "/contentc/products",
+    addProduct: "/contentc/products/add-product",
+    services: {
+      list: "/contentc/services",
+      amenity: "/contentc/services/amenity",
+    },
   },
 };

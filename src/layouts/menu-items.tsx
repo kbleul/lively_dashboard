@@ -175,4 +175,19 @@ export const contentCretorMenuItems = [
       },
     ],
   },
+  {
+    name: "Services",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Services",
+        href: routes.contentCreator.services.list,
+      },
+      {
+        name: "Amenity",
+        href: routes.contentCreator.services.amenity,
+      },
+    ],
+  },
 ];

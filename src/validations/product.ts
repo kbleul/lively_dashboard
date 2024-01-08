@@ -11,8 +11,6 @@ export const productValidationSchema = Yup.object().shape({
     "product amharic description is required"
   ),
   unit: Yup.string().required("product unit is required"),
-  category: Yup.string().required("product  Category is required"),
-  subCategory: Yup.string().required("product sub Category is required"),
   brand: Yup.string().required("product brand is required"),
   tags: Yup.array()
     .min(1, "please select at least one tag")
@@ -50,6 +48,7 @@ export const productValidationSchema = Yup.object().shape({
         ),
       })
     )
-    .min(1, "please add at least one product variant"),
+    .min(1, "please add at least one product variant")
+    .required("please add at least one product variant"),
 });
 export type ProductType = Yup.InferType<typeof productValidationSchema>;
