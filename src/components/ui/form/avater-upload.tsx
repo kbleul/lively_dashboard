@@ -129,7 +129,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
           key={value.name}
         >
           <div className="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 object-cover px-2 py-1.5 dark:bg-transparent">
-            {value && value.type.includes("image") ? (
+            {value && value?.type?.includes("image") ? (
               <Image
                 src={URL.createObjectURL(value)}
                 fill

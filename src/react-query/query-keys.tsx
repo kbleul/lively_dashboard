@@ -29,4 +29,5 @@ export const queryKeys = {
   getSingleService: "getSingleService",
   getAllAmenity: "getAllAmenityApi",
   getSingleAmenity: "getSingleAmenity",
+  getingleProduct: "getingleProduct",
 };

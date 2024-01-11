@@ -1,0 +1,44 @@
+import EditProductForm from "@/app/shared/contentc/products/edit-product/edit-product-form";
+import React from "react";
+import { metaObject } from "@/config/site.config";
+import PageHeader from "@/app/shared/page-header";
+import { routes } from "@/config/routes";
+
+export const metadata = {
+  ...metaObject("Dashboard"),
+};
+
+const pageHeader = {
+  title: "Content Creator",
+  breadcrumb: [
+    {
+      href: routes.contentCreator.dashboard,
+      name: "Content Creator",
+    },
+    {
+      href: routes.contentCreator.product,
+      name: "Products",
+    },
+    {
+      name: "Edit",
+    },
+  ],
+};
+interface Props {
+  params: {
+    id: string;
+  };
+}
+const CreateProduct = ({ params }: Props) => {
+  return (
+    <>
+      <PageHeader
+        title={pageHeader.title}
+        breadcrumb={pageHeader.breadcrumb}
+      ></PageHeader>
+      <EditProductForm id={params.id} />
+    </>
+  );
+};
+
+export default CreateProduct;

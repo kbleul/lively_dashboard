@@ -45,6 +45,8 @@ export const routes = {
     brand: "/contentc/brands",
     product: "/contentc/products",
     addProduct: "/contentc/products/add-product",
+    editProduct: (id: string) => `/contentc/products/edit/${id}`,
+    detailProduct: (id: string) => `/contentc/products/detail/${id}`,
     services: {
       list: "/contentc/services",
       amenity: "/contentc/services/amenity",

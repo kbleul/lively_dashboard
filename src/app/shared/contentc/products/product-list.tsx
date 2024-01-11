@@ -24,7 +24,7 @@ export default function ProductList() {
 
   const productsData = useFetchData(
     [queryKeys.getAllProducts, currentPage, pageSize],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/products?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/products?page=${currentPage}&perPage=${pageSize}`,
     headers
   );
 

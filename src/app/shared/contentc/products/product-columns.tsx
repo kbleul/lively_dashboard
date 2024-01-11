@@ -8,8 +8,12 @@ import { Avatar } from "@/components/ui/avatar";
 import DeletePopover from "@/components/delete-popover";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
+import parse from "html-react-parser";
 import ReusabelPopover from "@/components/reusabel-popover";
 import Image from "next/image";
+import Link from "next/link";
+import { routes } from "@/config/routes";
+import { FaEye } from "react-icons/fa6";
 type Columns = {
   deleteProduct: (id: string) => void;
 };
@@ -38,7 +42,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "title",
     width: 50,
     render: (value: { english: string }) => (
-      <Text className="font-medium text-gray-700">{value?.english}</Text>
+      <Text className="font-medium text-gray-700 line-clamp-2">
+        {value?.english}
+      </Text>
     ),
   },
   {
@@ -47,7 +53,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "title",
     width: 50,
     render: (value: { amharic: string }) => (
-      <Text className="font-medium text-gray-700">{value?.amharic}</Text>
+      <Text className="font-medium text-gray-700  line-clamp-2">
+        {value?.amharic}
+      </Text>
     ),
   },
   {
@@ -56,7 +64,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "description",
     width: 50,
     render: (value: { english: string }) => (
-      <Text className="font-medium text-gray-700">{value?.english}</Text>
+      <Text className="font-medium text-gray-700 line-clamp-1">
+        {parse(value?.english)}
+      </Text>
     ),
   },
   {
@@ -65,7 +75,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "description",
     width: 50,
     render: (value: { amharic: string }) => (
-      <Text className="font-medium text-gray-700">{value?.amharic}</Text>
+      <Text className="font-medium text-gray-700 line-clamp-1">
+        {parse(value?.amharic)}
+      </Text>
     ),
   },
   {
@@ -88,18 +100,37 @@ export const getColumns = ({ deleteProduct }: Columns) => [
       <div className="flex items-center justify-end gap-3 pe-4">
         <Tooltip
           size="sm"
-          content={() => "Approve Appintment"}
+          content={() => "Edit Product"}
           placement="top"
           color="invert"
         >
-          <ActionIcon
-            tag="span"
-            size="sm"
-            variant="outline"
-            className="hover:text-gray-700"
-          >
-            <PencilIcon />
-          </ActionIcon>
+          <Link href={routes.contentCreator.editProduct(row.id)}>
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <PencilIcon />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Product Detail"}
+          placement="top"
+          color="invert"
+        >
+          <Link href={routes.contentCreator.detailProduct(row.id)}>
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <FaEye />
+            </ActionIcon>
+          </Link>
         </Tooltip>
         <ReusabelPopover
           title={`Delete Product`}
