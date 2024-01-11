@@ -52,6 +52,11 @@ const ProductDetailEdit = ({ id, data }: { id: string; data: Product }) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/brands`,
     headers
   );
+  const tagsData = useFetchData(
+    [queryKeys.getAllTags],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags`,
+    headers
+  );
   const postMutation = useDynamicMutation();
 
   const editProductHandeler = async (values: EditProductType) => {
@@ -85,71 +90,87 @@ const ProductDetailEdit = ({ id, data }: { id: string; data: Product }) => {
     }
   };
   return (
-    <div>
-      <Formik
-        initialValues={initalValues}
-        validationSchema={editProductValidationSchema}
-        onSubmit={editProductHandeler}
-      >
-        {({ handleChange }) => (
-          <Form className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <FormikInput
-              name="title"
-              label="Product Title English"
-              placeholder="Enter Product Title English"
-              color="primary"
-            />
-            <FormikInput
-              name="titleAm"
-              label="የእቃ ስም"
-              placeholder="Enter Product Title Amharic"
-              color="primary"
-            />
-            <FormikTextEditor
-              name="description"
-              label="Product Description English"
-            />
-            <FormikTextEditor
-              name="descriptionAm"
-              label="Product Description Amharic"
-            />
-            <CustomSelect
-              name="unit"
-              label="product unit"
-              options={unitData?.data?.data}
-              defaultValue={data.unit}
-              getOptionLabel={(category: any) => category?.name?.english}
-              getOptionValue={(category: any) => category?.id}
-              onChange={(selectedOption: any) => {
-                handleChange("unit")(selectedOption.id);
-              }}
-              placeholder="select product unit"
-              noOptionsMessage={() => "unit appears here"}
-            />
-            <CustomSelect
-              isSearchable={true}
-              name="brand"
-              defaultValue={data.brand}
-              label="product brand"
-              options={brandsData?.data?.data}
-              getOptionLabel={(brand: any) => brand?.name?.english}
-              getOptionValue={(brand: any) => brand?.id}
-              onChange={(selectedOption: any) => {
-                handleChange("brand")(selectedOption.id);
-              }}
-              placeholder="select product brand"
-              noOptionsMessage={() => "brand appears here"}
-            />
-            <FormFooter
-              submitBtnText={"Edit Product"}
-              showSveBtn={false}
-              isLoading={postMutation.isPending}
-              className="col-span-2"
-            />
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <Formik
+      initialValues={initalValues}
+      validationSchema={editProductValidationSchema}
+      onSubmit={editProductHandeler}
+    >
+      {({ handleChange, setFieldValue }) => (
+        <Form className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
+          <FormikInput
+            name="title"
+            label="Product Title English"
+            placeholder="Enter Product Title English"
+            color="primary"
+          />
+          <FormikInput
+            name="titleAm"
+            label="የእቃ ስም"
+            placeholder="Enter Product Title Amharic"
+            color="primary"
+          />
+          <FormikTextEditor
+            name="description"
+            label="Product Description English"
+          />
+          <FormikTextEditor
+            name="descriptionAm"
+            label="Product Description Amharic"
+          />
+          <CustomSelect
+            name="unit"
+            label="product unit"
+            options={unitData?.data?.data}
+            defaultValue={data.unit}
+            getOptionLabel={(category: any) => category?.name?.english}
+            getOptionValue={(category: any) => category?.id}
+            onChange={(selectedOption: any) => {
+              handleChange("unit")(selectedOption.id);
+            }}
+            placeholder="select product unit"
+            noOptionsMessage={() => "unit appears here"}
+          />
+          <CustomSelect
+            isSearchable={true}
+            name="brand"
+            defaultValue={data.brand}
+            label="product brand"
+            options={brandsData?.data?.data}
+            getOptionLabel={(brand: any) => brand?.name?.english}
+            getOptionValue={(brand: any) => brand?.id}
+            onChange={(selectedOption: any) => {
+              handleChange("brand")(selectedOption.id);
+            }}
+            placeholder="select product brand"
+            noOptionsMessage={() => "brand appears here"}
+          />
+          <CustomSelect
+            name="tags"
+            label="tags"
+            isMulti={true}
+            defaultValue={data.tags}
+            options={tagsData?.data?.data}
+            placeholder="select tags"
+            getOptionLabel={(tag: any) => tag?.name?.english}
+            getOptionValue={(tag: any) => tag?.id}
+            onChange={(selectedOptions: any) => {
+              const selectedIds = selectedOptions.map(
+                (option: any) => option.id
+              );
+              setFieldValue("tags", selectedIds);
+            }}
+            noOptionsMessage={() => "tags appears here"}
+            className="col-span-2"
+          />
+          <FormFooter
+            submitBtnText={"Edit Product"}
+            showSveBtn={false}
+            isLoading={postMutation.isPending}
+            className="col-span-2"
+          />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
