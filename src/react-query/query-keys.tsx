@@ -31,5 +31,8 @@ export const queryKeys = {
   getSingleAmenity: "getSingleAmenity",
   getingleProduct: "getingleProduct",
   getAllPackages:'getAllPackages',
-  getPackageTypes:'getPackageTypes'
+  getPackageTypes:'getPackageTypes',
+  getAllBranchProducts:'getAllBranchProducts',
+  getMyStores:'getMyStores',
+  getMyBranches:'getMyBranches',
 };

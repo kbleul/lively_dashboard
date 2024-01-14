@@ -213,7 +213,6 @@ export const branchManagerMenuItems = [
         name: "Packages",
         href: routes.branchManger.packages,
       },
-
     ],
   },
   {
@@ -221,12 +220,11 @@ export const branchManagerMenuItems = [
     href: "#",
     icon: <PiNotepadDuotone />,
     dropdownItems: [
-
       {
         name: "Products",
         href: routes.contentCreator.product,
       },
     ],
   },
-
 ];
+

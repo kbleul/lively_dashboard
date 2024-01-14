@@ -97,7 +97,6 @@ export const editVariantValidationSchema = Yup.object().shape({
 });
 
 export const addVariantValidationSchema = Yup.object().shape({
-
   variant_type: Yup.string().required("variant type is required"),
   product_variants: Yup.array()
     .of(
@@ -134,9 +133,15 @@ export const addVariantValidationSchema = Yup.object().shape({
     .min(1, "please add at least one product variant")
     .required("please add at least one product variant"),
 });
-
+export const addBranchProductValidationSchema = Yup.object().shape({
+  product_variant_id: Yup.string().required("Product is required"),
+  price: Yup.string().required("Product Price is required"),
+});
 
 export type ProductType = Yup.InferType<typeof productValidationSchema>;
 export type EditProductType = Yup.InferType<typeof editProductValidationSchema>;
 export type EditVariantype = Yup.InferType<typeof editVariantValidationSchema>;
 export type AddVariantype = Yup.InferType<typeof addVariantValidationSchema>;
+export type AddBranchProductype = Yup.InferType<
+  typeof addBranchProductValidationSchema
+>;

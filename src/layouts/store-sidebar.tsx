@@ -8,49 +8,120 @@ import {
   ReactElement,
   ReactNode,
   ReactPortal,
+  useEffect,
+  useState,
 } from "react";
+import { Text } from "@/components/ui/text";
 import { usePathname } from "next/navigation";
 import { Title } from "@/components/ui/text";
 import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
-import { PiCaretDownBold } from "react-icons/pi";
-import SimpleBar from "@/components/ui/simplebar";
 import {
-  branchManagerMenuItems,
-  contentCretorMenuItems,
-  expertMenuItems,
-  operationalManagetMenuItems,
-} from "./menu-items";
+  PiCaretDownBold,
+  PiFileImageDuotone,
+  PiNotepadDuotone,
+} from "react-icons/pi";
+import { CgArrowsExchange } from "react-icons/cg";
+import SimpleBar from "@/components/ui/simplebar";
 import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
+import { routes } from "@/config/routes";
+import path from "path";
 
-export default function Sidebar({ className }: { className?: string }) {
+export default function StoreSidebar({ className }: { className?: string }) {
+  const [determineBranchMode, setDetermineBranchMode] = useState(false);
   const { data: session } = useSession();
   const pathname = usePathname();
+
+  const storeOwnerMenuItems = [
+    {
+      name: "Home",
+    },
+    // label end
+    {
+      name: "Dashboard",
+      href: "/",
+      // href: routes.file.dashboard,
+      icon: <PiFileImageDuotone />,
+    },
+
+    {
+      name: "Branches",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "Branches",
+          href: routes.storeOwner.branches(pathname.split("/")[2]),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "Managers",
+          href: routes.storeOwner.managers(pathname.split("/")[2]),
+        },
+      ],
+    },
+  ];
+
+  const storeAsBranchManagerMenuItems = [
+    {
+      name: "Home",
+    },
+    // label end
+    {
+      name: "Dashboard",
+      href: "/",
+      // href: routes.file.dashboard,
+      icon: <PiFileImageDuotone />,
+    },
+
+    {
+      name: "Packages",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "Packages",
+          href: routes.storeOwner.branch.packages(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Products",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "Products",
+          href: routes.storeOwner.branch.products(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+  ];
+
+  useEffect(() => {
+    setDetermineBranchMode(pathname.split("/").includes("branch"));
+  }, [pathname]);
+
   const determineMenuItems = () => {
-    if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
-      return expertMenuItems;
-    }
-    if (session?.user?.user.roles.map((role) => role.name).includes("Branch_Manager")) {
-      return branchManagerMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Operation_Manager") ||
-      session?.user?.user.roles.map((role) => role.name).includes("Admin")
-    ) {
-      return operationalManagetMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Content_Creator")
-    ) {
-      return contentCretorMenuItems;
-    }
+    return determineBranchMode
+      ? storeAsBranchManagerMenuItems
+      : storeOwnerMenuItems;
   };
+  console.log({ pathname: pathname.split("/")[4] });
   return (
     <aside
       className={cn(
@@ -66,6 +137,42 @@ export default function Sidebar({ className }: { className?: string }) {
 
       {session && (
         <SimpleBar className="h-[calc(100%-80px)]">
+          <div>
+            {pathname.split("/").includes("branch") &&
+            pathname.split("/").length > 3 ? (
+              <div
+                className={cn(
+                  "group relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
+                  true
+                    ? "before:top-2/5 text-black  before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
+                    : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
+                )}
+              >
+                <div>
+                  Branch Manager
+                  <Text as={"p"} className="text-xs font-light">
+                    Branch manager Privilege
+                  </Text>
+                </div>
+              </div>
+            ) : (
+              <div
+                className={cn(
+                  "group relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
+                  true
+                    ? "before:top-2/5 text-black  before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
+                    : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
+                )}
+              >
+                <div>
+                  Store Owner
+                  <Text as={"p"} className="text-xs font-light">
+                    Store Owner Privilege
+                  </Text>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="mt-4 pb-3 3xl:mt-6">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
@@ -209,6 +316,28 @@ export default function Sidebar({ className }: { className?: string }) {
               );
             })}
           </div>
+          {pathname.split("/").includes("branch") &&
+            pathname.split("/").length > 3 && (
+              <Link href={"/so"}>
+                <div
+                  className={cn(
+                    "group cursor-pointer relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
+                    true
+                      ? "before:top-2/5 text-white bg-gradient-to-r from-[#008579] to-[#00BA63] before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
+                      : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[19px] [&>svg]:w-[19px] text-white"
+                    )}
+                  >
+                    <CgArrowsExchange />
+                  </span>
+                  <div>Switch to Branch Mode</div>
+                </div>
+              </Link>
+            )}
         </SimpleBar>
       )}
     </aside>

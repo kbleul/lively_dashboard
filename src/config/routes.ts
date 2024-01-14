@@ -53,11 +53,22 @@ export const routes = {
     },
   },
   storeOwner: {
-    dashboard: "/so",
+    dashboard: (id: string) => `/so/${id}`,
+    branches: (id: string) => `/so/${id}/branches`,
+    managers: (id: string) => `/so/${id}/managers`,
+    branch: {
+      dashboard: (id: string, branchId: string) => `/so/${id}/branch/${branchId}`,
+      products: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products`,
+      packages: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/packages`,
+    },
   },
   branchManger: {
     dashboard: "/bm",
     packages: "/bm/packages",
     createPackage: "/bm/packages/create-package",
+    products: "/bm/products",
+    addProduct: "/bm/products/create-product",
   },
 };
