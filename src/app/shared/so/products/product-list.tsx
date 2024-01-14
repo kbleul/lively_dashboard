@@ -41,13 +41,13 @@ export default function ProductList({ branchId }: { branchId: string }) {
   const deleteProduct = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-products/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${id}`,
         method: "DELETE",
         headers,
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllBranchProducts],
+            queryKey: [queryKeys.getAllBranchProducts + branchId],
           });
           toast.success("Product Deleted Successfully");
         },
@@ -69,7 +69,7 @@ export default function ProductList({ branchId }: { branchId: string }) {
           <Button
             onClick={() =>
               openModal({
-                view: <AddProductForm />,
+                view: <AddProductForm branchId={branchId} />,
                 customSize: "500px",
               })
             }

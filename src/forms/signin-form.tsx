@@ -50,7 +50,7 @@ export default function SignInForm() {
               : role.includes("Content_Creator")
                 ? routes.contentCreator.dashboard
                 : role.includes("Store_Owner")
-                  ? routes.storeOwner.dashboard
+                  ? routes.storeOwner.home
                   : role.includes("Branch_Manager")
                     ? routes.branchManger.dashboard
                     : "";

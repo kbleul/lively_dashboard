@@ -8,13 +8,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import PackageListCard from "./package-list-card";
 
-const PackageList = () => {
+const PackageList = ({ branchId }: { branchId: string }) => {
   const queryClient = useQueryClient();
   const headers = useGetHeaders({ type: "Json" });
   // const postMutation = useDynamicMutation();
   const packagesData = useFetchData(
-    [queryKeys.getAllPackages],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-packages`,
+    [queryKeys.getAllPackages + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
     headers
   );
   console.log(packagesData?.data?.data);

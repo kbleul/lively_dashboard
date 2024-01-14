@@ -35,4 +35,5 @@ export const queryKeys = {
   getAllBranchProducts:'getAllBranchProducts',
   getMyStores:'getMyStores',
   getMyBranches:'getMyBranches',
+  getStorePackageType:'getStorePackageType'
 };

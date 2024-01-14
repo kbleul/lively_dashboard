@@ -26,7 +26,7 @@ interface Service {
   };
   // Add other properties as needed
 }
-const CreatePackageForm = () => {
+const CreatePackageForm = ({ branchId }: { branchId: string }) => {
   const router = useRouter();
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
@@ -42,13 +42,13 @@ const CreatePackageForm = () => {
   };
 
   const packageTypes = useFetchData(
-    [queryKeys.getPackageTypes],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/package-types`,
+    [queryKeys.getPackageTypes + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-types`,
     headers
   );
   const serviceData = useFetchData(
-    [queryKeys.getAllServices],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/place-services`,
+    [queryKeys.getAllServices + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/place-services/${branchId}`,
     headers
   );
 
@@ -59,7 +59,7 @@ const CreatePackageForm = () => {
   const createPackage = async (values: CreatePackageType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-packages`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
         method: "POST",
         headers,
         body: {
@@ -73,7 +73,7 @@ const CreatePackageForm = () => {
         onSuccess: () => {
           router.push(routes.branchManger.packages);
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllPackages],
+            queryKey: [queryKeys.getAllPackages + branchId],
           });
           toast.success("Package Created Successfully");
         },

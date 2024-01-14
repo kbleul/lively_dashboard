@@ -8,15 +8,15 @@ interface Props {
 }
 const PackageListCard = ({ data }: Props) => {
   return (
-    <div className="bg-white dark:bg-black shadow-xl p-5 md:p-10 rounded-xl flex flex-col items-start space-y-3">
+    <div className="bg-white dark:bg-black shadow-xl p-5 w-full md:p-10 rounded-xl flex flex-col items-start space-y-3">
       <div className="flex items-center gap-2">
         <Title as="h4">{data?.category}</Title>
         <PencilIcon className="h-6 w-6 cursor-pointer" />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-5 w-full">
         {data?.packages?.map((item) => (
           <div
-            className="rounded-xl border-2 border-primary p-3 flex flex-col space-y-2"
+            className="rounded-xl w-full border-2 border-primary p-3 flex flex-col space-y-2"
             key={item.id}
           >
             <div className="flex items-end justify-end">

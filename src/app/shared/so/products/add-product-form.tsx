@@ -33,7 +33,7 @@ const AddProductForm = ({ branchId }: { branchId: string }) => {
   const addBranchProduct = async (values: AddBranchProductype) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}tore-owner/branch-products/${branchId}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
         method: "POST",
         headers,
         body: {
@@ -42,7 +42,7 @@ const AddProductForm = ({ branchId }: { branchId: string }) => {
         },
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllBranchProducts],
+            queryKey: [queryKeys.getAllBranchProducts + branchId],
           });
           toast.success("Product Added Successfully");
           closeModal();
