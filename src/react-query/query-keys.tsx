@@ -30,4 +30,6 @@ export const queryKeys = {
   getAllAmenity: "getAllAmenityApi",
   getSingleAmenity: "getSingleAmenity",
   getingleProduct: "getingleProduct",
+  getAllPackages:'getAllPackages',
+  getPackageTypes:'getPackageTypes'
 };

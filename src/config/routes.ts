@@ -52,4 +52,12 @@ export const routes = {
       amenity: "/contentc/services/amenity",
     },
   },
+  storeOwner: {
+    dashboard: "/so",
+  },
+  branchManger: {
+    dashboard: "/bm",
+    packages: "/bm/packages",
+    createPackage: "/bm/packages/create-package",
+  },
 };
