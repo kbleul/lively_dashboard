@@ -15,7 +15,6 @@ import { routes } from "@/config/routes";
 import { MdOutlineCategory } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
-import { CiGlobe } from "react-icons/ci";
 import { MdOutlineStorefront } from "react-icons/md";
 
 const ViewStore = ({ params }: { params: { placeId: string } }) => {
@@ -182,7 +181,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
 
           {branchData.data.data.length > 0 && (
             <div className="mb-10 grid grid-cols-1 md:grid-cols-2  gap-7  @2xl:gap-9 @3xl:gap-11 w-full  items-center justify-evenly">
-              {branchData.data.data.map((data) => (
+              {branchData.data.data.map((data: any) => (
                 <BranchCard key={data.id} data={data} />
               ))}
             </div>
@@ -208,6 +207,17 @@ const BranchCard = ({ data }: { data: any }) => {
       />
       <h4 className="px-4 py-2">{data.name.english}</h4>
       <p className="px-4 pb-4">{data.description.english}</p>
+
+      <Button
+        color="primary"
+        className="ml-4 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-10"
+      >
+        <Link
+          href={routes.operationalManager.places["branch-manager"](data.id)}
+        >
+          Manage Mangers
+        </Link>
+      </Button>
     </article>
   );
 };

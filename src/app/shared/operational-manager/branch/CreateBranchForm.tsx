@@ -41,8 +41,8 @@ const CreateBranchForm = ({ placeId }: { placeId: string }) => {
 
         {formStep === 3 && branchId && placeId && (
           <AddBranchManger
-            setFormStep={setFormStep}
             branchId={branchId}
+            setFormStep={setFormStep}
             setBrachId={setBrachId}
             placeId={placeId}
           />

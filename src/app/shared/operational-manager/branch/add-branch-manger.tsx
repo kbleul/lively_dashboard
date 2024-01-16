@@ -15,7 +15,8 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { toast } from "sonner";
 import moment from "moment";
 import { BranchManagerType, banchManagerSchema } from "@/validations/branches";
-import AvaterPicker from "@/components/ui/form/avater-upload";
+import { Button } from "@/components/ui/button";
+
 import FilePicker from "@/components/ui/form/dropzone";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
@@ -27,16 +28,16 @@ const Select = dynamic(() => import("@/components/ui/select"), {
 
 const AddBranchManger = ({
   className,
-  setFormStep,
   branchId,
+  setFormStep,
   setBrachId,
   placeId,
 }: {
   className?: string;
-  setFormStep: React.Dispatch<React.SetStateAction<number>>;
   branchId: string;
-  setBrachId: Dispatch<SetStateAction<string | null>>;
-  placeId: string;
+  setFormStep?: React.Dispatch<React.SetStateAction<number>>;
+  setBrachId?: React.Dispatch<React.SetStateAction<string | null>>;
+  placeId?: string;
 }) => {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
@@ -75,9 +76,16 @@ const AddBranchManger = ({
           toast.success("Branch manager Saved Successfully");
 
           if (res && res.data && res.data.id) {
-            router.push(routes.operationalManager.places.view(`/${placeId}`));
-            setFormStep(1);
-            setBrachId(null);
+            placeId
+              ? router.push(
+                  routes.operationalManager.places.view(`/${placeId}`)
+                )
+              : router.push(
+                  routes.operationalManager.places["branch-manager"](branchId)
+                );
+
+            setFormStep && setFormStep(1);
+            setBrachId && setBrachId(null);
           }
         },
         onError: (err) => {
@@ -87,6 +95,11 @@ const AddBranchManger = ({
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleSkip = () => {
+    placeId &&
+      router.push(routes.operationalManager.places.view(`/${placeId}`));
   };
 
   return (
@@ -103,8 +116,8 @@ const AddBranchManger = ({
             <Form className={"[&_label.block>span]:font-medium "}>
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                 <FormGroup
-                  title="Owner Info."
-                  description="Edit your Owner information from here"
+                  title="Manager Info."
+                  description="Edit your Manager information from here"
                   className={cn(className)}
                 >
                   <FormikInput
@@ -199,11 +212,23 @@ const AddBranchManger = ({
                   />
                 </FormGroup>
               </div>
-              <FormFooter
-                submitBtnText={"Save & Continue"}
-                showSveBtn={false}
-                isLoading={postMutation.isPending}
-              />
+
+              {placeId ? (
+                <FormFooter
+                  submitBtnText={"Save & Continue"}
+                  showSveBtn={false}
+                  isLoading={postMutation.isPending}
+                  showSkipButton={true}
+                  handleSkip={handleSkip}
+                  skipBtnText="Skip"
+                />
+              ) : (
+                <FormFooter
+                  submitBtnText={"Save & Continue"}
+                  showSveBtn={false}
+                  isLoading={postMutation.isPending}
+                />
+              )}
             </Form>
           );
         }}

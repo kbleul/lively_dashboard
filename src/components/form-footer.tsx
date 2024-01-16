@@ -8,6 +8,9 @@ interface FormFooterProps {
   isLoading?: boolean;
   handleAltBtn?: () => void;
   showSveBtn?: boolean;
+  showSkipButton?: boolean;
+  handleSkip?: () => void;
+  skipBtnText?: string;
 }
 
 export const negMargin = "-mx-4 md:-mx-5 lg:-mx-6 3xl:-mx-8 4xl:-mx-10";
@@ -19,6 +22,9 @@ export default function FormFooter({
   className,
   handleAltBtn,
   showSveBtn = true,
+  showSkipButton,
+  handleSkip,
+  skipBtnText,
 }: FormFooterProps) {
   return (
     <div
@@ -28,6 +34,17 @@ export default function FormFooter({
         negMargin
       )}
     >
+      {showSkipButton && (
+        <Button
+          color="primary"
+          variant="outline"
+          className="w-full @xl:w-auto"
+          onClick={handleSkip}
+        >
+          {skipBtnText}
+        </Button>
+      )}
+
       {showSveBtn && (
         <Button
           color="primary"

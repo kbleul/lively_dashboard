@@ -107,6 +107,23 @@ export const getColumns = ({ deleteProduct }: Columns) => [
             </ActionIcon>
           </Link>
         </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Edit"}
+          placement="top"
+          color="invert"
+        >
+          <Link href={`${routes.operationalManager.places.edit(row.id)}`}>
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <PencilIcon />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
         <ReusabelPopover
           title={`Delete Product`}
           icon={<FaTimes className="h-4 w-4" />}

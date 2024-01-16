@@ -32,9 +32,12 @@ export const routes = {
     places: {
       list: "/op/places",
       create: "/op/places/create-place",
-      edit: (id: string) => `/op/places/edit-place/${id}`,
-      view: (id: string) => `/op/places/view/${id}`,
+      edit: (id: string) => `/op/places/edit/${id}`,
+      view: (id: string) => `/op/places/view-place/${id}`,
       "create-branch": (id: string) => `/op/places/create-branch/${id}`,
+      "branch-manager": (id: string) => `/op/places/branch-manager/${id}`,
+      "create-branch-manager": (id: string) =>
+        `/op/places/create-branch-manager/${id}`,
     },
   },
   // content cretor routes
@@ -55,7 +58,7 @@ export const routes = {
     },
   },
   storeOwner: {
-    home:'/so',
+    home: "/so",
     dashboard: (id: string) => `/so/${id}`,
     branches: (id: string) => `/so/${id}/branches`,
     managers: (id: string) => `/so/${id}/managers`,
