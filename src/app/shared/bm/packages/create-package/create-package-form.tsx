@@ -183,7 +183,6 @@ const CreatePackageForm = () => {
                             getOptionLabel={(tag: any) => tag?.name?.english}
                             getOptionValue={(tag: any) => tag?.id}
                             onChange={(selectedOptions: any) => {
-                              console.log(selectedOptions);
                               setFieldValue(
                                 `packages.${index}.package_type_id`,
                                 selectedOptions?.id
