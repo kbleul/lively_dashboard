@@ -11,6 +11,7 @@ const AddOpeninHourForm = ({ className }: { className?: string }) => {
     Array(7).fill(false)
   );
   const { values } = useFormikContext<FormikValues>();
+
   return (
     <FormGroup
       title="Working Days & Hours"

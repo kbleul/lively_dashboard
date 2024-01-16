@@ -67,9 +67,12 @@ const CreateProductForm = () => {
           tags: values.tags,
           thumbnail: values.product_variants[0].product_image,
           variant_type: values.variant_type,
-          product_variants: values.product_variants?.map((variant) =>
-            clean(variant)
-          ),
+          product_variants: values.product_variants
+            ?.map((variant) => clean(variant))
+            .map((variant) => ({
+              ...variant,
+              additional_information: variant.additionalInfo,
+            })),
         },
         onSuccess: (res) => {
           router.push(routes.contentCreator.product);
@@ -91,7 +94,6 @@ const CreateProductForm = () => {
         onSubmit={createProductHandeler}
       >
         {({ handleSubmit, errors, values }) => {
-          console.log(errors);
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <FormNav />

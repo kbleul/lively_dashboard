@@ -13,6 +13,7 @@ export const operationalManagetMenuItems = [
   // label start
   {
     name: "Home",
+    label: "Operational Manager",
   },
   // label end
   {
@@ -90,6 +91,10 @@ export const operationalManagetMenuItems = [
         name: "Places",
         href: routes.operationalManager.places.list,
       },
+      {
+        name: "Create Place",
+        href: routes.operationalManager.places.create,
+      },
     ],
   },
 ];
@@ -97,6 +102,7 @@ export const operationalManagetMenuItems = [
 export const expertMenuItems = [
   {
     name: "Home",
+    label: null,
   },
   // label end
   {
@@ -128,6 +134,7 @@ export const expertMenuItems = [
 export const contentCretorMenuItems = [
   {
     name: "Home",
+    label: "Content Creation",
   },
   // label end
   {
@@ -187,6 +194,42 @@ export const contentCretorMenuItems = [
       {
         name: "Amenity",
         href: routes.contentCreator.services.amenity,
+      },
+    ],
+  },
+];
+
+export const branchManagerMenuItems = [
+  {
+    name: "Home",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: "/",
+    // href: routes.file.dashboard,
+    icon: <PiFileImageDuotone />,
+  },
+
+  {
+    name: "Packages",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Packages",
+        href: routes.branchManger.packages,
+      },
+    ],
+  },
+  {
+    name: "Products",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Products",
+        href: routes.branchManger.products,
       },
     ],
   },

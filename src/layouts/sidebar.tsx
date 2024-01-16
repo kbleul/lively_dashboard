@@ -16,6 +16,7 @@ import cn from "@/utils/class-names";
 import { PiCaretDownBold } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
 import {
+  branchManagerMenuItems,
   contentCretorMenuItems,
   expertMenuItems,
   operationalManagetMenuItems,
@@ -27,10 +28,16 @@ import { UrlObject } from "url";
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
-  console.log("gggg", session?.user);
   const determineMenuItems = () => {
     if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
       return expertMenuItems;
+    }
+    if (
+      session?.user?.user.roles
+        .map((role) => role.name)
+        .includes("Branch_Manager")
+    ) {
+      return branchManagerMenuItems;
     }
     if (
       session?.user?.user.roles
@@ -199,7 +206,7 @@ export default function Sidebar({ className }: { className?: string }) {
                         index !== 0 && "mt-6 3xl:mt-7"
                       )}
                     >
-                      {item.name}
+                      {item.label ? item.label : item.name}
                     </Title>
                   )}
                 </Fragment>

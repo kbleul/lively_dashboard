@@ -25,6 +25,7 @@ interface AvaterPickerProps {
   label: string;
   showImage?: boolean;
   className?: string;
+  isDoc?: boolean;
 }
 
 const AvaterPicker: React.FC<AvaterPickerProps> = ({
@@ -32,6 +33,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   label,
   showImage = true,
   className,
+  isDoc = false,
 }) => {
   const { setFieldValue } = useFormikContext();
   const [meta] = useField(name);
@@ -105,8 +107,8 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
                 isDragActive
                   ? "border-main-color border-2 bg-main-green-bg"
                   : isDragReject
-                    ? "border-red-500"
-                    : "bg-zinc-100"
+                  ? "border-red-500"
+                  : "bg-zinc-100"
               } w-full p-5 md:ps-10 relative border rounded-xl cursor-pointer duration-75 ease-in-out  `}
             >
               <input
@@ -114,6 +116,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
                 ref={fileInputRef}
                 onChange={handleFileChange}
                 style={{ display: "none" }}
+                accept={isDoc ? ".doc, .docx, .pdf, .zip, .gzip" : "image/*"}
               />
               <div className="flex flex-col items-center justify-center">
                 <UploadIcon className="mx-auto h-12 w-12" />
@@ -129,7 +132,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
           key={value.name}
         >
           <div className="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 object-cover px-2 py-1.5 dark:bg-transparent">
-            {value && value.type.includes("image") ? (
+            {value && value?.type?.includes("image") ? (
               <Image
                 src={URL.createObjectURL(value)}
                 fill

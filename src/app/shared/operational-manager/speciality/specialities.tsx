@@ -63,7 +63,6 @@ const SpecialityList = () => {
     handleRowSelect,
     handleSelectAll,
   } = useTable(specialityData?.data ?? [], pageSize);
-  console.log("specialityData", specialityData?.data);
   const onEditItem = (id: string) => {
     openModal({
       view: <AddSpecilaityForm id={id} />,

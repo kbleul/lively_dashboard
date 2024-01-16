@@ -17,7 +17,6 @@ const ExpertProfile = () => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}expert/profile`,
     headers
   );
-  console.log(profileData?.data?.data?.specialties);
   return (
     <div className="@container">
       <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -57,7 +56,12 @@ const ExpertProfile = () => {
                 id: string;
                 specialty: { name: { english: string; amharic: string } };
               }) => (
-                <Badge key={specialty.id} color="primary" className="mr-1" variant="outline">
+                <Badge
+                  key={specialty.id}
+                  color="primary"
+                  className="mr-1"
+                  variant="outline"
+                >
                   {specialty.specialty.name.english}
                 </Badge>
               )

@@ -49,7 +49,6 @@ export default function Contact() {
       console.log(err);
     }
   };
-  // console.log(expertsList?.data?.data?.map((item: any) => ({ user: item })));
   return (
     <>
       <ControlledTable

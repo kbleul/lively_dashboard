@@ -4,6 +4,7 @@ import FormGroup from "@/components/form-group";
 import cn from "@/utils/class-names";
 import FormikInput from "@/components/ui/form/input";
 import FormikTextArea from "@/components/ui/form/formik-textarea";
+import FormikTextEditor from "@/components/ui/form/formik-text-editor";
 
 const ProductDetailForm = ({ className }: { className?: string }) => {
   return (
@@ -24,18 +25,14 @@ const ProductDetailForm = ({ className }: { className?: string }) => {
         placeholder="Enter Product Title Amharic"
         color="primary"
       />
-      <FormikTextArea
+      <FormikTextEditor
         name="description"
-        label="Product Description"
-        placeholder="Enter Product Description English"
-        color="primary"
+        label="Product Description English"
         className="col-span-2"
       />
-      <FormikTextArea
+      <FormikTextEditor
         name="descriptionAm"
-        label="Product Amharic Description"
-        placeholder="Enter Product Description Amharic"
-        color="primary"
+        label="Product Description Amharic"
         className="col-span-2"
       />
     </FormGroup>
