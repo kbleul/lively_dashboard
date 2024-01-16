@@ -91,7 +91,6 @@ const CreateProductForm = () => {
         onSubmit={createProductHandeler}
       >
         {({ handleSubmit, errors, values }) => {
-          console.log(errors);
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <FormNav />

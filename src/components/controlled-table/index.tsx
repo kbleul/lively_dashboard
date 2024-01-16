@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import React from 'react';
-import dynamic from 'next/dynamic';
-import isEmpty from 'lodash/isEmpty';
-import Table, { type TableProps } from '@/components/ui/table';
-import { Title } from '@/components/ui/text';
-import Spinner from '@/components/ui/spinner';
-import type { TableFilterProps } from '@/components/controlled-table/table-filter';
-import type { TablePaginationProps } from '@/components/controlled-table/table-pagination';
-import cn from '@/utils/class-names';
+import React from "react";
+import dynamic from "next/dynamic";
+import isEmpty from "lodash/isEmpty";
+import Table, { type TableProps } from "@/components/ui/table";
+import { Title } from "@/components/ui/text";
+import Spinner from "@/components/ui/spinner";
+import type { TableFilterProps } from "@/components/controlled-table/table-filter";
+import type { TablePaginationProps } from "@/components/controlled-table/table-pagination";
+import cn from "@/utils/class-names";
 const TableFilter = dynamic(
-  () => import('@/components/controlled-table/table-filter'),
+  () => import("@/components/controlled-table/table-filter"),
   { ssr: false }
 );
 const TablePagination = dynamic(
-  () => import('@/components/controlled-table/table-pagination'),
+  () => import("@/components/controlled-table/table-pagination"),
   { ssr: false }
 );
 

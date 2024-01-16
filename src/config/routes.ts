@@ -32,7 +32,9 @@ export const routes = {
     places: {
       list: "/op/places",
       create: "/op/places/create-place",
-      edit: (id: string) => `/op/places/edit/${id}`,
+      edit: (id: string) => `/op/places/edit-place/${id}`,
+      view: (id: string) => `/op/places/view/${id}`,
+      "create-branch": (id: string) => `/op/places/create-branch/${id}`,
     },
   },
   // content cretor routes

@@ -27,7 +27,6 @@ import { UrlObject } from "url";
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
-  console.log("gggg", session?.user);
   const determineMenuItems = () => {
     if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
       return expertMenuItems;
@@ -38,7 +37,7 @@ export default function Sidebar({ className }: { className?: string }) {
         .includes("Operation_Manager") ||
       session?.user?.user.roles.map((role) => role.name).includes("Admin")
     ) {
-      return operationalManagetMenuItems;
+      return [...operationalManagetMenuItems, ...contentCretorMenuItems];
     }
     if (
       session?.user?.user.roles
@@ -199,7 +198,7 @@ export default function Sidebar({ className }: { className?: string }) {
                         index !== 0 && "mt-6 3xl:mt-7"
                       )}
                     >
-                      {item.name}
+                      {item.label ? item.label : item.name}
                     </Title>
                   )}
                 </Fragment>

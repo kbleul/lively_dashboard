@@ -11,6 +11,8 @@ const AddOpeninHourForm = ({ className }: { className?: string }) => {
     Array(7).fill(false)
   );
   const { values } = useFormikContext<FormikValues>();
+
+  console.log(customDaysChecked);
   return (
     <FormGroup
       title="Working Days & Hours"
@@ -26,6 +28,7 @@ const AddOpeninHourForm = ({ className }: { className?: string }) => {
               color="primary"
               className="font-medium"
               onChange={(e) => {
+                console.log(e.target);
                 const isChecked = e.target.checked;
                 setCustomDaysChecked((prevChecked) => {
                   const newChecked = [...prevChecked];

@@ -1,4 +1,5 @@
 "use client";
+
 import { HeaderCell } from "@/components/ui/table";
 import { Title, Text } from "@/components/ui/text";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -10,6 +11,7 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import ReusabelPopover from "@/components/reusabel-popover";
 import Image from "next/image";
+import Link from "next/link";
 type Columns = {
   deleteProduct: (id: string) => void;
 };
@@ -88,18 +90,29 @@ export const getColumns = ({ deleteProduct }: Columns) => [
       <div className="flex items-center justify-end gap-3 pe-4">
         <Tooltip
           size="sm"
-          content={() => "Approve Appintment"}
+          content={() => "Edit"}
           placement="top"
           color="invert"
         >
-          <ActionIcon
+          <Link href={`/${row.id}`}>
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <PencilIcon />
+            </ActionIcon>
+          </Link>
+
+          {/* <ActionIcon
             tag="span"
             size="sm"
             variant="outline"
             className="hover:text-gray-700"
           >
             <PencilIcon />
-          </ActionIcon>
+          </ActionIcon> */}
         </Tooltip>
         <ReusabelPopover
           title={`Delete Product`}
