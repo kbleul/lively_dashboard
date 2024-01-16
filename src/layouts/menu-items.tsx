@@ -198,3 +198,40 @@ export const contentCretorMenuItems = [
     ],
   },
 ];
+
+export const branchManagerMenuItems = [
+  {
+    name: "Home",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: "/",
+    // href: routes.file.dashboard,
+    icon: <PiFileImageDuotone />,
+  },
+
+  {
+    name: "Packages",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Packages",
+        href: routes.branchManger.packages,
+      },
+    ],
+  },
+  {
+    name: "Products",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "Products",
+        href: routes.contentCreator.product,
+      },
+    ],
+  },
+];
+

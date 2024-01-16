@@ -47,9 +47,34 @@ export const routes = {
     brand: "/contentc/brands",
     product: "/contentc/products",
     addProduct: "/contentc/products/add-product",
+    editProduct: (id: string) => `/contentc/products/edit/${id}`,
+    detailProduct: (id: string) => `/contentc/products/detail/${id}`,
     services: {
       list: "/contentc/services",
       amenity: "/contentc/services/amenity",
     },
+  },
+  storeOwner: {
+    home:'/so',
+    dashboard: (id: string) => `/so/${id}`,
+    branches: (id: string) => `/so/${id}/branches`,
+    managers: (id: string) => `/so/${id}/managers`,
+    branch: {
+      dashboard: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}`,
+      products: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products`,
+      packages: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/packages`,
+      createPackage: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/packages/create-package`,
+    },
+  },
+  branchManger: {
+    dashboard: "/bm",
+    packages: "/bm/packages",
+    createPackage: "/bm/packages/create-package",
+    products: "/bm/products",
+    addProduct: "/bm/products/create-product",
   },
 };

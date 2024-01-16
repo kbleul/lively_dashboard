@@ -21,7 +21,26 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
+
+    if (
+      req.nextUrl.pathname.startsWith("/bm") &&
+      !req.nextauth.token?.user.roles
+        ?.map((item) => item.name)
+        .includes("Branch_Manager")
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
+
+    if (
+      req.nextUrl.pathname.startsWith("/so") &&
+      !req.nextauth.token?.user.roles
+        ?.map((item) => item.name)
+        .includes("Store_Owner")
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
   },
+
   {
     pages: {
       ...pagesOptions,
@@ -35,5 +54,12 @@ export default withAuth(
 
 export const config = {
   // restricted routes that need authentication
-  matcher: ["/", "/expert/:path*", "/op/:path*", "/contentc/:path*"],
+  matcher: [
+    "/",
+    "/expert/:path*",
+    "/op/:path*",
+    "/contentc/:path*",
+    "/bm/:path*",
+    "/so/:path*",
+  ],
 };
