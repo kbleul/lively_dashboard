@@ -63,7 +63,6 @@ const OccupationList = () => {
     handleRowSelect,
     handleSelectAll,
   } = useTable(cityData?.data ?? [], pageSize);
-  console.log("cityData", cityData?.data);
   const onEditItem = (id: string) => {
     openModal({
       view: <AddOccupationForm id={id} />,

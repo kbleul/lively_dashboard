@@ -48,7 +48,7 @@ const ProductEditTab = ({ setActiveTab, activeTab }: Props) => {
           >
             {({ selected }) => (
               <>
-                <p className="whitespace-nowrap">Vriants</p>
+                <p className="whitespace-nowrap">Variants</p>
                 <span
                   className={cn(
                     "absolute left-0 -bottom-px h-0.5 w-full",

@@ -17,7 +17,6 @@ const PackageList = ({ branchId }: { branchId: string }) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
     headers
   );
-  console.log(packagesData?.data?.data);
   return (
     <div>
       {packagesData.isSuccess && packagesData?.isFetched ? (

@@ -33,7 +33,6 @@ export default function AddSpecilaityForm({ id }: { id?: string }) {
     headers,
     !!id
   );
-  console.log(specialityData?.data);
   const initialValues: SpecialitySchemaVlues = {
     nameAm: id ? specialityData?.data?.data?.name?.amharic : "",
     nameEn: id ? specialityData?.data?.data?.name?.english : "",

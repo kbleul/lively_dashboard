@@ -22,13 +22,15 @@ const MyStores = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/my-places`,
     headers
   );
-  console.log(myStoresData?.data?.data);
 
-  React.useEffect(() => {
-    if (myStoresData?.data?.data?.length < 2) {
-      router.push(`/so/${myStoresData?.data?.data[0]?.id}`);
-    }
-  }, []);
+  if (
+    myStoresData.isFetched &&
+    myStoresData.isSuccess &&
+    myStoresData?.data?.data?.length > 1 &&
+    myStoresData?.data?.data?.length < 2
+  ) {
+    router.push(`/so/${myStoresData?.data?.data[0]?.id}`);
+  }
   return (
     <div className="max-w-4xl mx-auto w-full flex items-center justify-center min-h-screen">
       {myStoresData.isFetched && myStoresData.isSuccess ? (
@@ -39,7 +41,7 @@ const MyStores = () => {
             setValue={setValue}
             className="grid grid-cols-2 gap-4 w-full"
           >
-            {myStoresData?.data?.data?.length > 1 &&
+            {myStoresData?.data?.data?.length > 0 &&
               myStoresData?.data?.data.map((store: StoreDataType) => (
                 <AdvancedRadio
                   key={store.id}

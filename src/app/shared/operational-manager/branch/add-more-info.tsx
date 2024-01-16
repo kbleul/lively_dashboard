@@ -28,7 +28,6 @@ const AddMoreInfo = ({
   setFormStep: React.Dispatch<React.SetStateAction<number>>;
   branchId: string;
 }) => {
-  console.log("branchid--->", branchId);
   const postMutation = useDynamicMutation();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -56,8 +55,6 @@ const AddMoreInfo = ({
   };
 
   const branchInfoSubmitHandler = async (values: moreInfoType) => {
-    console.log(values);
-
     const openingHoursToSend: {
       day_of_week: string;
       opening_time: string;
@@ -170,7 +167,6 @@ const AddMoreInfo = ({
                           color="primary"
                           className="font-medium"
                           onChange={(e) => {
-                            console.log(e.target);
                             const isChecked = e.target.checked;
                             setCustomDaysChecked((prevChecked) => {
                               const newChecked = [...prevChecked];

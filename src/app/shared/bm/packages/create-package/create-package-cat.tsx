@@ -15,7 +15,6 @@ interface Props {
   setIsCatModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const CreatePackageCat = ({ setIsCatModalOpen }: Props) => {
-
   const { setFieldValue, values } = useFormikContext<FormikValues>();
   const headers = useGetHeaders({ type: "FormData" });
   const serviceData = useFetchData(
@@ -23,7 +22,6 @@ const CreatePackageCat = ({ setIsCatModalOpen }: Props) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/place-services`,
     headers
   );
-  console.log({ values });
   return (
     <div className="m-auto px-7 pt-6 pb-8">
       <div className="mb-7 flex items-center justify-between">

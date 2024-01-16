@@ -229,9 +229,8 @@ export const branchManagerMenuItems = [
     dropdownItems: [
       {
         name: "Products",
-        href: routes.contentCreator.product,
+        href: routes.branchManger.products,
       },
     ],
   },
 ];
-

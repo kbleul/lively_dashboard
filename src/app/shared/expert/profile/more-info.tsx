@@ -45,7 +45,6 @@ const MoreInfoForm = ({}: Props) => {
     priceInPerson:
       profileData?.data?.data?.appointment_type?.in_person?.price ?? "0",
   };
-  console.log({initialValues});
 
   const occupationData = useFetchData(
     [queryKeys.getAllOccupations],

@@ -35,7 +35,6 @@ export default function AddCityForm({ id }: { id?: string }) {
     headers,
     !!id
   );
-  console.log(cityData?.data?.data?.name);
   const initialValues: CommonToolsSchemaVlues = {
     nameAm: id ? cityData?.data?.data?.name?.amharic : "",
     nameEn: id ? cityData?.data?.data?.name?.english : "",

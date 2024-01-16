@@ -57,7 +57,6 @@ const EditExpertForm = ({ id }: Props) => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/experts/${id}`,
     headers
   );
-  console.log(expertData?.data?.data);
 
   const initialValues: EditExpertInfoType = {
     city_id: expertData?.data?.data?.city_id,
@@ -84,7 +83,8 @@ const EditExpertForm = ({ id }: Props) => {
     ),
 
     online: expertData?.data?.data?.appointment_type?.phone?.active ?? false,
-    priceInOnline: expertData?.data?.data?.appointment_type?.phone?.price ?? "0",
+    priceInOnline:
+      expertData?.data?.data?.appointment_type?.phone?.price ?? "0",
     inperson:
       expertData?.data?.data?.appointment_type?.in_person?.active ?? false,
     priceInPerson:

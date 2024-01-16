@@ -121,7 +121,6 @@ export default function StoreSidebar({ className }: { className?: string }) {
       ? storeAsBranchManagerMenuItems
       : storeOwnerMenuItems;
   };
-  console.log({ pathname: pathname.split("/")[4] });
   return (
     <aside
       className={cn(

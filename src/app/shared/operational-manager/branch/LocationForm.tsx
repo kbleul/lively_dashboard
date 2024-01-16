@@ -21,7 +21,6 @@ const LocationForm = ({ className }: { className?: string }) => {
   const handlePlaceSelect = (place: Location) => {
     setFieldValue("latitude", place.lat);
     setFieldValue("longitude", place.lng);
-    console.log(place);
   };
 
   const onMapClick = (event: google.maps.MapMouseEvent) => {

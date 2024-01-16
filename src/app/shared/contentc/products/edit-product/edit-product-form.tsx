@@ -24,7 +24,6 @@ const EditProductForm = ({ id }: Props) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/products/${id}`,
     headers
   );
-  console.log(productData?.data?.data);
   return (
     <div className="@container">
       <ProductEditTab setActiveTab={setActiveTab} activeTab={activeTab} />

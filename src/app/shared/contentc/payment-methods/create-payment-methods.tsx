@@ -13,7 +13,11 @@ import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
 import { Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
-import { PaymentMethodType, editMethodSchema, paymentMethodSchema } from "@/validations/language";
+import {
+  PaymentMethodType,
+  editMethodSchema,
+  paymentMethodSchema,
+} from "@/validations/language";
 import FilePicker from "@/components/ui/form/dropzone";
 import Image from "next/image";
 
@@ -29,7 +33,6 @@ export default function AddPaymentForm({ id }: { id?: string }) {
     headers,
     !!id
   );
-  console.log(paymentMethod?.data?.data);
   const initialValues: PaymentMethodType = {
     bankNameEn: id ? paymentMethod?.data?.data?.bank_name?.english : "",
     bankNameAm: id ? paymentMethod?.data?.data?.bank_name?.amharic : "",
@@ -97,7 +100,7 @@ export default function AddPaymentForm({ id }: { id?: string }) {
       ) : (
         <Formik
           initialValues={initialValues}
-          validationSchema={id ? editMethodSchema :paymentMethodSchema}
+          validationSchema={id ? editMethodSchema : paymentMethodSchema}
           onSubmit={createLanguageSchema}
         >
           {({ errors, values }) => {

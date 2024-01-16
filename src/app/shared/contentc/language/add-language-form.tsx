@@ -29,7 +29,6 @@ export default function AddLanguageForm({ id }: { id?: string }) {
     headers,
     !!id
   );
-  console.log(languageData?.data?.data?.name);
   const initialValues: LanguageType = {
     name: id ? languageData?.data?.data?.name : "",
   };

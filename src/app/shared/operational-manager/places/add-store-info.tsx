@@ -199,7 +199,6 @@ const BusinessTypeSelect = () => {
       getOptionLabel={(category: any) => category?.name?.english}
       getOptionValue={(category: any) => category?.id}
       onChange={(selectedOptions: any) => {
-        console.log("-->", selectedOptions);
         setFieldValue("place_type_id", selectedOptions.id);
       }}
       placeholder="Select Business type"

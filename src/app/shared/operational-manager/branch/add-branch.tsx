@@ -50,7 +50,6 @@ const AddBranchInfo = ({
   };
 
   const branchInfoSubmitHandler = async (values: branchInfoType) => {
-    console.log(values);
     const newValues = {
       ...values,
       phone: "251".concat(values.phone),
@@ -68,7 +67,6 @@ const AddBranchInfo = ({
         },
         onSuccess: (res) => {
           toast.success("Store Branch Information Saved Successfully");
-          console.log(res.data);
           if (res && res.data && res.data.id) {
             setBrachId(res.data.id);
             setFormStep(2);

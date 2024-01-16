@@ -29,7 +29,6 @@ const BrancheList = ({ id }: { id: string }) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branches/${id}`,
     headers
   );
-  console.log(mybranchesData?.data);
 
   return (
     <div>
