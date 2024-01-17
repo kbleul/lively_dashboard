@@ -33,7 +33,7 @@ export const routes = {
       list: "/op/places",
       create: "/op/places/create-place",
       edit: (id: string) => `/op/places/edit/${id}`,
-      view: (id: string) => `/op/places/view-place/${id}`,
+      view: (id: string) => `/op/places/view/${id}`,
       "create-branch": (id: string) => `/op/places/create-branch/${id}`,
       "branch-manager": (id: string) => `/op/places/branch-manager/${id}`,
       "create-branch-manager": (id: string) =>

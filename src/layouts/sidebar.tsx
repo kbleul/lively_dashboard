@@ -206,7 +206,7 @@ export default function Sidebar({ className }: { className?: string }) {
                         index !== 0 && "mt-6 3xl:mt-7"
                       )}
                     >
-                      {item.label ? item.label : item.name}
+                      {item.name}
                     </Title>
                   )}
                 </Fragment>

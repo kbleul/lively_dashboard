@@ -55,20 +55,6 @@ const PlaceOwnerDetailForm = ({ className }: { className?: string }) => {
         noOptionsMessage={() => "gender appears here"}
         className="col-span-2"
       />
-
-      <Field name="gender">
-        {() => (
-          <Select
-            options={genderOptions}
-            value={values.gender}
-            onChange={(value) => setFieldValue("gender", value)}
-            label="Gender"
-            error={errors?.gender}
-            getOptionValue={(option) => option.name}
-            color="primary"
-          />
-        )}
-      </Field>
     </FormGroup>
   );
 };
