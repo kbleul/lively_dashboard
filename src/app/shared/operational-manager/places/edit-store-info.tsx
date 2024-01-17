@@ -17,7 +17,6 @@ import { queryKeys } from "@/react-query/query-keys";
 
 import useDynamicMutation from "@/react-query/usePostData";
 import { toast } from "sonner";
-import { Button } from "rizzui";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
 
@@ -60,15 +59,16 @@ const EditStoreInfo = ({
 
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/places`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/places/${storeData.id}`,
         method: "POST",
         headers,
         body: {
           ...newValues,
+          _method: "PATCH",
         },
         onSuccess: (res) => {
-          toast.success("Store Information Saved Successfully");
-          router.push(routes.operationalManager.places.list);
+          toast.success("Store Information Updated Successfully");
+          router.push(routes.operationalManager.places.view(storeData.id));
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);
@@ -108,7 +108,7 @@ const EditStoreInfo = ({
                     color="primary"
                   />
 
-                  <BusinessTypeSelect />
+                  <BusinessTypeSelect placeId={storeData.place_type.id} />
 
                   <FormikInput
                     type="number"
@@ -167,7 +167,7 @@ const EditStoreInfo = ({
   );
 };
 
-const BusinessTypeSelect = () => {
+const BusinessTypeSelect = ({ placeId }: { placeId: string }) => {
   const { setFieldValue } = useFormikContext<FormikValues>();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -183,6 +183,7 @@ const BusinessTypeSelect = () => {
       name="place_type_id"
       label="Business Type"
       options={unitData?.data?.data}
+      defaultValue={placeId}
       getOptionLabel={(category: any) => category?.name?.english}
       getOptionValue={(category: any) => category?.id}
       onChange={(selectedOptions: any) => {

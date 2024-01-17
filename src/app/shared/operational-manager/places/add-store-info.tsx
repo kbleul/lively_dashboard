@@ -2,7 +2,7 @@
 
 import { StoreType, storeSchema } from "@/validations/places";
 import React from "react";
-import FormFooter, { negMargin } from "@/components/form-footer";
+import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
 import FormikInput from "@/components/ui/form/input";
 import cn from "@/utils/class-names";
@@ -18,7 +18,6 @@ import { queryKeys } from "@/react-query/query-keys";
 import AvaterPicker from "@/components/ui/form/avater-upload";
 import useDynamicMutation from "@/react-query/usePostData";
 import { toast } from "sonner";
-import { Button } from "rizzui";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
 
