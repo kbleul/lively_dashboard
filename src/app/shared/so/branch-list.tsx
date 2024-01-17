@@ -3,14 +3,10 @@ import Spinner from "@/components/ui/spinner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
-import { StoreDataType } from "@/types/store";
 import React from "react";
-import Placeholder from "@public/Placeholder.png";
 import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
-import { RadioGroup } from "@/components/ui/radio";
-import { AdvancedRadio } from "@/components/ui/advanced-radio";
-import { FaCheckCircle } from "react-icons/fa";
+
 import Link from "next/link";
 import { Text } from "@/components/ui/text";
 import { useRouter } from "next/navigation";
@@ -19,10 +15,10 @@ import ReusabelPopover from "@/components/reusabel-popover";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { routes } from "@/config/routes";
 import { BranchDataType } from "@/types/branch";
+
 const BrancheList = ({ id }: { id: string }) => {
   const [page, setPage] = React.useState(1);
-  const router = useRouter();
-  const [value, setValue] = React.useState<string>("");
+
   const headers = useGetHeaders({ type: "Json" });
   const mybranchesData = useFetchData(
     [queryKeys.getMyBranches, id],
@@ -38,6 +34,12 @@ const BrancheList = ({ id }: { id: string }) => {
           <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
             Loading...
           </Title>
+        </div>
+      )}
+
+      {mybranchesData.isSuccess && mybranchesData?.data?.data?.length === 0 && (
+        <div className="flx justify-center items-center w-full mt-32 border">
+          <p className="text-xl text-center w-full border">No branches yet</p>
         </div>
       )}
       {mybranchesData.isSuccess && (

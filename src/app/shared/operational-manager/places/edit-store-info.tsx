@@ -38,7 +38,7 @@ const EditStoreInfo = ({
     nameAmharic: storeData.name.amharic,
     descriptionEnglish: storeData.name.english,
     descriptionAmharic: storeData.name.amharic,
-    website: storeData.name.website ? storeData.name.website : "",
+    website: storeData.website ? storeData.website.slice(8) : "",
     phone: storeData.phone.slice(3),
     place_logo:
       storeData.place_logo && storeData.place_logo.url
