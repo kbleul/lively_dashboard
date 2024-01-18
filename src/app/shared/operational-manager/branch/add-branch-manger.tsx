@@ -117,7 +117,7 @@ const AddBranchManger = ({
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                 <FormGroup
                   title="Manager Info."
-                  description="Edit your Manager information from here"
+                  description="Add your Manager information from here"
                   className={cn(className)}
                 >
                   <FormikInput

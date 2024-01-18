@@ -38,8 +38,8 @@ const BrancheList = ({ id }: { id: string }) => {
       )}
 
       {mybranchesData.isSuccess && mybranchesData?.data?.data?.length === 0 && (
-        <div className="flx justify-center items-center w-full mt-32 border">
-          <p className="text-xl text-center w-full border">No branches yet</p>
+        <div className="flx justify-center items-center w-full mt-32 ">
+          <p className="text-xl text-center w-full">No branches yet</p>
         </div>
       )}
       {mybranchesData.isSuccess && (

@@ -6,6 +6,22 @@ import { CreateBranchSteps } from "@/constants/form-constants";
 import AddBranchInfo from "./add-branch";
 import AddMoreInfo from "./add-more-info";
 import AddBranchManger from "./add-branch-manger";
+import PageHeader from "../../page-header";
+
+const pageHeader = {
+  title: "Store Owner",
+  breadcrumb: [
+    {
+      name: "Stores",
+    },
+    {
+      name: "View Stores",
+    },
+    {
+      name: "Create Stores",
+    },
+  ],
+};
 
 const CreateBranchForm = ({ placeId }: { placeId: string }) => {
   const [formStep, setFormStep] = useState(1);
@@ -13,16 +29,7 @@ const CreateBranchForm = ({ placeId }: { placeId: string }) => {
 
   return (
     <div>
-      <section className="pb-8">
-        <h4 className="font-normal text-3xl text-black">Create Branch</h4>
-        <div className="flex justify-start items-center gap-x-6">
-          <p className="text-[#5F5F5F]">Operation Manager</p>
-          <p className="w-2 h-2 rounded-full bg-[#5F5F5F]"></p>
-          <p className="text-[#5F5F5F]">Branch</p>
-          <p className="w-2 h-2 rounded-full  bg-[#5F5F5F] "></p>
-          <p className="text-[#5F5F5F]">Create</p>
-        </div>
-      </section>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
       <FormStepIndicator formStep={formStep} STEPS={CreateBranchSteps} />
 

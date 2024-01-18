@@ -61,6 +61,8 @@ export const routes = {
     home: "/so",
     dashboard: (id: string) => `/so/${id}`,
     branches: (id: string) => `/so/${id}/branches`,
+    "create-branch": (id: string) => `/so/${id}/create-branch`,
+
     managers: (id: string) => `/so/${id}/managers`,
     branch: {
       dashboard: (id: string, branchId: string) =>

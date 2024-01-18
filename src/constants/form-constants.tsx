@@ -84,3 +84,16 @@ export const CreateBranchSteps = [
     subTitle: "About the branch manager",
   },
 ];
+
+export const CreateBranchStoreSteps = [
+  {
+    id: "create-branch-step-1",
+    title: "Branch info.",
+    subTitle: "About the Branch",
+  },
+  {
+    id: "create-branch-step-2",
+    title: "More info.",
+    subTitle: "More information",
+  },
+];

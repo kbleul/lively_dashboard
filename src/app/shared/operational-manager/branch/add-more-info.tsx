@@ -107,7 +107,7 @@ const AddMoreInfo = ({
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                 <FormGroup
                   title="More Branch Info."
-                  description="Edit your Branch information from here"
+                  description="Add your Branch information from here"
                   className={cn(className)}
                 >
                   <div className="mt-4 w-full  col-span-2 flex flex-col gap-6">
@@ -152,7 +152,7 @@ const AddMoreInfo = ({
 
                 <FormGroup
                   title="Working Days & Hours"
-                  description="Edit your working days & hours from here"
+                  description="Add your working days & hours from here"
                   className={cn(className)}
                 >
                   <div className="col-span-2">

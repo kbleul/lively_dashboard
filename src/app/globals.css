@@ -1217,3 +1217,16 @@ div[style="z-index: 1000001;"],
   bottom: -4rem;
   left: 3rem;
 }
+
+.branchlogo {
+  position: absolute;
+  bottom: -4rem;
+  left: 3rem;
+}
+
+@media (max-width: 600px) {
+  .branchlogo {
+    bottom: -2rem;
+    left: 1rem;
+  }
+}

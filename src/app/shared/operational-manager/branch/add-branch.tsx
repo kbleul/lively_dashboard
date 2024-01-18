@@ -95,8 +95,8 @@ const AddBranchInfo = ({
             <Form className={"[&_label.block>span]:font-medium "}>
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                 <FormGroup
-                  title="Owner Info."
-                  description="Edit your Owner information from here"
+                  title="Store Info."
+                  description="Add your Store information from here"
                   className={cn(className)}
                 >
                   <FormikInput

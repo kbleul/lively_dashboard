@@ -16,6 +16,19 @@ import { MdOutlineCategory } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineStorefront } from "react-icons/md";
+import PageHeader from "@/app/shared/page-header";
+
+const pageHeader = {
+  title: "Store Owner",
+  breadcrumb: [
+    {
+      name: "Stores",
+    },
+    {
+      name: "View Stores",
+    },
+  ],
+};
 
 const ViewStore = ({ params }: { params: { placeId: string } }) => {
   const headers = useGetHeaders({ type: "Json" });
@@ -62,19 +75,12 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
 
   return (
     <>
-      <section className="pb-8">
-        <h4 className="font-medium text-2xl text-black">Store</h4>
-        <div className="flex justify-start items-center gap-x-4">
-          <p className="text-[#5F5F5F]">Operation Manager</p>
-          <p className="w-2 h-2 rounded-full  bg-[#5F5F5F] " />
-          <p className="text-[#5F5F5F]">Place</p>
-        </div>
-      </section>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
       {storeData?.data?.data && (
         <article className="relative">
           <section
-            className=" w-full h-[25vh] bg-orange-100 rounded-3xl overflow-hidden relative"
+            className=" w-full h-[15vh] md:h-[25vh] bg-orange-100 rounded-3xl overflow-hidden relative"
             style={{
               backgroundImage: `url('/bg.png')`,
               backgroundSize: "cover",
@@ -82,10 +88,10 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
             }}
           ></section>
 
-          <section className=" branchlogo flex items-start mt-40 justify-start pl-20">
+          <section className="branchlogo flex items-start mt-40 justify-start pl-2 md:pl-20">
             <section className="">
               <section
-                className="w-32 h-32 gap-x-4  bg-orange-100 rounded-full overflow-hidden  z-10"
+                className="w-20 h-20 md:w-32 md:h-32 gap-x-4  bg-orange-100 rounded-full overflow-hidden  z-10"
                 style={{
                   backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                   backgroundSize: "cover",
@@ -107,7 +113,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
         </article>
       )}
 
-      <section className="w-3/4  md:ml-[30%] lg:[23%]  ">
+      <section className="mt-8 md:mt-0 w-3/4  md:ml-[30%] lg:[23%]  ">
         <h4 className="font-bold text-2xl py-2">
           {storeData?.data?.data?.name?.english}
         </h4>

@@ -107,28 +107,27 @@ const CustomCategoryButton = ({
   setCategoryLink: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   return (
-    <article className="w-full flex justify-center items-center  my-2">
-      <Button
-        name="Completed"
+    <article className="w-full mb-4 border-b border-b-gray-300 flex justify-start gap-x-6 items-center  my-2">
+      <button
         onClick={() => setCategoryLink(PlaceListCategoriesLink[0])}
         className={
           categoryLink === PlaceListCategoriesLink[0]
-            ? "w-1/2 bg-inherit text-black border-b-2 border-b-black"
-            : "w-1/2 bg-inherit text-black"
+            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
+            : "bg-inherit text-black"
         }
       >
         Complete
-      </Button>
-      <Button
+      </button>
+      <button
         onClick={() => setCategoryLink(PlaceListCategoriesLink[1])}
         className={
           categoryLink === PlaceListCategoriesLink[1]
-            ? "w-1/2 bg-inherit text-black border-b-2 border-b-black"
-            : "w-1/2 bg-inherit text-black"
+            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
+            : "bg-inherit text-black"
         }
       >
         Incomplete
-      </Button>
+      </button>
     </article>
   );
 };
