@@ -46,7 +46,7 @@ const AddVariantForm = ({ id, type }: Props) => {
         onSuccess: (res) => {
           toast.success("Variant Created Successfully");
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getingleProduct],
+            queryKey: [queryKeys.getSingleProduct],
           });
         },
         onError: (err) => {
@@ -181,29 +181,36 @@ const AddVariantForm = ({ id, type }: Props) => {
                     </div>
                   </div>
                 ))}
-              {  <div className="flex items-end justify-end self-end">
-                  <Button
-                    onClick={() =>
-                      data.push({
-                        type: "",
-                        valueEnglish: "",
-                        valueAmharic: "",
-                        colorNameEnglish: "",
-                        colorNameAmharic: "",
-                        hash: "",
-                        product_image: undefined,
-                        additionalInfo: [],
-                      })
-                    }
-                  >
-                    Add More Variant
-                  </Button>
-                </div>}
+                {
+                  <div className="flex items-end justify-end self-end">
+                    <Button
+                      onClick={() =>
+                        data.push({
+                          type: "",
+                          valueEnglish: "",
+                          valueAmharic: "",
+                          colorNameEnglish: "",
+                          colorNameAmharic: "",
+                          hash: "",
+                          product_image: undefined,
+                          additionalInfo: [],
+                        })
+                      }
+                    >
+                      Add More Variant
+                    </Button>
+                  </div>
+                }
               </div>
             )}
           </FieldArray>
           <div className="flex items-end justify-end self-end">
-            <Button isLoading={postMutation.isPending} type="submit" size="lg" color="primary">
+            <Button
+              isLoading={postMutation.isPending}
+              type="submit"
+              size="lg"
+              color="primary"
+            >
               Create Variant
             </Button>
           </div>

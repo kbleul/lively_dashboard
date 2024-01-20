@@ -31,11 +31,11 @@ export const queryKeys = {
   getSingleService: "getSingleService",
   getAllAmenity: "getAllAmenityApi",
   getSingleAmenity: "getSingleAmenity",
-  getingleProduct: "getingleProduct",
-  getAllPackages:'getAllPackages',
-  getPackageTypes:'getPackageTypes',
-  getAllBranchProducts:'getAllBranchProducts',
-  getMyStores:'getMyStores',
-  getMyBranches:'getMyBranches',
-  getStorePackageType:'getStorePackageType'
+  getSingleProduct: "getSingleProduct",
+  getAllPackages: "getAllPackages",
+  getPackageTypes: "getPackageTypes",
+  getAllBranchProducts: "getAllBranchProducts",
+  getMyStores: "getMyStores",
+  getMyBranches: "getMyBranches",
+  getStorePackageType: "getStorePackageType",
 };

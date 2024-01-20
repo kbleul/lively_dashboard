@@ -19,6 +19,7 @@ const LocationForm = ({ className }: { className?: string }) => {
   const [value, setValue] = React.useState("search");
   const { setFieldValue } = useFormikContext();
   const handlePlaceSelect = (place: Location) => {
+    console.log(place);
     setFieldValue("latitude", place.lat);
     setFieldValue("longitude", place.lng);
   };

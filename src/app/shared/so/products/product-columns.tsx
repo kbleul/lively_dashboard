@@ -80,7 +80,7 @@ export const getColumns = ({ onDeleteItem, onEditItem }: Columns) => [
       <div className="flex items-center justify-end gap-3 pe-4">
         <Tooltip
           size="sm"
-          content={() => `Edit Service`}
+          content={() => `Edit`}
           placement="top"
           color="invert"
         >

@@ -49,8 +49,12 @@ export default function Autocomplete({
   const { theme } = useTheme();
   // global location state
   const location = useAtomValue(locationAtom);
+
   // to handle / clear input state
   const [inputValue, setInputValue] = useState("");
+
+  const [newLocation, setNewLocation] = useState<any>(null);
+
   // map loading state
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // to reset location
@@ -76,6 +80,7 @@ export default function Autocomplete({
       autocompleteInstance.addListener("place_changed", () => {
         const selectedPlace =
           autocompleteInstance.getPlace() as google.maps.places.PlaceResult;
+        console.log(selectedPlace);
         handlePlaceSelect(selectedPlace);
       });
       setIsLoading(false);
@@ -83,8 +88,8 @@ export default function Autocomplete({
       if (!hideMap && mapRef.current) {
         new Map(mapRef.current, {
           center: {
-            lat: location.lat,
-            lng: location.lng,
+            lat: newLocation ? newLocation.lat : location.lat,
+            lng: newLocation ? newLocation.lng : location.lng,
           },
           zoom: 15,
           mapTypeControl: false,
@@ -94,11 +99,12 @@ export default function Autocomplete({
           }),
         });
       }
+
       if (!hideMap && mapRef.current) {
         const mapInstance = new Map(mapRef.current, {
           center: {
-            lat: location.lat,
-            lng: location.lng,
+            lat: newLocation ? newLocation.lat : location.lat,
+            lng: newLocation ? newLocation.lng : location.lng,
           },
           zoom: 15,
           mapTypeControl: false,
@@ -114,9 +120,10 @@ export default function Autocomplete({
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.lat, location.lng, theme, hideMap]);
+  }, [location.lat, location.lng, theme, hideMap, newLocation]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("=======> ", event.target.value);
     if (autocomplete) {
       const input = event.target.value;
       setInputValue(input);
@@ -129,11 +136,20 @@ export default function Autocomplete({
   const handlePlaceSelect = (selectedPlace: google.maps.places.PlaceResult) => {
     if (selectedPlace && selectedPlace.formatted_address) {
       const { formatted_address, geometry } = selectedPlace;
+
       const place: Location = {
         address: formatted_address,
         lat: geometry?.location?.lat() || 0,
         lng: geometry?.location?.lng() || 0,
       };
+
+      setNewLocation({
+        lat: geometry?.location?.lat(),
+        lng: geometry?.location?.lng(),
+      });
+
+      console.log("==========", place);
+
       onPlaceSelect(place);
       setInputValue(formatted_address);
     }
