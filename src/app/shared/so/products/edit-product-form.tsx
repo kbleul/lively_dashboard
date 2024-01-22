@@ -80,8 +80,6 @@ const EditdProductForm = ({
     );
   }
 
-  console.log(productData.data.data);
-
   const initialValues: EditBranchProductype = {
     price: productData?.data?.data?.price,
   };

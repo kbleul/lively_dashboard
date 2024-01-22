@@ -38,7 +38,6 @@ export default function ProductList({ branchId }: { branchId: string }) {
 
   //delete Product
   const deleteProduct = async (id: string) => {
-    console.log(id);
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${id}`,
@@ -61,7 +60,6 @@ export default function ProductList({ branchId }: { branchId: string }) {
   };
 
   const editItem = (id: string) => {
-    console.log(id);
     openModal({
       view: <EditdProductForm branchId={branchId} productId={id} />,
       customSize: "500px",

@@ -46,7 +46,6 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
         standardWeekDayIndices[day] = index;
       });
     const values = Object.values(standardWeekDayIndices);
-    console.log({ values });
     const newArray = [...customDaysChecked];
     values.forEach((index) => {
       if (index >= 0 && index < newArray.length) {
@@ -68,7 +67,7 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
               opening_time: appendDefaultSecond(hours.from),
               closing_time: appendDefaultSecond(hours.to),
             }))
-            .filter((_:unknown, index: number) => customDaysChecked[index]),
+            .filter((_: unknown, index: number) => customDaysChecked[index]),
           // _method: "PATCH",
         },
         onSuccess: () => {

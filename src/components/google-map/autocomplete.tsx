@@ -85,7 +85,6 @@ export default function Autocomplete({
       autocompleteInstance.addListener("place_changed", () => {
         const selectedPlace =
           autocompleteInstance.getPlace() as google.maps.places.PlaceResult;
-        console.log(selectedPlace);
         handlePlaceSelect(selectedPlace);
       });
       setIsLoading(false);
@@ -104,8 +103,6 @@ export default function Autocomplete({
           }),
         });
 
-        console.log("marker-----------", markers);
-
         markers &&
           markers.length > 0 &&
           markers.forEach((marker) => {
@@ -126,7 +123,6 @@ export default function Autocomplete({
             styles: darkMode,
           }),
         });
-        console.log("marker-----------", markers);
         markers &&
           markers.length > 0 &&
           markers.forEach((marker) => {
@@ -143,7 +139,6 @@ export default function Autocomplete({
   }, [location.lat, location.lng, theme, hideMap, newLocation, markers]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("=======> ", event.target.value);
     if (autocomplete) {
       const input = event.target.value;
       setInputValue(input);
@@ -167,8 +162,6 @@ export default function Autocomplete({
         lat: geometry?.location?.lat(),
         lng: geometry?.location?.lng(),
       });
-
-      console.log("==========", place);
 
       onPlaceSelect(place);
       setInputValue(formatted_address);
