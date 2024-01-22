@@ -81,7 +81,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
       {storeData?.data?.data && (
         <article className="relative">
           <section
-            className=" w-full h-[15vh] md:h-[25vh] bg-orange-100 rounded-3xl overflow-hidden relative"
+            className=" w-full h-[15vh] md:h-[25vh] bg-[#9bfab1] rounded-3xl overflow-hidden relative"
             style={{
               backgroundImage: `url('/bg.png')`,
               backgroundSize: "cover",
@@ -92,7 +92,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
           <section className="branchlogo flex items-start mt-40 justify-start pl-2 md:pl-20">
             <section className="">
               <section
-                className="w-20 h-20 md:w-32 md:h-32 gap-x-4  bg-orange-100 rounded-full overflow-hidden  z-10"
+                className="w-20 h-20 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
                 style={{
                   backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                   backgroundSize: "cover",

@@ -62,6 +62,7 @@ const LocationForm = ({ className }: { className?: string }) => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
     headers
   );
+
   function ChooseSelection() {
     return (
       <RadioGroup
