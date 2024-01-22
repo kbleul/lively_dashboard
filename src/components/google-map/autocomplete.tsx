@@ -28,7 +28,7 @@ interface GoogleMapsAutocompleteProps {
     event: google.maps.MapMouseEvent,
     mapInstance: google.maps.Map
   ) => void;
-  markers: google.maps.Marker[];
+  markers?: google.maps.Marker[];
 }
 
 export const locationAtom = atomWithReset<Location>({
