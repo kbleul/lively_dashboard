@@ -49,7 +49,6 @@ export default function Autocomplete({
   onMapClick,
   markers,
 }: GoogleMapsAutocompleteProps) {
-  const { setFieldValue } = useFormikContext();
   // check for dark mode
   const { theme } = useTheme();
   // global location state
