@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
@@ -16,20 +16,45 @@ import CustomSelect from "@/components/ui/form/select";
 const LocationForm = ({ className }: { className?: string }) => {
   const headers = useGetHeaders({ type: "FormData" });
 
+  const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
   const [value, setValue] = React.useState("search");
   const { setFieldValue } = useFormikContext();
   const handlePlaceSelect = (place: Location) => {
-    console.log(place);
+    console.log("selectedddddddddd -------------> ", place);
     setFieldValue("latitude", place.lat);
     setFieldValue("longitude", place.lng);
   };
 
-  const onMapClick = (event: google.maps.MapMouseEvent) => {
+  const removeMarkers = () => {
+    markers.forEach((marker: any) => {
+      marker.setMap(null);
+    });
+
+    setMarkers([]);
+  };
+
+  const onMapClick = (
+    event: google.maps.MapMouseEvent,
+    mapInstance: google.maps.Map
+  ) => {
     const latitude = event.latLng?.lat();
     const longitude = event.latLng?.lng();
+
     if (latitude && longitude) {
       setFieldValue("latitude", latitude);
       setFieldValue("longitude", longitude);
+
+      removeMarkers();
+
+      const marker = new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        title: "Clicked Location",
+      });
+
+      setMarkers([marker]);
     }
   };
 
@@ -93,6 +118,7 @@ const LocationForm = ({ className }: { className?: string }) => {
                 className: "absolute z-10 flex-grow block right-7 left-7 top-7",
                 inputClassName: "bg-white dark:bg-gray-100 border-0",
               }}
+              markers={markers}
             />
           )}
         </Field>

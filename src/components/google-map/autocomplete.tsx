@@ -24,7 +24,11 @@ interface GoogleMapsAutocompleteProps {
   inputProps?: InputProps;
   spinnerClassName?: string;
   onPlaceSelect: (place: Location) => void;
-  onMapClick: (event: google.maps.MapMouseEvent) => void;
+  onMapClick: (
+    event: google.maps.MapMouseEvent,
+    mapInstance: google.maps.Map
+  ) => void;
+  markers: google.maps.Marker[];
 }
 
 export const locationAtom = atomWithReset<Location>({
@@ -43,6 +47,7 @@ export default function Autocomplete({
   onPlaceSelect,
   spinnerClassName,
   onMapClick,
+  markers,
 }: GoogleMapsAutocompleteProps) {
   const { setFieldValue } = useFormikContext();
   // check for dark mode
@@ -86,7 +91,7 @@ export default function Autocomplete({
       setIsLoading(false);
 
       if (!hideMap && mapRef.current) {
-        new Map(mapRef.current, {
+        const mapInstance = new Map(mapRef.current, {
           center: {
             lat: newLocation ? newLocation.lat : location.lat,
             lng: newLocation ? newLocation.lng : location.lng,
@@ -98,6 +103,14 @@ export default function Autocomplete({
             styles: darkMode,
           }),
         });
+
+        console.log("marker-----------", markers);
+
+        markers &&
+          markers.length > 0 &&
+          markers.forEach((marker) => {
+            marker.setMap(mapInstance);
+          });
       }
 
       if (!hideMap && mapRef.current) {
@@ -113,14 +126,21 @@ export default function Autocomplete({
             styles: darkMode,
           }),
         });
+        console.log("marker-----------", markers);
+        markers &&
+          markers.length > 0 &&
+          markers.forEach((marker) => {
+            marker.setMap(mapInstance);
+          });
+
         mapInstance.addListener("click", (event: google.maps.MapMouseEvent) => {
           // Handle map click event
-          onMapClick(event);
+          onMapClick(event, mapInstance);
         });
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.lat, location.lng, theme, hideMap, newLocation]);
+  }, [location.lat, location.lng, theme, hideMap, newLocation, markers]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("=======> ", event.target.value);
