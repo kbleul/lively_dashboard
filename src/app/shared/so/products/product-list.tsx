@@ -38,6 +38,7 @@ export default function ProductList({ branchId }: { branchId: string }) {
 
   //delete Product
   const deleteProduct = async (id: string) => {
+    console.log(id);
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${id}`,

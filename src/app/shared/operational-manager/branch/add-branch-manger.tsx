@@ -98,8 +98,11 @@ const AddBranchManger = ({
   };
 
   const handleSkip = () => {
-    placeId &&
-      router.push(routes.operationalManager.places.view(`/${placeId}`));
+    placeId
+      ? router.push(routes.operationalManager.places.view(`/${placeId}`))
+      : router.push(
+          routes.operationalManager.places["branch-manager"](branchId)
+        );
   };
 
   return (

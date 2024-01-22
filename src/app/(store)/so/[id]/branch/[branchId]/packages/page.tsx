@@ -10,7 +10,7 @@ const BranchPackages = ({
 }: {
   params: { id: string; branchId: string };
 }) => {
-  return <PackageList branchId={params.branchId} />;
+  return <PackageList placeId={params.id} branchId={params.branchId} />;
 };
 
 export default BranchPackages;

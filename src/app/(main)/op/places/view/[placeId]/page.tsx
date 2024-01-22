@@ -17,6 +17,7 @@ import { LuPhone } from "react-icons/lu";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineStorefront } from "react-icons/md";
 import PageHeader from "@/app/shared/page-header";
+import PencilIcon from "@/components/icons/pencil";
 
 const pageHeader = {
   title: "Store Owner",
@@ -214,16 +215,33 @@ const BranchCard = ({ data }: { data: any }) => {
       <h4 className="px-4 py-2">{data.name.english}</h4>
       <p className="px-4 pb-4">{data.description.english}</p>
 
-      <Button
-        color="primary"
-        className="ml-4 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-10"
-      >
-        <Link
-          href={routes.operationalManager.places["branch-manager"](data.id)}
+      <div className="flex justify-between items-center">
+        {/* <Button
+          color="primary"
+          className="ml-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-10"
         >
-          Manage Mangers
-        </Link>
-      </Button>
+          <Link
+            href={routes.operationalManager.places["edit-branch"](data.id)}
+            className="flex items-center justify-center gap-2"
+          >
+            <PencilIcon className="h-4 w-4 cursor-pointer" />
+            Edit
+          </Link>
+        </Button> */}
+
+        <Button
+          color="primary"
+          className="mr-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 "
+        >
+          <Link
+            href={routes.operationalManager.places["branch-manager"](data.id)}
+            className="flex items-center justify-center gap-2"
+          >
+            <PencilIcon className="h-4 w-4 cursor-pointer" />
+            Mangers
+          </Link>
+        </Button>
+      </div>
     </article>
   );
 };

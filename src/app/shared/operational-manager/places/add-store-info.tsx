@@ -69,10 +69,10 @@ const AddStoreInfo = ({
           ...newValues,
         },
         onSuccess: (res) => {
+          console.log(res.data.data.id);
+          const placeId = res.data.data.id;
           toast.success("Store Information Saved Successfully");
-          router.push(routes.operationalManager.places.list);
-          setFormStep(1);
-          setOwnerId(null);
+          router.push(routes.operationalManager.places.view(placeId));
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);

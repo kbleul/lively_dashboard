@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { PiXBold } from "react-icons/pi";
 import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 const EditdProductForm = ({
   branchId,
@@ -38,29 +39,29 @@ const EditdProductForm = ({
   );
 
   const editBranchProduct = async (values: EditBranchProductype) => {
-    //   try {
-    //     await postMutation.mutateAsync({
-    //       url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
-    //       method: "POST",
-    //       headers,
-    //       body: {
-    //         product_variant_id: values.product_variant_id,
-    //         price: values.price,
-    //       },
-    //       onSuccess: () => {
-    //         queryClient.invalidateQueries({
-    //           queryKey: [queryKeys.getAllBranchProducts + branchId],
-    //         });
-    //         toast.success("Product Added Successfully");
-    //         closeModal();
-    //       },
-    //       onError: (err) => {
-    //         toast.error(err?.response?.data?.data);
-    //       },
-    //     });
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${productId}`,
+        method: "POST",
+        headers,
+        body: {
+          price: values.price,
+          _method: "PATCH",
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllBranchProducts + branchId],
+          });
+          toast.success("Product Updated Successfully");
+          closeModal();
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (

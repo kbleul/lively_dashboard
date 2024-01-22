@@ -35,6 +35,7 @@ export const routes = {
       edit: (id: string) => `/op/places/edit/${id}`,
       view: (id: string) => `/op/places/view/${id}`,
       "create-branch": (id: string) => `/op/places/create-branch/${id}`,
+      "edit-branch": (id: string) => `/op/places/edit-branch/${id}`,
       "branch-manager": (id: string) => `/op/places/branch-manager/${id}`,
       "create-branch-manager": (id: string) =>
         `/op/places/create-branch-manager/${id}`,
@@ -72,7 +73,7 @@ export const routes = {
       packages: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages`,
       createPackage: (id: string, branchId: string) =>
-        `/so/${id}/branch/${branchId}/packages/create-package`,
+        `/so/${id}/branch/${branchId}/packages/create`,
     },
   },
   branchManger: {

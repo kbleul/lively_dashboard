@@ -4,13 +4,20 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import { PackageDataType } from "@/types/packages";
-import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import PackageListCard from "../../bm/packages/package-list-card";
 import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
+import Link from "next/link";
+import { routes } from "@/config/routes";
 
-const PackageList = ({ branchId }: { branchId: string }) => {
+const PackageList = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const headers = useGetHeaders({ type: "Json" });
   // const postMutation = useDynamicMutation();
   const packagesData = useFetchData(
@@ -19,16 +26,18 @@ const PackageList = ({ branchId }: { branchId: string }) => {
 
     headers
   );
-  console.log(packagesData?.data?.data);
+
   return (
     <WidgetCard
-      title={"Products"}
+      title={"Packages"}
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
-        <Button size="lg" color="primary">
-          Add Products
-        </Button>
+        <Link href={routes.storeOwner.branch.createPackage(placeId, branchId)}>
+          <Button size="lg" color="primary">
+            Add Packages
+          </Button>
+        </Link>
       }
     >
       <div>

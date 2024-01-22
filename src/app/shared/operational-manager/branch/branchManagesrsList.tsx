@@ -12,6 +12,23 @@ import { Button } from "@/components/ui/button";
 import ControlledTable from "@/components/controlled-table";
 import { routes } from "@/config/routes";
 import { getColumns } from "./manager-columns";
+import PageHeader from "../../page-header";
+
+const pageHeader = {
+  title: "Operation Manager",
+  breadcrumb: [
+    {
+      name: "Stores",
+    },
+    {
+      name: "Branches",
+    },
+    {
+      name: "Branch Managers",
+    },
+  ],
+};
+
 const BranchManagesrsList = ({ branchId }: { branchId: string }) => {
   const headers = useGetHeaders({ type: "Json" });
 
@@ -46,16 +63,7 @@ const BranchManagesrsList = ({ branchId }: { branchId: string }) => {
 
   return (
     <>
-      <section className="pb-8">
-        <h4 className="font-medium text-2xl text-black">Store</h4>
-        <div className="flex justify-start items-center gap-x-4">
-          <p className="text-[#5F5F5F]">Operation Manager</p>
-          <p className="w-2 h-2 rounded-full  bg-[#5F5F5F] " />
-          <p className="text-[#5F5F5F]">Places</p>
-          <p className="w-2 h-2 rounded-full  bg-[#5F5F5F] " />
-          <p className="text-[#5F5F5F]">Branch Managers</p>
-        </div>
-      </section>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
       <WidgetCard
         title={"Branch Managers"}
