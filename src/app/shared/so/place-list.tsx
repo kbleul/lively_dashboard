@@ -5,7 +5,6 @@ import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import { StoreDataType } from "@/types/store";
 import React from "react";
-import Placeholder from "@public/Placeholder.png";
 import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio";
@@ -26,14 +25,16 @@ const MyStores = () => {
   if (
     myStoresData.isFetched &&
     myStoresData.isSuccess &&
-    myStoresData?.data?.data?.length > 1 &&
-    myStoresData?.data?.data?.length < 2
+    myStoresData?.data?.data?.length === 1
   ) {
     router.push(`/so/${myStoresData?.data?.data[0]?.id}`);
   }
+
   return (
     <div className="max-w-4xl mx-auto w-full flex items-center justify-center min-h-screen">
-      {myStoresData.isFetched && myStoresData.isSuccess ? (
+      {myStoresData.isFetched &&
+      myStoresData.isSuccess &&
+      myStoresData?.data?.data?.length > 1 ? (
         <div className="flex flex-col items-center gap-3 w-full">
           <Title as="h3">Choose Your Store</Title>
           <RadioGroup
