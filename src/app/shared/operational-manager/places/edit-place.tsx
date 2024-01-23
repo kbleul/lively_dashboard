@@ -42,7 +42,7 @@ const EditPlace = ({ placeId }: { placeId: string }) => {
           <>
             <article className="relative mt-8">
               <section
-                className=" w-full h-[25vh] bg-orange-100 rounded-3xl overflow-hidden relative"
+                className=" w-full h-[25vh] bg-[#9bfab1] rounded-3xl overflow-hidden relative"
                 style={{
                   backgroundImage: `url('/bg.png')`,
                   backgroundSize: "cover",
@@ -53,7 +53,7 @@ const EditPlace = ({ placeId }: { placeId: string }) => {
               <section className=" branchlogo flex items-start mt-40 justify-start pl-20">
                 <section className="">
                   <section
-                    className="w-32 h-32 gap-x-4  bg-orange-100 rounded-full overflow-hidden  z-10"
+                    className="w-32 h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
                     style={{
                       backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                       backgroundSize: "cover",

@@ -13,7 +13,13 @@ import { FaCheckCircle } from "react-icons/fa";
 import Autocomplete, { Location } from "@/components/google-map/autocomplete";
 import CustomSelect from "@/components/ui/form/select";
 
-const LocationForm = ({ className }: { className?: string }) => {
+const LocationForm = ({
+  className,
+  initialCityValue,
+}: {
+  className?: string;
+  initialCityValue?: string | null;
+}) => {
   const headers = useGetHeaders({ type: "FormData" });
 
   const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
@@ -62,6 +68,7 @@ const LocationForm = ({ className }: { className?: string }) => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
     headers
   );
+
   function ChooseSelection() {
     return (
       <RadioGroup
@@ -134,6 +141,7 @@ const LocationForm = ({ className }: { className?: string }) => {
             name="city_id"
             label="Select City"
             options={cityData?.data?.data}
+            defaultValue={initialCityValue}
             onChange={(selectedOption) => {
               setFieldValue("city_id", selectedOption.id);
             }}

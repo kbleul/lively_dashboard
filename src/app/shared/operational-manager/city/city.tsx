@@ -66,7 +66,7 @@ const CityList = () => {
     openModal({
       view: <AddCityForm id={id} />,
     });
-  }
+  };
   return (
     <WidgetCard
       title={"Cities"}
@@ -76,7 +76,7 @@ const CityList = () => {
         <Button
           onClick={() =>
             openModal({
-              view: <AddCityForm/>,
+              view: <AddCityForm />,
             })
           }
           size="lg"
@@ -107,11 +107,6 @@ const CityList = () => {
               current: currentPage,
               onChange: (page: number) => handlePaginate(page),
             },
-            // paginatorClassName: cn(
-            //   "mt-4 lg:mt-5",
-            //   noGutter && "px-5 lg:px-7",
-            //   paginatorClassName
-            // ),
           }}
         />
       </div>

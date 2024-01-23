@@ -103,8 +103,7 @@ export default function AddPaymentForm({ id }: { id?: string }) {
           validationSchema={id ? editMethodSchema : paymentMethodSchema}
           onSubmit={createLanguageSchema}
         >
-          {({ errors, values }) => {
-            console.log(errors);
+          {({ values }) => {
             return (
               <Form className="flex w-full flex-col items-start space-y-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">

@@ -137,7 +137,6 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
       onSubmit={expertInfoSubmitHandler}
     >
       {({ values, setFieldValue, errors }) => {
-        console.log(errors);
         return (
           <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
             {name && (
