@@ -78,7 +78,7 @@ const AddMoreInfo = ({
         body: {
           services: values.services,
           amenities: values.amenities,
-          openingHours: [...openingHoursToSend],
+          opening_hours: [...openingHoursToSend],
         },
         onSuccess: (res) => {
           toast.success("Store Branch Information Saved Successfully");

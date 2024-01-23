@@ -52,6 +52,11 @@ export const workCustomDays = [
     from: "02:30:00",
     to: "11:30:00",
   },
+  // {
+  //   "day_of_week": "Tuesday",
+  //   "opening_time": "02:00:00",
+  //   "closing_time": "12:59:59",
+  // },
 ];
 
 export const CreatePlaceSteps = [

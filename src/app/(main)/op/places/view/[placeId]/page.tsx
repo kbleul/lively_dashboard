@@ -175,7 +175,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
           <Button
             type="submit"
             color="primary"
-            className="min-w-[200px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-10"
+            className="min-w-[200px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
           >
             <Link
               href={routes.operationalManager.places["create-branch"](
@@ -216,9 +216,9 @@ const BranchCard = ({ data }: { data: any }) => {
       <p className="px-4 pb-4">{data.description.english}</p>
 
       <div className="flex justify-between items-center">
-        {/* <Button
+        <Button
           color="primary"
-          className="ml-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-10"
+          className="ml-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
         >
           <Link
             href={routes.operationalManager.places["edit-branch"](data.id)}
@@ -227,7 +227,7 @@ const BranchCard = ({ data }: { data: any }) => {
             <PencilIcon className="h-4 w-4 cursor-pointer" />
             Edit
           </Link>
-        </Button> */}
+        </Button>
 
         <Button
           color="primary"
@@ -237,7 +237,6 @@ const BranchCard = ({ data }: { data: any }) => {
             href={routes.operationalManager.places["branch-manager"](data.id)}
             className="flex items-center justify-center gap-2"
           >
-            <PencilIcon className="h-4 w-4 cursor-pointer" />
             Mangers
           </Link>
         </Button>

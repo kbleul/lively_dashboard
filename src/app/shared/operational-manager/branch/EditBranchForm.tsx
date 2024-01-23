@@ -2,7 +2,10 @@
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
-import { branchInfoSchema, branchInfoType } from "@/validations/branches";
+import {
+  branchInfoEditSchema,
+  branchInfoEditType,
+} from "@/validations/branches";
 
 import React from "react";
 import cn from "@/utils/class-names";
@@ -19,6 +22,33 @@ import FormFooter from "@/components/form-footer";
 import PageHeader from "../../page-header";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
+import Spinner from "@/components/ui/spinner";
+import { Title } from "rizzui";
+import Image from "next/image";
+import EditMoreInfo from "./edit-more-info";
+import { workCustomDays } from "@/constants/form-constants";
+
+const getSelectedDays = (selectedDaysArr: any[]): boolean[] => {
+  const selectedDays = Array(7).fill(false);
+
+  const days = {
+    Monday: 0,
+    Tuesday: 1,
+    Wednesday: 2,
+    Thursday: 3,
+    Friday: 4,
+    Saturday: 5,
+    Sunday: 6,
+  };
+  selectedDaysArr.forEach((day) => {
+    const day_of_week: "Monday" = day.day_of_week;
+    selectedDays[days[day_of_week]] = true;
+  });
+
+  console.log("=----------------->", selectedDays);
+
+  return selectedDays;
+};
 
 const pageHeader = {
   title: "Store Owner",
@@ -51,7 +81,7 @@ const EditBranchForm = ({
     headers
   );
 
-  const branchInfoSubmitHandler = async (values: branchInfoType) => {
+  const branchInfoSubmitHandler = async (values: branchInfoEditType) => {
     const newValues = {
       ...values,
       phone: "251".concat(values.phone),
@@ -80,21 +110,54 @@ const EditBranchForm = ({
     }
   };
 
-  const initialValues: branchInfoType = {
-    nameEnglish: "",
-    nameAmharic: "",
-    descriptionEnglish: "",
-    descriptionAmharic: "",
-    phone: "",
-    telegram: "",
-    facebook: "",
-    whatsapp: "",
-    website: "",
-    instagram: "",
-    latitude: "",
-    longitude: "",
+  if (
+    branchManagersData?.isFetching ||
+    branchManagersData?.isLoading ||
+    branchManagersData?.isPending
+  ) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
+
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
+
+  const ManagerData = branchManagersData.data.data;
+
+  console.log("=====-------------->", ManagerData);
+
+  const initialValues: branchInfoEditType = {
+    nameEnglish: ManagerData.name.english,
+    nameAmharic: ManagerData.name.amharic,
+    descriptionEnglish: ManagerData.description.english,
+    descriptionAmharic: ManagerData.description.amharic,
+    phone: ManagerData.phone.substring(3),
+    telegram: ManagerData.socials?.telegram
+      ? ManagerData.socials?.telegram
+      : "",
+    facebook: ManagerData.socials?.telegram
+      ? ManagerData.socials?.telegram
+      : "",
+    whatsapp: ManagerData.socials?.telegram
+      ? ManagerData.socials?.telegram
+      : "",
+    website: ManagerData.socials?.telegram ? ManagerData.socials?.telegram : "",
+    instagram: ManagerData.socials?.telegram
+      ? ManagerData.socials?.telegram
+      : "",
+    latitude: ManagerData.location.latitude,
+    longitude: ManagerData.location.longitude,
     branch_cover: undefined,
-    specific_address: null,
+    specific_address: ManagerData?.location?.specific_address
+      ? ManagerData?.location?.specific_address
+      : "",
+    services: [],
+    amenities: [],
+    openingHours: workCustomDays,
   };
 
   return (
@@ -104,8 +167,8 @@ const EditBranchForm = ({
       <div className="@container">
         <Formik
           initialValues={initialValues}
-          validationSchema={branchInfoSchema}
-          onSubmit={(values: branchInfoType) => {
+          validationSchema={branchInfoEditSchema}
+          onSubmit={(values: branchInfoEditType) => {
             branchInfoSubmitHandler(values);
           }}
         >
@@ -175,7 +238,13 @@ const EditBranchForm = ({
                     description="Add branch location here"
                     className={cn(className)}
                   >
-                    <LocationForm />
+                    <LocationForm
+                      initialCityValue={
+                        ManagerData?.city && ManagerData?.city
+                          ? ManagerData?.city
+                          : null
+                      }
+                    />
                   </FormGroup>
 
                   <FormGroup
@@ -188,6 +257,16 @@ const EditBranchForm = ({
                       label="Branch Cover"
                       className="col-span-2"
                     />
+
+                    {ManagerData.branch_cover &&
+                      ManagerData.branch_cover.url && (
+                        <Image
+                          src={ManagerData.branch_cover.url}
+                          height={100}
+                          width={100}
+                          alt="branch covers"
+                        />
+                      )}
                   </FormGroup>
 
                   <FormGroup
@@ -234,6 +313,12 @@ const EditBranchForm = ({
                       color="primary"
                     />
                   </FormGroup>
+
+                  <EditMoreInfo
+                    initialServices={ManagerData.services}
+                    initialAmenities={ManagerData.amenities}
+                    initialChecked={getSelectedDays(ManagerData.opening_hours)}
+                  />
                 </div>
                 <FormFooter
                   submitBtnText={"Save Updates"}
