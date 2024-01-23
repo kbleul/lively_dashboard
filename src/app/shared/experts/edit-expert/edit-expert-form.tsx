@@ -147,7 +147,6 @@ const EditExpertForm = ({ id }: Props) => {
           onSubmit={expertInfoSubmitHandler}
         >
           {({ values, setFieldValue, errors }) => {
-            console.log(errors);
             return (
               <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
                 <div className="grid grid-cols-1 gap-8 divide-y divide-dashed divide-gray-200 @2xl:gap-10 @3xl:gap-12">

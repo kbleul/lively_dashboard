@@ -52,7 +52,14 @@ export const branchInfoEditSchema = Yup.object().shape({
   instagram: Yup.string().optional(),
   latitude: Yup.string().required("location is required"),
   longitude: Yup.string().required("location is required"), //latitude and longitude
-  branch_cover: Yup.mixed().required("Cover is required"),
+  branch_cover: Yup.mixed()
+    .default(undefined)
+    .test("is-required", "Cover is required", function (value) {
+      if (this.resolve(value) === undefined) {
+        return this.createError({ message: "Cover is required" });
+      }
+      return true;
+    }),
   services: Yup.array()
     .of(Yup.string().required("Service is required"))
     .min(1, "At least one service is required"),
@@ -81,16 +88,36 @@ export type branchInfoEditType = {
   instagram?: string;
   latitude: string;
   longitude: string;
-  branch_cover: File | undefined;
+  branch_cover: File | undefined | string;
   specific_address: string | null;
   services: string[];
   amenities: string[];
   openingHours: {
+    isActive: boolean;
     day: string;
     from: string;
     to: string;
   }[];
 };
+
+export interface NewValues {
+  amenities: string[];
+  descriptionAmharic: string;
+  descriptionEnglish: string;
+  facebook: string | undefined;
+  instagram: string | undefined;
+  latitude: string;
+  longitude: string;
+  nameAmharic: string;
+  nameEnglish: string;
+  services: string[];
+  telegram: string | undefined;
+  whatsapp: string | undefined;
+  phone: string;
+  specific_address: string;
+  website?: string;
+  branch_cover?: string | undefined | File;
+}
 
 export const moreInfoSchema = Yup.object().shape({
   services: Yup.array()

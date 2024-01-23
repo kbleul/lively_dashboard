@@ -3,6 +3,7 @@
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
 import {
+  NewValues,
   branchInfoEditSchema,
   branchInfoEditType,
 } from "@/validations/branches";
@@ -27,6 +28,8 @@ import { Title } from "rizzui";
 import Image from "next/image";
 import EditMoreInfo from "./edit-more-info";
 import { workCustomDays } from "@/constants/form-constants";
+import { useRouter } from "next/navigation";
+import { routes } from "@/config/routes";
 
 const getSelectedDays = (selectedDaysArr: any[]): boolean[] => {
   const selectedDays = Array(7).fill(false);
@@ -45,9 +48,27 @@ const getSelectedDays = (selectedDaysArr: any[]): boolean[] => {
     selectedDays[days[day_of_week]] = true;
   });
 
-  console.log("=----------------->", selectedDays);
-
   return selectedDays;
+};
+
+const prepareInitialOpeningHours = (
+  opening_hours: any[]
+): typeof workCustomDays => {
+  const workCustomDaysUpdated = [...workCustomDays]; // Make a copy of workCustomDays
+
+  opening_hours.forEach((item) => {
+    let selectedDay = workCustomDaysUpdated.find(
+      (day) => day.day === item.day_of_week
+    );
+
+    if (selectedDay) {
+      selectedDay.isActive = true;
+      selectedDay.from = item.opening_time;
+      selectedDay.to = item.closing_time;
+    }
+  });
+
+  return workCustomDaysUpdated;
 };
 
 const pageHeader = {
@@ -74,6 +95,9 @@ const EditBranchForm = ({
 }) => {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
+  const router = useRouter();
+
+  const customDaysChecked = React.useRef(Array(7).fill(false));
 
   const branchManagersData = useFetchData(
     [queryKeys.getSingleBranch],
@@ -82,23 +106,79 @@ const EditBranchForm = ({
   );
 
   const branchInfoSubmitHandler = async (values: branchInfoEditType) => {
-    const newValues = {
-      ...values,
+    const {
+      amenities,
+      branch_cover,
+      descriptionAmharic,
+      descriptionEnglish,
+      facebook,
+      instagram,
+      latitude,
+      longitude,
+      nameAmharic,
+      nameEnglish,
+      services,
+      telegram,
+      whatsapp,
+    } = values;
+
+    const newValues: NewValues = {
+      amenities,
+      descriptionAmharic,
+      descriptionEnglish,
+      facebook,
+      instagram,
+      latitude,
+      longitude,
+      nameAmharic,
+      nameEnglish,
+      services,
+      telegram,
+      whatsapp,
       phone: "251".concat(values.phone),
-      website: "https://" + values.website,
       specific_address: values.specific_address ? values.specific_address : "",
     };
+
+    if (values.website !== "") {
+      newValues.website = "https://" + values.website;
+    }
+
+    if (typeof branch_cover !== "string") {
+      newValues.branch_cover = branch_cover;
+    }
+
+    const openingHoursToSend: {
+      day_of_week: string;
+      opening_time: string;
+      closing_time: string;
+    }[] = [];
+
+    values.openingHours.map((openHours, index) => {
+      openHours?.isActive &&
+        openingHoursToSend.push({
+          day_of_week: openHours.day,
+          opening_time: openHours.from,
+          closing_time: openHours.to,
+        });
+    });
+
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/place-branches`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/place-branches/${branchId}`,
         method: "POST",
         headers,
         body: {
           ...newValues,
+          opening_hours: [...openingHoursToSend],
+          openingHours: [],
+          _method: "PATCH",
         },
         onSuccess: (res) => {
-          toast.success("Store Branch Information Saved Successfully");
-          if (res && res.data && res.data.id) {
+          toast.success("Store Branch Information Updated Successfully");
+          if (res.data && res.data.place) {
+            router.push(
+              routes.operationalManager.places.view(res.data.place.id)
+            );
           }
         },
         onError: (err) => {
@@ -128,8 +208,6 @@ const EditBranchForm = ({
 
   const ManagerData = branchManagersData.data.data;
 
-  console.log("=====-------------->", ManagerData);
-
   const initialValues: branchInfoEditType = {
     nameEnglish: ManagerData.name.english,
     nameAmharic: ManagerData.name.amharic,
@@ -151,14 +229,20 @@ const EditBranchForm = ({
       : "",
     latitude: ManagerData.location.latitude,
     longitude: ManagerData.location.longitude,
-    branch_cover: undefined,
+    branch_cover:
+      branchManagersData?.data?.data?.branch_cover &&
+      branchManagersData.data.data.branch_cover.url
+        ? branchManagersData.data.data.branch_cover.url
+        : undefined,
     specific_address: ManagerData?.location?.specific_address
       ? ManagerData?.location?.specific_address
       : "",
-    services: [],
-    amenities: [],
-    openingHours: workCustomDays,
+    services: ManagerData.services.map((item: any) => item.id),
+    amenities: ManagerData.amenities.map((item: any) => item.id),
+    openingHours: prepareInitialOpeningHours(ManagerData?.opening_hours),
   };
+
+  customDaysChecked.current = getSelectedDays(ManagerData.opening_hours);
 
   return (
     <article>
@@ -317,7 +401,7 @@ const EditBranchForm = ({
                   <EditMoreInfo
                     initialServices={ManagerData.services}
                     initialAmenities={ManagerData.amenities}
-                    initialChecked={getSelectedDays(ManagerData.opening_hours)}
+                    customDaysChecked={customDaysChecked}
                   />
                 </div>
                 <FormFooter

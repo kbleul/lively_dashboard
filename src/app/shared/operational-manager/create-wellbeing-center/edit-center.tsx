@@ -130,8 +130,7 @@ const EditCenter = ({ params }: Props) => {
           validationSchema={wellbeignYupSchema}
           onSubmit={createCenter}
         >
-          {({ handleSubmit, errors, values }) => {
-            console.log(errors);
+          {({}) => {
             return (
               <Form className={"[&_label.block>span]:font-medium "}>
                 <FormNav />

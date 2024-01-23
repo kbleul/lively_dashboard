@@ -26,9 +26,6 @@ const MoreInfoForm = ({}: Props) => {
     headers
   );
 
-  console.log(
-    Boolean(profileData?.data?.data?.appointment_type?.phone?.active)
-  );
   const initialValues: OtherInfoType = {
     occupation: profileData?.data?.data?.occupation?.id,
     specialties: profileData?.data?.data?.specialties

@@ -15,18 +15,14 @@ const EditMoreInfo = ({
   className,
   initialServices,
   initialAmenities,
-  initialChecked,
+  customDaysChecked,
 }: {
   className?: string;
   initialServices?: any[];
   initialAmenities?: any[];
-  initialChecked?: boolean[];
+  customDaysChecked?: React.MutableRefObject<any[]>;
 }) => {
   const { setFieldValue, values } = useFormikContext<FormikValues>();
-
-  const [customDaysChecked, setCustomDaysChecked] = React.useState(
-    initialChecked ? [...initialChecked] : Array(7).fill(false)
-  );
 
   const headers = useGetHeaders({ type: "FormData" });
 
@@ -96,17 +92,23 @@ const EditMoreInfo = ({
           {values.openingHours.map((_: any, index: number) => (
             <div className="flex items-end  gap-2 w-full " key={index}>
               <Checkbox
-                checked={customDaysChecked[index]}
+                checked={
+                  customDaysChecked ? customDaysChecked.current[index] : null
+                }
                 variant="flat"
                 color="primary"
                 className="font-medium"
                 onChange={(e) => {
                   const isChecked = e.target.checked;
-                  setCustomDaysChecked((prevChecked) => {
-                    const newChecked = [...prevChecked];
-                    newChecked[index] = isChecked;
-                    return newChecked;
-                  });
+                  const newChecked = customDaysChecked
+                    ? [...customDaysChecked.current]
+                    : [];
+
+                  newChecked[index] = isChecked;
+
+                  if (customDaysChecked) {
+                    customDaysChecked.current = [...newChecked];
+                  }
                 }}
               />
 
@@ -119,7 +121,9 @@ const EditMoreInfo = ({
               <FormikInput
                 name={`openingHours[${index}].from`}
                 label="Opening Time"
-                disabled={!customDaysChecked[index]}
+                disabled={
+                  customDaysChecked ? !customDaysChecked.current[index] : false
+                }
                 type="time"
                 color="primary"
               />
@@ -128,7 +132,9 @@ const EditMoreInfo = ({
                 label="Closing Time"
                 type="time"
                 color="primary"
-                disabled={!customDaysChecked[index]}
+                disabled={
+                  customDaysChecked ? !customDaysChecked.current[index] : false
+                }
               />
             </div>
           ))}
