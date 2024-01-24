@@ -65,8 +65,14 @@ const AddMoreInfo = ({
       customDaysChecked[index] &&
         openingHoursToSend.push({
           day_of_week: openHours.day,
-          opening_time: openHours.from,
-          closing_time: openHours.to,
+          opening_time:
+            openHours.from.split(":").length < 3
+              ? openHours.from + ":00"
+              : openHours.from,
+          closing_time:
+            openHours.to.split(":").length < 3
+              ? openHours.to + ":"
+              : openHours.to,
         });
     });
 

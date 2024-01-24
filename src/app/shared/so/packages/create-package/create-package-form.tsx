@@ -24,7 +24,13 @@ interface Service {
   };
   // Add other properties as needed
 }
-const CreatePackageForm = ({ branchId }: { branchId: string }) => {
+const CreatePackageForm = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const router = useRouter();
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
@@ -68,8 +74,8 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
             duration: item.startTime + "-" + item.endTime,
           })),
         },
-        onSuccess: () => {
-          router.push(routes.branchManger.packages);
+        onSuccess: (res: any) => {
+          router.push(routes.storeOwner.branch.packages(placeId, branchId));
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllPackages + branchId],
           });

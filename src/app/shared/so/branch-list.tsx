@@ -9,10 +9,9 @@ import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
 import { Text } from "@/components/ui/text";
-import { useRouter } from "next/navigation";
+import { BsThreeDots } from "react-icons/bs";
 import Image from "next/image";
-import ReusabelPopover from "@/components/reusabel-popover";
-import { AiTwotoneDelete } from "react-icons/ai";
+
 import { routes } from "@/config/routes";
 import { BranchDataType } from "@/types/branch";
 
@@ -45,44 +44,7 @@ const BrancheList = ({ id }: { id: string }) => {
       {mybranchesData.isSuccess && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
           {mybranchesData?.data?.data?.map((branch: BranchDataType) => (
-            <div
-              key={branch.id}
-              className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg"
-            >
-              <div className="relative h-44 w-full overflow-hidden group">
-                <Image
-                  src={branch.branch_cover.url}
-                  alt="Center Cover"
-                  // height={400}
-                  priority
-                  // width={500}
-                  fill
-                  className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
-                />
-              </div>
-
-              <div className="p-5 lg:p-7 mb-12">
-                <Title as="h5" className="line-clamp-2">
-                  {branch.name.english}
-                </Title>
-                <Text as="p" className="line-clamp-2">
-                  {branch.description.english}
-                </Text>
-              </div>
-              <div className="absolute right-1 bottom-1 flex items-center justify-end gap-2 px-5 lg:px-7 pb-4">
-                <ReusabelPopover
-                  title={`Delete Center`}
-                  icon={<AiTwotoneDelete className="h-4 w-4" />}
-                  description={`Are you sure you want to Delete this Center`}
-                  onDelete={() => alert(branch.id)}
-                />
-                <Link href={routes.storeOwner.branch.dashboard(id, branch.id)}>
-                  <Button color="primary" variant="outline">
-                    Manage
-                  </Button>
-                </Link>
-              </div>
-            </div>
+            <BranchCard key={branch.id} id={id} branch={branch} />
           ))}
         </div>
       )}
@@ -105,6 +67,60 @@ const BrancheList = ({ id }: { id: string }) => {
             Next
           </Button>
         )}
+      </div>
+    </div>
+  );
+};
+
+const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
+  return (
+    <div
+      key={branch.id}
+      className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg"
+    >
+      <div className="relative h-44 w-full overflow-hidden group">
+        <Image
+          src={branch.branch_cover.url}
+          alt="Center Cover"
+          // height={400}
+          priority
+          // width={500}
+          fill
+          className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
+        />
+        <Button
+          color="primary"
+          variant="outline"
+          className="text-black bg-white z-50 absolute top-3 right-3 rounded-full border-white py-1 px-[0.6rem] flex justify-center items-center"
+        >
+          <BsThreeDots size={20} />
+        </Button>
+      </div>
+
+      <div className="p-5 lg:p-7 mb-12">
+        <Title as="h5" className="line-clamp-2">
+          {branch.name.english}
+        </Title>
+        <Text as="p" className="line-clamp-2">
+          {branch.description.english}
+        </Text>
+      </div>
+      <div className="absolute right-1 bottom-1 flex items-center justify-end gap-2 px-5 lg:px-7 pb-4">
+        {/* <ReusabelPopover
+        title={`Delete Center`}
+        icon={<AiTwotoneDelete className="h-4 w-4" />}
+        description={`Are you sure you want to Delete this Center`}
+        onDelete={() => alert(branch.id)}
+      /> */}
+        <Link href={routes.storeOwner.branch.dashboard(id, branch.id)}>
+          <Button
+            color="primary"
+            variant="outline"
+            className="text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
+          >
+            Manage
+          </Button>
+        </Link>
       </div>
     </div>
   );

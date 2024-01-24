@@ -12,11 +12,9 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import WidgetCard from "@/components/cards/widget-card";
-import Link from "next/link";
-import { routes } from "@/config/routes";
-import PageHeader from "../../page-header";
 import { useModal } from "../../modal-views/use-modal";
 import AddProductForm from "./add-product-form";
+import EditdProductForm from "./edit-product-form";
 
 export default function ProductList() {
   const { openModal } = useModal();
@@ -54,6 +52,14 @@ export default function ProductList() {
       console.log(err);
     }
   };
+
+  const editItem = (id: string) => {
+    openModal({
+      view: <EditdProductForm productId={id} />,
+      customSize: "500px",
+    });
+  };
+
   return (
     <>
       <WidgetCard
@@ -83,7 +89,10 @@ export default function ProductList() {
             data={productsData?.data?.data?.data}
             scroll={{ x: 1300 }}
             // @ts-ignore
-            columns={getColumns({ onDeleteItem: deleteProduct })}
+            columns={getColumns({
+              onDeleteItem: deleteProduct,
+              onEditItem: editItem,
+            })}
             paginatorOptions={{
               pageSize,
               setPageSize,

@@ -10,7 +10,7 @@ const CreateBranchPackages = ({
 }: {
   params: { id: string; branchId: string };
 }) => {
-  return <CreatePackageForm branchId={params.branchId} />;
+  return <CreatePackageForm placeId={params.id} branchId={params.branchId} />;
 };
 
 export default CreateBranchPackages;
