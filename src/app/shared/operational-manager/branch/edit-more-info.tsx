@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormikContext, FormikValues } from "formik";
 import FormGroup from "@/components/form-group";
 import cn from "@/utils/class-names";
@@ -16,11 +16,15 @@ const EditMoreInfo = ({
   initialServices,
   initialAmenities,
   customDaysChecked,
+  setCustomDaysChecked,
+  initialOpeningHours,
 }: {
   className?: string;
-  initialServices?: any[];
-  initialAmenities?: any[];
-  customDaysChecked?: React.MutableRefObject<any[]>;
+  initialServices: any[];
+  initialAmenities: any[];
+  customDaysChecked: any[];
+  setCustomDaysChecked: React.Dispatch<React.SetStateAction<any[]>>;
+  initialOpeningHours: boolean[];
 }) => {
   const { setFieldValue, values } = useFormikContext<FormikValues>();
 
@@ -37,6 +41,10 @@ const EditMoreInfo = ({
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/amenities`,
     headers
   );
+
+  useEffect(() => {
+    setCustomDaysChecked(initialOpeningHours);
+  }, []);
 
   return (
     <>
@@ -92,22 +100,19 @@ const EditMoreInfo = ({
           {values.openingHours.map((_: any, index: number) => (
             <div className="flex items-end  gap-2 w-full " key={index}>
               <Checkbox
-                checked={
-                  customDaysChecked ? customDaysChecked.current[index] : null
-                }
+                checked={customDaysChecked[index]}
                 variant="flat"
                 color="primary"
                 className="font-medium"
                 onChange={(e) => {
                   const isChecked = e.target.checked;
-                  const newChecked = customDaysChecked
-                    ? [...customDaysChecked.current]
-                    : [];
+                  const newChecked = [...customDaysChecked];
 
                   newChecked[index] = isChecked;
 
                   if (customDaysChecked) {
-                    customDaysChecked.current = [...newChecked];
+                    console.log("newChecked ----> ", newChecked);
+                    setCustomDaysChecked([...newChecked]);
                   }
                 }}
               />
@@ -121,9 +126,7 @@ const EditMoreInfo = ({
               <FormikInput
                 name={`openingHours[${index}].from`}
                 label="Opening Time"
-                disabled={
-                  customDaysChecked ? !customDaysChecked.current[index] : false
-                }
+                disabled={!customDaysChecked[index]}
                 type="time"
                 color="primary"
               />
@@ -132,9 +135,7 @@ const EditMoreInfo = ({
                 label="Closing Time"
                 type="time"
                 color="primary"
-                disabled={
-                  customDaysChecked ? !customDaysChecked.current[index] : false
-                }
+                disabled={!customDaysChecked[index]}
               />
             </div>
           ))}

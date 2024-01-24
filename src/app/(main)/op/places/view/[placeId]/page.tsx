@@ -201,9 +201,9 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
 
 const BranchCard = ({ data }: { data: any }) => {
   return (
-    <article className="w-full md:w-4/5 md:ml-[10%] rounded-xl overflow-hidden border border-gray-200">
+    <article className="w-full md:w-4/5 md:ml-[10%] rounded-xl overflow-hidden border border-gray-200 h-[55vh]">
       <section
-        className="w-full h-[25vh] "
+        className="w-full h-[25vh] bg-[#cafad9]"
         style={{
           backgroundImage: `url(${
             data?.branch_cover?.url ? data.branch_cover.url : "/bg.png"
@@ -213,12 +213,14 @@ const BranchCard = ({ data }: { data: any }) => {
         }}
       />
       <h4 className="px-4 py-2">{data.name.english}</h4>
-      <p className="px-4 pb-4">{data.description.english}</p>
+      <p className="px-4 pb-4 h-[14vh] overflow-y-hidden">
+        {data.description.english}
+      </p>
 
       <div className="flex justify-between items-center">
         <Button
           color="primary"
-          className="ml-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
+          className="ml-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
         >
           <Link
             href={routes.operationalManager.places["edit-branch"](data.id)}
@@ -231,7 +233,7 @@ const BranchCard = ({ data }: { data: any }) => {
 
         <Button
           color="primary"
-          className="mr-2 min-w-[150px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 "
+          className="mr-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 "
         >
           <Link
             href={routes.operationalManager.places["branch-manager"](data.id)}

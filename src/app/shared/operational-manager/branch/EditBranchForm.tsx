@@ -97,8 +97,9 @@ const EditBranchForm = ({
   const headers = useGetHeaders({ type: "FormData" });
   const router = useRouter();
 
-  const customDaysChecked = React.useRef(Array(7).fill(false));
-
+  const [customDaysChecked, setCustomDaysChecked] = React.useState(
+    Array(7).fill(false)
+  );
   const branchManagersData = useFetchData(
     [queryKeys.getSingleBranch],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/place-branches/${branchId}`,
@@ -106,6 +107,7 @@ const EditBranchForm = ({
   );
 
   const branchInfoSubmitHandler = async (values: branchInfoEditType) => {
+    console.log("=============> ", values);
     const {
       amenities,
       branch_cover,
@@ -154,11 +156,17 @@ const EditBranchForm = ({
     }[] = [];
 
     values.openingHours.map((openHours, index) => {
-      openHours?.isActive &&
+      customDaysChecked[index] &&
         openingHoursToSend.push({
           day_of_week: openHours.day,
-          opening_time: openHours.from,
-          closing_time: openHours.to,
+          opening_time:
+            openHours.from.split(":").length < 3
+              ? openHours.from + ":00"
+              : openHours.from,
+          closing_time:
+            openHours.to.split(":").length < 3
+              ? openHours.to + ":"
+              : openHours.to,
         });
     });
 
@@ -241,8 +249,6 @@ const EditBranchForm = ({
     amenities: ManagerData.amenities.map((item: any) => item.id),
     openingHours: prepareInitialOpeningHours(ManagerData?.opening_hours),
   };
-
-  customDaysChecked.current = getSelectedDays(ManagerData.opening_hours);
 
   return (
     <article>
@@ -402,6 +408,10 @@ const EditBranchForm = ({
                     initialServices={ManagerData.services}
                     initialAmenities={ManagerData.amenities}
                     customDaysChecked={customDaysChecked}
+                    setCustomDaysChecked={setCustomDaysChecked}
+                    initialOpeningHours={getSelectedDays(
+                      ManagerData.opening_hours
+                    )}
                   />
                 </div>
                 <FormFooter
