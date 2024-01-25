@@ -3,28 +3,28 @@ import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
 import EditBranchForm from "@/app/shared/so/edit-branch-form";
 
-const pageHeader = {
-  title: "Store Owner",
-  breadcrumb: [
-    {
-      href: routes.branchManger.dashboard,
-      name: "Store Owner",
-    },
-
-    {
-      name: "Branch",
-    },
-    {
-      name: "Edit",
-    },
-  ],
-};
-
 const EditBranch = ({
   params,
 }: {
   params: { id: string; branchId: string };
 }) => {
+  const pageHeader = {
+    title: "Store Owner",
+    breadcrumb: [
+      {
+        href: routes.storeOwner.dashboard,
+        name: "Store Owner",
+      },
+
+      {
+        name: routes.storeOwner.branch.dashboard(params.id, params.branchId),
+      },
+      {
+        name: "Edit",
+      },
+    ],
+  };
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />

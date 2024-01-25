@@ -58,6 +58,7 @@ export const routes = {
       amenity: "/contentc/services/amenity",
     },
   },
+
   storeOwner: {
     home: "/so",
     dashboard: (id: string) => `/so/${id}`,

@@ -5,20 +5,20 @@ import BrancheList from "@/app/shared/so/branch-list";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const pageHeader = {
-  title: "Store Owner",
-  breadcrumb: [
-    {
-      href: routes.branchManger.dashboard,
-      name: "Store Owner",
-    },
-    {
-      name: "List",
-    },
-  ],
-};
-
 const Branches = ({ params }: { params: { id: string } }) => {
+  const pageHeader = {
+    title: "Store Owner",
+    breadcrumb: [
+      {
+        href: routes.storeOwner.dashboard(params.id),
+        name: "Store Owner",
+      },
+      {
+        name: "List",
+      },
+    ],
+  };
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb}>

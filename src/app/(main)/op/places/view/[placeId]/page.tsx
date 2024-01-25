@@ -23,6 +23,7 @@ const pageHeader = {
   title: "Store Owner",
   breadcrumb: [
     {
+      href: routes.operationalManager.places.list,
       name: "Stores",
     },
     {
