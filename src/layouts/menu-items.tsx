@@ -12,7 +12,7 @@ import { FaUserNurse, FaWpforms } from "react-icons/fa6";
 export const operationalManagetMenuItems = [
   // label start
   {
-    name: "Home",
+    name: "Operational Manager Menu",
     label: "Operational Manager",
   },
   // label end
@@ -101,7 +101,7 @@ export const operationalManagetMenuItems = [
 
 export const expertMenuItems = [
   {
-    name: "Home",
+    name: "Expert Menu",
     label: null,
   },
   // label end
@@ -133,7 +133,7 @@ export const expertMenuItems = [
 
 export const contentCretorMenuItems = [
   {
-    name: "Home",
+    name: "Content Creation Menu",
     label: "Content Creation",
   },
   // label end
@@ -201,7 +201,7 @@ export const contentCretorMenuItems = [
 
 export const branchManagerMenuItems = [
   {
-    name: "Home",
+    name: "Mranch Manager Menu",
   },
   // label end
   {

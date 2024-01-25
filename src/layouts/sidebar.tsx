@@ -22,39 +22,69 @@ import {
   operationalManagetMenuItems,
 } from "./menu-items";
 import Logo from "@/components/logo";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { UrlObject } from "url";
+
+const dispachSideNav = (
+  roles: {
+    uuid: string;
+    name: string;
+  }[]
+) => {
+  let sidenav: any[] = [];
+
+  roles.forEach((role) => {
+    if (
+      role.name.includes("Operation_Manager") ||
+      role.name.includes("Admin")
+    ) {
+      sidenav = [...operationalManagetMenuItems];
+    }
+    if (role.name.includes("Content_Creator")) {
+      sidenav = [...sidenav, ...contentCretorMenuItems];
+    }
+    if (role.name.includes("Branch_Manager")) {
+      sidenav = [...sidenav, ...branchManagerMenuItems];
+    }
+    if (role.name.includes("Expert")) {
+      sidenav = [...sidenav, ...expertMenuItems];
+    }
+  });
+
+  return sidenav;
+};
 
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
+
   const determineMenuItems = () => {
-    if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
-      return expertMenuItems;
+    const roles = session?.user?.user.roles;
+
+    if (!roles || roles.length === 0) {
+      signOut();
+      return [];
     }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Branch_Manager")
-    ) {
-      return branchManagerMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Operation_Manager") ||
-      session?.user?.user.roles.map((role) => role.name).includes("Admin")
-    ) {
-      return operationalManagetMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Content_Creator")
-    ) {
-      return contentCretorMenuItems;
-    }
+
+    const roleMenuItems: any = {
+      Operation_Manager: operationalManagetMenuItems,
+      Admin: operationalManagetMenuItems,
+      Content_Creator: contentCretorMenuItems,
+      Branch_Manager: branchManagerMenuItems,
+      Expert: expertMenuItems,
+    };
+
+    const sidenav = roles.reduce((acc: any[], role) => {
+      const roleItems: any = roleMenuItems[role.name];
+      if (roleItems) {
+        acc.push(...roleItems);
+      }
+      return acc;
+    }, []);
+
+    return sidenav;
   };
+
   return (
     <aside
       className={cn(
