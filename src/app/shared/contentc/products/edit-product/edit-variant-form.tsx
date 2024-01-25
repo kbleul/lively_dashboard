@@ -81,7 +81,7 @@ const EditVariantForm = ({ data, id, type }: Props) => {
         onSuccess: (res) => {
           toast.success("Variant Edited Successfully");
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getingleProduct],
+            queryKey: [queryKeys.getSingleProduct],
           });
         },
         onError: (err) => {
@@ -102,7 +102,7 @@ const EditVariantForm = ({ data, id, type }: Props) => {
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getingleProduct],
+            queryKey: [queryKeys.getSingleProduct],
           });
           toast.success("Variant Deleted Successfully");
         },

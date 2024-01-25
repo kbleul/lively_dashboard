@@ -26,9 +26,6 @@ const MoreInfoForm = ({}: Props) => {
     headers
   );
 
-  console.log(
-    Boolean(profileData?.data?.data?.appointment_type?.phone?.active)
-  );
   const initialValues: OtherInfoType = {
     occupation: profileData?.data?.data?.occupation?.id,
     specialties: profileData?.data?.data?.specialties
@@ -45,7 +42,6 @@ const MoreInfoForm = ({}: Props) => {
     priceInPerson:
       profileData?.data?.data?.appointment_type?.in_person?.price ?? "0",
   };
-  console.log({initialValues});
 
   const occupationData = useFetchData(
     [queryKeys.getAllOccupations],

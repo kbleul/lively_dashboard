@@ -87,8 +87,7 @@ export default function AddPlaceForm({ id }: { id?: string }) {
           validationSchema={placesSchema}
           onSubmit={createBrand}
         >
-          {({ errors }) => {
-            console.log(errors);
+          {({}) => {
             return (
               <Form className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <FormikInput

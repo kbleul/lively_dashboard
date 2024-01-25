@@ -17,7 +17,6 @@ const PackageList = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-packages`,
     headers
   );
-  console.log(packagesData?.data?.data);
   return (
     <div>
       {packagesData.isSuccess && packagesData?.isFetched ? (

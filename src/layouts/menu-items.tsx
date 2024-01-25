@@ -13,6 +13,7 @@ export const operationalManagetMenuItems = [
   // label start
   {
     name: "Home",
+    label: "Operational Manager",
   },
   // label end
   {
@@ -90,6 +91,10 @@ export const operationalManagetMenuItems = [
         name: "Places",
         href: routes.operationalManager.places.list,
       },
+      {
+        name: "Create Place",
+        href: routes.operationalManager.places.create,
+      },
     ],
   },
 ];
@@ -97,6 +102,7 @@ export const operationalManagetMenuItems = [
 export const expertMenuItems = [
   {
     name: "Home",
+    label: null,
   },
   // label end
   {
@@ -128,6 +134,7 @@ export const expertMenuItems = [
 export const contentCretorMenuItems = [
   {
     name: "Home",
+    label: "Content Creation",
   },
   // label end
   {
@@ -222,9 +229,8 @@ export const branchManagerMenuItems = [
     dropdownItems: [
       {
         name: "Products",
-        href: routes.contentCreator.product,
+        href: routes.branchManger.products,
       },
     ],
   },
 ];
-

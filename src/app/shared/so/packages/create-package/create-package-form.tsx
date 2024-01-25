@@ -6,11 +6,9 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/react-query/query-keys";
 import { Button } from "@/components/ui/button";
-import { Modal } from "@/components/ui/modal";
-import { Title, Text } from "@/components/ui/text";
+import { Text } from "@/components/ui/text";
 import { toast } from "sonner";
 import { FieldArray, Form, Formik } from "formik";
-import CreatePackageCat from "./create-package-cat";
 import FormikInput from "@/components/ui/form/input";
 import FormikTextArea from "@/components/ui/form/formik-textarea";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -26,7 +24,13 @@ interface Service {
   };
   // Add other properties as needed
 }
-const CreatePackageForm = ({ branchId }: { branchId: string }) => {
+const CreatePackageForm = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const router = useRouter();
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
@@ -70,8 +74,8 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
             duration: item.startTime + "-" + item.endTime,
           })),
         },
-        onSuccess: () => {
-          router.push(routes.branchManger.packages);
+        onSuccess: (res: any) => {
+          router.push(routes.storeOwner.branch.packages(placeId, branchId));
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllPackages + branchId],
           });
@@ -95,7 +99,7 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
         {({ values, setFieldValue, errors }) => {
           return (
             <Form>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-start">
                 <CustomSelect
                   name="service_id"
                   label="Service Type"
@@ -111,12 +115,14 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
                     setFieldValue("service_id", selectedOptions);
                   }}
                   noOptionsMessage={() => "service type appears here"}
+                  className="pt-2"
                 />
                 <FormikInput
                   name="package_category"
                   label="Package Category"
                   placeholder="Enter Package Category"
                   color="primary"
+                  className=""
                 />
               </div>
 
@@ -124,11 +130,10 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
               <FieldArray name="packages">
                 {(data: any) => (
                   <div className="w-full flex flex-col items-start space-y-5 col-span-2">
-                    <Text as="p">packages</Text>
                     {values.packages?.map((_: any, index: number) => (
                       <div
                         key={index}
-                        className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full items-start bg-white dark:bg-black rounded-md p-3 shadow-lg"
+                        className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-start bg-white dark:bg-black rounded-md p-3 shadow-lg"
                       >
                         <div className="w-full flex flex-col items-start gap-3">
                           <FormikInput
@@ -143,7 +148,7 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
                             placeholder="Enter Package Description"
                             color="primary"
                           />
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
                             <FormikInput
                               type="time"
                               name={`packages.${index}.startTime`}
@@ -183,7 +188,6 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
                             getOptionLabel={(tag: any) => tag?.name?.english}
                             getOptionValue={(tag: any) => tag?.id}
                             onChange={(selectedOptions: any) => {
-                              console.log(selectedOptions);
                               setFieldValue(
                                 `packages.${index}.package_type_id`,
                                 selectedOptions?.id
@@ -222,24 +226,27 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
                         </div>
                       </div>
                     ))}
-                    <Button
-                      onClick={() =>
-                        data.push({
-                          title: "",
-                          description: "",
-                          package_type_id: "",
-                          enrollment_type: "",
-                          startTime: "",
-                          endTime: "",
-                          price: "",
-                          frequency: "",
-                        })
-                      }
-                      color="primary"
-                      variant="flat"
-                    >
-                      Add Package
-                    </Button>
+
+                    <div className="mt-4">
+                      <Button
+                        onClick={() =>
+                          data.push({
+                            title: "",
+                            description: "",
+                            package_type_id: "",
+                            enrollment_type: "",
+                            startTime: "",
+                            endTime: "",
+                            price: "",
+                            frequency: "",
+                          })
+                        }
+                        color="primary"
+                        variant="flat"
+                      >
+                        Add Package
+                      </Button>
+                    </div>
                   </div>
                 )}
               </FieldArray>

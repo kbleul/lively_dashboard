@@ -8,7 +8,6 @@ import React from "react";
 
 const Home = () => {
   const { data: session, status } = useSession();
-  console.log(session);
   const router = useRouter();
   if (status === "loading") return <PageLoader />;
   if (

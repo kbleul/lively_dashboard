@@ -20,11 +20,10 @@ const EditProductForm = ({ id }: Props) => {
   const [activeTab, setActiveTab] = React.useState<EditType>(EditType.Product);
   const headers = useGetHeaders({ type: "FormData" });
   const productData = useFetchData(
-    [queryKeys.getingleProduct],
+    [queryKeys.getSingleProduct],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/products/${id}`,
     headers
   );
-  console.log(productData?.data?.data);
   return (
     <div className="@container">
       <ProductEditTab setActiveTab={setActiveTab} activeTab={activeTab} />

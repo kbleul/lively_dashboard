@@ -78,7 +78,7 @@ const ProductDetailEdit = ({ id, data }: { id: string; data: Product }) => {
         onSuccess: (res) => {
           toast.success("Product Edited Successfully");
           queryClicnt.invalidateQueries({
-            queryKey: [queryKeys.getingleProduct],
+            queryKey: [queryKeys.getSingleProduct],
           });
         },
         onError: (err) => {

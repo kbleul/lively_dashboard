@@ -24,7 +24,11 @@ interface GoogleMapsAutocompleteProps {
   inputProps?: InputProps;
   spinnerClassName?: string;
   onPlaceSelect: (place: Location) => void;
-  onMapClick: (event: google.maps.MapMouseEvent) => void;
+  onMapClick: (
+    event: google.maps.MapMouseEvent,
+    mapInstance: google.maps.Map
+  ) => void;
+  markers?: google.maps.Marker[];
 }
 
 export const locationAtom = atomWithReset<Location>({
@@ -43,14 +47,18 @@ export default function Autocomplete({
   onPlaceSelect,
   spinnerClassName,
   onMapClick,
+  markers,
 }: GoogleMapsAutocompleteProps) {
-  const { setFieldValue } = useFormikContext();
   // check for dark mode
   const { theme } = useTheme();
   // global location state
   const location = useAtomValue(locationAtom);
+
   // to handle / clear input state
   const [inputValue, setInputValue] = useState("");
+
+  const [newLocation, setNewLocation] = useState<any>(null);
+
   // map loading state
   const [isLoading, setIsLoading] = useState<boolean>(true);
   // to reset location
@@ -81,10 +89,10 @@ export default function Autocomplete({
       setIsLoading(false);
 
       if (!hideMap && mapRef.current) {
-        new Map(mapRef.current, {
+        const mapInstance = new Map(mapRef.current, {
           center: {
-            lat: location.lat,
-            lng: location.lng,
+            lat: newLocation ? newLocation.lat : location.lat,
+            lng: newLocation ? newLocation.lng : location.lng,
           },
           zoom: 15,
           mapTypeControl: false,
@@ -93,12 +101,19 @@ export default function Autocomplete({
             styles: darkMode,
           }),
         });
+
+        markers &&
+          markers.length > 0 &&
+          markers.forEach((marker) => {
+            marker.setMap(mapInstance);
+          });
       }
+
       if (!hideMap && mapRef.current) {
         const mapInstance = new Map(mapRef.current, {
           center: {
-            lat: location.lat,
-            lng: location.lng,
+            lat: newLocation ? newLocation.lat : location.lat,
+            lng: newLocation ? newLocation.lng : location.lng,
           },
           zoom: 15,
           mapTypeControl: false,
@@ -107,14 +122,20 @@ export default function Autocomplete({
             styles: darkMode,
           }),
         });
+        markers &&
+          markers.length > 0 &&
+          markers.forEach((marker) => {
+            marker.setMap(mapInstance);
+          });
+
         mapInstance.addListener("click", (event: google.maps.MapMouseEvent) => {
           // Handle map click event
-          onMapClick(event);
+          onMapClick(event, mapInstance);
         });
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.lat, location.lng, theme, hideMap]);
+  }, [location.lat, location.lng, theme, hideMap, newLocation, markers]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (autocomplete) {
@@ -129,11 +150,18 @@ export default function Autocomplete({
   const handlePlaceSelect = (selectedPlace: google.maps.places.PlaceResult) => {
     if (selectedPlace && selectedPlace.formatted_address) {
       const { formatted_address, geometry } = selectedPlace;
+
       const place: Location = {
         address: formatted_address,
         lat: geometry?.location?.lat() || 0,
         lng: geometry?.location?.lng() || 0,
       };
+
+      setNewLocation({
+        lat: geometry?.location?.lat(),
+        lng: geometry?.location?.lng(),
+      });
+
       onPlaceSelect(place);
       setInputValue(formatted_address);
     }

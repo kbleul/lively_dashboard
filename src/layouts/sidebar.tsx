@@ -32,7 +32,11 @@ export default function Sidebar({ className }: { className?: string }) {
     if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
       return expertMenuItems;
     }
-    if (session?.user?.user.roles.map((role) => role.name).includes("Branch_Manager")) {
+    if (
+      session?.user?.user.roles
+        .map((role) => role.name)
+        .includes("Branch_Manager")
+    ) {
       return branchManagerMenuItems;
     }
     if (

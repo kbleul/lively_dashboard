@@ -9,7 +9,6 @@ export const genderOptions = [
   },
 ];
 
-
 export const workCustomDays = [
   {
     isActive: false,
@@ -52,5 +51,54 @@ export const workCustomDays = [
     day: "Sunday",
     from: "02:30:00",
     to: "11:30:00",
+  },
+  // {
+  //   "day_of_week": "Tuesday",
+  //   "opening_time": "02:00:00",
+  //   "closing_time": "12:59:59",
+  // },
+];
+
+export const CreatePlaceSteps = [
+  {
+    id: "create-store-step-1",
+    title: "Owner info.",
+    subTitle: "About the owner",
+  },
+  {
+    id: "create-store-step-2",
+    title: "Store info.",
+    subTitle: "About the Store",
+  },
+];
+
+export const CreateBranchSteps = [
+  {
+    id: "create-branch-step-1",
+    title: "Branch info.",
+    subTitle: "About the Branch",
+  },
+  {
+    id: "create-branch-step-2",
+    title: "More info.",
+    subTitle: "More information",
+  },
+  {
+    id: "create-branch-step-3",
+    title: "Manager Info.",
+    subTitle: "About the branch manager",
+  },
+];
+
+export const CreateBranchStoreSteps = [
+  {
+    id: "create-branch-step-1",
+    title: "Branch info.",
+    subTitle: "About the Branch",
+  },
+  {
+    id: "create-branch-step-2",
+    title: "More info.",
+    subTitle: "More information",
   },
 ];

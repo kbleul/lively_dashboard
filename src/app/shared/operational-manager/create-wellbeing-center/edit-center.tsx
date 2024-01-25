@@ -46,7 +46,6 @@ const EditCenter = ({ params }: Props) => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/centers/${params.id}`,
     headers
   );
-  console.log("FormData", centersData?.data?.data);
   const router = useRouter();
   const initialWellbeingState: CreateWellbeingType = {
     nameEn: centersData?.data?.data?.name?.english ?? "",
@@ -131,8 +130,7 @@ const EditCenter = ({ params }: Props) => {
           validationSchema={wellbeignYupSchema}
           onSubmit={createCenter}
         >
-          {({ handleSubmit, errors, values }) => {
-            console.log(errors);
+          {({}) => {
             return (
               <Form className={"[&_label.block>span]:font-medium "}>
                 <FormNav />

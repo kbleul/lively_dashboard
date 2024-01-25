@@ -5,7 +5,6 @@ import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import { StoreDataType } from "@/types/store";
 import React from "react";
-import Placeholder from "@public/Placeholder.png";
 import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { RadioGroup } from "@/components/ui/radio";
@@ -22,16 +21,20 @@ const MyStores = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/my-places`,
     headers
   );
-  console.log(myStoresData?.data?.data);
 
-  React.useEffect(() => {
-    if (myStoresData?.data?.data?.length < 2) {
-      router.push(`/so/${myStoresData?.data?.data[0]?.id}`);
-    }
-  }, []);
+  if (
+    myStoresData.isFetched &&
+    myStoresData.isSuccess &&
+    myStoresData?.data?.data?.length === 1
+  ) {
+    router.push(`/so/${myStoresData?.data?.data[0]?.id}`);
+  }
+
   return (
     <div className="max-w-4xl mx-auto w-full flex items-center justify-center min-h-screen">
-      {myStoresData.isFetched && myStoresData.isSuccess ? (
+      {myStoresData.isFetched &&
+      myStoresData.isSuccess &&
+      myStoresData?.data?.data?.length > 1 ? (
         <div className="flex flex-col items-center gap-3 w-full">
           <Title as="h3">Choose Your Store</Title>
           <RadioGroup
@@ -39,7 +42,7 @@ const MyStores = () => {
             setValue={setValue}
             className="grid grid-cols-2 gap-4 w-full"
           >
-            {myStoresData?.data?.data?.length > 1 &&
+            {myStoresData?.data?.data?.length > 0 &&
               myStoresData?.data?.data.map((store: StoreDataType) => (
                 <AdvancedRadio
                   key={store.id}

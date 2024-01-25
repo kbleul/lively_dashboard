@@ -46,14 +46,14 @@ export default function SignInForm() {
           const redirectUrl = role.includes("Expert")
             ? routes.expert.dashboard
             : role.includes("Operation_Manager")
-              ? routes.operationalManager.dashboard
-              : role.includes("Content_Creator")
-                ? routes.contentCreator.dashboard
-                : role.includes("Store_Owner")
-                  ? routes.storeOwner.home
-                  : role.includes("Branch_Manager")
-                    ? routes.branchManger.dashboard
-                    : "";
+            ? routes.operationalManager.dashboard
+            : role.includes("Content_Creator")
+            ? routes.contentCreator.dashboard
+            : role.includes("Store_Owner")
+            ? routes.storeOwner.home
+            : role.includes("Branch_Manager")
+            ? routes.branchManger.dashboard
+            : "";
 
           if (
             !role.includes("Expert") &&

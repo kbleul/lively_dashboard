@@ -15,11 +15,10 @@ interface Props {
 const ProductDetail = ({ id }: Props) => {
   const headers = useGetHeaders({ type: "FormData" });
   const productData = useFetchData(
-    [queryKeys.getingleProduct],
+    [queryKeys.getSingleProduct],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/products/${id}`,
     headers
   );
-  console.log(productData?.data?.data);
   return (
     <div className="@container">
       {productData.isFetched && productData.isSuccess ? (

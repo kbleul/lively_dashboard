@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+const BranchesList = () => {
+  return <div>COMMING SOON !</div>;
+};
 
-export default page
+export default BranchesList;

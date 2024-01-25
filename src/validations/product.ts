@@ -138,10 +138,17 @@ export const addBranchProductValidationSchema = Yup.object().shape({
   price: Yup.string().required("Product Price is required"),
 });
 
+export const editBranchProductValidationSchema = Yup.object().shape({
+  price: Yup.string().required("Product Price is required"),
+});
+
 export type ProductType = Yup.InferType<typeof productValidationSchema>;
 export type EditProductType = Yup.InferType<typeof editProductValidationSchema>;
 export type EditVariantype = Yup.InferType<typeof editVariantValidationSchema>;
 export type AddVariantype = Yup.InferType<typeof addVariantValidationSchema>;
 export type AddBranchProductype = Yup.InferType<
   typeof addBranchProductValidationSchema
+>;
+export type EditBranchProductype = Yup.InferType<
+  typeof editBranchProductValidationSchema
 >;
