@@ -59,13 +59,11 @@ const EditMoreInfo = ({
     );
   }
 
-  console.log(amenitiesData?.data?.data);
-
   return (
     <>
       <FormGroup
         title="More Branch Info."
-        description="Add your Branch information from here"
+        description="Edit your Branch information from here"
         className={cn(className)}
       >
         <div className="mt-4 w-full  col-span-2 flex flex-col gap-6">
@@ -108,7 +106,7 @@ const EditMoreInfo = ({
 
       <FormGroup
         title="Working Days & Hours"
-        description="Add your working days & hours from here"
+        description="Edit your working days & hours from here"
         className={cn(className)}
       >
         <div className="col-span-2">

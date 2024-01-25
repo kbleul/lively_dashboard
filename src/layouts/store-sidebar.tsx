@@ -51,8 +51,12 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Branches",
+          name: "List",
           href: routes.storeOwner.branches(pathname.split("/")[2]),
+        },
+        {
+          name: "Create Branch",
+          href: routes.storeOwner["create-branch"](pathname.split("/")[2]),
         },
       ],
     },

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import AddBranchInfo from "../operational-manager/branch/add-branch";
-import AddMoreInfo from "../operational-manager/branch/add-more-info";
 import FormStepIndicator from "../operational-manager/places/FormStepIndicator";
 import { CreateBranchStoreSteps } from "@/constants/form-constants";
+import AddBranchInfo from "./add-branch-form";
+import AddMoreInfo from "./add-more-info";
 
 const CreateBranchForm = ({ placeId }: { placeId: string }) => {
   const [formStep, setFormStep] = useState(1);
