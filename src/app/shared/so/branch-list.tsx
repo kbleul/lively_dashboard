@@ -3,13 +3,15 @@ import Spinner from "@/components/ui/spinner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
-import React from "react";
+import React, { useState } from "react";
 import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
 import { Text } from "@/components/ui/text";
 import { BsThreeDots } from "react-icons/bs";
+import PencilIcon from "@/components/icons/pencil";
+
 import Image from "next/image";
 
 import { routes } from "@/config/routes";
@@ -73,6 +75,8 @@ const BrancheList = ({ id }: { id: string }) => {
 };
 
 const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
     <div
       key={branch.id}
@@ -80,6 +84,7 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
     >
       <div className="relative h-44 w-full overflow-hidden group">
         <Image
+          onMouseOut={() => setShowMenu(false)}
           src={branch.branch_cover.url}
           alt="Center Cover"
           // height={400}
@@ -88,13 +93,31 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
           fill
           className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
         />
-        <Button
-          color="primary"
-          variant="outline"
-          className="text-black bg-white z-50 absolute top-3 right-3 rounded-full border-white py-1 px-[0.6rem] flex justify-center items-center"
-        >
-          <BsThreeDots size={20} />
-        </Button>
+        <section className="absolute top-3 right-3">
+          <Button
+            color="primary"
+            variant="outline"
+            onClick={() => setShowMenu((prev) => !prev)}
+            className="text-black bg-white z-50  rounded-full border-white py-1 px-[0.6rem] flex justify-center items-center"
+          >
+            <BsThreeDots size={20} />
+          </Button>
+
+          {showMenu && (
+            <div
+              className="absolute top-8 right-10 border bg-white"
+              onMouseEnter={() => setShowMenu(true)}
+            >
+              <Link
+                href={routes.storeOwner.branch["edit-branch"](id, branch.id)}
+                className="text-black bg-white z-50 px-8 py-2   border-white  flex justify-center items-center gap-2 hover:border-none"
+              >
+                <PencilIcon className="h-4 w-4 cursor-pointer" />
+                Edit
+              </Link>
+            </div>
+          )}
+        </section>
       </div>
 
       <div className="p-5 lg:p-7 mb-12">

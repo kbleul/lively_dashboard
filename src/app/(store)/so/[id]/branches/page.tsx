@@ -12,7 +12,7 @@ const pageHeader = {
       name: "Store Owner",
     },
     {
-      name: "Branches",
+      name: "List",
     },
   ],
 };

@@ -63,11 +63,15 @@ export const routes = {
     dashboard: (id: string) => `/so/${id}`,
     branches: (id: string) => `/so/${id}/branches`,
     "create-branch": (id: string) => `/so/${id}/create-branch`,
+    "edit-branch": (id: string, branchId: string) =>
+      `/so/${id}/branches/edit/${branchId}`,
 
     managers: (id: string) => `/so/${id}/managers`,
     branch: {
       dashboard: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}`,
+      "edit-branch": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/edit-branch`,
       products: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products`,
       packages: (id: string, branchId: string) =>

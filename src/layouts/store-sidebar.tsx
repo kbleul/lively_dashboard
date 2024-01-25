@@ -45,7 +45,6 @@ export default function StoreSidebar({ className }: { className?: string }) {
       // href: routes.file.dashboard,
       icon: <PiFileImageDuotone />,
     },
-
     {
       name: "Branches",
       href: "#",
@@ -81,7 +80,20 @@ export default function StoreSidebar({ className }: { className?: string }) {
       // href: routes.file.dashboard,
       icon: <PiFileImageDuotone />,
     },
-
+    {
+      name: "Branch",
+      href: "#",
+      dropdownItems: [
+        {
+          name: "Edit Branch",
+          href: routes.storeOwner.branch["edit-branch"](
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+      icon: <PiNotepadDuotone />,
+    },
     {
       name: "Packages",
       href: "#",
