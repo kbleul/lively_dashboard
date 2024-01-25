@@ -39,4 +39,5 @@ export const queryKeys = {
   getMyStores: "getMyStores",
   getMyBranches: "getMyBranches",
   getStorePackageType: "getStorePackageType",
+  getBranchPackageType: "getBranchPackageType",
 };
