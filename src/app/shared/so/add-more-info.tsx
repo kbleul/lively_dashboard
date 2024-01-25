@@ -91,7 +91,6 @@ const AddMoreInfo = ({
         },
         onSuccess: (res) => {
           toast.success("Store Branch Information Saved Successfully");
-          console.log(res.data);
 
           if (res && res.data && res.data.place_id) {
             return router.push(routes.storeOwner.branches(res.data.place_id));

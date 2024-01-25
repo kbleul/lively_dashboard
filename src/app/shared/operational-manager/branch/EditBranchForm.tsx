@@ -107,7 +107,6 @@ const EditBranchForm = ({
   );
 
   const branchInfoSubmitHandler = async (values: branchInfoEditType) => {
-    console.log("=============> ", values);
     const {
       amenities,
       branch_cover,

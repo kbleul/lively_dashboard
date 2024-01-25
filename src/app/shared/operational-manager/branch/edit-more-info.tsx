@@ -111,7 +111,6 @@ const EditMoreInfo = ({
                   newChecked[index] = isChecked;
 
                   if (customDaysChecked) {
-                    console.log("newChecked ----> ", newChecked);
                     setCustomDaysChecked([...newChecked]);
                   }
                 }}
