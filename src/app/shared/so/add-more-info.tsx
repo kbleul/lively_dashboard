@@ -223,6 +223,9 @@ const AddMoreInfo = ({
                     className="col-span-2"
                     isDoc={true}
                   />
+                  <p className="text-sm ">
+                    * Accepted Formats (PDF, doc, docx)
+                  </p>
                 </FormGroup>
               </div>
               <FormFooter
