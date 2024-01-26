@@ -19,7 +19,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="Name" />,
     dataIndex: "user",
     key: "user",
-    width: 50,
     render: (value: { first_name: string; last_name: string }) => (
       <Text className="font-medium text-gray-700">
         {value?.first_name + " " + value?.last_name}
@@ -27,13 +26,14 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     ),
   },
   {
-    title: <HeaderCell title="expert Name" />,
-    dataIndex: "appointable",
-    key: "appointable",
-    width: 50,
-    render: (value: { user: { first_name: string; last_name: string } }) => (
+    title: <HeaderCell title="Service" />,
+    dataIndex: "bookingable",
+    key: "bookingable",
+    render: (value: {
+      service: { name: { english: string; amharic: string } };
+    }) => (
       <Text className="font-medium text-gray-700">
-        {value?.user?.first_name + " " + value?.user?.last_name}
+        {value?.service?.name?.english}
       </Text>
     ),
   },
@@ -41,7 +41,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="Date" />,
     dataIndex: "date",
     key: "date",
-    width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
@@ -50,7 +49,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="Payment Method" />,
     dataIndex: "method",
     key: "method",
-    width: 50,
     render: (value: { bank_name: { english: string } }) => (
       <Text className="font-medium text-gray-700">
         {value?.bank_name?.english}
@@ -62,7 +60,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="price" />,
     dataIndex: "price",
     key: "price",
-    width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
@@ -71,7 +68,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="status" />,
     dataIndex: "status",
     key: "status",
-    width: 50,
     render: (value: string) => (
       <Badge className="whitespace-nowrap">{value}</Badge>
     ),
@@ -83,7 +79,6 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
     title: <HeaderCell title="Actions" className="opacity-0" />,
     dataIndex: "action",
     key: "action",
-    width: 50,
     render: (_: string, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
         {/* <Tooltip
@@ -105,13 +100,13 @@ export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
         <ReusabelPopover
           title={`Approve  Appintment`}
           icon={<FaCheck className="h-4 w-4" />}
-          description={`Are you sure you want to Approve this #${row.id} Appoitment?`}
+          description={`Are you sure you want to Approve this appoitment?`}
           onDelete={() => onApproveItem(row.id)}
         />
         <ReusabelPopover
           title={`Reject  Appintment`}
           icon={<FaTimes className="h-4 w-4" />}
-          description={`Are you sure you want to Reject this #${row.id} Appoitment?`}
+          description={`Are you sure you want to Reject this appoitment?`}
           onDelete={() => onRejectItem(row.id)}
         />
       </div>

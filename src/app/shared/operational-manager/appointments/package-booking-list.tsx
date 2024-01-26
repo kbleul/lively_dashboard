@@ -26,7 +26,7 @@ export default function PackageBookingList({
 
   const bookingsList = useFetchData(
     [queryKeys.getAllApoitmentsOp, currentPage, pageSize],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/booking-requests?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/booking-requests?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
@@ -34,7 +34,7 @@ export default function PackageBookingList({
   const onApproveItem = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/approve-booking/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/approve-booking/${id}`,
         method: "POST",
         headers,
         body: {},
@@ -56,7 +56,7 @@ export default function PackageBookingList({
   const onRejectItem = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/reject-booking/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/reject-booking/${id}`,
         method: "POST",
         headers,
         body: {},

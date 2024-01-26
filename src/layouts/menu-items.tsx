@@ -58,7 +58,7 @@ export const operationalManagetMenuItems = [
     ],
   },
   {
-    name: "Appoitments",
+    name: "Payments",
     href: routes.operationalManager.appointments,
     // href: routes.file.dashboard,
     icon: <PiNotepadDuotone />,
@@ -69,12 +69,12 @@ export const operationalManagetMenuItems = [
     // href: routes.file.dashboard,
     icon: <PiNotepadDuotone />,
   },
-  {
-    name: "Centers",
-    href: routes.operationalManager.centers.list,
-    // href: routes.file.dashboard,
-    icon: <PiChalkboardTeacherBold />,
-  },
+  // {
+  //   name: "Centers",
+  //   href: routes.operationalManager.centers.list,
+  //   // href: routes.file.dashboard,
+  //   icon: <PiChalkboardTeacherBold />,
+  // },
   {
     name: "Experts",
     href: routes.operationalManager.experts.list,

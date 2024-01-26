@@ -25,35 +25,6 @@ import Logo from "@/components/logo";
 import { signOut, useSession } from "next-auth/react";
 import { UrlObject } from "url";
 
-const dispachSideNav = (
-  roles: {
-    uuid: string;
-    name: string;
-  }[]
-) => {
-  let sidenav: any[] = [];
-
-  roles.forEach((role) => {
-    if (
-      role.name.includes("Operation_Manager") ||
-      role.name.includes("Admin")
-    ) {
-      sidenav = [...operationalManagetMenuItems];
-    }
-    if (role.name.includes("Content_Creator")) {
-      sidenav = [...sidenav, ...contentCretorMenuItems];
-    }
-    if (role.name.includes("Branch_Manager")) {
-      sidenav = [...sidenav, ...branchManagerMenuItems];
-    }
-    if (role.name.includes("Expert")) {
-      sidenav = [...sidenav, ...expertMenuItems];
-    }
-  });
-
-  return sidenav;
-};
-
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
