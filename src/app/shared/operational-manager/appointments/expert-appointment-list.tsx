@@ -3,15 +3,15 @@
 import React, { useState } from "react";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./column";
-import { Title } from "@/components/ui/text";
-import { Input } from "@/components/ui/input";
+
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-export default function AppointmentList({
+
+export default function ExpertAppointmentList({
   variant = "modern",
   className,
 }: {

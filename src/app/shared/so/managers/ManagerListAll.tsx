@@ -83,7 +83,7 @@ const ManagersListAll = ({ id }: { id: string }) => {
             variant={"modern"}
             isLoading={branchManagersData.isFetching}
             showLoadingText={true}
-            data={branchManagersData?.data?.data.map((item) => {
+            data={branchManagersData?.data?.data.map((item: any) => {
               return item.manager;
             })}
             scroll={{ x: 1300 }}
