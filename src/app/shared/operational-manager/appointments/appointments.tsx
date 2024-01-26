@@ -3,6 +3,7 @@
 import { useState } from "react";
 import CustomCategory from "@/components/ui/custom-category";
 import ExpertAppointmentList from "./expert-appointment-list";
+import PackageBookingList from "./package-booking-list";
 
 const AppointmentCategoriesLink = [
   {
@@ -29,6 +30,10 @@ const AppointmentsList = () => {
       />
       {categoryLink === AppointmentCategoriesLink[0].id && (
         <ExpertAppointmentList />
+      )}
+
+      {categoryLink === AppointmentCategoriesLink[1].id && (
+        <PackageBookingList />
       )}
     </>
   );
