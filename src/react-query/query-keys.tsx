@@ -26,6 +26,7 @@ export const queryKeys = {
   getAllPlaceTypes: `getAllPlaceTypesApi`,
   getSinglePlace: `getSinglePlaceApi`,
   getSingleBranch: `getSingleBranchApi`,
+  getAllBranches: `getAllBranchesApi`,
   getAllPlaceBranches: `getAllPlaceBranchesApi`,
   getAllProducts: `getAllProductsApi`,
   getAllServices: "getAllServicesApi",

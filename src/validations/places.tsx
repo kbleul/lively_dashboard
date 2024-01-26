@@ -12,7 +12,32 @@ export const placesOwnerSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  dob: Yup.date().min(new Date(1900, 1, 1)).required("birth date is required"),
+  dob: Yup.date()
+    .min(new Date(1900, 1, 1))
+    .max(
+      new Date(
+        new Date().getFullYear() - 18,
+        new Date().getMonth(),
+        new Date().getDate()
+      ),
+      "Age should be 18 or above"
+    )
+    .required("Birth date is required")
+    .test("age", "Age should be 18 or above", (value) => {
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+
+      return age >= 18;
+    }),
   password: Yup.string().min(4).required("Password is required"),
 });
 

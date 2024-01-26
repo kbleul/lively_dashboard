@@ -115,7 +115,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
         </article>
       )}
 
-      <section className="mt-8 md:mt-0 w-3/4  md:ml-[30%] lg:[23%]  ">
+      <section className="mt-8 md:mt-0 md:w-3/4  md:ml-[30%] lg:[23%]  ">
         <h4 className="font-bold text-2xl py-2">
           {storeData?.data?.data?.name?.english}
         </h4>
@@ -128,18 +128,11 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
               {storeData?.data?.data?.place_type?.name?.english}
             </p>
           </div>
-          {storeData?.data?.data?.place_type?.name?.english && (
-            <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-              <LuPhone size={18} color="#00BA63" />
-              <p className="text-[#5F5F5F]">Business category : </p>
-              <p className="text-black">
-                {storeData?.data?.data?.place_type?.name?.english}
-              </p>
-            </div>
-          )}
+
           {storeData?.data?.data?.phone && (
             <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-              <IoLocationOutline size={18} color="#00BA63" />
+              <LuPhone size={18} color="#00BA63" />
+
               <p className="text-[#5F5F5F]">Phone number : </p>
               <p className="text-black">{storeData?.data?.data?.phone}</p>
             </div>
@@ -160,7 +153,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
           )}
         </section>
 
-        <p className="text-[#6F6F6F] pr-4 w-4/5 leading-8">
+        <p className="text-[#6F6F6F] pr-4 md:w-4/5 leading-8">
           {storeData?.data?.data?.description?.english}
         </p>
       </section>

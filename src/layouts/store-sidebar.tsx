@@ -27,7 +27,6 @@ import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
 import { routes } from "@/config/routes";
-import path from "path";
 
 export default function StoreSidebar({ className }: { className?: string }) {
   const [determineBranchMode, setDetermineBranchMode] = useState(false);
@@ -66,8 +65,12 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Managers",
+          name: "List",
           href: routes.storeOwner.managers(pathname.split("/")[2]),
+        },
+        {
+          name: "Create Manager",
+          href: routes.storeOwner["add-manager"](pathname.split("/")[2]),
         },
       ],
     },
@@ -120,6 +123,27 @@ export default function StoreSidebar({ className }: { className?: string }) {
         {
           name: "Products",
           href: routes.storeOwner.branch.products(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.storeOwner.branch.managers(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Create Manager",
+          href: routes.storeOwner.branch["add-manager"](
             pathname.split("/")[2],
             pathname.split("/")[4]
           ),

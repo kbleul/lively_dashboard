@@ -66,6 +66,9 @@ export const routes = {
     "create-branch": (id: string) => `/so/${id}/create-branch`,
 
     managers: (id: string) => `/so/${id}/managers`,
+    "add-manager": (id: string) => `/so/${id}/managers/add-manager`,
+    "edit-manager": (id: string, managerId: string) =>
+      `/so/${id}/managers/edit-manager/${managerId}`,
 
     branch: {
       dashboard: (id: string, branchId: string) =>
@@ -78,6 +81,12 @@ export const routes = {
         `/so/${id}/branch/${branchId}/packages`,
       createPackage: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/create`,
+      managers: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/managers`,
+      "add-manager": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/managers/add-manager`,
+      "edit-manager": (id: string, branchId: string, managerId: string) =>
+        `/so/${id}/branch/${branchId}/managers/edit-manager/${managerId}`,
     },
   },
   branchManger: {

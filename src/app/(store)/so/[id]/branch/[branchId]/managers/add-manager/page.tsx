@@ -1,9 +1,14 @@
-import React from "react";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-import EditBranchForm from "@/app/shared/so/edit-branch-form";
+import React from "react";
+import { metaObject } from "@/config/site.config";
+import AddManagerForm from "@/app/shared/so/managers/add-manager-form-branch";
 
-const EditBranch = ({
+export const metadata = {
+  ...metaObject("Managers"),
+};
+
+const AddManager = ({
   params,
 }: {
   params: { id: string; branchId: string };
@@ -15,13 +20,12 @@ const EditBranch = ({
         href: routes.storeOwner.dashboard(params.id),
         name: "Store Owner",
       },
-
       {
-        href: routes.storeOwner.branch.dashboard(params.id, params.branchId),
-        name: "Branch",
+        href: routes.storeOwner.branches(params.id),
+        name: "Branches",
       },
       {
-        name: "Edit",
+        name: "Add Manager",
       },
     ],
   };
@@ -30,9 +34,9 @@ const EditBranch = ({
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
-      <EditBranchForm placeId={params.id} branchId={params.branchId} />
+      <AddManagerForm placeId={params.id} branchId={params.branchId} />
     </>
   );
 };
 
-export default EditBranch;
+export default AddManager;

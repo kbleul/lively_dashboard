@@ -7,7 +7,30 @@ export const expertBasicProfileInfo = Yup.object().shape({
   gender: Yup.string().min(1).required("Gender is required"),
   birthDate: Yup.date()
     .min(new Date(1900, 1, 1))
-    .required("birth date is required"),
+    .max(
+      new Date(
+        new Date().getFullYear() - 18,
+        new Date().getMonth(),
+        new Date().getDate()
+      ),
+      "Age should be 18 or above"
+    )
+    .required("Birth date is required")
+    .test("age", "Age should be 18 or above", (value) => {
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+
+      return age >= 18;
+    }),
   phoneNumber: Yup.string()
     .min(1)
     .required("Phone number is required")

@@ -157,7 +157,32 @@ export const banchManagerSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  dob: Yup.date().min(new Date(1900, 1, 1)).required("birth date is required"),
+  dob: Yup.date()
+    .min(new Date(1900, 1, 1))
+    .max(
+      new Date(
+        new Date().getFullYear() - 18,
+        new Date().getMonth(),
+        new Date().getDate()
+      ),
+      "Age should be 18 or above"
+    )
+    .required("Birth date is required")
+    .test("age", "Age should be 18 or above", (value) => {
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+
+      return age >= 18;
+    }),
   password: Yup.string().min(4).required("Password is required"),
 });
 
@@ -171,4 +196,50 @@ export type BranchManagerType = {
   email: string;
   password: string;
   profile_image: string;
+};
+
+export const banchManagerSchema_store = Yup.object().shape({
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  username: Yup.string().required("Username Name is required"),
+  gender: Yup.string().required("Gender is required"),
+  phone: Yup.string()
+    .min(1)
+    .required("Phone number is required")
+    .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  dob: Yup.date()
+    .min(new Date(1900, 1, 1))
+    .max(
+      new Date(
+        new Date().getFullYear() - 18,
+        new Date().getMonth(),
+        new Date().getDate()
+      ),
+      "Age should be 18 or above"
+    )
+    .required("Birth date is required")
+    .test("age", "Age should be 18 or above", (value) => {
+      const today = new Date();
+      const birthDate = new Date(value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < birthDate.getDate())
+      ) {
+        age--;
+      }
+
+      return age >= 18;
+    }),
+  password: Yup.string().min(4).required("Password is required"),
+  branch: Yup.string().required("Branch is required"),
+});
+
+export type BranchManagerType_store = BranchManagerType & {
+  branch: string;
 };

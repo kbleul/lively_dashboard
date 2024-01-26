@@ -13,6 +13,7 @@ import ReusabelPopover from "@/components/reusabel-popover";
 import Link from "next/link";
 import Image from "next/image";
 import { routes } from "@/config/routes";
+import { truncateAmharicText } from "@/utils/trim-text";
 
 type Columns = {
   deleteProduct: (id: string) => void;
@@ -60,7 +61,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "description",
     width: 50,
     render: (value: { english: string }) => (
-      <Text className="font-medium text-gray-700">{value?.english}</Text>
+      <Text className="font-medium text-gray-700">
+        {truncateAmharicText(value?.english, 20)}
+      </Text>
     ),
   },
   {
@@ -69,7 +72,9 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     key: "description",
     width: 50,
     render: (value: { amharic: string }) => (
-      <Text className="font-medium text-gray-700">{value?.amharic}</Text>
+      <Text className="font-medium text-gray-700">
+        {truncateAmharicText(value?.amharic, 20)}
+      </Text>
     ),
   },
   {
