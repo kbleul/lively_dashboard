@@ -191,9 +191,10 @@ const CreatePackageForm = () => {
 
                           <FormikInput
                             name={`packages.${index}.frequency`}
-                            label="Package Enrolment Type"
+                            label="Add Package Frequency"
                             placeholder="Enter Package Frequency"
                             color="primary"
+                            type="number"
                           />
                           <FormikInput
                             type="number"

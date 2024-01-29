@@ -442,12 +442,12 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
                         name={`openingHours[${index}].from`}
                         label="Opening Time"
                         disabled={!customDaysChecked[index]}
-                        type="time"
+                        type="time24"
                       />
                       <FormikInput
                         name={`openingHours[${index}].to`}
                         label="Closing Time"
-                        type="time"
+                        type="time24"
                         disabled={!customDaysChecked[index]}
                       />
                     </div>

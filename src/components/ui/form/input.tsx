@@ -16,6 +16,7 @@ interface FormikInputProps {
     | "search"
     | "tel"
     | "time"
+    | "time24"
     | "url"
     | "week"
     | undefined;

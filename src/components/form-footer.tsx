@@ -29,7 +29,7 @@ export default function FormFooter({
   return (
     <div
       className={cn(
-        "sticky bottom-0 left-0 right-0 -mb-8 flex items-center justify-end gap-4 border-t bg-white px-4 py-4 dark:bg-gray-50 md:px-5 lg:px-6 3xl:px-8 4xl:px-10",
+        "sticky bottom-0 left-0 right-0 -mb-8 z-[100] flex items-center justify-end gap-4 border-t bg-white px-4 py-4 dark:bg-gray-50 md:px-5 lg:px-6 3xl:px-8 4xl:px-10",
         className,
         negMargin
       )}
