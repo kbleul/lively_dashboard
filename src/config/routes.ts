@@ -13,10 +13,8 @@ export const routes = {
   // operational routes =>op means operational manager
   operationalManager: {
     dashboard: "/op",
-    city: "/op/city",
     contact: "/op/contact",
     appointments: "/op/appointments",
-    speciality: "/op/speciality",
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
     centers: {
@@ -45,6 +43,10 @@ export const routes = {
   contentCreator: {
     dashboard: "/contentc",
     language: "/contentc/language",
+    city: "/contentc/city",
+    speciality: "/contentc/speciality",
+    occupation: "/contentc/occupation",
+    registerExpert: "/contentc/register-experts",
     paymentMethod: "/contentc/payment-methods",
     tags: "/contentc/tags",
     unit: "/contentc/units",

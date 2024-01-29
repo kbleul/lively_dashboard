@@ -19,7 +19,9 @@ const AddVariantForm = ({ className }: { className?: string }) => {
   const variantTypeOptions = [
     { name: "Value", value: "Value" },
     { name: "Color", value: "Color" },
+    { name: "Size", value: "Size" },
   ];
+
   return (
     <FormGroup
       title="Variants"
@@ -62,6 +64,23 @@ const AddVariantForm = ({ className }: { className?: string }) => {
                       name={`product_variants.${index}.valueAmharic`}
                       label="Amharic Value"
                       placeholder="Enter Amharic Value"
+                      color="primary"
+                    />
+                  </div>
+                )}
+
+                {values.variant_type === IProductVariantType.Size && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full">
+                    <FormikInput
+                      name={`product_variants.${index}.sizeEnglish`}
+                      label="English Size"
+                      placeholder="Enter English Size"
+                      color="primary"
+                    />
+                    <FormikInput
+                      name={`product_variants.${index}.sizeAmharic`}
+                      label="Amharic Size"
+                      placeholder="Enter Amharic Size"
                       color="primary"
                     />
                   </div>

@@ -2,6 +2,7 @@ import * as Yup from "yup";
 export enum IProductVariantType {
   Value = "Value",
   Color = "Color",
+  Size = "Size",
 }
 export const productValidationSchema = Yup.object().shape({
   title: Yup.string().required("product title is required"),

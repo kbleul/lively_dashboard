@@ -26,14 +26,14 @@ const CentersList = () => {
   const { openModal } = useModal();
   const centersData = useFetchData(
     [queryKeys.getAllCenters, page],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/centers?.page=${page}`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/centers?.page=${page}`,
     headers
   );
 
   const deleteCenter = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/centers/${id}`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/centers/${id}`,
         method: "DELETE",
         headers,
         body: {},
@@ -69,18 +69,16 @@ const CentersList = () => {
               key={center.id}
               className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg"
             >
-              {center.center_cover && center.center_cover.url && (
-                <div className="relative h-44 w-full overflow-hidden group">
-                  <Image
-                    src={center.center_cover.url}
-                    alt="Center Cover"
-                    // height={400}
-                    // width={500}
-                    fill
-                    className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
-                  />
-                </div>
-              )}
+              <div className="relative h-44 w-full overflow-hidden group">
+                <Image
+                  src={center.center_cover.url}
+                  alt="Center Cover"
+                  // height={400}
+                  // width={500}
+                  fill
+                  className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
+                />
+              </div>
 
               <div className="p-5 lg:p-7 mb-12">
                 <Title as="h5" className="line-clamp-2">

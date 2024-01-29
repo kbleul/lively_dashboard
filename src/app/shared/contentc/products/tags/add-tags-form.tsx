@@ -24,7 +24,7 @@ export default function AddTagForm({ id }: { id?: string }) {
   const { closeModal } = useModal();
 
   const tagsData = useFetchData(
-    [queryKeys.getSingelTag, id],
+    [],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/tags/${id}`,
     headers,
     !!id

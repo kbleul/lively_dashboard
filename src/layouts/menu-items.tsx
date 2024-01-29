@@ -1,9 +1,5 @@
 import { routes } from "@/config/routes";
-import {
-  PiChalkboardTeacherBold,
-  PiFileImageDuotone,
-  PiTimerDuotone,
-} from "react-icons/pi";
+import { PiFileImageDuotone, PiTimerDuotone } from "react-icons/pi";
 import { PiNotepadDuotone } from "react-icons/pi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserNurse, FaWpforms } from "react-icons/fa6";
@@ -33,20 +29,6 @@ export const operationalManagetMenuItems = [
     href: "#",
     icon: <FaWpforms />,
     dropdownItems: [
-      {
-        name: "City",
-        href: routes.operationalManager.city,
-      },
-
-      {
-        name: "speciality",
-        href: routes.operationalManager.speciality,
-      },
-
-      {
-        name: "occupation",
-        href: routes.operationalManager.occupation,
-      },
       {
         name: "register experts",
         href: routes.operationalManager.experts.create,
@@ -80,6 +62,12 @@ export const operationalManagetMenuItems = [
     href: routes.operationalManager.experts.list,
     // href: routes.file.dashboard,
     icon: <FaUserNurse />,
+  },
+  {
+    name: "Centers",
+    href: routes.operationalManager.centers.list,
+    // href: routes.file.dashboard,
+    icon: <PiNotepadDuotone />,
   },
 
   {
@@ -157,6 +145,22 @@ export const contentCretorMenuItems = [
         name: "payment Methods",
         href: routes.contentCreator.paymentMethod,
       },
+      {
+        name: "Cities",
+        href: routes.contentCreator.city,
+      },
+      {
+        name: "speciality",
+        href: routes.contentCreator.speciality,
+      },
+      {
+        name: "occupation",
+        href: routes.contentCreator.occupation,
+      },
+      // {
+      //   name: "register experts",
+      //   href: routes.contentCreator.experts.create,
+      // },
     ],
   },
   {
