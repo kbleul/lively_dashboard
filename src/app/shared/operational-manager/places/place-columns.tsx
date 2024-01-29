@@ -55,15 +55,6 @@ export const getColumns = ({ deleteProduct }: Columns) => [
       <Text className="font-medium text-gray-700">{value?.amharic}</Text>
     ),
   },
-  {
-    title: <HeaderCell title="Type" />,
-    dataIndex: "place_type",
-    key: "place_type",
-    width: 50,
-    render: (value: { name: any }) => (
-      <Text className="font-medium text-gray-700">{value.name.english}</Text>
-    ),
-  },
 
   {
     // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.

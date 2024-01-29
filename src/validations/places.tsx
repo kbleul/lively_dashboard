@@ -69,7 +69,9 @@ export type PlacesOwnerType = {
 };
 
 export const storeSchema = Yup.object().shape({
-  place_type_id: Yup.string().required("Place type id is required"),
+  place_type_id: Yup.array()
+    .min(1, "Place type is required")
+    .required("please select at least one place type"),
   nameEnglish: Yup.string().required("English Name is required"),
   nameAmharic: Yup.string().required("English Name is required"),
   descriptionEnglish: Yup.string().required(
@@ -86,7 +88,7 @@ export const storeSchema = Yup.object().shape({
 });
 
 export type StoreType = {
-  place_type_id: string;
+  place_type_id: string[];
   nameEnglish: string;
   nameAmharic: string;
   descriptionEnglish: string;
