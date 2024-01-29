@@ -55,6 +55,7 @@ const FormikInput: React.FC<FormikInputProps> = ({
         <Input
           autoComplete="off"
           {...field}
+          // @ts-ignore
           type={type}
           label={label}
           name={name}
