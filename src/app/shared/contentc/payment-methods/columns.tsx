@@ -6,13 +6,15 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { ActionIcon } from "@/components/ui/action-icon";
 import PencilIcon from "@/components/icons/pencil";
 import DeletePopover from "@/components/delete-popover";
+import { FaToggleOn } from "react-icons/fa";
+import { FaToggleOff } from "react-icons/fa6";
 
 type Columns = {
-  onDeleteItem: (id: string) => void;
+  onToggle: (id: string) => void;
   onEditItem?: (id: string) => void;
 };
 
-export const getColumns = ({ onDeleteItem, onEditItem }: Columns) => [
+export const getColumns = ({ onToggle, onEditItem }: Columns) => [
   {
     title: <HeaderCell title="Image" />,
     dataIndex: "image",
@@ -114,11 +116,32 @@ export const getColumns = ({ onDeleteItem, onEditItem }: Columns) => [
           </ActionIcon>
         </Tooltip>
 
-        <DeletePopover
+        <Tooltip
+          size="sm"
+          content={() => `Activate Payment Method`}
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon
+            tag="span"
+            size="sm"
+            variant="outline"
+            className="hover:text-gray-700"
+            onClick={() => onToggle && onToggle(row.id)}
+          >
+            {row.is_hidden ? (
+              <FaToggleOff className="h-6 w-16 text-gray-500" />
+            ) : (
+              <FaToggleOn className="h-6 w-16 text-green-400" />
+            )}
+          </ActionIcon>
+        </Tooltip>
+
+        {/* <DeletePopover
           title={`Delete the ${name}`}
           description={`Are you sure you want to delete this Payment Method?`}
           onDelete={() => onDeleteItem(row.id)}
-        />
+        /> */}
       </div>
     ),
   },
