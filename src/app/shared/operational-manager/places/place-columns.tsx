@@ -27,13 +27,17 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     width: 50,
     render: (value: { url: string }) => (
       <div>
-        <Image
-          src={value?.url}
-          alt={""}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
+        {value?.url ? (
+          <Image
+            src={value?.url}
+            alt={""}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        ) : (
+          <div className="rounded-full w-8 h-8 bg-gray-100" />
+        )}
       </div>
     ),
   },

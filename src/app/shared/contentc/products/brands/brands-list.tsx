@@ -48,21 +48,10 @@ const BrandsList = () => {
     }
   };
   const [pageSize, setPageSize] = React.useState(10);
-  const {
-    isLoading,
-    sortConfig,
-    totalItems,
-    tableData,
-    currentPage,
-    searchTerm,
-    handleSort,
-    handleDelete,
-    handleSearch,
-    handlePaginate,
-    selectedRowKeys,
-    handleRowSelect,
-    handleSelectAll,
-  } = useTable(languageData?.data ?? [], pageSize);
+  const { totalItems, currentPage, handlePaginate } = useTable(
+    languageData?.data ?? [],
+    pageSize
+  );
 
   const onEditItem = (id: string) => {
     openModal({

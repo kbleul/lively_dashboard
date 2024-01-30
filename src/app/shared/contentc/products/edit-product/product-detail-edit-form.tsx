@@ -96,7 +96,7 @@ const ProductDetailEdit = ({ id, data }: { id: string; data: Product }) => {
       onSubmit={editProductHandeler}
     >
       {({ handleChange, setFieldValue }) => (
-        <Form className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
+        <Form className="flex flex-col md:grid grid-cols-1 md:grid-cols-2 w-full gap-5">
           <FormikInput
             name="title"
             label="Product Title English"

@@ -152,7 +152,7 @@ export default function AddPaymentForm({ id }: { id?: string }) {
                   name="discriptionNameEn"
                 />
                 <FilePicker name="image" label="Image" />
-                {!values.image && (
+                {!values.image && paymentMethod?.data?.data?.image?.url && (
                   <div className="pt-2">
                     <Image
                       src={paymentMethod?.data?.data?.image?.url}

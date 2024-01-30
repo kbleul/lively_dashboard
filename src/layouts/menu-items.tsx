@@ -2,7 +2,15 @@ import { routes } from "@/config/routes";
 import { PiFileImageDuotone, PiTimerDuotone } from "react-icons/pi";
 import { PiNotepadDuotone } from "react-icons/pi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { FaUserNurse, FaWpforms } from "react-icons/fa6";
+import { LuStore } from "react-icons/lu";
+import { MdOutlineLocalGroceryStore } from "react-icons/md";
+import { PiToolboxThin } from "react-icons/pi";
+import { MdOutlineAttachMoney } from "react-icons/md";
+import { GrUserExpert } from "react-icons/gr";
+import { RiContactsBook2Line } from "react-icons/ri";
+import { MdOutlineContentPasteGo } from "react-icons/md";
+import { LiaProductHunt } from "react-icons/lia";
+import { TbServicemark } from "react-icons/tb";
 // Note: do not add href in the label object, it is rendering as label
 
 export const operationalManagetMenuItems = [
@@ -27,7 +35,7 @@ export const operationalManagetMenuItems = [
   {
     name: "Lively Tools",
     href: "#",
-    icon: <FaWpforms />,
+    icon: <PiToolboxThin />,
     dropdownItems: [
       {
         name: "register experts",
@@ -43,13 +51,13 @@ export const operationalManagetMenuItems = [
     name: "Payments",
     href: routes.operationalManager.appointments,
     // href: routes.file.dashboard,
-    icon: <PiNotepadDuotone />,
+    icon: <MdOutlineAttachMoney />,
   },
   {
     name: "Contacts",
     href: routes.operationalManager.contact,
     // href: routes.file.dashboard,
-    icon: <PiNotepadDuotone />,
+    icon: <RiContactsBook2Line />,
   },
   // {
   //   name: "Centers",
@@ -61,19 +69,19 @@ export const operationalManagetMenuItems = [
     name: "Experts",
     href: routes.operationalManager.experts.list,
     // href: routes.file.dashboard,
-    icon: <FaUserNurse />,
+    icon: <GrUserExpert />,
   },
   {
     name: "Centers",
     href: routes.operationalManager.centers.list,
     // href: routes.file.dashboard,
-    icon: <PiNotepadDuotone />,
+    icon: <LuStore />,
   },
 
   {
     name: "Places",
     href: "#",
-    icon: <PiNotepadDuotone />,
+    icon: <MdOutlineLocalGroceryStore />,
     dropdownItems: [
       {
         name: "Places",
@@ -135,7 +143,7 @@ export const contentCretorMenuItems = [
   {
     name: "Contents",
     href: "#",
-    icon: <PiNotepadDuotone />,
+    icon: <MdOutlineContentPasteGo />,
     dropdownItems: [
       {
         name: "Languages",
@@ -166,7 +174,7 @@ export const contentCretorMenuItems = [
   {
     name: "Products",
     href: "#",
-    icon: <PiNotepadDuotone />,
+    icon: <LiaProductHunt />,
     dropdownItems: [
       {
         name: "Tags",
@@ -189,7 +197,7 @@ export const contentCretorMenuItems = [
   {
     name: "Services",
     href: "#",
-    icon: <PiNotepadDuotone />,
+    icon: <TbServicemark />,
     dropdownItems: [
       {
         name: "Services",

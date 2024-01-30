@@ -15,6 +15,8 @@ import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import { BrandType, brandSchema, editbrandSchema } from "@/validations/tag";
 import FilePicker from "@/components/ui/form/dropzone";
+import Loading from "../products/tags/Loading";
+import Image from "next/image";
 
 export default function AddAmenityForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -22,15 +24,20 @@ export default function AddAmenityForm({ id }: { id?: string }) {
   const { closeModal } = useModal();
   const headers = useGetHeaders({ type: "FormData" });
 
-  const serviceData = useFetchData(
+  const aminitiesData = useFetchData(
     [queryKeys.getSingleAmenity, id],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}content-creator/amenities/${id}`,
     headers,
     !!id
   );
+
+  if (aminitiesData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: BrandType = {
-    nameEn: id ? serviceData?.data?.data?.name?.english : "",
-    nameAm: id ? serviceData?.data?.data?.name?.amharic : "",
+    nameEn: id ? aminitiesData?.data?.data?.name?.english : "",
+    nameAm: id ? aminitiesData?.data?.data?.name?.amharic : "",
     brand_image: "",
   };
   const createService = async (values: BrandType) => {
@@ -54,6 +61,10 @@ export default function AddAmenityForm({ id }: { id?: string }) {
           toast.success(
             id ? "Amenity Edited Successfully" : "Amenity Created Successfully"
           );
+
+          id &&
+            queryClient.setQueryData([queryKeys.getSingleAmenity, id], null);
+
           closeModal();
         },
         onError: (err) => {
@@ -74,7 +85,7 @@ export default function AddAmenityForm({ id }: { id?: string }) {
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
-      {serviceData.isLoading ? (
+      {aminitiesData.isLoading ? (
         <Spinner size="xl" />
       ) : (
         <Formik
@@ -97,6 +108,21 @@ export default function AddAmenityForm({ id }: { id?: string }) {
                 name="nameAm"
               />
               <FilePicker name="brand_image" label="Service AImage" />
+              {id &&
+                aminitiesData?.data?.data?.image &&
+                aminitiesData?.data?.data?.image?.url && (
+                  <>
+                    <p>Current Image</p>
+                    <Image
+                      src={aminitiesData?.data?.data?.image?.url}
+                      alt=""
+                      className="dark:invert"
+                      width={100}
+                      height={100}
+                    />
+                  </>
+                )}
+
               <Button
                 color="primary"
                 className="w-full"

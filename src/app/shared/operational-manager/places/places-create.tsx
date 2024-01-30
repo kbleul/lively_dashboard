@@ -7,7 +7,6 @@ import AddOwnerInfo from "./add-owner-form";
 import FormStepIndicator from "./FormStepIndicator";
 import { CreatePlaceSteps } from "@/constants/form-constants";
 import PageHeader from "../../page-header";
-import { routes } from "@/config/routes";
 
 const pageHeader = {
   title: "Store Owner",
