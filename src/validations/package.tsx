@@ -17,7 +17,8 @@ export const createPackageSchema = Yup.object().shape({
       package_type_id: Yup.string().required("Package type is required"),
       enrollment_type: Yup.string().required("Enrollment type is required"),
       price: Yup.string().required("Price is required"),
-
+      startTime: Yup.string(),
+      endTime: Yup.string(),
       frequency: Yup.string().required("Frequency is required"),
       frequency_type: Yup.string().required("Frequency type is required"),
     })
