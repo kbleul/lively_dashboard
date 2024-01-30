@@ -142,7 +142,7 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
             {name && (
               <div className="flex w-full items-center justify-center py-2">
                 <Alert color="info" variant="flat">
-                  <Text>You Are fnishing Registration for {name}</Text>
+                  <Text>You Are finishing Registration for {name}</Text>
                 </Alert>
               </div>
             )}

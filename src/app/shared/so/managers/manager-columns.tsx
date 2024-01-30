@@ -72,22 +72,22 @@ export const getColumns = ({ deleteManager, params }: Columns) => [
           placement="top"
           color="invert"
         >
-          <Link
+          {/* <Link
             href={`${routes.storeOwner.branch["edit-manager"](
               params.placeId,
               params.branchId,
               row.id
             )}`}
+          > */}
+          <ActionIcon
+            tag="span"
+            size="sm"
+            variant="outline"
+            className="hover:text-gray-700"
           >
-            <ActionIcon
-              tag="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
+            <PencilIcon className="h-4 w-4" />
+          </ActionIcon>
+          {/* </Link> */}
         </Tooltip>
         <ReusabelPopover
           title={`Delete Product`}

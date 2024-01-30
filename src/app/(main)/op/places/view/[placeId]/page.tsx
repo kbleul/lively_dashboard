@@ -125,8 +125,12 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
             <MdOutlineCategory size={18} color="#00BA63" />
             <p className="text-[#5F5F5F]">Business type : </p>
             <p className="text-black">
-              {storeData?.data?.data?.place_type?.name?.english}
+              {storeData?.data?.data?.place_types?.name?.english}
             </p>
+
+            {storeData?.data?.data?.place_types.map((item: any) => (
+              <p key={item.id}>{item?.name?.english} </p>
+            ))}
           </div>
 
           {storeData?.data?.data?.phone && (
@@ -151,13 +155,6 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
             </div>
           )}
 
-          {/* <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-            <CiGlobe size={24} color="#00BA63" />
-            <p className="text-[#5F5F5F]">Location : </p>
-            <p className="text-black">
-              {storeData?.data?.data?.place_type?.name?.english}
-            </p>
-          </div> */}
           {storeData?.data?.data?.website && (
             <div className=" mb-2 flex items-center justify-start gap-x-4 ">
               <MdOutlineStorefront size={18} color="#00BA63" />

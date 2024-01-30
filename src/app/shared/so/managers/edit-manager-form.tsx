@@ -19,6 +19,8 @@ import { BranchManagerType, banchManagerSchema } from "@/validations/branches";
 import FilePicker from "@/components/ui/form/dropzone";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
+import { useFetchData } from "@/react-query/useFetchData";
+import { queryKeys } from "@/react-query/query-keys";
 
 const Select = dynamic(() => import("@/components/ui/select"), {
   ssr: false,
@@ -39,6 +41,12 @@ const EditManagerForm = ({
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
   const router = useRouter();
+
+  const storeData = useFetchData(
+    [queryKeys.getSingleManager],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/places/${placeId}`,
+    headers
+  );
 
   const initialValues: BranchManagerType = {
     first_name: "",

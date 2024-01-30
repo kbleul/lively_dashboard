@@ -9,9 +9,6 @@ export const placesOwnerSchema = Yup.object().shape({
     .min(1)
     .required("Phone number is required")
     .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
   dob: Yup.date()
     .min(new Date(1900, 1, 1))
     .max(

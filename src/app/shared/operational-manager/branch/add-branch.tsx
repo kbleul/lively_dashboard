@@ -47,6 +47,7 @@ const AddBranchInfo = ({
     longitude: "",
     branch_cover: undefined,
     specific_address: null,
+    general_discount: 0,
   };
 
   const branchInfoSubmitHandler = async (values: branchInfoType) => {
@@ -134,6 +135,21 @@ const AddBranchInfo = ({
                     prefix="+251"
                     name="phone"
                     className="col-span-2"
+                  />
+                </FormGroup>
+
+                <FormGroup
+                  title="General Discount"
+                  description="Add general discount percentage here"
+                  className={cn(className)}
+                >
+                  <FormikInput
+                    name={`general_discount`}
+                    label="Discount"
+                    placeholder="Enter Your Discount Amount"
+                    suffix="%"
+                    type="number"
+                    color="primary"
                   />
                 </FormGroup>
 

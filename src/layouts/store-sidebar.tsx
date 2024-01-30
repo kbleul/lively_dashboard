@@ -27,6 +27,7 @@ import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
 import { routes } from "@/config/routes";
+import { Toaster, toast } from "sonner";
 
 export default function StoreSidebar({ className }: { className?: string }) {
   const [determineBranchMode, setDetermineBranchMode] = useState(false);
@@ -357,7 +358,15 @@ export default function StoreSidebar({ className }: { className?: string }) {
           </div>
           {pathname.split("/").includes("branch") &&
             pathname.split("/").length > 3 && (
-              <Link href={"/so"}>
+              <Link
+                href={"/so"}
+                onClick={() =>
+                  toast.loading("Switching To Store Owner Mode", {
+                    duration: 3000,
+                    position: "top-right",
+                  })
+                }
+              >
                 <div
                   className={cn(
                     "group cursor-pointer relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",

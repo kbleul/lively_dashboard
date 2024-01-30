@@ -34,6 +34,7 @@ export const queryKeys = {
   getAllAmenity: "getAllAmenityApi",
   getSingleAmenity: "getSingleAmenity",
   getSingleProduct: "getSingleProduct",
+  getSingleManager: "getSingleManager",
   getAllPackages: "getAllPackages",
   getPackageTypes: "getPackageTypes",
   getAllBranchProducts: "getAllBranchProducts",

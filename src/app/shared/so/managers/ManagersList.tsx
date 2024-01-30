@@ -15,7 +15,7 @@ import { getColumns } from "./manager-columns";
 import { useRouter } from "next/navigation";
 
 const pageHeader = {
-  title: "Operation Manager",
+  title: "Store Owner",
   breadcrumb: [
     {
       //   href: routes.storeOwner.dashboard,
@@ -61,9 +61,9 @@ const ManagersList = ({ id, branchId }: { id: string; branchId: string }) => {
   }
 
   const editManager = (managerId: string) => {
-    return router.push(
-      routes.storeOwner.branch["edit-manager"](id, branchId, managerId)
-    );
+    // return router.push(
+    //   routes.storeOwner.branch["edit-manager"](id, branchId, managerId)
+    // );
   };
 
   const deleteManager = async (id: string) => {
