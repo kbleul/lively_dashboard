@@ -22,18 +22,22 @@ type Columns = {
 export const getColumns = ({ deleteProduct }: Columns) => [
   {
     title: <HeaderCell title="Product Image" />,
-    dataIndex: "user",
-    key: "user",
+    dataIndex: "variants",
+    key: "variants",
     width: 50,
-    render: (value: { profile_image: string; first_name: string }) => (
+    render: (values: any[]) => (
       <div>
-        {/* <Image
-          src={value?.profile_image}
-          alt={value?.first_name}
-          width={40}
-          height={40}
-          className="rounded-full"
-        /> */}
+        {values && values.length > 0 && values[0] && values[0].product_image ? (
+          <Image
+            src={values[0].product_image.url}
+            alt={values[0]}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        ) : (
+          <div className="w-10 h-10 rounded-full bg-gray-200" />
+        )}
       </div>
     ),
   },

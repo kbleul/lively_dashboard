@@ -75,10 +75,11 @@ const pageHeader = {
   title: "Store Owner",
   breadcrumb: [
     {
+      href: routes.operationalManager.places.list,
       name: "Stores",
     },
     {
-      name: "Branches",
+      name: "Branch",
     },
     {
       name: "Edit Branch",
@@ -107,12 +108,12 @@ const EditBranchForm = ({
   );
 
   const branchInfoSubmitHandler = async (values: branchInfoEditType) => {
-    console.log("=============> ", values);
     const {
       amenities,
       branch_cover,
       descriptionAmharic,
       descriptionEnglish,
+      general_discount,
       facebook,
       instagram,
       latitude,
@@ -128,6 +129,7 @@ const EditBranchForm = ({
       amenities,
       descriptionAmharic,
       descriptionEnglish,
+      general_discount,
       facebook,
       instagram,
       latitude,
@@ -222,6 +224,7 @@ const EditBranchForm = ({
     descriptionEnglish: ManagerData.description.english,
     descriptionAmharic: ManagerData.description.amharic,
     phone: ManagerData.phone.substring(3),
+    general_discount: ManagerData.general_discount,
     telegram: ManagerData.socials?.telegram
       ? ManagerData.socials?.telegram
       : "",
@@ -306,6 +309,21 @@ const EditBranchForm = ({
                       prefix="+251"
                       name="phone"
                       className="col-span-2"
+                    />
+                  </FormGroup>
+
+                  <FormGroup
+                    title="General Discount"
+                    description="Add general discount percentage here"
+                    className={cn(className)}
+                  >
+                    <FormikInput
+                      name={`general_discount`}
+                      label="Discount"
+                      placeholder="Enter Your Discount Amount"
+                      suffix="%"
+                      type="number"
+                      color="primary"
                     />
                   </FormGroup>
 

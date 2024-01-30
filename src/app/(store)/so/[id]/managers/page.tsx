@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import { metaObject } from "@/config/site.config";
+import ManagersListAll from "@/app/shared/so/managers/ManagerListAll";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+export const metadata = {
+  ...metaObject("Branch Managers"),
+};
 
-export default page
+const BranchManagers = ({ params }: { params: { id: string } }) => {
+  return <ManagersListAll id={params.id} />;
+};
+
+export default BranchManagers;

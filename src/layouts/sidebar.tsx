@@ -22,39 +22,40 @@ import {
   operationalManagetMenuItems,
 } from "./menu-items";
 import Logo from "@/components/logo";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { UrlObject } from "url";
 
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
+
   const determineMenuItems = () => {
-    if (session?.user?.user.roles.map((role) => role.name).includes("Expert")) {
-      return expertMenuItems;
+    const roles = session?.user?.user.roles;
+
+    if (!roles || roles.length === 0) {
+      signOut();
+      return [];
     }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Branch_Manager")
-    ) {
-      return branchManagerMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Operation_Manager") ||
-      session?.user?.user.roles.map((role) => role.name).includes("Admin")
-    ) {
-      return operationalManagetMenuItems;
-    }
-    if (
-      session?.user?.user.roles
-        .map((role) => role.name)
-        .includes("Content_Creator")
-    ) {
-      return contentCretorMenuItems;
-    }
+
+    const roleMenuItems: any = {
+      Operation_Manager: operationalManagetMenuItems,
+      Admin: operationalManagetMenuItems,
+      Content_Creator: contentCretorMenuItems,
+      Branch_Manager: branchManagerMenuItems,
+      Expert: expertMenuItems,
+    };
+
+    const sidenav = roles.reduce((acc: any[], role) => {
+      const roleItems: any = roleMenuItems[role.name];
+      if (roleItems) {
+        acc.push(...roleItems);
+      }
+      return acc;
+    }, []);
+
+    return sidenav;
   };
+
   return (
     <aside
       className={cn(
@@ -82,7 +83,14 @@ export default function Sidebar({ className }: { className?: string }) {
               const isDropdownOpen = Boolean(pathnameExistInDropdowns?.length);
 
               return (
-                <Fragment key={item.name + "-" + index}>
+                <div
+                  key={item.name + "-" + index}
+                  className={
+                    isDropdownOpen
+                      ? "border border-[#EFEFEF] mx-2 2xl:mx-5 rounded-xl"
+                      : "mx-2 2xl:mx-5"
+                  }
+                >
                   {item?.href ? (
                     <>
                       {item?.dropdownItems ? (
@@ -92,9 +100,9 @@ export default function Sidebar({ className }: { className?: string }) {
                             <div
                               onClick={toggle}
                               className={cn(
-                                "group relative mx-3 flex cursor-pointer items-center justify-between rounded-md px-3 py-2 font-medium lg:my-1 2xl:mx-5 2xl:my-2",
+                                "group  relative  flex cursor-pointer items-center justify-between rounded-md px-3 py-2 font-medium ",
                                 isDropdownOpen
-                                  ? "before:top-2/5 text-primary before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
+                                  ? "before:top-2/5 text-white bg-gradient-to-r from-[#008579] to-[#00BA63] before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
                                   : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-700/90 dark:hover:text-gray-700"
                               )}
                             >
@@ -104,8 +112,8 @@ export default function Sidebar({ className }: { className?: string }) {
                                     className={cn(
                                       "me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[19px] [&>svg]:w-[19px]",
                                       isDropdownOpen
-                                        ? "text-primary"
-                                        : "text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700"
+                                        ? "text-white"
+                                        : "text-[#7B7B7B] dark:text-gray-500 dark:group-hover:text-gray-700"
                                     )}
                                   >
                                     {item?.icon}
@@ -117,7 +125,7 @@ export default function Sidebar({ className }: { className?: string }) {
                               <PiCaretDownBold
                                 strokeWidth={3}
                                 className={cn(
-                                  "h-3.5 w-3.5 -rotate-90 text-gray-500 transition-transform duration-200 rtl:rotate-90",
+                                  "h-3.5 w-3.5 -rotate-90 text-gray-300 transition-transform duration-200 rtl:rotate-90 ",
                                   open && "rotate-0 rtl:rotate-0"
                                 )}
                               />
@@ -154,7 +162,7 @@ export default function Sidebar({ className }: { className?: string }) {
                                   className={cn(
                                     "mx-3.5 mb-0.5 flex items-center rounded-md px-3.5 py-2 font-medium capitalize last-of-type:mb-1 lg:last-of-type:mb-2 2xl:mx-5",
                                     isChildActive
-                                      ? "text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
+                                      ? "text-primary font-medium"
                                       : "text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900"
                                   )}
                                 >
@@ -176,7 +184,7 @@ export default function Sidebar({ className }: { className?: string }) {
                         <Link
                           href={item?.href}
                           className={cn(
-                            "group relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
+                            "group relative  my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:my-2",
                             isActive
                               ? "before:top-2/5 text-white bg-gradient-to-r from-[#008579] to-[#00BA63] before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
                               : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
@@ -188,7 +196,7 @@ export default function Sidebar({ className }: { className?: string }) {
                                 "me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[19px] [&>svg]:w-[19px]",
                                 isActive
                                   ? "text-white "
-                                  : "text-gray-800 dark:text-gray-500 dark:group-hover:text-gray-700"
+                                  : "text-[#7B7B7B] dark:text-gray-500 dark:group-hover:text-gray-700"
                               )}
                             >
                               {item?.icon}
@@ -209,7 +217,7 @@ export default function Sidebar({ className }: { className?: string }) {
                       {item.name}
                     </Title>
                   )}
-                </Fragment>
+                </div>
               );
             })}
           </div>

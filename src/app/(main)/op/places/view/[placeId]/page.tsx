@@ -14,7 +14,7 @@ import { routes } from "@/config/routes";
 
 import { MdOutlineCategory } from "react-icons/md";
 import { LuPhone } from "react-icons/lu";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineStorefront } from "react-icons/md";
 import PageHeader from "@/app/shared/page-header";
 import PencilIcon from "@/components/icons/pencil";
@@ -23,6 +23,7 @@ const pageHeader = {
   title: "Store Owner",
   breadcrumb: [
     {
+      href: routes.operationalManager.places.list,
       name: "Stores",
     },
     {
@@ -114,42 +115,46 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
         </article>
       )}
 
-      <section className="mt-8 md:mt-0 w-3/4  md:ml-[30%] lg:[23%]  ">
+      <section className="mt-8 md:mt-0 md:w-3/4  md:ml-[30%] lg:[23%]  ">
         <h4 className="font-bold text-2xl py-2">
           {storeData?.data?.data?.name?.english}
         </h4>
 
         <section className="mb-4 ">
-          <div className=" mb-2 flex items-center justify-start gap-x-4 ">
+          <div className=" mb-3 flex items-center justify-start gap-x-4 ">
             <MdOutlineCategory size={18} color="#00BA63" />
             <p className="text-[#5F5F5F]">Business type : </p>
             <p className="text-black">
-              {storeData?.data?.data?.place_type?.name?.english}
+              {storeData?.data?.data?.place_types?.name?.english}
             </p>
+
+            {storeData?.data?.data?.place_types.map((item: any) => (
+              <p key={item.id}>{item?.name?.english} </p>
+            ))}
           </div>
-          {storeData?.data?.data?.place_type?.name?.english && (
-            <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-              <LuPhone size={18} color="#00BA63" />
-              <p className="text-[#5F5F5F]">Business category : </p>
-              <p className="text-black">
-                {storeData?.data?.data?.place_type?.name?.english}
-              </p>
-            </div>
-          )}
+
           {storeData?.data?.data?.phone && (
-            <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-              <IoLocationOutline size={18} color="#00BA63" />
+            <div className=" mb-3 flex items-center justify-start gap-x-4 ">
+              <LuPhone size={18} color="#00BA63" />
+
               <p className="text-[#5F5F5F]">Phone number : </p>
               <p className="text-black">{storeData?.data?.data?.phone}</p>
             </div>
           )}
-          {/* <div className=" mb-2 flex items-center justify-start gap-x-4 ">
-            <CiGlobe size={24} color="#00BA63" />
-            <p className="text-[#5F5F5F]">Location : </p>
-            <p className="text-black">
-              {storeData?.data?.data?.place_type?.name?.english}
-            </p>
-          </div> */}
+
+          {storeData?.data?.data?.owner && (
+            <div className=" mb-3 flex items-center justify-start gap-x-4 ">
+              <IoPersonOutline size={18} color="#00BA63" />
+
+              <p className="text-[#5F5F5F]">Store Owner : </p>
+              <p className="text-black">
+                {storeData?.data?.data?.owner?.first_name +
+                  " " +
+                  storeData?.data?.data?.owner?.last_name}
+              </p>
+            </div>
+          )}
+
           {storeData?.data?.data?.website && (
             <div className=" mb-2 flex items-center justify-start gap-x-4 ">
               <MdOutlineStorefront size={18} color="#00BA63" />
@@ -159,8 +164,8 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
           )}
         </section>
 
-        <p className="text-[#6F6F6F] pr-4 w-4/5 leading-8">
-          {storeData?.data?.data?.description?.english}
+        <p className="text-[#6F6F6F] pr-4 md:w-4/5 leading-8">
+          About Store : {storeData?.data?.data?.description?.english}
         </p>
       </section>
 

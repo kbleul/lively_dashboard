@@ -33,7 +33,7 @@ const EditStoreInfo = ({
   const router = useRouter();
 
   const initialValues: StoreType = {
-    place_type_id: storeData.place_type.id,
+    place_type_id: storeData.place_types.map((item: any) => item.id),
     nameEnglish: storeData.name.english,
     nameAmharic: storeData.name.amharic,
     descriptionEnglish: storeData.name.english,
@@ -64,6 +64,8 @@ const EditStoreInfo = ({
         headers,
         body: {
           ...newValues,
+          place_type_id: "",
+          place_types: [...newValues.place_type_id],
           _method: "PATCH",
         },
         onSuccess: (res) => {
@@ -108,7 +110,10 @@ const EditStoreInfo = ({
                     color="primary"
                   />
 
-                  <BusinessTypeSelect placeId={storeData.place_type.id} />
+                  <BusinessTypeSelect
+                    placeId={storeData.place_type}
+                    initialPlaces={storeData.place_types}
+                  />
 
                   <FormikInput
                     type="number"
@@ -167,7 +172,13 @@ const EditStoreInfo = ({
   );
 };
 
-const BusinessTypeSelect = ({ placeId }: { placeId: string }) => {
+const BusinessTypeSelect = ({
+  placeId,
+  initialPlaces,
+}: {
+  placeId: string[];
+  initialPlaces: string[];
+}) => {
   const { setFieldValue } = useFormikContext<FormikValues>();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -183,14 +194,16 @@ const BusinessTypeSelect = ({ placeId }: { placeId: string }) => {
       name="place_type_id"
       label="Business Type"
       options={unitData?.data?.data}
-      defaultValue={placeId}
+      defaultValue={initialPlaces}
       getOptionLabel={(category: any) => category?.name?.english}
       getOptionValue={(category: any) => category?.id}
       onChange={(selectedOptions: any) => {
-        setFieldValue("place_type_id", selectedOptions.id);
+        const selectedIds = selectedOptions.map((option: any) => option.id);
+        setFieldValue("place_type_id", selectedIds);
       }}
       placeholder="Select Business type"
       noOptionsMessage={() => "Business types appears here"}
+      isMulti
       className="col-span-2"
     />
   );

@@ -16,6 +16,7 @@ import { Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import { TagsAndUnitType, tagsAndUnitSchema } from "@/validations/tag";
+import Loading from "../tags/Loading";
 
 export default function AddUnitForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -29,6 +30,11 @@ export default function AddUnitForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (unitData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: TagsAndUnitType = {
     nameEn: id ? unitData?.data?.data?.name?.english : "",
     nameAm: id ? unitData?.data?.data?.name?.amharic : "",
@@ -53,6 +59,9 @@ export default function AddUnitForm({ id }: { id?: string }) {
           toast.success(
             id ? "Unit Edited Successfully" : "Unit Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingleUnit, id], null);
+
           closeModal();
         },
         onError: (err) => {

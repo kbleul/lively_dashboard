@@ -8,23 +8,24 @@ export const metadata = {
   ...metaObject("Dashboard"),
 };
 
-const pageHeader = {
-  title: "Store Owner",
-  breadcrumb: [
-    {
-      href: routes.branchManger.dashboard,
-      name: "Store Owner",
-    },
-    {
-      name: "Branches",
-    },
-    {
-      name: "Create Branch",
-    },
-  ],
-};
-
 const CreateBranch = ({ params }: { params: { id: string } }) => {
+  const pageHeader = {
+    title: "Store Owner",
+    breadcrumb: [
+      {
+        href: routes.storeOwner.dashboard(params.id),
+        name: "Store Owner",
+      },
+      {
+        href: routes.storeOwner.branches(params.id),
+        name: "Branches",
+      },
+      {
+        name: "Create Branch",
+      },
+    ],
+  };
+
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />

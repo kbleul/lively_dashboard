@@ -27,7 +27,7 @@ import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
 import { routes } from "@/config/routes";
-import path from "path";
+import { Toaster, toast } from "sonner";
 
 export default function StoreSidebar({ className }: { className?: string }) {
   const [determineBranchMode, setDetermineBranchMode] = useState(false);
@@ -51,8 +51,12 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Branches",
+          name: "List",
           href: routes.storeOwner.branches(pathname.split("/")[2]),
+        },
+        {
+          name: "Create Branch",
+          href: routes.storeOwner["create-branch"](pathname.split("/")[2]),
         },
       ],
     },
@@ -62,8 +66,12 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Managers",
+          name: "List",
           href: routes.storeOwner.managers(pathname.split("/")[2]),
+        },
+        {
+          name: "Create Manager",
+          href: routes.storeOwner["add-manager"](pathname.split("/")[2]),
         },
       ],
     },
@@ -116,6 +124,27 @@ export default function StoreSidebar({ className }: { className?: string }) {
         {
           name: "Products",
           href: routes.storeOwner.branch.products(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.storeOwner.branch.managers(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Create Manager",
+          href: routes.storeOwner.branch["add-manager"](
             pathname.split("/")[2],
             pathname.split("/")[4]
           ),
@@ -329,7 +358,15 @@ export default function StoreSidebar({ className }: { className?: string }) {
           </div>
           {pathname.split("/").includes("branch") &&
             pathname.split("/").length > 3 && (
-              <Link href={"/so"}>
+              <Link
+                href={"/so"}
+                onClick={() =>
+                  toast.loading("Switching To Store Owner Mode", {
+                    duration: 3000,
+                    position: "top-right",
+                  })
+                }
+              >
                 <div
                   className={cn(
                     "group cursor-pointer relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",

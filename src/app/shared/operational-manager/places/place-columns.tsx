@@ -13,6 +13,7 @@ import ReusabelPopover from "@/components/reusabel-popover";
 import Link from "next/link";
 import Image from "next/image";
 import { routes } from "@/config/routes";
+import { truncateAmharicText } from "@/utils/trim-text";
 
 type Columns = {
   deleteProduct: (id: string) => void;
@@ -26,13 +27,17 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     width: 50,
     render: (value: { url: string }) => (
       <div>
-        <Image
-          src={value?.url}
-          alt={""}
-          width={40}
-          height={40}
-          className="rounded-full"
-        />
+        {value?.url ? (
+          <Image
+            src={value?.url}
+            alt={""}
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
+        ) : (
+          <div className="rounded-full w-8 h-8 bg-gray-100" />
+        )}
       </div>
     ),
   },
@@ -52,33 +57,6 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     width: 50,
     render: (value: { amharic: string }) => (
       <Text className="font-medium text-gray-700">{value?.amharic}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="description English" />,
-    dataIndex: "description",
-    key: "description",
-    width: 50,
-    render: (value: { english: string }) => (
-      <Text className="font-medium text-gray-700">{value?.english}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="description Amharic" />,
-    dataIndex: "description",
-    key: "description",
-    width: 50,
-    render: (value: { amharic: string }) => (
-      <Text className="font-medium text-gray-700">{value?.amharic}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="Type" />,
-    dataIndex: "place_type",
-    key: "place_type",
-    width: 50,
-    render: (value: { name: any }) => (
-      <Text className="font-medium text-gray-700">{value.name.english}</Text>
     ),
   },
 

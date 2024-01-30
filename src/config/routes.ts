@@ -13,10 +13,8 @@ export const routes = {
   // operational routes =>op means operational manager
   operationalManager: {
     dashboard: "/op",
-    city: "/op/city",
     contact: "/op/contact",
     appointments: "/op/appointments",
-    speciality: "/op/speciality",
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
     centers: {
@@ -45,6 +43,10 @@ export const routes = {
   contentCreator: {
     dashboard: "/contentc",
     language: "/contentc/language",
+    city: "/contentc/city",
+    speciality: "/contentc/speciality",
+    occupation: "/contentc/occupation",
+    registerExpert: "/contentc/register-experts",
     paymentMethod: "/contentc/payment-methods",
     tags: "/contentc/tags",
     unit: "/contentc/units",
@@ -58,15 +60,18 @@ export const routes = {
       amenity: "/contentc/services/amenity",
     },
   },
+
   storeOwner: {
     home: "/so",
     dashboard: (id: string) => `/so/${id}`,
     branches: (id: string) => `/so/${id}/branches`,
     "create-branch": (id: string) => `/so/${id}/create-branch`,
-    "edit-branch": (id: string, branchId: string) =>
-      `/so/${id}/branches/edit/${branchId}`,
 
     managers: (id: string) => `/so/${id}/managers`,
+    "add-manager": (id: string) => `/so/${id}/managers/add-manager`,
+    "edit-manager": (id: string, managerId: string) =>
+      `/so/${id}/managers/edit-manager/${managerId}`,
+
     branch: {
       dashboard: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}`,
@@ -78,6 +83,12 @@ export const routes = {
         `/so/${id}/branch/${branchId}/packages`,
       createPackage: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/create`,
+      managers: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/managers`,
+      "add-manager": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/managers/add-manager`,
+      "edit-manager": (id: string, branchId: string, managerId: string) =>
+        `/so/${id}/branch/${branchId}/managers/edit-manager/${managerId}`,
     },
   },
   branchManger: {

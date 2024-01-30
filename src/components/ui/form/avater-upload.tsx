@@ -39,7 +39,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   const [meta] = useField(name);
   const { value } = meta;
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-
+  console.log("------->", value);
   const handleDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length === 0) {
@@ -135,6 +135,17 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
             {value && value?.type?.includes("image") ? (
               <Image
                 src={URL.createObjectURL(value)}
+                fill
+                className="object-contain"
+                priority
+                alt={value.name}
+                sizes="(max-width: 768px) 100vw"
+              />
+            ) : //
+
+            value.url ? (
+              <Image
+                src={value.url}
                 fill
                 className="object-contain"
                 priority

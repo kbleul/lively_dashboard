@@ -17,7 +17,7 @@ const pageHeader = {
       name: "Branch Manager",
     },
     {
-      href: routes.branchManger.packages,
+      href: routes.branchManger.products,
       name: "Products",
     },
     {

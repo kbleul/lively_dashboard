@@ -21,30 +21,30 @@ import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
 
-export default function AddCityForm({ id }: { id?: string }) {
+export default function AddOccupationForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const { closeModal } = useModal();
   const headers = useGetHeaders({ type: "Json" });
-  const onSubmit: SubmitHandler<CommonToolsSchemaVlues> = (data) => {
-    createUnit(data);
-  };
-  const cityData = useFetchData(
-    [queryKeys.getSingleCity, id],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities/${id}`,
+  const ocuppationData = useFetchData(
+    [queryKeys.getSingleOccupation, id],
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/occupations/${id}`,
     headers,
     !!id
   );
   const initialValues: CommonToolsSchemaVlues = {
-    nameAm: id ? cityData?.data?.data?.name?.amharic : "",
-    nameEn: id ? cityData?.data?.data?.name?.english : "",
+    nameAm: id ? ocuppationData?.data?.data?.name?.amharic : "",
+    nameEn: id ? ocuppationData?.data?.data?.name?.english : "",
   };
-  const createUnit = async (values: CommonToolsSchemaVlues) => {
+  const onSubmit: SubmitHandler<CommonToolsSchemaVlues> = (data) => {
+    createRequest(data);
+  };
+  const createRequest = async (values: CommonToolsSchemaVlues) => {
     try {
       await postMutation.mutateAsync({
         url: id
-          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities/${id}`
-          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
+          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/occupations/${id}`
+          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/occupations`,
         method: "POST",
         headers,
         body: {
@@ -53,9 +53,13 @@ export default function AddCityForm({ id }: { id?: string }) {
           _method: id && "PATCH",
         },
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: [queryKeys.getAllCities] });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllOccupations],
+          });
           toast.success(
-            id ? "City Edited Successfully" : "City Created Successfully"
+            id
+              ? "Occupation Edited Successfully"
+              : "Occupation Created Successfully"
           );
           closeModal();
         },
@@ -71,13 +75,13 @@ export default function AddCityForm({ id }: { id?: string }) {
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">
         <Title as="h4" className="font-semibold">
-          {id ? "Edit City" : "Add City"}
+          {id ? "Edit Occupation" : "Add Occupation"}
         </Title>
         <ActionIcon size="sm" variant="text" onClick={() => closeModal()}>
           <PiXBold className="h-auto w-5" />
         </ActionIcon>
       </div>
-      {cityData.isLoading ? (
+      {ocuppationData.isLoading ? (
         <Spinner size="xl" />
       ) : (
         <Form<CommonToolsSchemaVlues>
@@ -120,7 +124,7 @@ export default function AddCityForm({ id }: { id?: string }) {
                 color="primary"
                 isLoading={postMutation.isPending}
               >
-                {id ? "Edit" : "Create"}
+                Create
               </Button>
             </div>
           )}

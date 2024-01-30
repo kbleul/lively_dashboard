@@ -17,6 +17,8 @@ import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import { TagsAndUnitType, tagsAndUnitSchema } from "@/validations/tag";
 
+import Loading from "./Loading";
+
 export default function AddTagForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
@@ -29,6 +31,11 @@ export default function AddTagForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (tagsData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: TagsAndUnitType = {
     nameEn: id ? tagsData?.data?.data?.name?.english : "",
     nameAm: id ? tagsData?.data?.data?.name?.amharic : "",
@@ -53,6 +60,9 @@ export default function AddTagForm({ id }: { id?: string }) {
           toast.success(
             id ? "Tag Edited Successfully" : "Tag Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingelTag, id], null);
+
           closeModal();
         },
         onError: (err) => {

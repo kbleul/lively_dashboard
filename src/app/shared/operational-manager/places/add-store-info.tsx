@@ -39,7 +39,7 @@ const AddStoreInfo = ({
   const router = useRouter();
 
   const initialValues: StoreType = {
-    place_type_id: "",
+    place_type_id: [],
     nameEnglish: "",
     nameAmharic: "",
     descriptionEnglish: "",
@@ -67,6 +67,8 @@ const AddStoreInfo = ({
         headers,
         body: {
           ...newValues,
+          place_types: [...newValues.place_type_id],
+          place_type_id: "",
         },
         onSuccess: (res) => {
           const placeId = res.data.data.id;
@@ -197,10 +199,12 @@ const BusinessTypeSelect = () => {
       getOptionLabel={(category: any) => category?.name?.english}
       getOptionValue={(category: any) => category?.id}
       onChange={(selectedOptions: any) => {
-        setFieldValue("place_type_id", selectedOptions.id);
+        const selectedIds = selectedOptions.map((option: any) => option.id);
+        setFieldValue("place_type_id", selectedIds);
       }}
       placeholder="Select Business type"
       noOptionsMessage={() => "Business types appears here"}
+      isMulti
       className="col-span-2"
     />
   );

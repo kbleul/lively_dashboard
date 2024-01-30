@@ -7,23 +7,26 @@ import AddBranchInfo from "./add-branch";
 import AddMoreInfo from "./add-more-info";
 import AddBranchManger from "./add-branch-manger";
 import PageHeader from "../../page-header";
-
-const pageHeader = {
-  title: "Store Owner",
-  breadcrumb: [
-    {
-      name: "Stores",
-    },
-    {
-      name: "View Stores",
-    },
-    {
-      name: "Create Stores",
-    },
-  ],
-};
+import { routes } from "@/config/routes";
 
 const CreateBranchForm = ({ placeId }: { placeId: string }) => {
+  const pageHeader = {
+    title: "Store Owner",
+    breadcrumb: [
+      {
+        href: routes.operationalManager.places.list,
+        name: "Stores",
+      },
+      {
+        href: routes.operationalManager.places.view(placeId),
+        name: "View Stores",
+      },
+      {
+        name: "Create Stores",
+      },
+    ],
+  };
+
   const [formStep, setFormStep] = useState(1);
   const [branchId, setBrachId] = useState<string | null>(null);
 

@@ -60,6 +60,15 @@ const CreatePackageForm = ({
     { name: "Appointment", value: "Appointment" },
     { name: "Membership", value: "Membership" },
   ];
+
+  const frequencyType = [
+    { name: "Hour", value: "Hour" },
+    { name: "Day", value: "Day" },
+    { name: "Week", value: "Week" },
+    { name: "Month", value: "Month" },
+    { name: "Year", value: "Year" },
+  ];
+
   const createPackage = async (values: CreatePackageType) => {
     try {
       await postMutation.mutateAsync({
@@ -162,8 +171,9 @@ const CreatePackageForm = ({
                               color="primary"
                             />
                           </div>
+                          <p>* Leave empty for any time</p>
                         </div>
-                        <div className="w-full flex flex-col items-start gap-3">
+                        <div className="w-full flex flex-col items-center justify-center gap-3">
                           <CustomSelect
                             name={`packages.${index}.enrollment_type`}
                             label="Enrollment Type"
@@ -194,13 +204,33 @@ const CreatePackageForm = ({
                               );
                             }}
                             noOptionsMessage={() => "Package type appears here"}
+                            className="pt-4"
                           />
 
                           <FormikInput
                             name={`packages.${index}.frequency`}
-                            label="Package Enrolment Type"
+                            label="Add Package Frequency"
                             placeholder="Enter Package Frequency"
                             color="primary"
+                            type="number"
+                          />
+
+                          <CustomSelect
+                            name={`packages.${index}.frequency_type`}
+                            label="Frequency Type"
+                            options={frequencyType}
+                            placeholder="Frequency Type"
+                            getOptionLabel={(tag: any) => tag?.name}
+                            getOptionValue={(tag: any) => tag?.name}
+                            onChange={(selectedOptions: any) => {
+                              setFieldValue(
+                                `packages.${index}.frequency_type`,
+                                selectedOptions?.name
+                              );
+                            }}
+                            noOptionsMessage={() =>
+                              "Frequency type appears here"
+                            }
                           />
                           <FormikInput
                             type="number"
@@ -239,6 +269,7 @@ const CreatePackageForm = ({
                             endTime: "",
                             price: "",
                             frequency: "",
+                            frequency_type: "",
                           })
                         }
                         color="primary"

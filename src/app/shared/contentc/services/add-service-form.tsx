@@ -15,6 +15,8 @@ import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import { BrandType, brandSchema, editbrandSchema } from "@/validations/tag";
 import FilePicker from "@/components/ui/form/dropzone";
+import Loading from "../products/tags/Loading";
+import Image from "next/image";
 
 export default function AddServiceForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -28,6 +30,11 @@ export default function AddServiceForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (serviceData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: BrandType = {
     nameEn: id ? serviceData?.data?.data?.name?.english : "",
     nameAm: id ? serviceData?.data?.data?.name?.amharic : "",
@@ -54,6 +61,10 @@ export default function AddServiceForm({ id }: { id?: string }) {
           toast.success(
             id ? "Service Edited Successfully" : "Service Created Successfully"
           );
+
+          id &&
+            queryClient.setQueryData([queryKeys.getSingleService, id], null);
+
           closeModal();
         },
         onError: (err) => {
@@ -97,6 +108,22 @@ export default function AddServiceForm({ id }: { id?: string }) {
                 name="nameAm"
               />
               <FilePicker name="brand_image" label="Service AImage" />
+
+              {id &&
+                serviceData?.data?.data?.icon &&
+                serviceData?.data?.data?.icon?.url && (
+                  <>
+                    <p>Current Image</p>
+                    <Image
+                      src={serviceData?.data?.data?.icon?.url}
+                      alt=""
+                      className="dark:invert"
+                      width={100}
+                      height={100}
+                    />
+                  </>
+                )}
+
               <Button
                 color="primary"
                 className="w-full"

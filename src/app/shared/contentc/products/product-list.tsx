@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./product-columns";
-import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";

@@ -15,6 +15,8 @@ import FormikInput from "@/components/ui/form/input";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import { BrandType, brandSchema, editbrandSchema } from "@/validations/tag";
 import FilePicker from "@/components/ui/form/dropzone";
+import Loading from "../tags/Loading";
+import Image from "next/image";
 
 export default function AddBrandForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -28,6 +30,11 @@ export default function AddBrandForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (brandData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: BrandType = {
     nameEn: id ? brandData?.data?.data?.name?.english : "",
     nameAm: id ? brandData?.data?.data?.name?.amharic : "",
@@ -54,6 +61,8 @@ export default function AddBrandForm({ id }: { id?: string }) {
           toast.success(
             id ? "Brand Edited Successfully" : "Brand Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingleBrand, id], null);
           closeModal();
         },
         onError: (err) => {
@@ -79,7 +88,7 @@ export default function AddBrandForm({ id }: { id?: string }) {
       ) : (
         <Formik
           initialValues={initialValues}
-          validationSchema={id ? editbrandSchema :brandSchema}
+          validationSchema={id ? editbrandSchema : brandSchema}
           onSubmit={createBrand}
         >
           {() => (
@@ -97,6 +106,21 @@ export default function AddBrandForm({ id }: { id?: string }) {
                 name="nameAm"
               />
               <FilePicker name="brand_image" label="Brand AImage" />
+
+              {id &&
+                brandData?.data?.data?.brand_image &&
+                brandData?.data?.data?.brand_image?.url && (
+                  <>
+                    <p>Current Image</p>
+                    <Image
+                      src={brandData?.data?.data?.brand_image?.url}
+                      alt=""
+                      className="dark:invert"
+                      width={100}
+                      height={100}
+                    />
+                  </>
+                )}
               <Button
                 color="primary"
                 className="w-full"

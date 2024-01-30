@@ -15,15 +15,27 @@ import ControlledTable from "@/components/controlled-table";
 import Link from "next/link";
 import { routes } from "@/config/routes";
 import { getColumns } from "./place-columns";
+import CustomCategory from "@/components/ui/custom-category";
 
-const PlaceListCategoriesLink = ["places", "incomplete-places"];
+const PlaceListCategoriesLink = [
+  {
+    id: "places", //for api
+    name: "Complete",
+  },
+  {
+    id: "incomplete-places",
+    name: "Incomplete",
+  },
+];
 
 const PlacesList = () => {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
 
-  const [categoryLink, setCategoryLink] = useState(PlaceListCategoriesLink[0]);
+  const [categoryLink, setCategoryLink] = useState(
+    PlaceListCategoriesLink[0].id
+  );
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -69,9 +81,10 @@ const PlacesList = () => {
         </Link>
       }
     >
-      <CustomCategoryButton
+      <CustomCategory
         categoryLink={categoryLink}
         setCategoryLink={setCategoryLink}
+        categoriesLinks={PlaceListCategoriesLink}
       />
 
       <div className={"table-wrapper flex-grow"}>
@@ -96,39 +109,6 @@ const PlacesList = () => {
         />
       </div>
     </WidgetCard>
-  );
-};
-
-const CustomCategoryButton = ({
-  categoryLink,
-  setCategoryLink,
-}: {
-  categoryLink: string;
-  setCategoryLink: React.Dispatch<React.SetStateAction<string>>;
-}) => {
-  return (
-    <article className="w-full mb-4 border-b border-b-gray-300 flex justify-start gap-x-6 items-center  my-2">
-      <button
-        onClick={() => setCategoryLink(PlaceListCategoriesLink[0])}
-        className={
-          categoryLink === PlaceListCategoriesLink[0]
-            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
-            : "bg-inherit text-black"
-        }
-      >
-        Complete
-      </button>
-      <button
-        onClick={() => setCategoryLink(PlaceListCategoriesLink[1])}
-        className={
-          categoryLink === PlaceListCategoriesLink[1]
-            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
-            : "bg-inherit text-black"
-        }
-      >
-        Incomplete
-      </button>
-    </article>
   );
 };
 

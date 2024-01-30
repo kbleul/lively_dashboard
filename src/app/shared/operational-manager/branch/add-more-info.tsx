@@ -192,13 +192,13 @@ const AddMoreInfo = ({
                           name={`openingHours[${index}].from`}
                           label="Opening Time"
                           disabled={!customDaysChecked[index]}
-                          type="time"
+                          type="time24"
                           color="primary"
                         />
                         <FormikInput
                           name={`openingHours[${index}].to`}
                           label="Closing Time"
-                          type="time"
+                          type="time24"
                           color="primary"
                           disabled={!customDaysChecked[index]}
                         />
@@ -218,6 +218,9 @@ const AddMoreInfo = ({
                     className="col-span-2"
                     isDoc={true}
                   />
+                  <p className="text-sm ">
+                    * Accepted Formats (PDF, doc, docx)
+                  </p>
                 </FormGroup>
               </div>
               <FormFooter

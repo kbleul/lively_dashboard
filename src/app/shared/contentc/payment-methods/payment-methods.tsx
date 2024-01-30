@@ -26,18 +26,18 @@ const PaymentMethodsList = () => {
   );
 
   //delet unit
-  const deleteCity = async (id: string) => {
+  const toggleMethod = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/payment-methods/${id}`,
-        method: "DELETE",
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/make-hidden-payment-methods/${id}`,
+        method: "POST",
         headers,
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllPaymentMethods],
           });
-          toast.success("Payment Method Deleted Successfully");
+          toast.success("Payment Method Status Changed Successfully");
         },
         onError: (err) => {
           toast.error(err?.response?.data?.message);
@@ -47,6 +47,7 @@ const PaymentMethodsList = () => {
       console.log(err);
     }
   };
+
   const [pageSize, setPageSize] = React.useState(10);
   const {
     isLoading,
@@ -71,7 +72,7 @@ const PaymentMethodsList = () => {
   };
   return (
     <WidgetCard
-      title={"payment-methods"}
+      title={"Payment Methods"}
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
@@ -95,7 +96,7 @@ const PaymentMethodsList = () => {
           isLoading={paymentMethods.isLoading}
           data={paymentMethods?.data?.data}
           columns={getColumns({
-            onDeleteItem: deleteCity,
+            onToggle: toggleMethod,
             onEditItem,
           })}
           scroll={{ x: 400 }}

@@ -113,6 +113,7 @@ const EditBranchForm = ({
       branch_cover,
       descriptionAmharic,
       descriptionEnglish,
+      general_discount,
       facebook,
       instagram,
       latitude,
@@ -128,6 +129,7 @@ const EditBranchForm = ({
       amenities,
       descriptionAmharic,
       descriptionEnglish,
+      general_discount,
       facebook,
       instagram,
       latitude,
@@ -226,6 +228,7 @@ const EditBranchForm = ({
     descriptionEnglish: ManagerData.description.english,
     descriptionAmharic: ManagerData.description.amharic,
     phone: ManagerData.phone.substring(3),
+    general_discount: ManagerData.general_discount,
     telegram: ManagerData.socials?.telegram
       ? ManagerData.socials?.telegram
       : "",
@@ -263,7 +266,7 @@ const EditBranchForm = ({
           branchInfoSubmitHandler(values);
         }}
       >
-        {({ errors, values, setFieldValue, touched }) => {
+        {({ values }) => {
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <article className="relative mb-8">
@@ -347,37 +350,58 @@ const EditBranchForm = ({
                 {categoryLink === BranchFormStepLink[0] && (
                   <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
                     <FormGroup
-                      title="Store Info."
-                      description="Add your Store information from here"
+                      title="Branch detail"
+                      description="Edit your branch detail from here"
                       className={cn(className)}
                     >
                       <FormikInput
                         name="nameEnglish"
-                        label="Place Name"
-                        placeholder="Enter Place Name"
+                        label="Branch Name"
+                        placeholder="Enter Branch Name"
                         color="primary"
                       />
                       <FormikInput
                         name="nameAmharic"
-                        label="ስም"
+                        label="የቤቱ ስም "
                         placeholder="ስም ኣስገባ"
                         color="primary"
                       />
                       <FormikTextArea
-                        label="About Place"
+                        label="About Branch"
                         placeholder="Write about the place"
                         color="primary"
                         name="descriptionEnglish"
                         className="col-span-2"
                       />
                       <FormikTextArea
-                        label="About Place (Amharic)"
+                        label="About Branch (Amharic)"
                         placeholder="Write about the place"
                         color="primary"
                         name="descriptionAmharic"
                         className="col-span-2"
                       />
+                    </FormGroup>
 
+                    <FormGroup
+                      title="General Discount"
+                      description="Add general discount percentage here"
+                      className={cn(className)}
+                    >
+                      <FormikInput
+                        name={`general_discount`}
+                        label="Discount"
+                        placeholder="Enter Your Discount Amount"
+                        suffix="%"
+                        type="number"
+                        color="primary"
+                      />
+                    </FormGroup>
+
+                    <FormGroup
+                      title="Address Info."
+                      description="You can add your address here."
+                      className={cn(className)}
+                    >
                       <FormikInput
                         type="number"
                         label="Phone Number"
@@ -387,17 +411,10 @@ const EditBranchForm = ({
                         name="phone"
                         className="col-span-2"
                       />
-                    </FormGroup>
-
-                    <FormGroup
-                      title="Specific Address"
-                      description="Add a short detailed address"
-                      className={cn(className)}
-                    >
                       <div className="col-span-2">
                         <FormikInput
                           name="specific_address"
-                          label="Address"
+                          label="Specific Address"
                           placeholder="Eg. Bole Road next to Edna mall, Addis Ababa, Ethiopia"
                           color="primary"
                         />
@@ -545,7 +562,7 @@ const CustomCategoryButton = ({
             : "bg-inherit text-black"
         }
       >
-        More Info
+        More Info.
       </button>
     </article>
   );

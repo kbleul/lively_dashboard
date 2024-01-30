@@ -59,13 +59,11 @@ const EditMoreInfo = ({
     );
   }
 
-  console.log(amenitiesData?.data?.data);
-
   return (
     <>
       <FormGroup
         title="More Branch Info."
-        description="Add your Branch information from here"
+        description="Edit your Branch information from here"
         className={cn(className)}
       >
         <div className="mt-4 w-full  col-span-2 flex flex-col gap-6">
@@ -108,7 +106,7 @@ const EditMoreInfo = ({
 
       <FormGroup
         title="Working Days & Hours"
-        description="Add your working days & hours from here"
+        description="Edit your working days & hours from here"
         className={cn(className)}
       >
         <div className="col-span-2">
@@ -126,7 +124,6 @@ const EditMoreInfo = ({
                   newChecked[index] = isChecked;
 
                   if (customDaysChecked) {
-                    console.log("newChecked ----> ", newChecked);
                     setCustomDaysChecked([...newChecked]);
                   }
                 }}
@@ -142,13 +139,13 @@ const EditMoreInfo = ({
                 name={`openingHours[${index}].from`}
                 label="Opening Time"
                 disabled={!customDaysChecked[index]}
-                type="time"
+                type="time24"
                 color="primary"
               />
               <FormikInput
                 name={`openingHours[${index}].to`}
                 label="Closing Time"
-                type="time"
+                type="time24"
                 color="primary"
                 disabled={!customDaysChecked[index]}
               />

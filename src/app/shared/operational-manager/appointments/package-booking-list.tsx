@@ -2,16 +2,16 @@
 
 import React, { useState } from "react";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns } from "./column";
-import { Title } from "@/components/ui/text";
-import { Input } from "@/components/ui/input";
+
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-export default function AppointmentList({
+import { getColumns } from "./booking-column";
+
+export default function PackageBookingList({
   variant = "modern",
   className,
 }: {
@@ -24,9 +24,9 @@ export default function AppointmentList({
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const appoitmentsList = useFetchData(
+  const bookingsList = useFetchData(
     [queryKeys.getAllApoitmentsOp, currentPage, pageSize],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/expert-appointment-requests?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/booking-requests?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
@@ -34,7 +34,7 @@ export default function AppointmentList({
   const onApproveItem = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/approve-expert-appointment/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/approve-booking/${id}`,
         method: "POST",
         headers,
         body: {},
@@ -56,7 +56,7 @@ export default function AppointmentList({
   const onRejectItem = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/reject-expert-appointment/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/reject-booking/${id}`,
         method: "POST",
         headers,
         body: {},
@@ -77,16 +77,16 @@ export default function AppointmentList({
   return (
     <ControlledTable
       variant={variant}
-      isLoading={appoitmentsList.isFetching}
+      isLoading={bookingsList.isFetching}
       showLoadingText={true}
-      data={appoitmentsList?.data?.data?.data}
+      data={bookingsList?.data?.data?.data}
       scroll={{ x: 1300 }}
       // @ts-ignore
       columns={getColumns({ onApproveItem: onApproveItem, onRejectItem })}
       paginatorOptions={{
         pageSize,
         setPageSize,
-        total: appoitmentsList?.data?.data?.total,
+        total: bookingsList?.data?.data?.total,
         current: currentPage,
         onChange: (page: number) => setCurrentPage(page),
       }}

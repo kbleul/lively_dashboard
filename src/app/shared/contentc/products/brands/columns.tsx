@@ -18,9 +18,12 @@ export const getColumns = ({ onDeleteItem, onEditItem }: Columns) => [
     dataIndex: "brand_image",
     key: "brand_image",
     width: 50,
-    render: (value: { url: string }) => (
-      <Image src={value.url} alt="Brand Image" width={50} height={50} />
-    ),
+    render: (value: any) =>
+      value && value.url ? (
+        <Image src={value.url} alt="Brand Image" width={50} height={50} />
+      ) : (
+        <div className="w-12 h-12 rounded-full bg-gray-100" />
+      ),
   },
   {
     title: <HeaderCell title="Name English" />,

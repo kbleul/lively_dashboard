@@ -129,7 +129,7 @@ const AddOwnerInfo = ({
                     )}
                   </Field>
 
-                  <Field name="birthDate">
+                  <Field name="dob">
                     {() => (
                       <div>
                         <DatePicker
@@ -140,7 +140,7 @@ const AddOwnerInfo = ({
                           showYearDropdown
                         />
                         <ErrorMessage
-                          name={"birthDate"}
+                          name={"dob"}
                           component="div"
                           className={
                             "text-xs capitalize text-red-500 pt-1 font-medium"
