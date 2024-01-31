@@ -382,7 +382,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
                   >
                     <CgArrowsExchange />
                   </span>
-                  <div>Switch To Braches Managment</div>
+                  <div>Switch to Store Mode</div>
                 </div>
               </Link>
             )}
