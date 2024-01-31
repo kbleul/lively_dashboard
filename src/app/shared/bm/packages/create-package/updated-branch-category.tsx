@@ -55,7 +55,7 @@ const UpdatePackageCategoryForm = ({ id, cat }: Props) => {
   const createPackage = async (values: UpdatePackageCategoryType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/update-branch-packages/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/update-branch-packages-category/${id}`,
         method: "POST",
         headers,
         body: {
