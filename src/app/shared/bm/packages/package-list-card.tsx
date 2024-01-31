@@ -1,25 +1,68 @@
+"use client";
 import { PackageDataType } from "@/types/packages";
 import React from "react";
 import { Title, Text } from "@/components/ui/text";
 import PencilIcon from "@/components/icons/pencil";
 import { Badge } from "@/components/ui/badge";
+import { useModal } from "../../modal-views/use-modal";
+import CreatePackageForm from "./create-package/create-package-form";
+import UpdatePackageForm from "./create-package/update-package-form";
+import UpdatePackageCategoryForm from "./create-package/updated-branch-category";
 interface Props {
   data: PackageDataType;
 }
 const PackageListCard = ({ data }: Props) => {
+  const { openModal } = useModal();
   return (
-    <div className="bg-white dark:bg-black shadow-xl p-5 md:p-10 rounded-xl flex flex-col items-start space-y-3">
+    <div className="bg-white dark:bg-black shadow-xl p-5 md:p-10 rounded-xl flex flex-col items-start space-y-3 w-full">
       <div className="flex items-center gap-2">
         <Title as="h4">{data?.category}</Title>
-        <PencilIcon className="h-6 w-6 cursor-pointer" />
+        <PencilIcon
+          onClick={() =>
+            openModal({
+              view: (
+                <UpdatePackageCategoryForm
+                  id={data.packages[0].id}
+                  cat={data?.category}
+                />
+              ),
+              customSize: "550px",
+            })
+          }
+          className="h-6 w-6 cursor-pointer"
+        />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-5">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-5 w-full">
         {data?.packages?.map((item) => (
           <div
-            className="rounded-xl border-2 border-primary p-3 flex flex-col space-y-2"
+            className="rounded-xl border-2 border-primary p-3 flex flex-col space-y-2 w-full"
             key={item.id}
           >
-            <div className="flex items-end justify-end">
+            <div className="flex items-center justify-end gap-3">
+              <PencilIcon
+                onClick={() =>
+                  openModal({
+                    view: (
+                      <UpdatePackageForm
+                        id={item.id}
+                        item={{
+                          title: item.title.english,
+                          description: item.description.english,
+                          package_type_id: item.package_type_id,
+                          enrollment_type: item.enrollment_type,
+                          startTime: "",
+                          endTime: "",
+                          price: item.price.toString(),
+                          frequency: item.frequency,
+                          frequency_type: item.frequency_type,
+                        }}
+                      />
+                    ),
+                    customSize: "850px",
+                  })
+                }
+                className="h-5 w-5 cursor-pointer"
+              />
               <Badge color="primary" className="b bg-opacity-30">
                 {item.frequency}
               </Badge>

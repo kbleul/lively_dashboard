@@ -61,6 +61,13 @@ const CreatePackageForm = () => {
     { name: "Appointment", value: "Appointment" },
     { name: "Membership", value: "Membership" },
   ];
+  const frequencyType = [
+    { name: "Hour", value: "Hour" },
+    { name: "Day", value: "Day" },
+    { name: "Week", value: "Week" },
+    { name: "Month", value: "Month" },
+    { name: "Year", value: "Year" },
+  ];
   const createPackage = async (values: CreatePackageType) => {
     try {
       await postMutation.mutateAsync({
@@ -131,7 +138,7 @@ const CreatePackageForm = () => {
                     getOptionLabel={(tag: any) => tag?.label}
                     getOptionValue={(tag: any) => tag?.value}
                     onChange={(selectedOptions: any) => {
-                      console.log(selectedOptions.any);
+                      console.log(selectedOptions);
                       setFieldValue(`package_category`, selectedOptions?.value);
                     }}
                     noOptionsMessage={() => "Package type appears here"}
@@ -181,6 +188,7 @@ const CreatePackageForm = () => {
                                 label="Package End Dration"
                                 color="primary"
                               />
+                              <p>* Leave empty for any time</p>
                             </div>
                           </div>
                           <div className="w-full flex flex-col items-start gap-3">
@@ -221,17 +229,36 @@ const CreatePackageForm = () => {
                             />
 
                             <FormikInput
-                              name={`packages.${index}.frequency`}
-                              label="Package Enrolment Type"
-                              placeholder="Enter Package Frequency"
-                              color="primary"
-                            />
-                            <FormikInput
                               type="number"
                               name={`packages.${index}.price`}
                               label="Package Price"
                               placeholder="Enter Package Price"
                               color="primary"
+                            />
+                            <FormikInput
+                              name={`packages.${index}.frequency`}
+                              label="Add Package Frequency"
+                              placeholder="Enter Package Frequency"
+                              color="primary"
+                              type="number"
+                            />
+
+                            <CustomSelect
+                              name={`packages.${index}.frequency_type`}
+                              label="Frequency Type"
+                              options={frequencyType}
+                              placeholder="Frequency Type"
+                              getOptionLabel={(tag: any) => tag?.name}
+                              getOptionValue={(tag: any) => tag?.name}
+                              onChange={(selectedOptions: any) => {
+                                setFieldValue(
+                                  `packages.${index}.frequency_type`,
+                                  selectedOptions?.name
+                                );
+                              }}
+                              noOptionsMessage={() =>
+                                "Frequency type appears here"
+                              }
                             />
                           </div>
                           <div>
@@ -249,7 +276,6 @@ const CreatePackageForm = () => {
                               )}
                           </div>
                         </div>
-<<<<<<< HEAD
                       ))}
                       <Button
                         onClick={() =>
@@ -262,6 +288,7 @@ const CreatePackageForm = () => {
                             endTime: "",
                             price: "",
                             frequency: "",
+                            frequency_type: "",
                           })
                         }
                         color="primary"
@@ -289,107 +316,6 @@ const CreatePackageForm = () => {
       ) : (
         <Spinner size="xl" />
       )}
-=======
-                        <div className="w-full flex flex-col items-start gap-3">
-                          <CustomSelect
-                            name={`packages.${index}.enrollment_type`}
-                            label="Enrollment Type"
-                            options={enrollmentType}
-                            placeholder="select Package Enrolment Type"
-                            getOptionLabel={(tag: any) => tag?.name}
-                            getOptionValue={(tag: any) => tag?.name}
-                            onChange={(selectedOptions: any) => {
-                              setFieldValue(
-                                `packages.${index}.enrollment_type`,
-                                selectedOptions?.name
-                              );
-                            }}
-                            noOptionsMessage={() => "Package type appears here"}
-                          />
-
-                          <CustomSelect
-                            name={`packages.${index}.package_type_id`}
-                            label="Package Type"
-                            options={packageTypes?.data?.data}
-                            placeholder="select Package Type"
-                            getOptionLabel={(tag: any) => tag?.name?.english}
-                            getOptionValue={(tag: any) => tag?.id}
-                            onChange={(selectedOptions: any) => {
-                              setFieldValue(
-                                `packages.${index}.package_type_id`,
-                                selectedOptions?.id
-                              );
-                            }}
-                            noOptionsMessage={() => "Package type appears here"}
-                          />
-
-                          <FormikInput
-                            name={`packages.${index}.frequency`}
-                            label="Add Package Frequency"
-                            placeholder="Enter Package Frequency"
-                            color="primary"
-                            type="number"
-                          />
-                          <FormikInput
-                            type="number"
-                            name={`packages.${index}.price`}
-                            label="Package Price"
-                            placeholder="Enter Package Price"
-                            color="primary"
-                          />
-                        </div>
-                        <div>
-                          {values?.packages &&
-                            values?.packages?.length > 1 &&
-                            index > 0 && (
-                              <Button
-                                type="button"
-                                onClick={() => data.remove(index)}
-                                variant="outline"
-                                color="danger"
-                              >
-                                Remove Package
-                              </Button>
-                            )}
-                        </div>
-                      </div>
-                    ))}
-                    <Button
-                      onClick={() =>
-                        data.push({
-                          title: "",
-                          description: "",
-                          package_type_id: "",
-                          enrollment_type: "",
-                          startTime: "",
-                          endTime: "",
-                          price: "",
-                          frequency: "",
-                        })
-                      }
-                      color="primary"
-                      variant="flat"
-                    >
-                      Add Package
-                    </Button>
-                  </div>
-                )}
-              </FieldArray>
-              <div className="flex items-end justify-end w-full">
-                <Button
-                  isLoading={postMutation.isPending}
-                  color="primary"
-                  size="lg"
-                  type="submit"
-                >
-                  Submit
-                </Button>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
->>>>>>> 066bcb3e299e8c2b9bf2a64e87904f79503f463a
     </div>
   );
 };

@@ -15,6 +15,7 @@ import { useFetchData } from "@/react-query/useFetchData";
 import CustomSelect from "@/components/ui/form/select";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
+import CreatableCustomSelect from "@/components/ui/form/creatable-select";
 
 interface Service {
   id: string;
@@ -53,6 +54,11 @@ const CreatePackageForm = ({
   const serviceData = useFetchData(
     [queryKeys.getAllServices + branchId],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/place-services/${branchId}`,
+    headers
+  );
+  const categoryData = useFetchData(
+    [queryKeys.getBranchPackageType + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-categories`,
     headers
   );
 
@@ -126,12 +132,29 @@ const CreatePackageForm = ({
                   noOptionsMessage={() => "service type appears here"}
                   className="pt-2"
                 />
-                <FormikInput
+                {/* <FormikInput
                   name="package_category"
                   label="Package Category"
                   placeholder="Enter Package Category"
                   color="primary"
                   className=""
+                /> */}
+                <CreatableCustomSelect
+                  isSearchable
+                  name={`package_category`}
+                  label="Package Category"
+                  options={categoryData?.data?.data?.map((item: any) => ({
+                    label: item?.name,
+                    value: item?.name,
+                  }))}
+                  placeholder="select Package Category"
+                  getOptionLabel={(tag: any) => tag?.label}
+                  getOptionValue={(tag: any) => tag?.value}
+                  onChange={(selectedOptions: any) => {
+                    console.log(selectedOptions);
+                    setFieldValue(`package_category`, selectedOptions?.value);
+                  }}
+                  noOptionsMessage={() => "Package type appears here"}
                 />
               </div>
 
