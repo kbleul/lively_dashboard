@@ -15,7 +15,10 @@ import { CenterType } from "@/types/centers";
 import { ActionIcon } from "@/components/ui/action-icon";
 import ReusabelPopover from "@/components/reusabel-popover";
 import Spinner from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
+import { routes } from "@/config/routes";
 const CentersList = () => {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
@@ -66,16 +69,18 @@ const CentersList = () => {
               key={center.id}
               className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg"
             >
-              <div className="relative h-44 w-full overflow-hidden group">
-                <Image
-                  src={center.center_cover.url}
-                  alt="Center Cover"
-                  // height={400}
-                  // width={500}
-                  fill
-                  className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
-                />
-              </div>
+              {center.center_cover && center.center_cover.url && (
+                <div className="relative h-44 w-full overflow-hidden group">
+                  <Image
+                    src={center.center_cover.url}
+                    alt="Center Cover"
+                    // height={400}
+                    // width={500}
+                    fill
+                    className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
+                  />
+                </div>
+              )}
 
               <div className="p-5 lg:p-7 mb-12">
                 <Title as="h5" className="line-clamp-2">
@@ -93,7 +98,15 @@ const CentersList = () => {
                   onDelete={() => deleteCenter(center.id)}
                 />
 
-                <Button color="primary" variant="outline">
+                <Button
+                  onClick={() =>
+                    router.push(
+                      routes.operationalManager.centers.edit(center.id)
+                    )
+                  }
+                  color="primary"
+                  variant="outline"
+                >
                   Edit
                 </Button>
               </div>

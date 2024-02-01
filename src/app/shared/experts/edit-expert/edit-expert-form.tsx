@@ -57,7 +57,6 @@ const EditExpertForm = ({ id }: Props) => {
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/experts/${id}`,
     headers
   );
-  console.log(expertData?.data?.data);
 
   const initialValues: EditExpertInfoType = {
     city_id: expertData?.data?.data?.city_id,
@@ -84,7 +83,8 @@ const EditExpertForm = ({ id }: Props) => {
     ),
 
     online: expertData?.data?.data?.appointment_type?.phone?.active ?? false,
-    priceInOnline: expertData?.data?.data?.appointment_type?.phone?.price ?? "0",
+    priceInOnline:
+      expertData?.data?.data?.appointment_type?.phone?.price ?? "0",
     inperson:
       expertData?.data?.data?.appointment_type?.in_person?.active ?? false,
     priceInPerson:
@@ -147,7 +147,6 @@ const EditExpertForm = ({ id }: Props) => {
           onSubmit={expertInfoSubmitHandler}
         >
           {({ values, setFieldValue, errors }) => {
-            console.log(errors);
             return (
               <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
                 <div className="grid grid-cols-1 gap-8 divide-y divide-dashed divide-gray-200 @2xl:gap-10 @3xl:gap-12">

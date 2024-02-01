@@ -20,7 +20,7 @@ const OccupationList = () => {
   const postMutation = useDynamicMutation();
   const { openModal } = useModal();
   const cityData = useFetchData(
-    [queryKeys.getAllCities],
+    [queryKeys.getAllOccupations],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
     headers
   );
@@ -34,7 +34,9 @@ const OccupationList = () => {
         headers,
         body: {},
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: [queryKeys.getAllCities] });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllOccupations],
+          });
           toast.success("City Deleted Successfully");
         },
         onError: (err) => {
@@ -61,7 +63,11 @@ const OccupationList = () => {
     handleRowSelect,
     handleSelectAll,
   } = useTable(cityData?.data ?? [], pageSize);
-  console.log("cityData", cityData?.data);
+  const onEditItem = (id: string) => {
+    openModal({
+      view: <AddOccupationForm id={id} />,
+    });
+  };
   return (
     <WidgetCard
       title={"Cities"}
@@ -87,6 +93,7 @@ const OccupationList = () => {
           data={cityData?.data?.data}
           columns={getToolsColumns({
             onDeleteItem: deleteCity,
+            onEditItem,
             name: "Occupation",
           })}
           scroll={{ x: 400 }}

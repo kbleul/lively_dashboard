@@ -15,7 +15,15 @@ const nextConfig = {
         protocol: "https",
       },
       {
+        hostname: "wellbeing-dev.lively-et.com",
+        protocol: "https",
+      },
+      {
         hostname: "api.lively-et.com",
+        protocol: "https",
+      },
+      {
+        hostname: "servicesdev.lively-et.com",
         protocol: "https",
       },
     ],
@@ -23,3 +31,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+

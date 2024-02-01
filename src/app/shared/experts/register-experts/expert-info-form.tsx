@@ -42,7 +42,6 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
     profile: undefined,
   };
   const expertInfoSubmitHandler = async (values: RegisterExpertInfoType) => {
-    console.log({ F: values });
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/register-expert`,
@@ -61,7 +60,6 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
           profile_image: values.profile && values.profile,
         },
         onSuccess: (res) => {
-          console.log("res,", res);
           setUserId(res.data.id);
           setActiveStep((prev) => prev + 1);
           toast.success("Information Saved Successfully");

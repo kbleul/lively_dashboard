@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Autocomplete, {
-  locationAtom,
   type Location,
 } from "@/components/google-map/autocomplete";
 import FormGroup from "@/components/form-group";
@@ -18,11 +17,21 @@ import CustomSelect from "@/components/ui/form/select";
 const AddLocationForm = ({ className }: { className?: string }) => {
   const [value, setValue] = React.useState("search");
   const headers = useGetHeaders({ type: "Json" });
+
+  const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
+
   const { setFieldValue } = useFormikContext();
   const handlePlaceSelect = (place: Location) => {
     setFieldValue("lat", place.lat);
     setFieldValue("lng", place.lng);
-    console.log(place);
+  };
+
+  const removeMarkers = () => {
+    markers.forEach((marker: any) => {
+      marker.setMap(null);
+    });
+
+    setMarkers([]);
   };
 
   const onMapClick = (event: google.maps.MapMouseEvent) => {
@@ -31,6 +40,18 @@ const AddLocationForm = ({ className }: { className?: string }) => {
     if (lat && lng) {
       setFieldValue("lat", lat);
       setFieldValue("lng", lng);
+
+      removeMarkers();
+
+      const marker = new google.maps.Marker({
+        position: {
+          lat,
+          lng,
+        },
+        title: "Clicked Location",
+      });
+
+      setMarkers([marker]);
     }
   };
 
@@ -97,6 +118,7 @@ const AddLocationForm = ({ className }: { className?: string }) => {
                 className: "absolute z-10 flex-grow block right-7 left-7 top-7",
                 inputClassName: "bg-white dark:bg-gray-100 border-0",
               }}
+              markers={markers}
             />
           )}
         </Field>

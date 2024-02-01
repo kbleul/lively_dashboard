@@ -6,14 +6,15 @@ import { ActionIcon } from "@/components/ui/action-icon";
 import PencilIcon from "@/components/icons/pencil";
 import { Avatar } from "@/components/ui/avatar";
 import DeletePopover from "@/components/delete-popover";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import ReusabelPopover from "@/components/reusabel-popover";
 type Columns = {
   onApproveItem: (id: string) => void;
+  onRejectItem: (id: string) => void;
 };
 
-export const getColumns = ({ onApproveItem }: Columns) => [
+export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
   {
     title: <HeaderCell title="user Profile" />,
     dataIndex: "user",
@@ -165,6 +166,12 @@ export const getColumns = ({ onApproveItem }: Columns) => [
           icon={<FaCheck className="h-4 w-4" />}
           description={`Are you sure you want to Approve this #${row.id} Appoitment?`}
           onDelete={() => onApproveItem(row.id)}
+        />
+        <ReusabelPopover
+          title={`Reject  Appintment`}
+          icon={<FaTimes className="h-4 w-4" />}
+          description={`Are you sure you want to Reject this #${row.id} Appoitment?`}
+          onDelete={() => onRejectItem(row.id)}
         />
       </div>
     ),

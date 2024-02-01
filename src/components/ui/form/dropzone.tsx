@@ -5,6 +5,7 @@ import Dropzone, { DropzoneOptions } from "react-dropzone";
 import UploadIcon from "@/components/shape/upload";
 import { Text } from "@/components/ui/text";
 import Image from "next/image";
+import cn from "@/utils/class-names";
 export interface Accept {
   [key: string]: string[];
 }
@@ -15,6 +16,7 @@ interface FilePickerProps {
   label: string;
   accept?: Accept;
   showImage?: boolean;
+  className?: string;
 }
 
 const FilePicker: React.FC<FilePickerProps> = ({
@@ -23,6 +25,7 @@ const FilePicker: React.FC<FilePickerProps> = ({
   label,
   accept,
   showImage = true,
+  className,
 }) => {
   const { setFieldValue } = useFormikContext();
   const [meta] = useField(name);
@@ -63,6 +66,7 @@ const FilePicker: React.FC<FilePickerProps> = ({
       : {
           "image/jpeg": [".jpg", ".jpeg"],
           "image/png": [".png"],
+          "image/svg": [".svg"],
           "image/webp": [".webp"], // Add webp file format
           // Add more file types if needed
         },
@@ -72,7 +76,7 @@ const FilePicker: React.FC<FilePickerProps> = ({
   };
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full", className)}>
       <label
         className="      block 
             text-xs

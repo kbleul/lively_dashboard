@@ -8,10 +8,11 @@ import DeletePopover from "@/components/delete-popover";
 
 type Columns = {
   onDeleteItem: (id: string) => void;
+  onEditItem?: (id: string) => void;
   name: string;
 };
 
-export const getColumns = ({ onDeleteItem, name }: Columns) => [
+export const getColumns = ({ onDeleteItem, onEditItem, name }: Columns) => [
   {
     title: <HeaderCell title="Amharic Name" />,
     dataIndex: "name",
@@ -50,6 +51,7 @@ export const getColumns = ({ onDeleteItem, name }: Columns) => [
             size="sm"
             variant="outline"
             className="hover:text-gray-700"
+            onClick={() => onEditItem && onEditItem(row.id)}
           >
             <PencilIcon className="h-4 w-4" />
           </ActionIcon>

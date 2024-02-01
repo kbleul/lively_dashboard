@@ -21,7 +21,7 @@ const SpecialityList = () => {
   const { openModal } = useModal();
   const specialityData = useFetchData(
     [queryKeys.getAllSpecilities],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}specialties`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/specialties`,
     headers
   );
 
@@ -29,7 +29,7 @@ const SpecialityList = () => {
   const deleteRequest = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}specialties/${id}`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/specialties/${id}`,
         method: "DELETE",
         headers,
         body: {},
@@ -63,7 +63,11 @@ const SpecialityList = () => {
     handleRowSelect,
     handleSelectAll,
   } = useTable(specialityData?.data ?? [], pageSize);
-  console.log("specialityData", specialityData?.data);
+  const onEditItem = (id: string) => {
+    openModal({
+      view: <AddSpecilaityForm id={id} />,
+    });
+  };
   return (
     <WidgetCard
       title={"Specialities"}
@@ -90,6 +94,7 @@ const SpecialityList = () => {
           data={specialityData?.data?.data}
           columns={getSpecialityColumns({
             onDeleteItem: deleteRequest,
+            onEditItem,
             name: "Specilaity",
           })}
           scroll={{ x: 400 }}

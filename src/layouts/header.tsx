@@ -9,7 +9,9 @@ import HamburgerButton from "@/layouts/hamburger-button";
 import { ActionIcon } from "@/components/ui/action-icon";
 // import SearchWidget from '@/components/search/search';
 // import ProfileMenu from '@/layouts/profile-menu';
+import StoreSidebar from "@/layouts/store-sidebar";
 import Sidebar from "@/layouts/sidebar";
+
 import { Badge } from "@/components/ui/badge";
 import cn from "@/utils/class-names";
 import Logo from "@/components/logo";
@@ -17,6 +19,7 @@ import { useIsMounted } from "@/hooks/use-is-mounted";
 import { useWindowScroll } from "@/hooks/use-window-scroll";
 import ProfileMenu from "./profile-menu";
 import SettingsButton from "@/components/settings/settings-button";
+import { usePathname } from "next/navigation";
 // import SettingsButton from '@/components/settings/settings-button';
 
 function HeaderMenuRight() {
@@ -59,6 +62,8 @@ function HeaderMenuRight() {
 }
 
 export default function Header() {
+  const pathname = usePathname();
+
   const isMounted = useIsMounted();
   const windowScroll = useWindowScroll();
   return (
@@ -70,7 +75,13 @@ export default function Header() {
     >
       <div className="flex w-full max-w-2xl items-center">
         <HamburgerButton
-          view={<Sidebar className="static w-full 2xl:w-full" />}
+          view={
+            pathname.split("/")[1].includes("so") ? (
+              <StoreSidebar className="static w-full 2xl:w-full" />
+            ) : (
+              <Sidebar className="static w-full 2xl:w-full" />
+            )
+          }
         />
 
         <Link href={"/"} aria-label="Site Logo">

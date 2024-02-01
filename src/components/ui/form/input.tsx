@@ -16,6 +16,7 @@ interface FormikInputProps {
     | "search"
     | "tel"
     | "time"
+    | "time24"
     | "url"
     | "week"
     | undefined;
@@ -54,6 +55,7 @@ const FormikInput: React.FC<FormikInputProps> = ({
         <Input
           autoComplete="off"
           {...field}
+          // @ts-ignore
           type={type}
           label={label}
           name={name}

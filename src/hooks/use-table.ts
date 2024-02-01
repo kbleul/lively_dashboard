@@ -132,56 +132,56 @@ export function useTable<T extends AnyObject>(
   function applyFilters() {
     const searchTermLower = searchTerm.toLowerCase();
 
-    return (
-      sortedData
-        .filter((item) => {
-          const isMatchingItem = Object.entries(filters).some(
-            ([columnId, filterValue]) => {
-              if (
-                Array.isArray(filterValue) &&
-                typeof filterValue[1] === "object"
-              ) {
-                const itemValue = new Date(item[columnId]);
-                return (
-                  // @ts-ignore
-                  itemValue >= filterValue[0] && itemValue <= filterValue[1]
-                );
-              }
-              if (
-                Array.isArray(filterValue) &&
-                typeof filterValue[1] === "string"
-              ) {
-                const itemPrice = Math.ceil(Number(item[columnId]));
-                return (
-                  itemPrice >= Number(filterValue[0]) &&
-                  itemPrice <= Number(filterValue[1])
-                );
-              }
-              if (isString(filterValue) && !Array.isArray(filterValue)) {
-                const itemValue = item[columnId]?.toString().toLowerCase();
-                if (itemValue !== filterValue.toString().toLowerCase()) {
-                  return false;
+    return sortedData && sortedData.length > 0
+      ? sortedData
+          .filter((item) => {
+            const isMatchingItem = Object.entries(filters).some(
+              ([columnId, filterValue]) => {
+                if (
+                  Array.isArray(filterValue) &&
+                  typeof filterValue[1] === "object"
+                ) {
+                  const itemValue = new Date(item[columnId]);
+                  return (
+                    // @ts-ignore
+                    itemValue >= filterValue[0] && itemValue <= filterValue[1]
+                  );
                 }
-                return true;
+                if (
+                  Array.isArray(filterValue) &&
+                  typeof filterValue[1] === "string"
+                ) {
+                  const itemPrice = Math.ceil(Number(item[columnId]));
+                  return (
+                    itemPrice >= Number(filterValue[0]) &&
+                    itemPrice <= Number(filterValue[1])
+                  );
+                }
+                if (isString(filterValue) && !Array.isArray(filterValue)) {
+                  const itemValue = item[columnId]?.toString().toLowerCase();
+                  if (itemValue !== filterValue.toString().toLowerCase()) {
+                    return false;
+                  }
+                  return true;
+                }
               }
-            }
-          );
-          return isMatchingItem;
-        })
-        // global search after running filters
-        .filter((item) =>
-          Object.values(item).some((value) =>
-            typeof value === "object"
-              ? value &&
-                Object.values(value).some(
-                  (nestedItem) =>
-                    nestedItem &&
-                    String(nestedItem).toLowerCase().includes(searchTermLower)
-                )
-              : value && String(value).toLowerCase().includes(searchTermLower)
+            );
+            return isMatchingItem;
+          })
+          // global search after running filters
+          .filter((item) =>
+            Object.values(item).some((value) =>
+              typeof value === "object"
+                ? value &&
+                  Object.values(value).some(
+                    (nestedItem) =>
+                      nestedItem &&
+                      String(nestedItem).toLowerCase().includes(searchTermLower)
+                  )
+                : value && String(value).toLowerCase().includes(searchTermLower)
+            )
           )
-        )
-    );
+      : [];
   }
 
   /*

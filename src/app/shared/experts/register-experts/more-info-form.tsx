@@ -137,13 +137,12 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
       onSubmit={expertInfoSubmitHandler}
     >
       {({ values, setFieldValue, errors }) => {
-        console.log(errors);
         return (
           <Form className="flex flex-grow flex-col @container [&_label]:font-medium">
             {name && (
               <div className="flex w-full items-center justify-center py-2">
                 <Alert color="info" variant="flat">
-                  <Text>You Are fnishing Registration for {name}</Text>
+                  <Text>You Are finishing Registration for {name}</Text>
                 </Alert>
               </div>
             )}
@@ -443,12 +442,12 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
                         name={`openingHours[${index}].from`}
                         label="Opening Time"
                         disabled={!customDaysChecked[index]}
-                        type="time"
+                        type="time24"
                       />
                       <FormikInput
                         name={`openingHours[${index}].to`}
                         label="Closing Time"
-                        type="time"
+                        type="time24"
                         disabled={!customDaysChecked[index]}
                       />
                     </div>
