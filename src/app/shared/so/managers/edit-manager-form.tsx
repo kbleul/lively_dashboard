@@ -69,7 +69,6 @@ const EditManagerForm = ({
       confirm_password: values.password,
       place_branch_id: branchId,
     };
-    console.log(newValues);
     try {
       await postMutation.mutateAsync({
         url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}store-owner/create-place-branch-manager`,

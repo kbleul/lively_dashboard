@@ -39,7 +39,6 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   const [meta] = useField(name);
   const { value } = meta;
   const fileInputRef = React.useRef<HTMLInputElement>(null);
-  console.log("------->", value);
   const handleDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length === 0) {
