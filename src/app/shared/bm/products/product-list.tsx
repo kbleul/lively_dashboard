@@ -87,7 +87,7 @@ export default function ProductList() {
             isLoading={productsData.isFetching}
             showLoadingText={true}
             data={productsData?.data?.data?.data}
-            scroll={{ x: 1300 }}
+            scroll={{ x: 700 }}
             // @ts-ignore
             columns={getColumns({
               onDeleteItem: deleteProduct,

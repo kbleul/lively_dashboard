@@ -7,9 +7,9 @@ import Logo from "@public/logo.png";
 import { toast } from "sonner";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import { PinCode } from "@/components/ui/pin-code";
 import React from "react";
 import { Formik, Form, ErrorMessage } from "formik";
+import { PinCode } from "@/components/ui/pin-code";
 import { OtpCodeType, otpSchema } from "@/validations/auth.schema";
 
 interface Props {
