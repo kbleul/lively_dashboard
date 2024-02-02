@@ -16,7 +16,9 @@ export const branchInfoSchema = Yup.object().shape({
   instagram: Yup.string().optional(),
   latitude: Yup.string().required("location is required"),
   longitude: Yup.string().required("location is required"), //latitude and longitude
-  branch_cover: Yup.mixed().required("Cover is required"),
+  services: Yup.array()
+    .of(Yup.mixed())
+    .min(1, "At leaset one cover image is required"),
   general_discount: Yup.number()
     .required("Discount percentage is required")
     .min(0, "Discount percentage must be greater than or equal to 0")
@@ -36,7 +38,7 @@ export type branchInfoType = {
   instagram?: string;
   latitude: string;
   longitude: string;
-  branch_cover: File | undefined;
+  branch_cover: File[] | [];
   specific_address: string | null;
   general_discount: number;
 };
@@ -61,14 +63,7 @@ export const branchInfoEditSchema = Yup.object().shape({
   instagram: Yup.string().optional(),
   latitude: Yup.string().required("location is required"),
   longitude: Yup.string().required("location is required"), //latitude and longitude
-  branch_cover: Yup.mixed()
-    .default(undefined)
-    .test("is-required", "Cover is required", function (value) {
-      if (this.resolve(value) === undefined) {
-        return this.createError({ message: "Cover is required" });
-      }
-      return true;
-    }),
+  branch_cover: Yup.mixed(),
   services: Yup.array()
     .of(Yup.string().required("Service is required"))
     .min(1, "At least one service is required"),
@@ -98,7 +93,7 @@ export type branchInfoEditType = {
   instagram?: string;
   latitude: string;
   longitude: string;
-  branch_cover: File | undefined | string;
+  branch_cover: File[] | string[];
   specific_address: string | null;
   services: string[];
   amenities: string[];
@@ -127,7 +122,7 @@ export interface NewValues {
   general_discount: number;
   specific_address: string;
   website?: string;
-  branch_cover?: string | undefined | File;
+  branch_cover?: string[] | File[];
 }
 
 export const moreInfoSchema = Yup.object().shape({

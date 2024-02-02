@@ -241,9 +241,9 @@ const EditBranchForm = ({
     latitude: ManagerData.location.latitude,
     longitude: ManagerData.location.longitude,
     branch_cover:
-      branchManagersData?.data?.data?.branch_cover &&
-      branchManagersData.data.data.branch_cover.url
-        ? branchManagersData.data.data.branch_cover.url
+      branchManagersData?.data?.data?.branch_covers &&
+      branchManagersData.data.data.branch_covers.url
+        ? branchManagersData.data.data.branch_covers.url
         : undefined,
     specific_address: ManagerData?.location?.specific_address
       ? ManagerData?.location?.specific_address
@@ -364,17 +364,20 @@ const EditBranchForm = ({
                       name="branch_cover"
                       label="Branch Cover"
                       className="col-span-2"
+                      isMultiple
                     />
 
-                    {ManagerData.branch_cover &&
-                      ManagerData.branch_cover.url && (
+                    {ManagerData.branch_covers &&
+                      ManagerData.branch_covers.length > 0 &&
+                      ManagerData.branch_covers.map((item: any) => (
                         <Image
-                          src={ManagerData.branch_cover.url}
+                          key={item.url}
+                          src={item.url}
                           height={100}
                           width={100}
                           alt="branch covers"
                         />
-                      )}
+                      ))}
                   </FormGroup>
 
                   <FormGroup
