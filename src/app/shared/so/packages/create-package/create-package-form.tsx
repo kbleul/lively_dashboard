@@ -6,7 +6,6 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/react-query/query-keys";
 import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
 import { toast } from "sonner";
 import { FieldArray, Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
@@ -151,7 +150,6 @@ const CreatePackageForm = ({
                   getOptionLabel={(tag: any) => tag?.label}
                   getOptionValue={(tag: any) => tag?.value}
                   onChange={(selectedOptions: any) => {
-                    console.log(selectedOptions);
                     setFieldValue(`package_category`, selectedOptions?.value);
                   }}
                   noOptionsMessage={() => "Package type appears here"}

@@ -38,6 +38,10 @@ export const operationalManagetMenuItems = [
     icon: <PiToolboxThin />,
     dropdownItems: [
       {
+        name: "Banners",
+        href: routes.operationalManager.banners,
+      },
+      {
         name: "register experts",
         href: routes.operationalManager.experts.create,
       },

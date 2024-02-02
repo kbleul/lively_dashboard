@@ -21,6 +21,7 @@ import {
   PiFileImageDuotone,
   PiNotepadDuotone,
 } from "react-icons/pi";
+import { MdOutlineDiscount } from "react-icons/md";
 import { CgArrowsExchange } from "react-icons/cg";
 import SimpleBar from "@/components/ui/simplebar";
 import Logo from "@/components/logo";
@@ -108,8 +109,15 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Packages",
+          name: "List",
           href: routes.storeOwner.branch.packages(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.storeOwner.branch["package-discounts"](
             pathname.split("/")[2],
             pathname.split("/")[4]
           ),
@@ -122,8 +130,15 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
       dropdownItems: [
         {
-          name: "Products",
+          name: "List",
           href: routes.storeOwner.branch.products(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.storeOwner.branch["product-discounts"](
             pathname.split("/")[2],
             pathname.split("/")[4]
           ),

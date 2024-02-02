@@ -17,6 +17,7 @@ export const routes = {
     appointments: "/op/appointments",
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
+    banners: "/op/banners",
     centers: {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",
@@ -37,6 +38,9 @@ export const routes = {
       "branch-manager": (id: string) => `/op/places/branch-manager/${id}`,
       "create-branch-manager": (id: string) =>
         `/op/places/create-branch-manager/${id}`,
+      "branch-discounts": (id: string) => `/op/places/branch-discounts/${id}`,
+      "add-branch-discounts": (id: string) =>
+        `/op/places/branch-discounts/${id}/create`,
     },
   },
   // content cretor routes
@@ -83,6 +87,14 @@ export const routes = {
         `/so/${id}/branch/${branchId}/packages`,
       createPackage: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/create`,
+      "product-discounts": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products/product-discounts`,
+      "add-product-discount": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products/product-discounts/create`,
+      "package-discounts": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/packages/package-discounts`,
+      "add-package-discount": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/packages/package-discounts/create`,
       managers: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/managers`,
       "add-manager": (id: string, branchId: string) =>

@@ -129,12 +129,6 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
         </Text>
       </div>
       <div className="absolute right-1 bottom-1 flex items-center justify-end gap-2 px-5 lg:px-7 pb-4">
-        {/* <ReusabelPopover
-        title={`Delete Center`}
-        icon={<AiTwotoneDelete className="h-4 w-4" />}
-        description={`Are you sure you want to Delete this Center`}
-        onDelete={() => alert(branch.id)}
-      /> */}
         <Link href={routes.storeOwner.branch.dashboard(id, branch.id)}>
           <Button
             color="primary"

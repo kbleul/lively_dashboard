@@ -42,4 +42,5 @@ export const queryKeys = {
   getMyBranches: "getMyBranches",
   getStorePackageType: "getStorePackageType",
   getBranchPackageType: "getBranchPackageType",
+  getAllBanners: "getAllBanners",
 };

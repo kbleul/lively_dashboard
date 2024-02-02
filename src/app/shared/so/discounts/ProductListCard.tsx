@@ -8,14 +8,13 @@ import { toast } from "sonner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 
-// import CommonToolTableWidget from "../common/tools-table";
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
 
 import Link from "next/link";
 import { routes } from "@/config/routes";
-import { getColumns } from "./place-columns";
 import CustomCategory from "@/components/ui/custom-category";
+import { getColumns } from "./discount-columns";
 
 const PlaceListCategoriesLink = [
   {
@@ -28,7 +27,7 @@ const PlaceListCategoriesLink = [
   },
 ];
 
-const PlacesList = () => {
+const DiscountList = () => {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
@@ -93,7 +92,7 @@ const PlacesList = () => {
           isLoading={placessData.isFetching}
           showLoadingText={true}
           data={placessData?.data?.data?.data}
-          scroll={{ x: 900 }}
+          scroll={{ x: 1300 }}
           // @ts-ignore
           columns={getColumns({ deleteProduct })}
           paginatorOptions={{
@@ -112,4 +111,4 @@ const PlacesList = () => {
   );
 };
 
-export default PlacesList;
+export default DiscountList;
