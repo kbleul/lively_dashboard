@@ -45,7 +45,7 @@ const AddBranchInfo = ({
     instagram: "",
     latitude: "",
     longitude: "",
-    branch_cover: undefined,
+    branch_cover: [],
     specific_address: null,
     general_discount: 0,
   };
@@ -183,6 +183,7 @@ const AddBranchInfo = ({
                   <AvaterPicker
                     name="branch_cover"
                     label="Branch Cover"
+                    isMultiple={true}
                     className="col-span-2"
                   />
                 </FormGroup>
