@@ -30,8 +30,10 @@ import EditMoreInfo from "./edit-more-info";
 import LocationForm from "./LocationForm";
 import { useQueryClient } from "@tanstack/react-query";
 import AvaterPicker from "@/components/ui/form/avater-upload";
+import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 
 const BranchFormStepLink = ["places", "incomplete-places"];
+const BranchFormStepLabels = ["Branch Detail", "More Info."];
 
 const getSelectedDays = (selectedDaysArr: any[]): boolean[] => {
   const selectedDays = Array(7).fill(false);
@@ -317,6 +319,8 @@ const EditBranchForm = ({
               <CustomCategoryButton
                 categoryLink={categoryLink}
                 setCategoryLink={setCategoryLink}
+                categoriesArr={BranchFormStepLink}
+                labels={BranchFormStepLabels}
               />
 
               <Modal
@@ -434,28 +438,6 @@ const EditBranchForm = ({
                       />
                     </FormGroup>
 
-                    {/* <FormGroup
-                      title="Upload Branch Cover"
-                      description="Upload your Store logo image  here"
-                      className={cn(className)}
-                    >
-                      <AvaterPicker
-                        name="branch_cover"
-                        label="Branch Cover"
-                        className="col-span-2"
-                      />
-
-                      {ManagerData.branch_cover &&
-                        ManagerData.branch_cover.url && (
-                          <Image
-                            src={ManagerData.branch_cover.url}
-                            height={100}
-                            width={100}
-                            alt="branch covers"
-                          />
-                        )}
-                    </FormGroup> */}
-
                     <FormGroup
                       title="Social Media "
                       description="You can add your social media links here."
@@ -529,41 +511,6 @@ const EditBranchForm = ({
           );
         }}
       </Formik>
-    </article>
-  );
-};
-
-const CustomCategoryButton = ({
-  categoryLink,
-  setCategoryLink,
-}: {
-  categoryLink: string;
-  setCategoryLink: React.Dispatch<React.SetStateAction<string>>;
-}) => {
-  return (
-    <article className="w-full mb-10 border-b border-b-gray-300 flex justify-start gap-x-10 items-center  my-2">
-      <button
-        type="button"
-        onClick={() => setCategoryLink(BranchFormStepLink[0])}
-        className={
-          categoryLink === BranchFormStepLink[0]
-            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
-            : "bg-inherit text-black"
-        }
-      >
-        Branch Detail
-      </button>
-      <button
-        type="button"
-        onClick={() => setCategoryLink(BranchFormStepLink[1])}
-        className={
-          categoryLink === BranchFormStepLink[1]
-            ? "bg-inherit text-black border-b-2 border-b-black font-semibold"
-            : "bg-inherit text-black"
-        }
-      >
-        More Info.
-      </button>
     </article>
   );
 };

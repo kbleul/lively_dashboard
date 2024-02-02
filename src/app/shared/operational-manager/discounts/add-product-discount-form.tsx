@@ -237,6 +237,10 @@ const AddProductDiscount = ({
                       isSearchable
                       className="pt-2 col-span-2"
                     />
+                    {!productsData.isLoading &&
+                      productsData?.data?.data?.data.length === 0 && (
+                        <p>No products found for this branch</p>
+                      )}
                   </FormGroup>
                 </div>
                 <FormFooter
