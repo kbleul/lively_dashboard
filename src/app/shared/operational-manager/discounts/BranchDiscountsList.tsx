@@ -45,7 +45,7 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
         action={
           categoryLink === CategoriesArr[0] ? (
             <Link
-              href={routes.operationalManager.places["add-branch-discounts"](
+              href={routes.operationalManager.places["add-product-discounts"](
                 branchId
               )}
             >
@@ -55,7 +55,7 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
             </Link>
           ) : (
             <Link
-              href={routes.operationalManager.places["add-branch-discounts"](
+              href={routes.operationalManager.places["add-package-discounts"](
                 branchId
               )}
             >

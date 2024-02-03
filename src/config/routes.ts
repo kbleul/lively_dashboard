@@ -39,8 +39,10 @@ export const routes = {
       "create-branch-manager": (id: string) =>
         `/op/places/create-branch-manager/${id}`,
       "branch-discounts": (id: string) => `/op/places/branch-discounts/${id}`,
-      "add-branch-discounts": (id: string) =>
-        `/op/places/branch-discounts/${id}/create`,
+      "add-product-discounts": (id: string) =>
+        `/op/places/branch-discounts/${id}/products/create`,
+      "add-package-discounts": (id: string) =>
+        `/op/places/branch-discounts/${id}/packages/create`,
     },
   },
   // content cretor routes

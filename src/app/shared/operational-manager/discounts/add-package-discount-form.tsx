@@ -9,30 +9,29 @@ import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
-import PageHeader from "../../page-header";
 import { routes } from "@/config/routes";
 import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
-import {
-  CreateProductDiscountType,
-  createProductDiscountSchema,
-} from "@/validations/discount";
+
 import moment from "moment";
 import { toast } from "sonner";
+import PageHeader from "../../page-header";
+import {
+  CreatePackagetDiscountType,
+  createPackageDiscountSchema,
+} from "@/validations/discount";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
   { name: "No", value: false },
 ];
 
-const EditProductDiscount = ({
+const AddPackageDiscount = ({
   className,
-  placeId,
   branchId,
 }: {
   className?: string;
-  placeId: string;
   branchId: string;
 }) => {
   const router = useRouter();
@@ -40,45 +39,39 @@ const EditProductDiscount = ({
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
 
-  const productsDiscount = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
-    headers
-  );
-
-  const productsData = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
+  const packagesDate = useFetchData(
+    [queryKeys.getAllPackages + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-packages/${branchId}`,
     headers
   );
 
   const pageHeader = {
-    title: "Store Owner",
+    title: "Operations Manager",
     breadcrumb: [
       {
-        href: routes.storeOwner.branch["product-discounts"](placeId, branchId),
-        name: "Product Discounts",
+        href: "#",
+        name: "Project Discounts",
       },
       {
-        name: "Edit",
+        name: "Create",
       },
     ],
   };
 
-  const initialValues: CreateProductDiscountType = {
-    place_branch_products: [],
+  const initialValues: CreatePackagetDiscountType = {
+    place_branch_packages: [],
     titleEnglish: "",
     descriptionEnglish: "",
-    discount: 0,
+    discount: 10,
     promo_code: "",
     tickets: 1,
-    banner: false,
+    banner: true,
     start_date: undefined,
     end_date: undefined,
   };
 
   const createOwnerSubmitHandler = async (
-    values: CreateProductDiscountType
+    values: CreatePackageDiscountType
   ) => {
     const formatedStartDate = moment(values.start_date).format("YYYY-MM-DD");
     const formatedEndDate = moment(values.end_date).format("YYYY-MM-DD");
@@ -90,7 +83,7 @@ const EditProductDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/discount-packages`,
         method: "POST",
         headers,
         body: {
@@ -100,7 +93,7 @@ const EditProductDiscount = ({
         onSuccess: (res) => {
           toast.success("Discount Saved Successfully");
           router.push(
-            routes.storeOwner.branch["product-discounts"](placeId, branchId)
+            routes.operationalManager.places["branch-discounts"](branchId)
           );
         },
         onError: (err) => {
@@ -112,6 +105,19 @@ const EditProductDiscount = ({
     }
   };
 
+  if (packagesDate.isFetching || packagesDate.isLoading) return;
+
+  !packagesDate.isFetching &&
+    console.log("----------->", packagesDate.data.data);
+
+  const packageOptions: any[] = [];
+
+  packagesDate.data.data.forEach((item: any) => {
+    item?.packages?.forEach((packageItem: any) => {
+      packageOptions.push(packageItem);
+    });
+  });
+
   return (
     <div>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
@@ -119,13 +125,13 @@ const EditProductDiscount = ({
       <div className="@container">
         <Formik
           initialValues={initialValues}
-          validationSchema={createProductDiscountSchema}
-          onSubmit={(values: CreateProductDiscountType) => {
+          validationSchema={createPackageDiscountSchema}
+          onSubmit={(values: CreatePackagetDiscountType) => {
             console.log("---> ", values);
             createOwnerSubmitHandler(values);
           }}
         >
-          {({ setFieldValue }) => {
+          {({ values, setFieldValue, errors }) => {
             return (
               <Form className={"[&_label.block>span]:font-medium "}>
                 <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -181,7 +187,7 @@ const EditProductDiscount = ({
                       name="banner"
                       label="Add banner ?"
                       options={bannerNeedType}
-                      defaultValue={bannerNeedType[0].value}
+                      defaultValue={bannerNeedType[0]}
                       placeholder="Do you need banner"
                       getOptionLabel={(option: any) => option.name}
                       getOptionValue={(option: any) => option.value}
@@ -214,39 +220,29 @@ const EditProductDiscount = ({
                   <FormGroup
                     title="Select Products"
                     description="Add product that will have the discount"
+                    className="mb-36"
                   >
                     <CustomSelect
-                      name="place_branch_products"
+                      name="place_branch_projects"
                       label="Products"
-                      options={productsData?.data?.data?.data}
+                      options={packageOptions}
                       placeholder="Do you need banner"
-                      getOptionLabel={(option: any) =>
-                        `${option?.product_variant?.product?.title?.english} ${
-                          option?.product_variant?.color
-                            ? option?.product_variant?.color?.name?.english
-                            : ""
-                        } ${
-                          option?.product_variant?.size
-                            ? option?.product_variant?.size?.english
-                            : ""
-                        } ${
-                          option?.product_variant?.value
-                            ? option?.product_variant?.value?.english
-                            : ""
-                        }`
-                      }
+                      getOptionLabel={(option: any) => option.title.english}
                       getOptionValue={(option: any) => option.id}
                       onChange={(selectedOptions: any) => {
                         const selectedIds = selectedOptions.map(
                           (option: any) => option.id
                         );
-                        setFieldValue("place_branch_products", selectedIds);
+                        setFieldValue("place_branch_projects", selectedIds);
                       }}
                       noOptionsMessage={() => "Banner options here"}
                       isMulti
                       isSearchable
                       className="pt-2 col-span-2"
                     />
+                    {!packagesDate.isLoading && packageOptions.length === 0 && (
+                      <p>No packages found for this branch</p>
+                    )}
                   </FormGroup>
                 </div>
                 <FormFooter
@@ -263,4 +259,4 @@ const EditProductDiscount = ({
   );
 };
 
-export default EditProductDiscount;
+export default AddPackageDiscount;

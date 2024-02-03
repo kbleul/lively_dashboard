@@ -9,17 +9,17 @@ import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
-import PageHeader from "../../page-header";
 import { routes } from "@/config/routes";
 import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import {
-  CreateDiscountType,
-  createDiscountSchema,
+  CreateProductDiscountType,
+  createProductDiscountSchema,
 } from "@/validations/discount";
 import moment from "moment";
 import { toast } from "sonner";
+import PageHeader from "../../page-header";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
@@ -57,7 +57,7 @@ const AddProductDiscount = ({
     ],
   };
 
-  const initialValues: CreateDiscountType = {
+  const initialValues: CreateProductDiscountType = {
     place_branch_products: [],
     titleEnglish: "",
     descriptionEnglish: "",
@@ -69,7 +69,9 @@ const AddProductDiscount = ({
     end_date: undefined,
   };
 
-  const createOwnerSubmitHandler = async (values: CreateDiscountType) => {
+  const createOwnerSubmitHandler = async (
+    values: CreateProductDiscountType
+  ) => {
     const formatedStartDate = moment(values.start_date).format("YYYY-MM-DD");
     const formatedEndDate = moment(values.end_date).format("YYYY-MM-DD");
 
@@ -109,8 +111,8 @@ const AddProductDiscount = ({
       <div className="@container">
         <Formik
           initialValues={initialValues}
-          validationSchema={createDiscountSchema}
-          onSubmit={(values: CreateDiscountType) => {
+          validationSchema={createProductDiscountSchema}
+          onSubmit={(values: CreateProductDiscountType) => {
             console.log("---> ", values);
             createOwnerSubmitHandler(values);
           }}
