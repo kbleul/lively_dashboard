@@ -115,7 +115,6 @@ const UpdatePackageCategoryForm = ({ id, cat }: Props) => {
                   getOptionLabel={(tag: any) => tag?.label}
                   getOptionValue={(tag: any) => tag?.value}
                   onChange={(selectedOptions: any) => {
-                    console.log(selectedOptions);
                     setFieldValue(`package_category`, selectedOptions?.value);
                   }}
                   noOptionsMessage={() => "Package type appears here"}

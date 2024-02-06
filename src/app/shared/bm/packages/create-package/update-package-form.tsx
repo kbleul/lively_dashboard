@@ -36,7 +36,6 @@ const UpdatePackageForm = ({ id, item }: Props) => {
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
-  console.log({ item });
   const enrollmentType = [
     { name: "Appointment", value: "Appointment" },
     { name: "Membership", value: "Membership" },

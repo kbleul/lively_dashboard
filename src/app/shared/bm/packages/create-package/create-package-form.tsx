@@ -56,7 +56,6 @@ const CreatePackageForm = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/package-categories`,
     headers
   );
-  console.log(categoryData?.data?.data);
   const enrollmentType = [
     { name: "Appointment", value: "Appointment" },
     { name: "Membership", value: "Membership" },
@@ -141,7 +140,6 @@ const CreatePackageForm = () => {
                     getOptionLabel={(tag: any) => tag?.label}
                     getOptionValue={(tag: any) => tag?.value}
                     onChange={(selectedOptions: any) => {
-                      console.log(selectedOptions);
                       setFieldValue(`package_category`, selectedOptions?.value);
                     }}
                     noOptionsMessage={() => "Package type appears here"}

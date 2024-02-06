@@ -122,7 +122,6 @@ const AddPackageDiscount = ({
           initialValues={initialValues}
           validationSchema={createPackageDiscountSchema}
           onSubmit={(values: CreatePackagetDiscountType) => {
-            console.log("---> ", values);
             createOwnerSubmitHandler(values);
           }}
         >

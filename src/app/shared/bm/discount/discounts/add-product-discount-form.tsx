@@ -105,7 +105,6 @@ const AddProductDiscount = ({ className }: { className?: string }) => {
           initialValues={initialValues}
           validationSchema={createProductDiscountSchema}
           onSubmit={(values: CreateProductDiscountType) => {
-            console.log("---> ", values);
             createOwnerSubmitHandler(values);
           }}
         >
