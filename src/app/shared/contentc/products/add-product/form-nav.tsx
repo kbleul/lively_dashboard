@@ -5,6 +5,7 @@ import SimpleBar from "@/components/ui/simplebar";
 export const formParts = {
   detail: "detail",
   brand: "brand",
+  place_type: "place_type",
   tag: "tag",
   variant: "variant",
   gallary: "gallary",
@@ -23,6 +24,10 @@ export const menuItems = [
   {
     label: "Tags",
     value: formParts.tag,
+  },
+  {
+    label: "Place Types",
+    value: formParts.place_type,
   },
   {
     label: "Variants",

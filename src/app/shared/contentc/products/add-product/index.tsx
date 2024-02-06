@@ -18,11 +18,15 @@ import AddTagForm from "./add-tag-form";
 import AddVariantForm from "./add-variant-form";
 import { ProductType, productValidationSchema } from "@/validations/product";
 import { clean } from "@/utils/clean-object";
+import AddPlaceForm from "./add-place-form";
+
 const CreateProductForm = () => {
   const MAP_STEP_TO_COMPONENT = {
     [formParts.detail]: ProductDetailForm,
     [formParts.brand]: BrandForm,
     [formParts.tag]: AddTagForm,
+    [formParts.place_type]: AddPlaceForm,
+
     [formParts.variant]: AddVariantForm,
   };
 
@@ -35,6 +39,7 @@ const CreateProductForm = () => {
     descriptionAm: "",
     unit: "",
     brand: "",
+    place_types: [],
     tags: [],
     variant_type: "",
     product_variants: [
@@ -64,6 +69,7 @@ const CreateProductForm = () => {
           descriptionEnglish: values.description,
           unit_id: values.unit,
           brand_id: values.brand,
+          place_types: values.place_types,
           tags: values.tags,
           thumbnail: values.product_variants[0].product_image,
           variant_type: values.variant_type,
@@ -93,7 +99,7 @@ const CreateProductForm = () => {
         validationSchema={productValidationSchema}
         onSubmit={createProductHandeler}
       >
-        {({ handleSubmit, errors, values }) => {
+        {({}) => {
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <FormNav />
