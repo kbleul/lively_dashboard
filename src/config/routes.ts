@@ -109,7 +109,10 @@ export const routes = {
     dashboard: "/bm",
     packages: "/bm/packages",
     createPackage: "/bm/packages/create-package",
+    packageDiscount: "/bm/packages/discount",
+
     products: "/bm/products",
     addProduct: "/bm/products/create-product",
+    productsDiscount: "/bm/products/discount",
   },
 };

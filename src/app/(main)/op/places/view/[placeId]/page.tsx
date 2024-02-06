@@ -155,6 +155,17 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
             </div>
           )}
 
+          {storeData?.data?.data?.owner?.phone && (
+            <div className=" mb-3 flex items-center justify-start gap-x-4 ">
+              <LuPhone size={18} color="#00BA63" />
+
+              <p className="text-[#5F5F5F]">Owner number : </p>
+              <p className="text-black">
+                {storeData?.data?.data?.owner?.phone}
+              </p>
+            </div>
+          )}
+
           {storeData?.data?.data?.website && (
             <div className=" mb-2 flex items-center justify-start gap-x-4 ">
               <MdOutlineStorefront size={18} color="#00BA63" />

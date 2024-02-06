@@ -9,7 +9,9 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns } from "./discount-columns";
+import { getColumns as getColumnsProducts } from "./discount-columns_products";
+import { getColumns as getColumnsPackages } from "./discount-columns_packages";
+
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 
@@ -23,10 +25,10 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
   const [pageSize, setPageSize] = useState(10);
   // const postMutation = useDynamicMutation();
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllPackages, categoryLink],
+    [queryKeys.getAllPackages, categoryLink, currentPage, pageSize],
     `${
       process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL
-    }operation-manager/discount-${categoryLink.toLocaleLowerCase()}/${branchId}`,
+    }operation-manager/discount-${categoryLink.toLocaleLowerCase()}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
@@ -74,7 +76,11 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumns()}
+            columns={
+              categoryLink === CategoriesArr[0]
+                ? getColumnsProducts()
+                : getColumnsPackages()
+            }
             paginatorOptions={{
               pageSize,
               setPageSize,

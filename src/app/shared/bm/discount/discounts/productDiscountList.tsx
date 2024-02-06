@@ -10,27 +10,18 @@ import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./discount-columns";
 
-const PackageDiscountList = ({
-  placeId,
-  branchId,
-}: {
-  placeId: string;
-  branchId: string;
-}) => {
+const ProductDiscountList = () => {
   const headers = useGetHeaders({ type: "Json" });
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
   // const postMutation = useDynamicMutation();
-  const packagesDiscountData = useFetchData(
+  const productsDiscountData = useFetchData(
     [queryKeys.getAllPackages, pageSize, currentPage],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-packages/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/discount-products?page=${currentPage}&per_page=${pageSize}`,
+
     headers
   );
-
-  //   routes.storeOwner.branch["add-package-discount"](
-  //     placeId,
-  //     branchId
 
   return (
     <WidgetCard
@@ -38,9 +29,9 @@ const PackageDiscountList = ({
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
-        <Link href={"#"}>
+        <Link href={routes.branchManger.products}>
           <Button size="lg" color="primary">
-            Add Package Discounts
+            Add Product Discounts
           </Button>
         </Link>
       }
@@ -48,16 +39,16 @@ const PackageDiscountList = ({
       <div className={"table-wrapper flex-grow"}>
         <ControlledTable
           variant={"modern"}
-          isLoading={packagesDiscountData.isFetching}
+          isLoading={productsDiscountData.isFetching}
           showLoadingText={true}
-          data={packagesDiscountData?.data?.data?.data}
+          data={productsDiscountData?.data?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
           columns={getColumns()}
           paginatorOptions={{
             pageSize,
             setPageSize,
-            total: packagesDiscountData?.data?.data?.total,
+            total: productsDiscountData?.data?.data?.total,
             current: currentPage,
             onChange: (page: number) => setCurrentPage(page),
           }}
@@ -70,4 +61,4 @@ const PackageDiscountList = ({
   );
 };
 
-export default PackageDiscountList;
+export default ProductDiscountList;

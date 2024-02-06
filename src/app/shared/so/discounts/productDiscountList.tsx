@@ -23,8 +23,8 @@ const ProductDiscountList = ({
   const [pageSize, setPageSize] = useState(10);
   // const postMutation = useDynamicMutation();
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllPackages],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products/${branchId}`,
+    [queryKeys.getAllPackages, pageSize, currentPage],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products/${branchId}?page=${currentPage}&per_page=${pageSize}`,
 
     headers
   );

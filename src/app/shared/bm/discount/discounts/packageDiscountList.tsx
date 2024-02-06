@@ -10,13 +10,7 @@ import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./discount-columns";
 
-const PackageDiscountList = ({
-  placeId,
-  branchId,
-}: {
-  placeId: string;
-  branchId: string;
-}) => {
+const PackageDiscountList = () => {
   const headers = useGetHeaders({ type: "Json" });
 
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -24,13 +18,9 @@ const PackageDiscountList = ({
   // const postMutation = useDynamicMutation();
   const packagesDiscountData = useFetchData(
     [queryKeys.getAllPackages, pageSize, currentPage],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-packages/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/discount-packages?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
-
-  //   routes.storeOwner.branch["add-package-discount"](
-  //     placeId,
-  //     branchId
 
   return (
     <WidgetCard

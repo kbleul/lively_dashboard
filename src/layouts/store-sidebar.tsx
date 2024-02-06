@@ -21,7 +21,6 @@ import {
   PiFileImageDuotone,
   PiNotepadDuotone,
 } from "react-icons/pi";
-import { MdOutlineDiscount } from "react-icons/md";
 import { CgArrowsExchange } from "react-icons/cg";
 import SimpleBar from "@/components/ui/simplebar";
 import Logo from "@/components/logo";
