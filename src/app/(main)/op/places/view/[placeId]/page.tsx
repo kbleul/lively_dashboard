@@ -224,7 +224,11 @@ const BranchCard = ({ data }: { data: any }) => {
         className="relative h-44 w-full overflow-hidden group"
         style={{
           backgroundImage: `url(${
-            data?.branch_cover?.url ? data.branch_cover.url : "/bg.png"
+            data?.branch_covers &&
+            data?.branch_covers.length > 0 &&
+            data.branch_covers[0]?.url
+              ? data.branch_covers[0].url
+              : "/bg.png"
           })`,
           backgroundSize: "cover",
           backgroundPosition: "center",

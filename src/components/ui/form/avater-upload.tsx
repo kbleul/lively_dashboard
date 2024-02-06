@@ -26,6 +26,7 @@ interface AvaterPickerProps {
   showImage?: boolean;
   className?: string;
   isDoc?: boolean;
+  isMultiple?: boolean;
 }
 
 const AvaterPicker: React.FC<AvaterPickerProps> = ({
@@ -34,6 +35,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   showImage = true,
   className,
   isDoc = false,
+  isMultiple = false,
 }) => {
   const { setFieldValue } = useFormikContext();
   const [meta] = useField(name);
@@ -58,9 +60,12 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files);
     const file = event.target.files && event.target.files[0];
     if (file) {
-      setFieldValue(name, file);
+      isMultiple
+        ? setFieldValue(name, event.target.files)
+        : setFieldValue(name, file);
     }
   };
 
@@ -116,6 +121,7 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
                 onChange={handleFileChange}
                 style={{ display: "none" }}
                 accept={isDoc ? ".doc, .docx, .pdf, .zip, .gzip" : "image/*"}
+                multiple={isMultiple}
               />
               <div className="flex flex-col items-center justify-center">
                 <UploadIcon className="mx-auto h-12 w-12" />
@@ -125,7 +131,12 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
           </section>
         )}
       </Dropzone>
-      {value && (
+
+      {isMultiple && value && value.length > 0 && (
+        <p>{value.length} images selected</p>
+      )}
+
+      {value && !isMultiple && (
         <div
           className="flex min-h-[58px] w-full items-center rounded-xl border border-gray-200 px-3 dark:border-gray-300"
           key={value.name}

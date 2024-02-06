@@ -45,7 +45,7 @@ const AddBranchInfo = ({
     instagram: "",
     latitude: "",
     longitude: "",
-    branch_cover: undefined,
+    branch_cover: [],
     specific_address: null,
     general_discount: 0,
   };
