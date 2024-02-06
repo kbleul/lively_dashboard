@@ -14,7 +14,7 @@ import ControlledTable from "@/components/controlled-table";
 import Link from "next/link";
 import { routes } from "@/config/routes";
 import CustomCategory from "@/components/ui/custom-category";
-import { getColumns } from "./discount-columns";
+import { getColumns } from "./discount-columns-products";
 
 const PlaceListCategoriesLink = [
   {
