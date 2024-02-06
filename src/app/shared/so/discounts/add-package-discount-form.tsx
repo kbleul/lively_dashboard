@@ -13,14 +13,13 @@ import { routes } from "@/config/routes";
 import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
-
-import moment from "moment";
-import { toast } from "sonner";
-import PageHeader from "../../page-header";
 import {
   CreatePackagetDiscountType,
   createPackageDiscountSchema,
 } from "@/validations/discount";
+import moment from "moment";
+import { toast } from "sonner";
+import PageHeader from "@/app/shared/page-header";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
@@ -29,9 +28,11 @@ const bannerNeedType = [
 
 const AddPackageDiscount = ({
   className,
+  placeId,
   branchId,
 }: {
   className?: string;
+  placeId: string;
   branchId: string;
 }) => {
   const router = useRouter();
@@ -39,18 +40,18 @@ const AddPackageDiscount = ({
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
 
-  const packagesDate = useFetchData(
-    [queryKeys.getAllPackages + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-packages/${branchId}`,
+  const packagesData = useFetchData(
+    [queryKeys.getAllPackages],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
     headers
   );
 
   const pageHeader = {
-    title: "Operations Manager",
+    title: "Branch Manager",
     breadcrumb: [
       {
-        href: routes.operationalManager.places["branch-discounts"](branchId),
-        name: "Project Discounts",
+        href: routes.branchManger.productsDiscount,
+        name: "Package Discounts",
       },
       {
         name: "Create",
@@ -82,16 +83,16 @@ const AddPackageDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/discount-packages`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-packages`,
         method: "POST",
         headers,
         body: {
           ...newValues,
         },
         onSuccess: (res) => {
-          toast.success("Discount Saved Successfully");
+          toast.success("Package Discount Saved Successfully");
           router.push(
-            routes.operationalManager.places["branch-discounts"](branchId)
+            routes.storeOwner.branch["package-discounts"](placeId, branchId)
           );
         },
         onError: (err) => {
@@ -103,11 +104,11 @@ const AddPackageDiscount = ({
     }
   };
 
-  if (packagesDate.isFetching || packagesDate.isLoading) return;
+  if (packagesData.isFetching || packagesData.isLoading) return;
 
   const packageOptions: any[] = [];
 
-  packagesDate.data.data.forEach((item: any) => {
+  packagesData.data.data.forEach((item: any) => {
     item?.packages?.forEach((packageItem: any) => {
       packageOptions.push(packageItem);
     });
@@ -122,11 +123,10 @@ const AddPackageDiscount = ({
           initialValues={initialValues}
           validationSchema={createPackageDiscountSchema}
           onSubmit={(values: CreatePackagetDiscountType) => {
-            console.log("---> ", values);
             createOwnerSubmitHandler(values);
           }}
         >
-          {({ values, setFieldValue, errors }) => {
+          {({ setFieldValue }) => {
             return (
               <Form className={"[&_label.block>span]:font-medium "}>
                 <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -199,8 +199,7 @@ const AddPackageDiscount = ({
 
                   <FormGroup
                     title="Select Packages"
-                    description="Add product that will have the discount"
-                    className="mb-36"
+                    description="Add packages that will have the discount"
                   >
                     <CustomSelect
                       name="place_branch_packages"
@@ -220,7 +219,7 @@ const AddPackageDiscount = ({
                       isSearchable
                       className="pt-2 col-span-2"
                     />
-                    {!packagesDate.isLoading && packageOptions.length === 0 && (
+                    {!packagesData.isLoading && packageOptions.length === 0 && (
                       <p>No packages found for this branch</p>
                     )}
                   </FormGroup>

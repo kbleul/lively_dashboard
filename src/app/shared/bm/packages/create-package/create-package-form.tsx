@@ -79,7 +79,10 @@ const CreatePackageForm = () => {
           package_category: values.package_category,
           packages: values.packages?.map((item) => ({
             ...item,
-            duration: item.startTime + "-" + item.endTime,
+            duration:
+              item.startTime && item.endTime
+                ? item.startTime + "-" + item.endTime
+                : "",
           })),
         },
         onSuccess: () => {

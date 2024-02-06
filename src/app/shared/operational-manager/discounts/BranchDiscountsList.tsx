@@ -15,7 +15,15 @@ import { getColumns as getColumnsPackages } from "./discount-columns_packages";
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 
-const CategoriesArr = ["Products", "Packages"];
+const CategoriesArr = [
+  "Branch Discounts",
+  "Expired Branch Discounts",
+  "Products Discounts",
+  "Expired Products Discounts",
+  "Packages Discounts",
+  "Expired Packages Discounts",
+];
+
 const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
   const headers = useGetHeaders({ type: "Json" });
 
@@ -23,12 +31,37 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // const postMutation = useDynamicMutation();
+
+  const CategoriesLinks = {
+    [CategoriesArr[0]]: {
+      queryKey: "discount-place-branch",
+      link: routes.operationalManager.places["add-branch-discounts"](branchId),
+    },
+    [CategoriesArr[1]]: {
+      queryKey: "expired-discount-place-branch",
+      link: routes.operationalManager.places["add-branch-discounts"](branchId),
+    },
+    [CategoriesArr[2]]: {
+      queryKey: "discount-products",
+      link: routes.operationalManager.places["add-product-discounts"](branchId),
+    },
+    [CategoriesArr[3]]: {
+      queryKey: "expired-discount-products",
+      link: routes.operationalManager.places["add-product-discounts"](branchId),
+    },
+    [CategoriesArr[4]]: {
+      queryKey: "discount-packages",
+      link: routes.operationalManager.places["add-package-discounts"](branchId),
+    },
+    [CategoriesArr[5]]: {
+      queryKey: "expired-discount-packages",
+      link: routes.operationalManager.places["add-product-discounts"](branchId),
+    },
+  };
+
   const productsDiscountData = useFetchData(
     [queryKeys.getAllPackages, categoryLink, currentPage, pageSize],
-    `${
-      process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL
-    }operation-manager/discount-${categoryLink.toLocaleLowerCase()}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
@@ -45,27 +78,11 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
         className={"flex flex-col"}
         headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
         action={
-          categoryLink === CategoriesArr[0] ? (
-            <Link
-              href={routes.operationalManager.places["add-product-discounts"](
-                branchId
-              )}
-            >
-              <Button size="lg" color="primary">
-                Add Product Discounts
-              </Button>
-            </Link>
-          ) : (
-            <Link
-              href={routes.operationalManager.places["add-package-discounts"](
-                branchId
-              )}
-            >
-              <Button size="lg" color="primary">
-                Add Package Discounts
-              </Button>
-            </Link>
-          )
+          <Link href={CategoriesLinks[categoryLink].link}>
+            <Button size="lg" color="primary">
+              Add {categoryLink}
+            </Button>
+          </Link>
         }
       >
         <div className={"table-wrapper flex-grow"}>
@@ -77,7 +94,7 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
             scroll={{ x: 900 }}
             // @ts-ignore
             columns={
-              categoryLink === CategoriesArr[0]
+              categoryLink === "Products Discounts"
                 ? getColumnsProducts()
                 : getColumnsPackages()
             }

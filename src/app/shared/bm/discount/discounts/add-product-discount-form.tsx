@@ -9,7 +9,6 @@ import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
-import PageHeader from "../../page-header";
 import { routes } from "@/config/routes";
 import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -20,37 +19,30 @@ import {
 } from "@/validations/discount";
 import moment from "moment";
 import { toast } from "sonner";
+import PageHeader from "@/app/shared/page-header";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
   { name: "No", value: false },
 ];
 
-const AddProductDiscount = ({
-  className,
-  placeId,
-  branchId,
-}: {
-  className?: string;
-  placeId: string;
-  branchId: string;
-}) => {
+const AddProductDiscount = ({ className }: { className?: string }) => {
   const router = useRouter();
 
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
 
   const productsData = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
+    [queryKeys.getAllProducts],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-products`,
     headers
   );
 
   const pageHeader = {
-    title: "Store Owner",
+    title: "Branch Manager",
     breadcrumb: [
       {
-        href: routes.storeOwner.branch["product-discounts"](placeId, branchId),
+        href: routes.branchManger.productsDiscount,
         name: "Product Discounts",
       },
       {
@@ -84,7 +76,7 @@ const AddProductDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/discount-products`,
         method: "POST",
         headers,
         body: {
@@ -92,10 +84,8 @@ const AddProductDiscount = ({
           need_banner: values.banner,
         },
         onSuccess: (res) => {
-          toast.success("Discount Saved Successfully");
-          router.push(
-            routes.storeOwner.branch["product-discounts"](placeId, branchId)
-          );
+          toast.success("Product Discount Saved Successfully");
+          router.push(routes.branchManger.productsDiscount);
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);

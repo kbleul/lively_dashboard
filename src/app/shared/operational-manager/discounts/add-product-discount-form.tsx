@@ -48,7 +48,7 @@ const AddProductDiscount = ({
     title: "Operations Manager",
     breadcrumb: [
       {
-        href: "#",
+        href: routes.operationalManager.places["branch-discounts"](branchId),
         name: "Product Discounts",
       },
       {

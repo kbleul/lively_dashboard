@@ -2,13 +2,10 @@
 
 import { HeaderCell } from "@/components/ui/table";
 import { Text } from "@/components/ui/text";
-import { Tooltip } from "@/components/ui/tooltip";
-import { ActionIcon } from "@/components/ui/action-icon";
-import PencilIcon from "@/components/icons/pencil";
+
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 
-import Link from "next/link";
 import { Badge } from "rizzui";
 
 type Columns = {

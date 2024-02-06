@@ -8,7 +8,10 @@ import { Button } from "rizzui";
 import Link from "next/link";
 import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns } from "./discount-columns";
+import { getColumns } from "./discount-columns-products";
+import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+
+const CategoriesArr = ["Active", "Expired"];
 
 const ProductDiscountList = ({
   placeId,
@@ -19,12 +22,18 @@ const ProductDiscountList = ({
 }) => {
   const headers = useGetHeaders({ type: "Json" });
 
+  const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
+
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
   // const postMutation = useDynamicMutation();
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllPackages, pageSize, currentPage],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+    [queryKeys.getAllPackages, pageSize, currentPage, categoryLink],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/${
+      categoryLink === CategoriesArr[1]
+        ? "expired-discount-products"
+        : "discount-products"
+    }/${branchId}?page=${currentPage}&per_page=${pageSize}`,
 
     headers
   );
@@ -47,6 +56,13 @@ const ProductDiscountList = ({
         </Link>
       }
     >
+      <CustomCategoryButton
+        categoryLink={categoryLink}
+        setCategoryLink={setCategoryLink}
+        categoriesArr={CategoriesArr}
+        labels={CategoriesArr}
+      />
+
       <div className={"table-wrapper flex-grow"}>
         <ControlledTable
           variant={"modern"}

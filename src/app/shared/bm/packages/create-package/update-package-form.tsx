@@ -77,7 +77,10 @@ const UpdatePackageForm = ({ id, item }: Props) => {
           description: values.description,
           enrollment_type: values.enrollment_type,
           price: values.price,
-          duration: values.startTime + "-" + values.endTime,
+          duration:
+            values.startTime && values.endTime
+              ? values.startTime + "-" + values.endTime
+              : "",
           frequency: values.frequency,
           frequency_type: values.frequency_type,
           _method: "PATCH",
