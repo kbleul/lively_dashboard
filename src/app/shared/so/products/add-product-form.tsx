@@ -73,10 +73,7 @@ const AddProductForm = ({ branchId }: { branchId: string }) => {
       >
         {() => (
           <Form className="flex flex-col items-start w-full space-y-3">
-            <div
-              className="
-            flex flex-col items-start space-y-2 w-full"
-            >
+            <div className="flex flex-col items-start space-y-2 w-full">
               <SearchWidget setSelectedProduct={setSelectedProduct} />
               <ErrorMessage
                 name={"product_variant_id"}

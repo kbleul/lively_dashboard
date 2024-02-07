@@ -84,7 +84,7 @@ export default function SignInForm() {
   };
 
   if (status === "loading") return <PageLoader />;
-  if (status === "authenticated") router.push("/content-creator/city");
+  if (status === "authenticated") router.push("/");
   if (isLoading) return <PageLoader />;
   if (status === "unauthenticated")
     return (
