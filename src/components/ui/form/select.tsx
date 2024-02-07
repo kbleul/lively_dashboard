@@ -1,7 +1,7 @@
 import React from "react";
 import Select, { StylesConfig } from "react-select";
 import { useField, ErrorMessage } from "formik";
-import cn from '@/utils/class-names'
+import cn from "@/utils/class-names";
 interface SelectProps {
   label: string;
   name: string;
@@ -18,7 +18,7 @@ interface SelectProps {
   disabled?: boolean;
   isLoading?: boolean;
   isMulti?: boolean;
-  className?:string
+  className?: string;
 }
 
 const CustomSelect: React.FC<SelectProps> = ({
@@ -37,7 +37,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   disabled,
   isLoading = false,
   isMulti = false,
-  className
+  className,
 }) => {
   const [, , helpers] = useField(name);
   const { setValue, setTouched } = helpers;
@@ -80,7 +80,7 @@ const CustomSelect: React.FC<SelectProps> = ({
     }),
     multiValue: (base: any) => ({
       ...base,
-      background: "#008579 ",
+      background: "#83f7a8 ",
       color: "black", // You can set the text color to be light for both themes
     }),
     singleValue: (base: any) => ({
@@ -90,7 +90,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   });
 
   return (
-    <div className={cn("w-full",className)}>
+    <div className={cn("w-full", className)}>
       <label
         className={` block 
        font-medium

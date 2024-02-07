@@ -64,28 +64,6 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     ),
   },
   {
-    title: <HeaderCell title="description English" />,
-    dataIndex: "description",
-    key: "description",
-    width: 50,
-    render: (value: { english: string }) => (
-      <Text className="font-medium text-gray-700 line-clamp-1">
-        {parse(value?.english)}
-      </Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="description Amharic" />,
-    dataIndex: "description",
-    key: "description",
-    width: 50,
-    render: (value: { amharic: string }) => (
-      <Text className="font-medium text-gray-700 line-clamp-1">
-        {parse(value?.amharic)}
-      </Text>
-    ),
-  },
-  {
     title: <HeaderCell title="variant type" />,
     dataIndex: "variant_type",
     key: "variant_type",

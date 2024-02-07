@@ -93,7 +93,7 @@ const PlacesList = () => {
           isLoading={placessData.isFetching}
           showLoadingText={true}
           data={placessData?.data?.data?.data}
-          scroll={{ x: 1300 }}
+          scroll={{ x: 900 }}
           // @ts-ignore
           columns={getColumns({ deleteProduct })}
           paginatorOptions={{

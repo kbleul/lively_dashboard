@@ -6,7 +6,6 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { queryKeys } from "@/react-query/query-keys";
 import { Button } from "@/components/ui/button";
-import { Text } from "@/components/ui/text";
 import { toast } from "sonner";
 import { FieldArray, Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
@@ -15,6 +14,7 @@ import { useFetchData } from "@/react-query/useFetchData";
 import CustomSelect from "@/components/ui/form/select";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
+import CreatableCustomSelect from "@/components/ui/form/creatable-select";
 
 interface Service {
   id: string;
@@ -55,6 +55,11 @@ const CreatePackageForm = ({
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/place-services/${branchId}`,
     headers
   );
+  const categoryData = useFetchData(
+    [queryKeys.getBranchPackageType + branchId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-categories`,
+    headers
+  );
 
   const enrollmentType = [
     { name: "Appointment", value: "Appointment" },
@@ -80,7 +85,10 @@ const CreatePackageForm = ({
           package_category: values.package_category,
           packages: values.packages?.map((item) => ({
             ...item,
-            duration: item.startTime + "-" + item.endTime,
+            duration:
+              item.startTime && item.endTime
+                ? item.startTime + "-" + item.endTime
+                : "",
           })),
         },
         onSuccess: (res: any) => {
@@ -126,12 +134,28 @@ const CreatePackageForm = ({
                   noOptionsMessage={() => "service type appears here"}
                   className="pt-2"
                 />
-                <FormikInput
+                {/* <FormikInput
                   name="package_category"
                   label="Package Category"
                   placeholder="Enter Package Category"
                   color="primary"
                   className=""
+                /> */}
+                <CreatableCustomSelect
+                  isSearchable
+                  name={`package_category`}
+                  label="Package Category"
+                  options={categoryData?.data?.data?.map((item: any) => ({
+                    label: item?.name,
+                    value: item?.name,
+                  }))}
+                  placeholder="select Package Category"
+                  getOptionLabel={(tag: any) => tag?.label}
+                  getOptionValue={(tag: any) => tag?.value}
+                  onChange={(selectedOptions: any) => {
+                    setFieldValue(`package_category`, selectedOptions?.value);
+                  }}
+                  noOptionsMessage={() => "Package type appears here"}
                 />
               </div>
 

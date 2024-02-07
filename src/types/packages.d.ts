@@ -15,6 +15,7 @@ interface Package {
   updated_at: string;
   service: Service;
   package_type: PackageType;
+  frequency_type: string;
 }
 
 interface LanguageText {

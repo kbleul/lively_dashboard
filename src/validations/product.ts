@@ -16,6 +16,9 @@ export const productValidationSchema = Yup.object().shape({
   tags: Yup.array()
     .min(1, "please select at least one tag")
     .required("please select at leas one tag"),
+  place_types: Yup.array()
+    .min(1, "please select at least one place type")
+    .required("please select at leas one place type"),
   variant_type: Yup.string().required("variant type is required"),
   product_variants: Yup.array()
     .of(
@@ -62,6 +65,9 @@ export const editProductValidationSchema = Yup.object().shape({
   ),
   unit: Yup.string().required("product unit is required"),
   brand: Yup.string().required("product brand is required"),
+  // place_types: Yup.array()
+  //   .min(1, "please select at least one place type")
+  //   .required("please select at leas one place type"),
   tags: Yup.array()
     .min(1, "please select at least one tag")
     .required("please select at leas one tag"),

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -17,7 +17,7 @@ import { LuPhone } from "react-icons/lu";
 import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineStorefront } from "react-icons/md";
 import PageHeader from "@/app/shared/page-header";
-import PencilIcon from "@/components/icons/pencil";
+import { BsThreeDots } from "react-icons/bs";
 
 const pageHeader = {
   title: "Store Owner",
@@ -155,6 +155,17 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
             </div>
           )}
 
+          {storeData?.data?.data?.owner?.phone && (
+            <div className=" mb-3 flex items-center justify-start gap-x-4 ">
+              <LuPhone size={18} color="#00BA63" />
+
+              <p className="text-[#5F5F5F]">Owner number : </p>
+              <p className="text-black">
+                {storeData?.data?.data?.owner?.phone}
+              </p>
+            </div>
+          )}
+
           {storeData?.data?.data?.website && (
             <div className=" mb-2 flex items-center justify-start gap-x-4 ">
               <MdOutlineStorefront size={18} color="#00BA63" />
@@ -205,10 +216,12 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
 };
 
 const BranchCard = ({ data }: { data: any }) => {
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
-    <article className="w-full md:w-4/5 md:ml-[10%] rounded-xl overflow-hidden border border-gray-200 h-[55vh]">
+    <article className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg">
       <section
-        className="w-full h-[25vh] bg-[#cafad9]"
+        className="relative h-44 w-full overflow-hidden group"
         style={{
           backgroundImage: `url(${
             data?.branch_covers &&
@@ -220,13 +233,52 @@ const BranchCard = ({ data }: { data: any }) => {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
+        onMouseOut={() => setShowMenu(false)}
       />
       <h4 className="px-4 py-2">{data.name.english}</h4>
       <p className="px-4 pb-4 h-[14vh] overflow-y-hidden">
         {data.description.english}
       </p>
 
-      <div className="flex justify-between items-center">
+      <section className="absolute top-3 right-3">
+        <Button
+          color="primary"
+          variant="outline"
+          onClick={() => setShowMenu((prev) => !prev)}
+          className="text-black bg-white z-50  rounded-full border-white py-1 px-[0.6rem] flex justify-center items-center"
+        >
+          <BsThreeDots size={20} />
+        </Button>
+        {showMenu && (
+          <div
+            className="absolute top-8 right-10 border bg-white"
+            onMouseEnter={() => setShowMenu(true)}
+          >
+            <Link
+              href={routes.operationalManager.places["edit-branch"](data.id)}
+              className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
+            >
+              Edit
+            </Link>
+            <Link
+              href={routes.operationalManager.places["branch-manager"](data.id)}
+              className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
+            >
+              Managers
+            </Link>
+            <Link
+              href={routes.operationalManager.places["branch-discounts"](
+                data.id
+              )}
+              className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
+            >
+              Discounts
+            </Link>
+          </div>
+        )}
+      </section>
+
+      {/* <div className="flex justify-between items-center">
         <Button
           color="primary"
           className="ml-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
@@ -251,7 +303,7 @@ const BranchCard = ({ data }: { data: any }) => {
             Mangers
           </Link>
         </Button>
-      </div>
+      </div> */}
     </article>
   );
 };

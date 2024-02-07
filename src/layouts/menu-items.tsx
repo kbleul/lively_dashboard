@@ -38,6 +38,10 @@ export const operationalManagetMenuItems = [
     icon: <PiToolboxThin />,
     dropdownItems: [
       {
+        name: "Banners",
+        href: routes.operationalManager.banners,
+      },
+      {
         name: "register experts",
         href: routes.operationalManager.experts.create,
       },
@@ -232,6 +236,10 @@ export const branchManagerMenuItems = [
         name: "Packages",
         href: routes.branchManger.packages,
       },
+      {
+        name: "Discount",
+        href: routes.branchManger.packageDiscount,
+      },
     ],
   },
   {
@@ -242,6 +250,10 @@ export const branchManagerMenuItems = [
       {
         name: "Products",
         href: routes.branchManger.products,
+      },
+      {
+        name: "Discount",
+        href: routes.branchManger.productsDiscount,
       },
     ],
   },
