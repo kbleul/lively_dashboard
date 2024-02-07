@@ -26,11 +26,13 @@ import Spinner from "@/components/ui/spinner";
 function SearchBox({
   onClose,
   setSelectedProduct,
+  placeId,
 }: {
   onClose: () => void;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SearchProductData | null>
   >;
+  placeId: string;
 }) {
   const { setFieldValue } = useFormikContext();
   const headers = useGetHeaders({ type: "Json" });
@@ -38,19 +40,9 @@ function SearchBox({
   const [searchText, setSearchText] = useState("");
   const productsData = useFetchData(
     [queryKeys.getAllBranchProducts + "store", searchText],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products?search=${searchText}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products/placeId?search=${searchText}`,
     headers
   );
-  //   let menuItemsFiltered = pageLinks;
-  //   if (searchText.length > 0) {
-  //     menuItemsFiltered = pageLinks.filter((item: any) => {
-  //       const label = item.name;
-  //       return (
-  //         label.match(searchText.toLowerCase()) ||
-  //         (label.toLowerCase().match(searchText.toLowerCase()) && label)
-  //       );
-  //     });
-  //   }
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -158,12 +150,14 @@ export default function SearchWidget({
   className,
   icon,
   setSelectedProduct,
+  placeId,
 }: {
   className?: string;
   icon?: React.ReactNode;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SearchProductData | null>
   >;
+  placeId: string;
 }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -212,6 +206,7 @@ export default function SearchWidget({
         <SearchBox
           onClose={() => setOpen(false)}
           setSelectedProduct={setSelectedProduct}
+          placeId={placeId}
         />
       </Modal>
     </>

@@ -19,7 +19,13 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Placeholder from "@public/Placeholder.png";
 import { PiXBold } from "react-icons/pi";
-const AddProductForm = ({ branchId }: { branchId: string }) => {
+const AddProductForm = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const headers = useGetHeaders({ type: "Json" });
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
@@ -74,7 +80,10 @@ const AddProductForm = ({ branchId }: { branchId: string }) => {
         {() => (
           <Form className="flex flex-col items-start w-full space-y-3">
             <div className="flex flex-col items-start space-y-2 w-full">
-              <SearchWidget setSelectedProduct={setSelectedProduct} />
+              <SearchWidget
+                setSelectedProduct={setSelectedProduct}
+                placeId={placeId}
+              />
               <ErrorMessage
                 name={"product_variant_id"}
                 component="div"
