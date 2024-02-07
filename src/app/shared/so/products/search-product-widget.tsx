@@ -40,7 +40,7 @@ function SearchBox({
   const [searchText, setSearchText] = useState("");
   const productsData = useFetchData(
     [queryKeys.getAllBranchProducts + "store", searchText],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products/placeId?search=${searchText}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products/${placeId}?search=${searchText}`,
     headers
   );
 

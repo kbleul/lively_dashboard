@@ -5,8 +5,8 @@ import { Title, Text } from "@/components/ui/text";
 import PencilIcon from "@/components/icons/pencil";
 import { Badge } from "@/components/ui/badge";
 import { useModal } from "../../modal-views/use-modal";
-import UpdatePackageForm from "./create-package/update-package-form";
-import UpdatePackageCategoryForm from "./create-package/updated-branch-category";
+import UpdatePackageForm from "./update-package-form";
+import UpdatePackageCategoryForm from "../../bm/packages/create-package/updated-branch-category";
 interface Props {
   data: PackageDataType;
 }

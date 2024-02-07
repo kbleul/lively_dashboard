@@ -49,7 +49,7 @@ const UpdatePackageForm = ({ id, item }: Props) => {
   ];
   const packageTypes = useFetchData(
     [queryKeys.getPackageTypes],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/package-types`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-types`,
     headers
   );
   const initialVlues = {
@@ -68,7 +68,7 @@ const UpdatePackageForm = ({ id, item }: Props) => {
   const createPackage = async (values: UpdatePackageType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/update-branch-packages/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/update-branch-packages/${id}`,
         method: "POST",
         headers,
         body: {
