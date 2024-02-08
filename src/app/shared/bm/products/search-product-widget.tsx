@@ -9,12 +9,7 @@ import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { Empty, SearchNotFoundIcon } from "@/components/ui/empty";
-import {
-  PiCommand,
-  PiFileTextDuotone,
-  PiMagnifyingGlassBold,
-  PiXBold,
-} from "react-icons/pi";
+import { PiCommand, PiMagnifyingGlassBold, PiXBold } from "react-icons/pi";
 import cn from "@/utils/class-names";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { useFetchData } from "@/react-query/useFetchData";
