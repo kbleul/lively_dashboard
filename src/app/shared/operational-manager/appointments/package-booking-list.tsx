@@ -80,7 +80,7 @@ export default function PackageBookingList({
       isLoading={bookingsList.isFetching}
       showLoadingText={true}
       data={bookingsList?.data?.data?.data}
-      scroll={{ x: 1300 }}
+      scroll={{ x: 900 }}
       // @ts-ignore
       columns={getColumns({ onApproveItem: onApproveItem, onRejectItem })}
       paginatorOptions={{
