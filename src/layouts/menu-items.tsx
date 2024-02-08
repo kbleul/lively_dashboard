@@ -217,7 +217,7 @@ export const contentCretorMenuItems = [
 
 export const branchManagerMenuItems = [
   {
-    name: "Mranch Manager Menu",
+    name: "Branch Manager Menu",
   },
   // label end
   {

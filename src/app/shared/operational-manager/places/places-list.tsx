@@ -8,7 +8,10 @@ import { toast } from "sonner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 
-// import CommonToolTableWidget from "../common/tools-table";
+import { ActionIcon } from "@/components/ui/action-icon";
+
+import { PiXBold, PiMagnifyingGlassBold } from "react-icons/pi";
+
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
 
@@ -16,6 +19,7 @@ import Link from "next/link";
 import { routes } from "@/config/routes";
 import { getColumns } from "./place-columns";
 import CustomCategory from "@/components/ui/custom-category";
+import { Input } from "rizzui";
 
 const PlaceListCategoriesLink = [
   {
@@ -36,13 +40,14 @@ const PlacesList = () => {
   const [categoryLink, setCategoryLink] = useState(
     PlaceListCategoriesLink[0].id
   );
+  const [searchText, setSearchText] = useState("");
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   const placessData = useFetchData(
-    [queryKeys.getAllPlaces, currentPage, pageSize, categoryLink],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${categoryLink}?page=${currentPage}&per_page=${pageSize}`,
+    [queryKeys.getAllPlaces, currentPage, pageSize, categoryLink, searchText],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${categoryLink}?search=${searchText}&page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
@@ -86,6 +91,42 @@ const PlacesList = () => {
         setCategoryLink={setCategoryLink}
         categoriesLinks={PlaceListCategoriesLink}
       />
+
+      <div className="w-full flex items-center px-5 py-4">
+        <Input
+          variant="flat"
+          value={searchText}
+          onChange={(e) => setSearchText(() => e.target.value)}
+          placeholder="Search Places by name..."
+          className=" w-full"
+          prefix={
+            <PiMagnifyingGlassBold className="h-[18px] w-[18px] text-gray-600" />
+          }
+          suffix={
+            searchText && (
+              <Button
+                size="sm"
+                variant="text"
+                className="h-auto w-auto px-0"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSearchText(() => "");
+                }}
+              >
+                Clear
+              </Button>
+            )
+          }
+        />
+        <ActionIcon
+          variant="text"
+          size="sm"
+          className="ms-3 text-gray-500 hover:text-gray-700"
+          onClick={() => {}}
+        >
+          <PiXBold className="h-5 w-5" />
+        </ActionIcon>
+      </div>
 
       <div className={"table-wrapper flex-grow"}>
         <ControlledTable

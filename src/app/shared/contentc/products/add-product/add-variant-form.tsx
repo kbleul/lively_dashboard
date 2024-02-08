@@ -45,7 +45,7 @@ const AddVariantForm = ({ className }: { className?: string }) => {
       </div>
       <FieldArray name="product_variants">
         {(data: any) => (
-          <div className="bg-white p-3  rounded-md w-full flex flex-col items-start space-y-5 col-span-2">
+          <div className="bg-white  rounded-md w-full flex flex-col items-start space-y-5 col-span-2">
             <Text as="p">Product Variants</Text>
             {values.product_variants?.map((_: any, index: number) => (
               <div
@@ -69,109 +69,115 @@ const AddVariantForm = ({ className }: { className?: string }) => {
                   </div>
                 )}
 
-                {values.variant_type === IProductVariantType.Size && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full">
-                    <FormikInput
-                      name={`product_variants.${index}.sizeEnglish`}
-                      label="English Size"
-                      placeholder="Enter English Size"
-                      color="primary"
-                    />
-                    <FormikInput
-                      name={`product_variants.${index}.sizeAmharic`}
-                      label="Amharic Size"
-                      placeholder="Enter Amharic Size"
-                      color="primary"
-                    />
-                  </div>
-                )}
-                {/* if type color */}
-                {values.variant_type === IProductVariantType.Color && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-start w-full">
-                    <FormikInput
-                      name={`product_variants.${index}.colorNameEnglish`}
-                      label="English Color"
-                      color="primary"
-                    />
-                    <FormikInput
-                      name={`product_variants.${index}.colorNameAmharic`}
-                      label="Amharic Color"
-                      placeholder="Enter Amharic Color"
-                      color="primary"
-                    />
-                    <FormikInput
-                      name={`product_variants.${index}.colorHash`}
-                      label="Color Hash Code"
-                      placeholder="Enter Color Hash Code"
-                      color="primary"
-                    />
-                  </div>
-                )}
-                <AvaterPicker
-                  name={`product_variants.${index}.product_image`}
-                  label="product Variant Image"
-                />
-                {/* additional info */}
-                <div className="bg-white   rounded-md w-full">
-                  <FieldArray name={`product_variants.${index}.additionalInfo`}>
-                    {({ push, remove }: any) => (
-                      <div className="w-full flex flex-col items-start ">
-                        <Text as="p">Additional Info</Text>
-                        {values?.product_variants[index]?.additionalInfo?.map(
-                          (_: any, i: number) => (
-                            <div
-                              key={i}
-                              className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
-                            >
-                              <FormikInput
-                                name={`product_variants.${index}.additionalInfo.${i}.key`}
-                                label="Name"
-                                placeholder="Enter Name"
-                                color="primary"
-                              />
-                              {/* value */}
-                              <div className="flex flex-col items-end justify-end space-y-1">
+                <div className="shadow-md border-t rounded-xl w-full col-span-2 p-4 ">
+                  {values.variant_type === IProductVariantType.Size && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full">
+                      <FormikInput
+                        name={`product_variants.${index}.sizeEnglish`}
+                        label="English Size"
+                        placeholder="Enter English Size"
+                        color="primary"
+                      />
+                      <FormikInput
+                        name={`product_variants.${index}.sizeAmharic`}
+                        label="Amharic Size"
+                        placeholder="Enter Amharic Size"
+                        color="primary"
+                      />
+                    </div>
+                  )}
+
+                  {/* if type color */}
+                  {values.variant_type === IProductVariantType.Color && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 items-start w-full">
+                      <FormikInput
+                        name={`product_variants.${index}.colorNameEnglish`}
+                        label="English Color"
+                        color="primary"
+                      />
+                      <FormikInput
+                        name={`product_variants.${index}.colorNameAmharic`}
+                        label="Amharic Color"
+                        placeholder="Enter Amharic Color"
+                        color="primary"
+                      />
+                      <FormikInput
+                        name={`product_variants.${index}.colorHash`}
+                        label="Color Hash Code"
+                        placeholder="Enter Color Hash Code"
+                        color="primary"
+                      />
+                    </div>
+                  )}
+
+                  <AvaterPicker
+                    name={`product_variants.${index}.product_image`}
+                    label="product Variant Image"
+                  />
+                  {/* additional info */}
+                  <div className="bg-white   rounded-md w-full">
+                    <FieldArray
+                      name={`product_variants.${index}.additionalInfo`}
+                    >
+                      {({ push, remove }: any) => (
+                        <div className="w-full flex flex-col items-start ">
+                          <Text as="p">Additional Info</Text>
+                          {values?.product_variants[index]?.additionalInfo?.map(
+                            (_: any, i: number) => (
+                              <div
+                                key={i}
+                                className="grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
+                              >
                                 <FormikInput
-                                  name={`product_variants.${index}.additionalInfo.${i}.value`}
-                                  label="Value"
-                                  placeholder="Enter Value"
+                                  name={`product_variants.${index}.additionalInfo.${i}.key`}
+                                  label="Name"
+                                  placeholder="Enter Name"
                                   color="primary"
                                 />
+                                {/* value */}
+                                <div className="flex flex-col items-end justify-end space-y-1">
+                                  <FormikInput
+                                    name={`product_variants.${index}.additionalInfo.${i}.value`}
+                                    label="Value"
+                                    placeholder="Enter Value"
+                                    color="primary"
+                                  />
+                                  <Button
+                                    variant="outline"
+                                    color="danger"
+                                    onClick={() => remove(i)}
+                                  >
+                                    Remove
+                                  </Button>
+                                </div>
+                              </div>
+                            )
+                          )}
+                          <div className="flex items-center gap-2 py-2">
+                            <Button
+                              type="button"
+                              onClick={() => push({ key: "", value: "" })}
+                              variant="outline"
+                              color="primary"
+                            >
+                              Add More Info
+                            </Button>
+                            {values?.product_variants?.length > 1 &&
+                              index > 0 && (
                                 <Button
+                                  type="button"
+                                  onClick={() => data.remove(index)}
                                   variant="outline"
                                   color="danger"
-                                  onClick={() => remove(i)}
                                 >
-                                  Remove
+                                  Remove Variant
                                 </Button>
-                              </div>
-                            </div>
-                          )
-                        )}
-                        <div className="flex items-center gap-2 py-2">
-                          <Button
-                            type="button"
-                            onClick={() => push({ key: "", value: "" })}
-                            variant="outline"
-                            color="primary"
-                          >
-                            Add More Info
-                          </Button>
-                          {values?.product_variants?.length > 1 &&
-                            index > 0 && (
-                              <Button
-                                type="button"
-                                onClick={() => data.remove(index)}
-                                variant="outline"
-                                color="danger"
-                              >
-                                Remove Variant
-                              </Button>
-                            )}
+                              )}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </FieldArray>
+                      )}
+                    </FieldArray>
+                  </div>
                 </div>
               </div>
             ))}
