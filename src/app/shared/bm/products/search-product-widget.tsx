@@ -44,7 +44,6 @@ function SearchBox({
     return () => {
       inputRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
