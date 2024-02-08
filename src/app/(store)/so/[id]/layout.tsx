@@ -4,9 +4,10 @@ import StoreLayout from "@/layouts/store-layout";
 
 export default function DefaultLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
-
+  params: { id: string };
 }) {
   const isMounted = useIsMounted();
 
@@ -14,5 +15,5 @@ export default function DefaultLayout({
     return null;
   }
 
-  return <StoreLayout>{children}</StoreLayout>;
+  return <StoreLayout placeId={params.id}>{children}</StoreLayout>;
 }

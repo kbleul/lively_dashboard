@@ -75,7 +75,7 @@ export default function SignInForm() {
           toast.success("Login Successfull, Redirecting...");
         },
         onError: (err) => {
-          toast.error(err?.response?.data?.message);
+          toast.error(err?.response?.data?.data);
         },
       });
     } catch (err) {
