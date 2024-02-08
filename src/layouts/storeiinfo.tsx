@@ -61,7 +61,7 @@ const StoreiInfo = ({ placeId }: { placeId: string }) => {
               </div>
             )}
           </section>
-          <section className="flex flex-col lg:flex-row justify-between items-center gap-y-2 border-t pt-4 lg:border-none">
+          <section className="flex flex-col lg:flex-row justify-between items-center gap-y-2 border-t pt-4 lg:pt-0 lg:border-t-0">
             <div className="flex w-full gap-1 items-center">
               <p className="font-bold">Owner: </p>
               <p>
