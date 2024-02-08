@@ -20,6 +20,7 @@ import {
 } from "@/validations/discount";
 import moment from "moment";
 import { toast } from "sonner";
+import { useState } from "react";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
@@ -39,10 +40,11 @@ const AddProductDiscount = ({
 
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const productsData = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
+    [queryKeys.getAllProducts + branchId, searchQuery],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}?search=${searchQuery}`,
     headers
   );
 
@@ -212,7 +214,7 @@ const AddProductDiscount = ({
                       name="place_branch_products"
                       label="Products"
                       options={productsData?.data?.data?.data}
-                      placeholder="Do you need banner"
+                      placeholder="Select products"
                       getOptionLabel={(option: any) =>
                         `${option?.product_variant?.product?.title?.english} ${
                           option?.product_variant?.color
@@ -235,9 +237,10 @@ const AddProductDiscount = ({
                         );
                         setFieldValue("place_branch_products", selectedIds);
                       }}
-                      noOptionsMessage={() => "Banner options here"}
+                      noOptionsMessage={() => "Products options here"}
                       isMulti
                       isSearchable
+                      setSearchQuery={setSearchQuery}
                       className="pt-2 col-span-2"
                     />
                   </FormGroup>

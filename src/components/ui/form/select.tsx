@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Select, { StylesConfig } from "react-select";
 import { useField, ErrorMessage } from "formik";
 import cn from "@/utils/class-names";
@@ -18,6 +18,7 @@ interface SelectProps {
   disabled?: boolean;
   isLoading?: boolean;
   isMulti?: boolean;
+  setSearchQuery?: Dispatch<SetStateAction<string>>;
   className?: string;
 }
 
@@ -37,6 +38,7 @@ const CustomSelect: React.FC<SelectProps> = ({
   disabled,
   isLoading = false,
   isMulti = false,
+  setSearchQuery,
   className,
 }) => {
   const [, , helpers] = useField(name);
@@ -121,6 +123,9 @@ const CustomSelect: React.FC<SelectProps> = ({
           isLoading={isLoading}
           formatOptionLabel={formatOptionLabel}
           // isClearable={true}
+          onKeyDown={(event: any) =>
+            setSearchQuery && setSearchQuery(event.target.value)
+          }
         />
         <ErrorMessage
           name={name}
