@@ -1,7 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Modal } from "@/components/ui/modal";
 import { Input } from "@/components/ui/input";
@@ -9,12 +8,7 @@ import { Title } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { Empty, SearchNotFoundIcon } from "@/components/ui/empty";
-import {
-  PiCommand,
-  PiFileTextDuotone,
-  PiMagnifyingGlassBold,
-  PiXBold,
-} from "react-icons/pi";
+import { PiCommand, PiMagnifyingGlassBold, PiXBold } from "react-icons/pi";
 import cn from "@/utils/class-names";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -41,16 +35,6 @@ function SearchBox({
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/all-products?search=${searchText}`,
     headers
   );
-  //   let menuItemsFiltered = pageLinks;
-  //   if (searchText.length > 0) {
-  //     menuItemsFiltered = pageLinks.filter((item: any) => {
-  //       const label = item.name;
-  //       return (
-  //         label.match(searchText.toLowerCase()) ||
-  //         (label.toLowerCase().match(searchText.toLowerCase()) && label)
-  //       );
-  //     });
-  //   }
 
   useEffect(() => {
     if (inputRef?.current) {

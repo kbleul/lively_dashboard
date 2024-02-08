@@ -169,6 +169,7 @@ const EditVariantForm = ({ data, id, type }: Props) => {
                 label="product Variant Image"
               />
               {/* additional info */}
+
               <div className="bg-white   rounded-md w-full">
                 <FieldArray name={`additional_information`}>
                   {({ push, remove }: any) => (

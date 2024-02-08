@@ -5,11 +5,11 @@ import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import { PackageDataType } from "@/types/packages";
 import React from "react";
-import PackageListCard from "../../bm/packages/package-list-card";
 import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import { routes } from "@/config/routes";
+import PackageListCard from "./package-list-card copy";
 
 const PackageList = ({
   placeId,

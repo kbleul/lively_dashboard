@@ -26,6 +26,10 @@ const nextConfig = {
         hostname: "servicesdev.lively-et.com",
         protocol: "https",
       },
+      {
+        hostname: "services.lively-et.com",
+        protocol: "https",
+      },
 
 
 

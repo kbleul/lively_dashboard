@@ -10,7 +10,7 @@ const BranchProducts = ({
 }: {
   params: { id: string; branchId: string };
 }) => {
-  return <ProductList branchId={params.branchId} />;
+  return <ProductList placeId={params.id} branchId={params.branchId} />;
 };
 
 export default BranchProducts;

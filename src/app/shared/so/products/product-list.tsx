@@ -17,7 +17,13 @@ import { useModal } from "../../modal-views/use-modal";
 import AddProductForm from "./add-product-form";
 import EditdProductForm from "./edit-product-form";
 
-export default function ProductList({ branchId }: { branchId: string }) {
+export default function ProductList({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) {
   const { openModal } = useModal();
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
@@ -76,7 +82,7 @@ export default function ProductList({ branchId }: { branchId: string }) {
           <Button
             onClick={() =>
               openModal({
-                view: <AddProductForm branchId={branchId} />,
+                view: <AddProductForm placeId={placeId} branchId={branchId} />,
                 customSize: "500px",
               })
             }
@@ -93,7 +99,7 @@ export default function ProductList({ branchId }: { branchId: string }) {
             isLoading={productsData.isFetching}
             showLoadingText={true}
             data={productsData?.data?.data?.data}
-            scroll={{ x: 1300 }}
+            scroll={{ x: 900 }}
             // @ts-ignore
             columns={getColumns({
               onDeleteItem: deleteProduct,
