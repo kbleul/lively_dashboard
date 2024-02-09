@@ -47,6 +47,7 @@ export const routes = {
         `/op/places/branch-discounts/${id}/packages/create`,
     },
   },
+
   // content cretor routes
   contentCreator: {
     dashboard: "/contentc",

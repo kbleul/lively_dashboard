@@ -205,7 +205,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
 
       {session && (
         <SimpleBar className="h-[calc(100%-80px)]">
-          <div>
+          <div className="mb-8 md:mb-20">
             {pathname.split("/").includes("branch") &&
             pathname.split("/").length > 3 ? (
               <div
@@ -241,7 +241,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
               </div>
             )}
           </div>
-          <div className="mt-4 pb-3 3xl:mt-6">
+          <div className="mt-20 pb-3 ">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
               const pathnameExistInDropdowns: any =
@@ -399,7 +399,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
                   className={cn(
                     "group cursor-pointer relative mx-3 my-0.5 flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
                     true
-                      ? "before:top-2/5 text-white bg-gradient-to-r from-[#008579] to-[#00BA63] before:absolute before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md before:bg-primary 2xl:before:-start-5"
+                      ? "text-white  bg-[#FF9900]  before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-md  2xl:before:-start-5"
                       : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
                   )}
                 >

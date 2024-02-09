@@ -2,7 +2,6 @@ import { routes } from "@/config/routes";
 import { PiFileImageDuotone, PiTimerDuotone } from "react-icons/pi";
 import { PiNotepadDuotone } from "react-icons/pi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { LuStore } from "react-icons/lu";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { PiToolboxThin } from "react-icons/pi";
 import { MdOutlineAttachMoney } from "react-icons/md";
@@ -14,7 +13,6 @@ import { TbServicemark } from "react-icons/tb";
 // Note: do not add href in the label object, it is rendering as label
 
 export const operationalManagetMenuItems = [
-  // label start
   {
     name: "Operational Manager Menu",
     label: "Operational Manager",
@@ -23,15 +21,12 @@ export const operationalManagetMenuItems = [
   {
     name: "Dashboard",
     href: routes.operationalManager.dashboard,
-    // href: routes.file.dashboard,
     icon: <MdOutlineDashboard />,
   },
 
-  // label start
   {
     name: "Tools",
   },
-  // label end
   {
     name: "Lively Tools",
     href: "#",
@@ -54,34 +49,19 @@ export const operationalManagetMenuItems = [
   {
     name: "Payments",
     href: routes.operationalManager.appointments,
-    // href: routes.file.dashboard,
     icon: <MdOutlineAttachMoney />,
   },
   {
     name: "Contacts",
     href: routes.operationalManager.contact,
-    // href: routes.file.dashboard,
     icon: <RiContactsBook2Line />,
   },
-  // {
-  //   name: "Centers",
-  //   href: routes.operationalManager.centers.list,
-  //   // href: routes.file.dashboard,
-  //   icon: <PiChalkboardTeacherBold />,
-  // },
+
   {
     name: "Experts",
     href: routes.operationalManager.experts.list,
-    // href: routes.file.dashboard,
     icon: <GrUserExpert />,
   },
-  {
-    name: "Centers",
-    href: routes.operationalManager.centers.list,
-    // href: routes.file.dashboard,
-    icon: <LuStore />,
-  },
-
   {
     name: "Places",
     href: "#",
@@ -266,7 +246,6 @@ export const branchManagerMenuItems = [
         name: "List",
         href: routes.branchManger.reviews,
       },
-     
     ],
   },
 ];
