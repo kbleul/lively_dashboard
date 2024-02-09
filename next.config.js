@@ -30,7 +30,10 @@ const nextConfig = {
         hostname: "services.lively-et.com",
         protocol: "https",
       },
-
+      {
+        hostname: "livelyexpertdev.azurewebsites.net",
+        protocol: "https",
+      },
 
 
     ],

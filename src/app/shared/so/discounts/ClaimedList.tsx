@@ -10,7 +10,6 @@ import ControlledTable from "@/components/controlled-table";
 import { useRouter } from "next/navigation";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
-import { routes } from "@/config/routes";
 import { toast } from "sonner";
 import { getColumns } from "./claimed-columns";
 
@@ -45,7 +44,6 @@ const ClaimedList = ({
         headers,
         body: {},
         onSuccess: () => {
-          router.push(routes.b);
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllClaimDiscounts],
           });

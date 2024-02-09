@@ -11,7 +11,6 @@ import { getColumns } from "./claimed-columns";
 import { useRouter } from "next/navigation";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
-import { routes } from "@/config/routes";
 import { toast } from "sonner";
 
 const ClaimedList = ({ branchId }: { branchId: string }) => {
@@ -39,7 +38,6 @@ const ClaimedList = ({ branchId }: { branchId: string }) => {
         headers,
         body: {},
         onSuccess: () => {
-          router.push(routes.b);
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllClaimDiscounts],
           });
