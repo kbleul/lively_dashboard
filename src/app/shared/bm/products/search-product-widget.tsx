@@ -44,7 +44,6 @@ function SearchBox({
     return () => {
       inputRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -128,6 +127,15 @@ function SearchBox({
                   )}
                 >
                   {item?.product?.title?.english}
+                  {item?.size &&
+                    item?.size?.english &&
+                    " - " + item?.size?.english}
+                  {item?.color &&
+                    item?.color?.english &&
+                    " - " + item?.color?.english}
+                  {item?.value &&
+                    item?.value?.english &&
+                    " - " + item?.value?.english}
                 </Title>
               </div>
             );

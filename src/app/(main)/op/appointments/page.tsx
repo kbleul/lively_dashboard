@@ -8,7 +8,7 @@ export const metadata = {
 };
 
 const pageHeader = {
-  title: "Appointments",
+  title: "Appointments & Bookings",
   breadcrumb: [
     {
       href: routes.operationalManager.dashboard,

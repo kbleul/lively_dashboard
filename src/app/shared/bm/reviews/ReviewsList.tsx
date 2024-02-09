@@ -1,28 +1,27 @@
 "use client";
 
-import Spinner from "@/components/ui/spinner";
+import React, { useState } from "react";
 import { routes } from "@/config/routes";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
-import React, { useState } from "react";
-import { Button, Title } from "rizzui";
+import { queryKeys } from "@/react-query/query-keys";
+import { Title } from "rizzui";
+import Spinner from "@/components/ui/spinner";
 import PageHeader from "../../page-header";
 import WidgetCard from "@/components/cards/widget-card";
-import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns } from "./manager-columns";
+import { getColumns } from "./review-columns";
 
-const ManagersListAll = ({ id }: { id: string }) => {
+const ReviewsList = () => {
   const pageHeader = {
-    title: "Operation Manager",
+    title: "Branch Manager",
     breadcrumb: [
       {
-        href: routes.storeOwner.dashboard(id),
-        name: "Stores",
+        href: routes.branchManger.dashboard,
+        name: "Dashboard",
       },
       {
-        name: "Branch Managers",
+        name: "Branch Reviews",
       },
     ],
   };
@@ -32,21 +31,21 @@ const ManagersListAll = ({ id }: { id: string }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const branchManagersData = useFetchData(
-    [queryKeys.getMyBranches + id, currentPage, pageSize],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-managers/${id}?page=${currentPage}&per_page=${pageSize}`,
+  const branchReviewssData = useFetchData(
+    [queryKeys.getMyBranches, currentPage, pageSize],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/place-reviews?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
-  if (branchManagersData?.error || branchManagersData?.isError) {
+  if (branchReviewssData?.error || branchReviewssData?.isError) {
     <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
       <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
-        Error loading managers
+        Error loading reviews
       </Title>
     </div>;
   }
 
-  if (branchManagersData?.isPending) {
+  if (branchReviewssData?.isPending) {
     return (
       <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
         <Spinner size="xl" />
@@ -57,38 +56,25 @@ const ManagersListAll = ({ id }: { id: string }) => {
       </div>
     );
   }
-
-  const deleteProduct = async (id: string) => {
-    console.log(id);
-  };
-
+  console.log(branchReviewssData?.data?.data);
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
       <WidgetCard
-        title={"Branch Managers"}
+        title={"Branch Reviews"}
         className={"flex flex-col"}
         headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
-        action={
-          <Link href={routes.storeOwner["add-manager"](id)}>
-            <Button size="lg" color="primary">
-              Add Manager
-            </Button>
-          </Link>
-        }
       >
         <div className={"table-wrapper flex-grow"}>
           <ControlledTable
             variant={"modern"}
-            isLoading={branchManagersData.isFetching}
+            isLoading={branchReviewssData.isFetching}
             showLoadingText={true}
-            data={branchManagersData?.data?.data.map((item: any) => {
-              return item.manager;
-            })}
-            scroll={{ x: 1300 }}
+            data={branchReviewssData?.data?.data?.data}
+            scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumns({ deleteProduct })}
+            columns={getColumns()}
             paginatorOptions={{
               pageSize: 1,
               setPageSize,
@@ -106,4 +92,4 @@ const ManagersListAll = ({ id }: { id: string }) => {
   );
 };
 
-export default ManagersListAll;
+export default ReviewsList;

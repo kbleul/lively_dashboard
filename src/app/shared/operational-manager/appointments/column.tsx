@@ -16,26 +16,6 @@ type Columns = {
 
 export const getColumns = ({ onApproveItem, onRejectItem }: Columns) => [
   {
-    title: <HeaderCell title="user Profile" />,
-    dataIndex: "user",
-    key: "user",
-    width: 50,
-    render: (value: { profile_image: string; first_name: string }) => (
-      <div>
-        {value?.profile_image ? (
-          <Avatar name={value?.first_name} src={value?.profile_image} />
-        ) : (
-          <Avatar
-            name={"user profile"}
-            src={
-              "https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-            }
-          />
-        )}
-      </div>
-    ),
-  },
-  {
     title: <HeaderCell title="first name" />,
     dataIndex: "user",
     key: "user",

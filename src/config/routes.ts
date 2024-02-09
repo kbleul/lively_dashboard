@@ -106,6 +106,8 @@ export const routes = {
         `/so/${id}/branch/${branchId}/managers/add-manager`,
       "edit-manager": (id: string, branchId: string, managerId: string) =>
         `/so/${id}/branch/${branchId}/managers/edit-manager/${managerId}`,
+      reviews: (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/reviews`,
     },
   },
   branchManger: {
@@ -119,5 +121,7 @@ export const routes = {
     addProduct: "/bm/products/create-product",
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
+
+    reviews: "/bm/reviews",
   },
 };

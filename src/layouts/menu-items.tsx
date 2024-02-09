@@ -257,4 +257,16 @@ export const branchManagerMenuItems = [
       },
     ],
   },
+  {
+    name: "Reviews",
+    href: "#",
+    icon: <PiNotepadDuotone />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.branchManger.reviews,
+      },
+     
+    ],
+  },
 ];

@@ -165,6 +165,20 @@ export default function StoreSidebar({ className }: { className?: string }) {
         },
       ],
     },
+    {
+      name: "Reviews",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.storeOwner.branch.reviews(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
   ];
 
   useEffect(() => {
