@@ -1,4 +1,4 @@
-import ClaimedList from "@/app/shared/operational-manager/discounts/ClaimedList";
+import ClaimedList from "@/app/shared/so/discounts/ClaimedList";
 import { metaObject } from "@/config/site.config";
 
 export const metadata = {
@@ -8,9 +8,9 @@ export const metadata = {
 const ViewClaimedProducthDiscounts = ({
   params,
 }: {
-  params: { branchId: string };
+  params: { id: string; branchId: string };
 }) => {
-  return <ClaimedList branchId={params.branchId} />;
+  return <ClaimedList placeId={params.id} branchId={params.branchId} />;
 };
 
 export default ViewClaimedProducthDiscounts;

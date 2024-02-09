@@ -100,6 +100,9 @@ export const routes = {
         `/so/${id}/branch/${branchId}/products/product-discounts`,
       "add-product-discount": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products/product-discounts/create`,
+      "claimed-product-discounts": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products/claimed-product-discounts`,
+
       "package-discounts": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/package-discounts`,
       "add-package-discount": (id: string, branchId: string) =>
@@ -123,9 +126,11 @@ export const routes = {
 
     products: "/bm/products",
     addProduct: "/bm/products/create-product",
+
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
 
+    claimedDiscount: "/bm/products/claimed-discount",
     reviews: "/bm/reviews",
   },
 };

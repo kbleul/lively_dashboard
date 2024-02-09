@@ -235,6 +235,10 @@ export const branchManagerMenuItems = [
         name: "Discount",
         href: routes.branchManger.productsDiscount,
       },
+      {
+        name: "Claimed Discount",
+        href: routes.branchManger.claimedDiscount,
+      },
     ],
   },
   {

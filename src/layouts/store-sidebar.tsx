@@ -142,6 +142,13 @@ export default function StoreSidebar({ className }: { className?: string }) {
             pathname.split("/")[4]
           ),
         },
+        {
+          name: "Claimed Discounts",
+          href: routes.storeOwner.branch["claimed-product-discounts"](
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
       ],
     },
     {
@@ -205,7 +212,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
 
       {session && (
         <SimpleBar className="h-[calc(100%-80px)]">
-          <div className="mb-8 md:mb-20">
+          <div className="mb-4">
             {pathname.split("/").includes("branch") &&
             pathname.split("/").length > 3 ? (
               <div
@@ -241,7 +248,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
               </div>
             )}
           </div>
-          <div className="mt-20 pb-3 ">
+          <div className="mt-4 pb-3 ">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
               const pathnameExistInDropdowns: any =
