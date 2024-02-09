@@ -102,6 +102,12 @@ export default function Sidebar({ className }: { className?: string }) {
             pathname.split("/")[4]
           ),
         },
+        {
+          name: "Claimed Discounts",
+          href: routes.operationalManager.places["claimed-product-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
       ],
     },
     {
@@ -323,7 +329,7 @@ export default function Sidebar({ className }: { className?: string }) {
               href={"/op/places"}
               onClick={() =>
                 toast.loading("Switching To Operation Manager Mode", {
-                  duration: 4000,
+                  duration: 5000,
                   position: "top-right",
                 })
               }

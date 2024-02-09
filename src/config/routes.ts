@@ -41,8 +41,11 @@ export const routes = {
       "branch-discounts": (id: string) => `/op/places/branch-discounts/${id}`,
       "add-branch-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/branch/create`,
+
       "add-product-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/products/create`,
+      "claimed-product-discounts": (id: string) =>
+        `/op/places/branch-discounts/${id}/products/claimed`,
       "add-package-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/packages/create`,
     },
