@@ -8,6 +8,8 @@ import {
   ReactElement,
   ReactNode,
   ReactPortal,
+  useEffect,
+  useState,
 } from "react";
 import { usePathname } from "next/navigation";
 import { Title } from "@/components/ui/text";
@@ -23,11 +25,105 @@ import {
 } from "./menu-items";
 import Logo from "@/components/logo";
 import { signOut, useSession } from "next-auth/react";
+import { MdOutlineLocalGroceryStore } from "react-icons/md";
+import { CgArrowsExchange } from "react-icons/cg";
+import { routes } from "@/config/routes";
 import { UrlObject } from "url";
+import { toast } from "sonner";
+
+const OPBranchRoutes = [
+  "edit-branch",
+  "places/branch-manager",
+  "branch-discounts",
+];
 
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
+
+  const operationalManagetAsBMMenuItems = [
+    {
+      name: "Branch Manager Menu",
+      label: "Branch Manager",
+    },
+    {
+      name: "Branch",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "Edit",
+          href: routes.operationalManager.places["edit-branch"](
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Create Discount",
+          href: routes.operationalManager.places["add-branch-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "Managers",
+          href: routes.operationalManager.places["branch-manager"](
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Discounts",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["branch-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Products",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "Create Discount",
+          href: routes.operationalManager.places["add-product-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Claimed Discounts",
+          href: routes.operationalManager.places["claimed-product-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Package",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "Create Discount",
+          href: routes.operationalManager.places["add-package-discounts"](
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+  ];
 
   const determineMenuItems = () => {
     const roles = session?.user?.user.roles;
@@ -37,8 +133,14 @@ export default function Sidebar({ className }: { className?: string }) {
       return [];
     }
 
+    const operationalManagetDetermined = OPBranchRoutes.find((item: string) =>
+      pathname.includes(item)
+    )
+      ? operationalManagetAsBMMenuItems
+      : operationalManagetMenuItems;
+
     const roleMenuItems: any = {
-      Operation_Manager: operationalManagetMenuItems,
+      Operation_Manager: operationalManagetDetermined,
       Admin: operationalManagetMenuItems,
       Content_Creator: contentCretorMenuItems,
       Branch_Manager: branchManagerMenuItems,
@@ -71,7 +173,7 @@ export default function Sidebar({ className }: { className?: string }) {
 
       {session && (
         <SimpleBar className="h-[calc(100%-80px)]">
-          <div className="mt-4 pb-3 3xl:mt-6">
+          <div className="mb-8 md:mb-20 mt-4 pb-3 3xl:mt-6">
             {determineMenuItems()?.map((item, index) => {
               const isActive = pathname === (item?.href as string);
               const pathnameExistInDropdowns: any =
@@ -221,6 +323,36 @@ export default function Sidebar({ className }: { className?: string }) {
               );
             })}
           </div>
+
+          {OPBranchRoutes.find((item: string) => pathname.includes(item)) && (
+            <Link
+              href={"/op/places"}
+              onClick={() =>
+                toast.loading("Switching To Operation Manager Mode", {
+                  duration: 5000,
+                  position: "top-right",
+                })
+              }
+            >
+              <div
+                className={cn(
+                  " group cursor-pointer relative mx-3 my-0.5 text-sm flex items-center rounded-md px-3 py-2 font-medium capitalize lg:my-1 2xl:mx-5 2xl:my-2",
+                  true
+                    ? " text-white bg-[#FF9900]  before:-start-3 before:block before:h-4/5 before:w-1 before:rounded-ee-md before:rounded-se-mdy 2xl:before:-start-5"
+                    : "text-gray-700 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-700/90"
+                )}
+              >
+                <span
+                  className={cn(
+                    "me-2 inline-flex h-5 w-5 items-center justify-center rounded-md [&>svg]:h-[19px] [&>svg]:w-[19px] text-white"
+                  )}
+                >
+                  <CgArrowsExchange />
+                </span>
+                <div>Switch to Operation Manager Mode</div>
+              </div>
+            </Link>
+          )}
         </SimpleBar>
       )}
     </aside>

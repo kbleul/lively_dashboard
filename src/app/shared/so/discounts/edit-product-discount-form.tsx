@@ -218,7 +218,7 @@ const EditProductDiscount = ({
                       name="place_branch_products"
                       label="Products"
                       options={productsData?.data?.data?.data}
-                      placeholder="Do you need banner"
+                      placeholder="Select products"
                       getOptionLabel={(option: any) =>
                         `${option?.product_variant?.product?.title?.english} ${
                           option?.product_variant?.color

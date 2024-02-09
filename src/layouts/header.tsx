@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import HamburgerButton from "@/layouts/hamburger-button";
-import { ActionIcon } from "@/components/ui/action-icon";
 import StoreSidebar from "@/layouts/store-sidebar";
 import Sidebar from "@/layouts/sidebar";
 

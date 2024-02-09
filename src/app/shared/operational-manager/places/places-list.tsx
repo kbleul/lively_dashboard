@@ -97,7 +97,7 @@ const PlacesList = () => {
           variant="flat"
           value={searchText}
           onChange={(e) => setSearchText(() => e.target.value)}
-          placeholder="Search Places by name..."
+          placeholder="Search places by name..."
           className=" w-full"
           prefix={
             <PiMagnifyingGlassBold className="h-[18px] w-[18px] text-gray-600" />

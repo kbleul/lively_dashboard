@@ -20,16 +20,16 @@ const Home = () => {
   if (
     session?.user?.user?.roles
       ?.map((item: { name: string }) => item.name)
-      .includes(Role.Content_Creator)
+      .includes(Role.Operation_Manager)
   ) {
-    return router.push(routes.contentCreator.dashboard);
+    return router.push(routes.operationalManager.dashboard);
   }
   if (
     session?.user?.user?.roles
       ?.map((item: { name: string }) => item.name)
-      .includes(Role.Operation_Manager)
+      .includes(Role.Content_Creator)
   ) {
-    return router.push(routes.expert.dashboard);
+    return router.push(routes.contentCreator.dashboard);
   }
   if (
     session?.user?.user?.roles

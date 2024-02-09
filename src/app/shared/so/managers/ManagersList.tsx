@@ -60,12 +60,6 @@ const ManagersList = ({ id, branchId }: { id: string; branchId: string }) => {
     );
   }
 
-  const editManager = (managerId: string) => {
-    // return router.push(
-    //   routes.storeOwner.branch["edit-manager"](id, branchId, managerId)
-    // );
-  };
-
   const deleteManager = async (id: string) => {
     console.log(id);
   };
