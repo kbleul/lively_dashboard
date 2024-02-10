@@ -216,10 +216,10 @@ export const branchManagerMenuItems = [
         name: "Packages",
         href: routes.branchManger.packages,
       },
-      {
-        name: "Discount",
-        href: routes.branchManger.packageDiscount,
-      },
+      // {
+      //   name: "Discount",
+      //   href: routes.branchManger.packageDiscount,
+      // },
     ],
   },
   {

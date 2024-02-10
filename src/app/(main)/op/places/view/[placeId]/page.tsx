@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import LogoImage from "@public/bg.png";
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -81,35 +82,27 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
 
       {storeData?.data?.data && (
         <article className="relative">
-          <section
-            className=" w-full h-[15vh] md:h-[25vh] bg-[#9bfab1] rounded-3xl overflow-hidden relative"
-            style={{
-              backgroundImage: `url('/bg.png')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></section>
+          <section className="w-full h-[15vh] md:h-[25vh] rounded-3xl overflow-hidden relative">
+            <Image
+              src={LogoImage}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+              alt={""}
+            />
+          </section>
 
           <section className="branchlogo flex items-start mt-40 justify-start pl-2 md:pl-20">
             <section className="">
               <section
-                className="w-20 h-20 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
+                className="w-20 h-20 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full shadow-sm overflow-hidden  z-10"
                 style={{
                   backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   zIndex: 100,
                 }}
-              >
-                <Image
-                  src={storeData?.data?.data?.place_logo?.url}
-                  width={150}
-                  height={150}
-                  alt={""}
-                  className="dark:invert rounded-full"
-                  priority
-                />
-              </section>
+              ></section>
             </section>
           </section>
         </article>
@@ -220,21 +213,22 @@ const BranchCard = ({ data }: { data: any }) => {
 
   return (
     <article className="w-full relative border border-gray-200 bg-gray-0  dark:bg-gray-50  rounded-lg">
-      <section
-        className="relative h-44 w-full overflow-hidden group"
-        style={{
-          backgroundImage: `url(${
+      <section className="relative h-44 w-full overflow-hidden group">
+        <Image
+          src={
             data?.branch_covers &&
             data?.branch_covers.length > 0 &&
             data.branch_covers[0]?.url
               ? data.branch_covers[0].url
-              : "/bg.png"
-          })`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        onMouseOut={() => setShowMenu(false)}
-      />
+              : LogoImage
+          }
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          alt={""}
+        />
+      </section>
+
       <h4 className="px-4 py-2">{data.name.english}</h4>
       <p className="px-4 pb-4 h-[14vh] overflow-y-hidden">
         {data.description.english}

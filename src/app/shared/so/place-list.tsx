@@ -12,6 +12,7 @@ import { AdvancedRadio } from "@/components/ui/advanced-radio";
 import { FaCheckCircle } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 const MyStores = () => {
   const router = useRouter();
   const [value, setValue] = React.useState<string>("");
@@ -21,6 +22,14 @@ const MyStores = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/my-places`,
     headers
   );
+
+  if (
+    myStoresData.isFetched &&
+    myStoresData.isSuccess &&
+    myStoresData?.data?.data?.length === 0
+  ) {
+    signOut();
+  }
 
   if (
     myStoresData.isFetched &&

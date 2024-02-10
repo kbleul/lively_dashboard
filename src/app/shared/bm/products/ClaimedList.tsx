@@ -7,15 +7,17 @@ import React, { useState } from "react";
 
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
-import { useRouter } from "next/navigation";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { getColumns } from "./claimed-columns ";
+import { useModal } from "../../modal-views/use-modal";
+import ClaimedDetails from "./ClaimedDetails";
 
 const ClaimedList = () => {
   const headers = useGetHeaders({ type: "Json" });
-  const router = useRouter();
+  const { openModal } = useModal();
+
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
 
@@ -27,6 +29,13 @@ const ClaimedList = () => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/claimed-product-discounts?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
+
+  const handleView = (discountId: string) => {
+    openModal({
+      view: <ClaimedDetails discountId={discountId} />,
+      customSize: "550px",
+    });
+  };
 
   const applyClaim = async (id: string) => {
     try {
@@ -70,7 +79,7 @@ const ClaimedList = () => {
             data={claimedProductsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumns(applyClaim, postMutation.isPending)}
+            columns={getColumns(applyClaim, postMutation.isPending, handleView)}
             paginatorOptions={{
               pageSize,
               setPageSize,

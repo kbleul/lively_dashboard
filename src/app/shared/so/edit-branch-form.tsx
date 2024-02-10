@@ -1,4 +1,5 @@
 "use client";
+import LogoImage from "@public/logo.png";
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
@@ -299,7 +300,7 @@ const EditBranchForm = ({
                       backgroundImage:
                         ManagerData.branch_cover && ManagerData.branch_cover.url
                           ? `url('${ManagerData.branch_cover.url}')`
-                          : `url('/bg.png')`,
+                          : `url(${LogoImage})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
