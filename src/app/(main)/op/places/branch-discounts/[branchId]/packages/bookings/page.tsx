@@ -7,12 +7,14 @@ export const metadata = {
   ...metaObject("Appointments"),
 };
 
-export default function Bookings({ placeId }: { placeId: string }) {
+export default function Bookings({ params }: { params: { branchId: string } }) {
   const pageHeader = {
     title: "Bookings",
     breadcrumb: [
       {
-        href: routes.operationalManager.places["package-bookings"](placeId),
+        href: routes.operationalManager.places["package-bookings"](
+          params.branchId
+        ),
         name: "Dashboard",
       },
 
