@@ -43,6 +43,7 @@ export default function SignInForm() {
           const role = responseData?.data?.user?.roles?.map(
             (item: { name: string }) => item.name
           );
+
           const redirectUrl = role.includes("Expert")
             ? routes.expert.dashboard
             : role.includes("Operation_Manager")
