@@ -6,11 +6,12 @@ import PencilIcon from "@/components/icons/pencil";
 import { Badge } from "@/components/ui/badge";
 import { useModal } from "../../modal-views/use-modal";
 import UpdatePackageForm from "./update-package-form";
-import UpdatePackageCategoryForm from "../../bm/packages/create-package/updated-branch-category";
+import UpdatePackageCategoryForm from "./updated-branch-category";
 interface Props {
   data: PackageDataType;
+  branchId: string;
 }
-const PackageListCard = ({ data }: Props) => {
+const PackageListCard = ({ data, branchId }: Props) => {
   const { openModal } = useModal();
   return (
     <div className="bg-white dark:bg-black shadow-xl p-5 md:p-10 rounded-xl flex flex-col items-start space-y-3 w-full">
@@ -23,6 +24,7 @@ const PackageListCard = ({ data }: Props) => {
                 <UpdatePackageCategoryForm
                   id={data.packages[0].id}
                   cat={data?.category}
+                  branchId={branchId}
                 />
               ),
               customSize: "550px",

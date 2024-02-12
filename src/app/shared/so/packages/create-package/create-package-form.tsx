@@ -57,7 +57,7 @@ const CreatePackageForm = ({
   );
   const categoryData = useFetchData(
     [queryKeys.getBranchPackageType + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-categories`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/package-categories/${branchId}`,
     headers
   );
 

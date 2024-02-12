@@ -50,7 +50,7 @@ const PackageList = ({
             )}
             {packagesData?.data?.data?.map((item: PackageDataType) => (
               <div key={item.category} className="w-full">
-                <PackageListCard data={item} />
+                <PackageListCard data={item} branchId={branchId} />
               </div>
             ))}
           </div>
