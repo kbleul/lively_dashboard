@@ -87,7 +87,7 @@ const BranchManagesrsList = ({ branchId }: { branchId: string }) => {
             isLoading={branchManagersData.isFetching}
             showLoadingText={true}
             data={branchManagersData?.data?.data}
-            scroll={{ x: 1300 }}
+            scroll={{ x: 900 }}
             // @ts-ignore
             columns={getColumns({ deleteProduct })}
             paginatorOptions={{

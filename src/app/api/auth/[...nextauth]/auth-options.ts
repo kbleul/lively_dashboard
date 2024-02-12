@@ -1,20 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import GoogleProvider from 'next-auth/providers/google';
-// import { env } from '@/env.mjs';
-// import isEqual from 'lodash/isEqual';
-// import { pagesOptions } from './pages-options';
 
 export const authOptions: NextAuthOptions = {
-  // debug: true,
-  // pages: {
-  //   ...pagesOptions,
-  // },
-  // session: {
-  //   strategy: 'jwt',
-  //   maxAge: 30 * 24 * 60 * 60, // 30 days
-  // },
-
   providers: [
     CredentialsProvider({
       id: "credentials",

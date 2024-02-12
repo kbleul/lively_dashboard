@@ -20,6 +20,7 @@ import {
 import moment from "moment";
 import { toast } from "sonner";
 import PageHeader from "@/app/shared/page-header";
+import { useState } from "react";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
@@ -32,9 +33,11 @@ const AddProductDiscount = ({ className }: { className?: string }) => {
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   const productsData = useFetchData(
-    [queryKeys.getAllProducts],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-products`,
+    [queryKeys.getAllProducts, searchQuery],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/branch-products?search=${searchQuery}`,
     headers
   );
 
@@ -173,6 +176,7 @@ const AddProductDiscount = ({ className }: { className?: string }) => {
                       }}
                       noOptionsMessage={() => "Banner options here"}
                       className="pt-2"
+                      setSearchQuery={setSearchQuery}
                     />
                   </FormGroup>
 
@@ -202,7 +206,7 @@ const AddProductDiscount = ({ className }: { className?: string }) => {
                       name="place_branch_products"
                       label="Products"
                       options={productsData?.data?.data?.data}
-                      placeholder="Do you need banner"
+                      placeholder="Select products"
                       getOptionLabel={(option: any) =>
                         `${option?.product_variant?.product?.title?.english} ${
                           option?.product_variant?.color
@@ -225,9 +229,10 @@ const AddProductDiscount = ({ className }: { className?: string }) => {
                         );
                         setFieldValue("place_branch_products", selectedIds);
                       }}
-                      noOptionsMessage={() => "Banner options here"}
+                      noOptionsMessage={() => "Products options here"}
                       isMulti
                       isSearchable
+                      setSearchQuery={setSearchQuery}
                       className="pt-2 col-span-2"
                     />
                   </FormGroup>

@@ -62,7 +62,6 @@ const ReviewsList = ({
       </div>
     );
   }
-  console.log(branchReviewssData?.data?.data);
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />

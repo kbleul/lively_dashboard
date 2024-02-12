@@ -55,7 +55,7 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
     },
     [CategoriesArr[5]]: {
       queryKey: "expired-discount-packages",
-      link: routes.operationalManager.places["add-product-discounts"](branchId),
+      link: routes.operationalManager.places["add-package-discounts"](branchId),
     },
   };
 
@@ -64,6 +64,11 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
+
+  const addButtonLabel =
+    categoryLink.split(" ").length > 2
+      ? "Add " + categoryLink.split(" ")[1] + " " + categoryLink.split(" ")[2]
+      : "Add " + categoryLink;
 
   return (
     <>
@@ -80,7 +85,7 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
         action={
           <Link href={CategoriesLinks[categoryLink].link}>
             <Button size="lg" color="primary">
-              Add {categoryLink}
+              {addButtonLabel}
             </Button>
           </Link>
         }

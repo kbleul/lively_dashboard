@@ -1,4 +1,6 @@
 "use client";
+import LogoImage from "@public/bg.png";
+
 import Spinner from "@/components/ui/spinner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
@@ -41,19 +43,20 @@ const EditPlace = ({ placeId }: { placeId: string }) => {
         {storeData?.data?.data && (
           <>
             <article className="relative mt-8">
-              <section
-                className=" w-full h-[18vh] md:h-[25vh] bg-[#9bfab1] rounded-3xl overflow-hidden relative"
-                style={{
-                  backgroundImage: `url('/bg.png')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></section>
+              <section className=" w-full h-[18vh] md:h-[25vh] bg-[#9bfab1] rounded-3xl overflow-hidden relative">
+                <Image
+                  src={LogoImage}
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="center"
+                  alt={""}
+                />
+              </section>
 
               <section className=" branchlogo flex items-start mt-20 md:mt-40 justify-start md:pl-20">
                 <section className="">
                   <section
-                    className="w-24 h-24 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
+                    className="shadow-sm w-24 h-24 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
                     style={{
                       backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                       backgroundSize: "cover",

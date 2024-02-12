@@ -34,6 +34,24 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
+    if (req.nextUrl.pathname.includes("claimed-product")) {
+      if (
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Operation_Manager")
+      ) {
+        const descountId =
+          req.nextUrl.pathname.split("/")[
+            req.nextUrl.pathname.split("/").length - 1
+          ];
+        return NextResponse.rewrite(
+          new URL(
+            `/op/places/branch-discounts/${descountId}/products/claimed`,
+            req.url
+          )
+        );
+      }
+    }
   },
 
   {

@@ -41,12 +41,22 @@ export const routes = {
       "branch-discounts": (id: string) => `/op/places/branch-discounts/${id}`,
       "add-branch-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/branch/create`,
+
       "add-product-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/products/create`,
+
+      "claimed-product-discounts": (id: string) =>
+        `/op/places/branch-discounts/${id}/products/claimed`,
+      "view-claimed-product-discounts": (id: string, discountId: string) =>
+        `/op/places/branch-discounts/${id}/products/claimed/${discountId}`,
+
       "add-package-discounts": (id: string) =>
         `/op/places/branch-discounts/${id}/packages/create`,
+      "package-bookings": (id: string) =>
+        `/op/places/branch-discounts/${id}/packages/bookings`,
     },
   },
+
   // content cretor routes
   contentCreator: {
     dashboard: "/contentc",
@@ -96,6 +106,9 @@ export const routes = {
         `/so/${id}/branch/${branchId}/products/product-discounts`,
       "add-product-discount": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products/product-discounts/create`,
+      "claimed-product-discounts": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/products/claimed-product-discounts`,
+
       "package-discounts": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/package-discounts`,
       "add-package-discount": (id: string, branchId: string) =>
@@ -119,9 +132,11 @@ export const routes = {
 
     products: "/bm/products",
     addProduct: "/bm/products/create-product",
+
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
 
+    claimedDiscount: "/bm/products/claimed-discount",
     reviews: "/bm/reviews",
   },
 };

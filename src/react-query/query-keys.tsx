@@ -43,4 +43,6 @@ export const queryKeys = {
   getStorePackageType: "getStorePackageType",
   getBranchPackageType: "getBranchPackageType",
   getAllBanners: "getAllBanners",
+  getAllClaimDiscounts: "getAllClaimDiscountsApi",
+  getSingleClaimDiscount: "getSingleClaimDiscountsApi",
 };
