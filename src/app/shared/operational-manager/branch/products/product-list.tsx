@@ -21,7 +21,7 @@ export default function ProductList({
   placeId,
   branchId,
 }: {
-  placeId;
+  placeId: string;
   branchId: string;
 }) {
   const { openModal } = useModal();

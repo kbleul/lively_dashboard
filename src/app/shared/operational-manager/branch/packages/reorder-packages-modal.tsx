@@ -28,6 +28,7 @@ const SortableList = SortableContainer(({ items }: { items: any[] }) => {
   return (
     <ul>
       {items.map((value: any, index: any) => (
+        // @ts-ignore
         <SortableItem key={`item-${value.id}`} index={index} value={value} />
       ))}
     </ul>
@@ -134,6 +135,7 @@ const ReorderPackages = ({ branchId }: { branchId: string }) => {
 
       {categoriesList && (
         <>
+          {/* @ts-ignore */}
           <SortableList items={categoriesList} onSortEnd={onSortEnd} />
           <Button
             isLoading={postMutation.isPending}

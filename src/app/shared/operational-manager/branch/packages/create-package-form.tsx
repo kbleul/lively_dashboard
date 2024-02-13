@@ -24,7 +24,13 @@ interface Service {
   };
   // Add other properties as needed
 }
-const CreatePackageForm = ({ branchId }: { branchId: string }) => {
+const CreatePackageForm = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const router = useRouter();
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
@@ -87,7 +93,7 @@ const CreatePackageForm = ({ branchId }: { branchId: string }) => {
         },
         onSuccess: (res: any) => {
           router.push(
-            routes.operationalManager.places["list-packages"](branchId)
+            routes.operationalManager.places["list-packages"](placeId, branchId)
           );
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllPackages + branchId],

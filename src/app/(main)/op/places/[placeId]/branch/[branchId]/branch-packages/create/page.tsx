@@ -5,8 +5,14 @@ export const metadata = {
   ...metaObject("Packages"),
 };
 
-const CreateBranchPackages = ({ params }: { params: { branchId: string } }) => {
-  return <CreatePackageForm branchId={params.branchId} />;
+const CreateBranchPackages = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return (
+    <CreatePackageForm placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default CreateBranchPackages;

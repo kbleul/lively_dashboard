@@ -9,9 +9,11 @@ export const metadata = {
 const CreateProductDiscount = ({
   params,
 }: {
-  params: { branchId: string };
+  params: { placeId: string; branchId: string };
 }) => {
-  return <AddProductDiscount branchId={params.branchId} />;
+  return (
+    <AddProductDiscount placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default CreateProductDiscount;

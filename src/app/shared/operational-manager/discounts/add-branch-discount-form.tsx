@@ -21,9 +21,11 @@ import {
 
 const AddBranchDiscount = ({
   className,
+  placeId,
   branchId,
 }: {
   className?: string;
+  placeId: string;
   branchId: string;
 }) => {
   const router = useRouter();
@@ -35,7 +37,10 @@ const AddBranchDiscount = ({
     title: "Operations Manager",
     breadcrumb: [
       {
-        href: routes.operationalManager.places["branch-discounts"](branchId),
+        href: routes.operationalManager.places["branch-discounts"](
+          placeId,
+          branchId
+        ),
         name: "Branch Discounts",
       },
       {
@@ -76,7 +81,10 @@ const AddBranchDiscount = ({
         onSuccess: (res) => {
           toast.success("Discount Saved Successfully");
           router.push(
-            routes.operationalManager.places["branch-discounts"](branchId)
+            routes.operationalManager.places["branch-discounts"](
+              placeId,
+              branchId
+            )
           );
         },
         onError: (err) => {

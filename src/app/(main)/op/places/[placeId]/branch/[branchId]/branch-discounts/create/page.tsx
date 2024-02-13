@@ -6,8 +6,14 @@ export const metadata = {
   ...metaObject("Discounts"),
 };
 
-const CreateBranchDiscount = ({ params }: { params: { branchId: string } }) => {
-  return <AddBranchDiscount branchId={params.branchId} />;
+const CreateBranchDiscount = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return (
+    <AddBranchDiscount placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default CreateBranchDiscount;
