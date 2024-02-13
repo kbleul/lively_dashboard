@@ -88,9 +88,11 @@ const pageHeader = {
 };
 
 const EditBranchForm = ({
+  placeId,
   branchId,
   className,
 }: {
+  placeId: string;
   branchId: string;
   className?: string;
 }) => {

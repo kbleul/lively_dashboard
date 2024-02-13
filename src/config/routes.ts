@@ -33,27 +33,46 @@ export const routes = {
       create: "/op/places/create-place",
       edit: (id: string) => `/op/places/edit/${id}`,
       view: (id: string) => `/op/places/view/${id}`,
+
+      "branch-dashboard": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-dashboard`,
+
       "create-branch": (id: string) => `/op/places/create-branch/${id}`,
-      "edit-branch": (id: string) => `/op/places/edit-branch/${id}`,
-      "branch-manager": (id: string) => `/op/places/branch-manager/${id}`,
-      "create-branch-manager": (id: string) =>
-        `/op/places/create-branch-manager/${id}`,
-      "branch-discounts": (id: string) => `/op/places/branch-discounts/${id}`,
-      "add-branch-discounts": (id: string) =>
-        `/op/places/branch-discounts/${id}/branch/create`,
+      "edit-branch": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/edit-branch`,
 
-      "add-product-discounts": (id: string) =>
-        `/op/places/branch-discounts/${id}/products/create`,
+      "branch-manager": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-manager`,
+      "create-branch-manager": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-manager/create`,
 
-      "claimed-product-discounts": (id: string) =>
-        `/op/places/branch-discounts/${id}/products/claimed`,
-      "view-claimed-product-discounts": (id: string, discountId: string) =>
-        `/op/places/branch-discounts/${id}/products/claimed/${discountId}`,
+      "branch-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts`,
+      "add-branch-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/create`,
 
-      "add-package-discounts": (id: string) =>
-        `/op/places/branch-discounts/${id}/packages/create`,
-      "package-bookings": (id: string) =>
-        `/op/places/branch-discounts/${id}/packages/bookings`,
+      "list-packages": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-packages`,
+      "create-packages": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-packages/create`,
+      "add-package-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/create`,
+      "package-bookings": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/bookings`,
+
+      "list-products": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-products`,
+      "add-product-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/create`,
+
+      "claimed-product-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed`,
+      "view-claimed-product-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed/${discountId}`,
     },
   },
 

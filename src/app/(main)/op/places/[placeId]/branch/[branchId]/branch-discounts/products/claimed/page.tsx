@@ -8,9 +8,9 @@ export const metadata = {
 const ViewClaimedProducthDiscounts = ({
   params,
 }: {
-  params: { branchId: string };
+  params: { placeId: string; branchId: string };
 }) => {
-  return <ClaimedList branchId={params.branchId} />;
+  return <ClaimedList placeId={params.placeId} branchId={params.branchId} />;
 };
 
 export default ViewClaimedProducthDiscounts;

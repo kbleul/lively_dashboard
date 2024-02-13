@@ -15,7 +15,6 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { toast } from "sonner";
 import moment from "moment";
 import { BranchManagerType, banchManagerSchema } from "@/validations/branches";
-import { Button } from "@/components/ui/button";
 
 import FilePicker from "@/components/ui/form/dropzone";
 import { useRouter } from "next/navigation";
@@ -32,12 +31,14 @@ const AddBranchManger = ({
   setFormStep,
   setBrachId,
   placeId,
+  isBranchMangeMode,
 }: {
   className?: string;
   branchId: string;
   setFormStep?: React.Dispatch<React.SetStateAction<number>>;
   setBrachId?: React.Dispatch<React.SetStateAction<string | null>>;
-  placeId?: string;
+  placeId: string;
+  isBranchMangeMode?: boolean;
 }) => {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "FormData" });
@@ -76,12 +77,15 @@ const AddBranchManger = ({
           toast.success("Branch manager Saved Successfully");
 
           if (res && res.data && res.data.id) {
-            placeId
+            !isBranchMangeMode
               ? router.push(
                   routes.operationalManager.places.view(`/${placeId}`)
                 )
               : router.push(
-                  routes.operationalManager.places["branch-manager"](branchId)
+                  routes.operationalManager.places["branch-manager"](
+                    placeId,
+                    branchId
+                  )
                 );
 
             setFormStep && setFormStep(1);
@@ -98,10 +102,10 @@ const AddBranchManger = ({
   };
 
   const handleSkip = () => {
-    placeId
+    !isBranchMangeMode
       ? router.push(routes.operationalManager.places.view(`${placeId}`))
       : router.push(
-          routes.operationalManager.places["branch-manager"](branchId)
+          routes.operationalManager.places["branch-manager"](placeId, branchId)
         );
   };
 

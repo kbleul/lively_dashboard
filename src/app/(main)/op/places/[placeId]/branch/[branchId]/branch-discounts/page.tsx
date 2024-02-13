@@ -5,8 +5,14 @@ export const metadata = {
   ...metaObject("Discounts"),
 };
 
-const ViewBranchDiscounts = ({ params }: { params: { branchId: string } }) => {
-  return <BranchDiscountsList branchId={params.branchId} />;
+const ViewBranchDiscounts = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return (
+    <BranchDiscountsList placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default ViewBranchDiscounts;

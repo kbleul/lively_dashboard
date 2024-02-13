@@ -6,8 +6,14 @@ export const metadata = {
   ...metaObject("Branches"),
 };
 
-const ViewBranchManagers = ({ params }: { params: { branchId: string } }) => {
-  return <BranchManagesrsList branchId={params.branchId} />;
+const ViewBranchManagers = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return (
+    <BranchManagesrsList placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default ViewBranchManagers;

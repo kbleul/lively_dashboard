@@ -14,7 +14,13 @@ import { toast } from "sonner";
 import { useModal } from "../../modal-views/use-modal";
 import ClaimedDetails from "./ClaimedDetails";
 
-const ClaimedList = ({ branchId }: { branchId: string }) => {
+const ClaimedList = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const headers = useGetHeaders({ type: "Json" });
   const { openModal } = useModal();
 

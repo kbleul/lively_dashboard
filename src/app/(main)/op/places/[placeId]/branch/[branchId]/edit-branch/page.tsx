@@ -7,8 +7,12 @@ export const metadata = {
   ...metaObject("Places"),
 };
 
-const CreateBranches = ({ params }: { params: { branchId: string } }) => {
-  return <EditBranchForm branchId={params.branchId} />;
+const CreateBranches = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return <EditBranchForm placeId={params.placeId} branchId={params.branchId} />;
 };
 
 export default CreateBranches;

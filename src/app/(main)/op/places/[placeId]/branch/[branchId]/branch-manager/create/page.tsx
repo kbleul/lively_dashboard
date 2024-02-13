@@ -6,8 +6,17 @@ export const metadata = {
   ...metaObject("Places"),
 };
 
-const CreateBranchManager = ({ params }: { params: { branchId: string } }) => {
-  return <CreateBranchManagerForm branchId={params.branchId} />;
+const CreateBranchManager = ({
+  params,
+}: {
+  params: { placeId: string; branchId: string };
+}) => {
+  return (
+    <CreateBranchManagerForm
+      placeId={params.placeId}
+      branchId={params.branchId}
+    />
+  );
 };
 
 export default CreateBranchManager;

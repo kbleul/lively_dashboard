@@ -8,9 +8,13 @@ import { useFetchData } from "@/react-query/useFetchData";
 import Image from "next/image";
 import { Title } from "rizzui";
 import EditStoreInfo from "./edit-store-info";
+import { RiImageEditLine } from "react-icons/ri";
+import { useState } from "react";
+import EditPlaceCover from "./edit-place-cover";
 
 const EditPlace = ({ placeId }: { placeId: string }) => {
   const headers = useGetHeaders({ type: "Json" });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const storeData = useFetchData(
     [queryKeys.getSinglePlace],
@@ -56,7 +60,7 @@ const EditPlace = ({ placeId }: { placeId: string }) => {
               <section className=" branchlogo flex items-start mt-20 md:mt-40 justify-start md:pl-20">
                 <section className="">
                   <section
-                    className="shadow-sm w-24 h-24 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  z-10"
+                    className="relative shadow-sm w-24 h-24 md:w-32 md:h-32 gap-x-4  bg-[#e1f7e6] rounded-full overflow-hidden  "
                     style={{
                       backgroundImage: `url('${storeData?.data?.data?.place_logo?.url}')`,
                       backgroundSize: "cover",
@@ -64,18 +68,26 @@ const EditPlace = ({ placeId }: { placeId: string }) => {
                       zIndex: 100,
                     }}
                   >
-                    <Image
-                      src={storeData?.data?.data?.place_logo?.url}
-                      width={150}
-                      height={150}
-                      alt={""}
-                      className="dark:invert rounded-full"
-                      priority
-                    />
+                    <button
+                      style={{
+                        background: "rgba(0, 0, 0, 0.4)",
+                      }}
+                      onClick={() => setIsModalOpen(true)}
+                      className="z-10  absolute bottom-0 py-1 flex items-center justify-center w-full"
+                    >
+                      <RiImageEditLine color="#fff" size={24} />
+                    </button>
                   </section>
                 </section>
               </section>
             </article>
+
+            <EditPlaceCover
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              placeId={placeId}
+              storeData={storeData}
+            />
 
             <div className="mt-[6vh] md:mt-[13vh]">
               <EditStoreInfo storeData={storeData?.data?.data} />

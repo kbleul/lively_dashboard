@@ -4,12 +4,14 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import { PackageDataType } from "@/types/packages";
-import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import PackageListCard from "./package-list-card";
+import ReorderPackages from "./reorder-packages-modal";
+import { useModal } from "../../modal-views/use-modal";
 
 const PackageList = () => {
-  const queryClient = useQueryClient();
+  const { openModal } = useModal();
+
   const headers = useGetHeaders({ type: "Json" });
   // const postMutation = useDynamicMutation();
   const packagesData = useFetchData(
@@ -21,6 +23,18 @@ const PackageList = () => {
     <div>
       {packagesData.isSuccess && packagesData?.isFetched ? (
         <div className="flex flex-col items-start space-y-3 w-full">
+          <button
+            className="  px-4 py-1 border rounded-md shadow-md text-sm"
+            type="button"
+            onClick={() =>
+              openModal({
+                view: <ReorderPackages />,
+                customSize: "550px",
+              })
+            }
+          >
+            Reorder Categories
+          </button>
           {packagesData?.data?.data?.map((item: PackageDataType) => (
             <div key={item.category} className="w-full">
               <PackageListCard data={item} />

@@ -198,7 +198,11 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
           {branchData.data.data.length > 0 && (
             <div className="mb-10 grid grid-cols-1 md:grid-cols-2  gap-7  @2xl:gap-9 @3xl:gap-11 w-full  items-center justify-evenly">
               {branchData.data.data.map((data: any) => (
-                <BranchCard key={data.id} data={data} />
+                <BranchCard
+                  key={data.id}
+                  data={data}
+                  placeId={params.placeId}
+                />
               ))}
             </div>
           )}
@@ -208,7 +212,7 @@ const ViewStore = ({ params }: { params: { placeId: string } }) => {
   );
 };
 
-const BranchCard = ({ data }: { data: any }) => {
+const BranchCard = ({ data, placeId }: { data: any; placeId: string }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -249,52 +253,31 @@ const BranchCard = ({ data }: { data: any }) => {
             onMouseEnter={() => setShowMenu(true)}
           >
             <Link
-              href={routes.operationalManager.places["edit-branch"](data.id)}
-              className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
-            >
-              Edit
-            </Link>
-            <Link
-              href={routes.operationalManager.places["branch-manager"](data.id)}
-              className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
-            >
-              Managers
-            </Link>
-            <Link
-              href={routes.operationalManager.places["branch-discounts"](
+              href={routes.operationalManager.places["branch-dashboard"](
+                placeId,
                 data.id
               )}
               className="text-black bg-white z-50 px-8 py-2  border-b border-b-gray-300  flex justify-start items-center gap-2 hover:border-none"
             >
-              Discounts
+              Manage
             </Link>
           </div>
         )}
       </section>
-
-      {/* <div className="flex justify-between items-center">
-        <Button
-          color="primary"
-          className="ml-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 my-4"
-        >
-          <Link
-            href={routes.operationalManager.places["edit-branch"](data.id)}
-            className="flex items-center justify-center gap-2"
-          >
-            <PencilIcon className="h-4 w-4 cursor-pointer" />
-            Edit
-          </Link>
-        </Button>
-
+      {/* 
+      <div className="flex justify-end items-center mb-4">
         <Button
           color="primary"
           className="mr-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 "
         >
           <Link
-            href={routes.operationalManager.places["branch-manager"](data.id)}
+            href={routes.operationalManager.places["branch-dashboard"](
+              placeId,
+              data.id
+            )}
             className="flex items-center justify-center gap-2"
           >
-            Mangers
+            Manage
           </Link>
         </Button>
       </div> */}
