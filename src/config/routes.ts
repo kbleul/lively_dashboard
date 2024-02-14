@@ -68,6 +68,12 @@ export const routes = {
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products`,
       "add-product-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/create`,
+      "edit-product-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/edit/${discountId}`,
 
       "claimed-product-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed`,

@@ -2,13 +2,19 @@
 
 import { HeaderCell } from "@/components/ui/table";
 import { Text } from "@/components/ui/text";
+import { routes } from "@/config/routes";
+import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 
 import { ActionIcon, Badge, Tooltip } from "rizzui";
 
-export const getColumns = (viewProducts: (discount: any) => void) => [
+export const getColumns = (
+  viewProducts: (discount: any) => void,
+  placeId: string,
+  branchId: string
+) => [
   {
     title: <HeaderCell title="Title English" />,
     dataIndex: "title",
@@ -104,6 +110,30 @@ export const getColumns = (viewProducts: (discount: any) => void) => [
           >
             <GrFormView size={25} />
           </ActionIcon>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Edit Discount"}
+          placement="top"
+          color="invert"
+        >
+          <Link
+            href={routes.operationalManager.places["edit-product-discounts"](
+              placeId,
+              branchId,
+              row.id
+            )}
+          >
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+              onClick={() => viewProducts(row)}
+            >
+              <GrFormView size={25} />
+            </ActionIcon>
+          </Link>
         </Tooltip>
       </div>
     ),
