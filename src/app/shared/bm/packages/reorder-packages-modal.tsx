@@ -109,7 +109,6 @@ const ReorderPackages = () => {
     oldIndex: number;
     newIndex: number;
   }) => {
-    console.log(oldIndex, newIndex);
 
     if (categoriesList) {
       const oldArray = [...categoriesList];
