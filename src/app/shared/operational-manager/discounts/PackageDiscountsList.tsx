@@ -13,16 +13,20 @@ import { getColumns as getColumnsPackages } from "./discount-columns_packages";
 
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import { useModal } from "../../modal-views/use-modal";
+import ShowPackagesModal from "./ShowPackagesModal";
 
-const CategoriesArr = ["Branch Discounts", "Expired Branch Discounts"];
+const CategoriesArr = ["Packages Discounts", "Expired Packages Discounts"];
 
-const BranchDiscountsList = ({
+const PackageDiscountsList = ({
   placeId,
   branchId,
 }: {
   placeId: string;
   branchId: string;
 }) => {
+  const { openModal } = useModal();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = React.useState(CategoriesArr[0]);
@@ -32,15 +36,15 @@ const BranchDiscountsList = ({
 
   const CategoriesLinks = {
     [CategoriesArr[0]]: {
-      queryKey: "discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](
+      queryKey: "discount-packages",
+      link: routes.operationalManager.places["add-package-discounts"](
         placeId,
         branchId
       ),
     },
     [CategoriesArr[1]]: {
-      queryKey: "expired-discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](
+      queryKey: "expired-discount-packages",
+      link: routes.operationalManager.places["add-package-discounts"](
         placeId,
         branchId
       ),
@@ -48,7 +52,7 @@ const BranchDiscountsList = ({
   };
 
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllBranchDiscounts, categoryLink, currentPage, pageSize],
+    [queryKeys.getAllPackages, categoryLink, currentPage, pageSize],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
@@ -57,6 +61,13 @@ const BranchDiscountsList = ({
     categoryLink.split(" ").length > 2
       ? "Add " + categoryLink.split(" ")[1] + " " + categoryLink.split(" ")[2]
       : "Add " + categoryLink;
+
+  const viewPackages = (discount: any) => {
+    openModal({
+      view: <ShowPackagesModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
 
   return (
     <>
@@ -86,7 +97,7 @@ const BranchDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsPackages()}
+            columns={getColumnsPackages(viewPackages)}
             paginatorOptions={{
               pageSize,
               setPageSize,
@@ -104,4 +115,4 @@ const BranchDiscountsList = ({
   );
 };
 
-export default BranchDiscountsList;
+export default PackageDiscountsList;

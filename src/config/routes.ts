@@ -55,6 +55,8 @@ export const routes = {
         `/op/places/${placeId}/branch/${branchId}/branch-packages`,
       "create-packages": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-packages/create`,
+      "package-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages`,
       "add-package-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/create`,
       "package-bookings": (placeId: string, branchId: string) =>
@@ -62,6 +64,8 @@ export const routes = {
 
       "list-products": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-products`,
+      "product-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products`,
       "add-product-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/create`,
 

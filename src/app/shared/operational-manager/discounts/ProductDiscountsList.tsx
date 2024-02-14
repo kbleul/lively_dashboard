@@ -1,7 +1,6 @@
 "use client";
 
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import React, { useState } from "react";
 
@@ -9,20 +8,25 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns as getColumnsPackages } from "./discount-columns_packages";
+import { getColumns as getColumnsProducts } from "./discount-columns_products";
 
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import { queryKeys } from "@/react-query/query-keys";
+import { useModal } from "../../modal-views/use-modal";
+import ShowProductsModal from "./ShowProductsModal";
 
-const CategoriesArr = ["Branch Discounts", "Expired Branch Discounts"];
+const CategoriesArr = ["Products Discounts", "Expired Products Discounts"];
 
-const BranchDiscountsList = ({
+const ProductDiscountsList = ({
   placeId,
   branchId,
 }: {
   placeId: string;
   branchId: string;
 }) => {
+  const { openModal } = useModal();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = React.useState(CategoriesArr[0]);
@@ -30,17 +34,24 @@ const BranchDiscountsList = ({
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
 
+  const viewProducts = (discount: any) => {
+    openModal({
+      view: <ShowProductsModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
+
   const CategoriesLinks = {
     [CategoriesArr[0]]: {
-      queryKey: "discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](
+      queryKey: "discount-products",
+      link: routes.operationalManager.places["add-product-discounts"](
         placeId,
         branchId
       ),
     },
     [CategoriesArr[1]]: {
-      queryKey: "expired-discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](
+      queryKey: "expired-discount-products",
+      link: routes.operationalManager.places["add-product-discounts"](
         placeId,
         branchId
       ),
@@ -48,7 +59,7 @@ const BranchDiscountsList = ({
   };
 
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllBranchDiscounts, categoryLink, currentPage, pageSize],
+    [queryKeys.getAllProducts, categoryLink, currentPage, pageSize],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
@@ -86,7 +97,7 @@ const BranchDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsPackages()}
+            columns={getColumnsProducts(viewProducts)}
             paginatorOptions={{
               pageSize,
               setPageSize,
@@ -104,4 +115,4 @@ const BranchDiscountsList = ({
   );
 };
 
-export default BranchDiscountsList;
+export default ProductDiscountsList;

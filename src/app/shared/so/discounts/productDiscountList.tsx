@@ -10,6 +10,8 @@ import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./discount-columns-products";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import { useModal } from "../../modal-views/use-modal";
+import ShowProductsModal from "./ShowProductsModal";
 
 const CategoriesArr = ["Active", "Expired"];
 
@@ -20,6 +22,8 @@ const ProductDiscountList = ({
   placeId: string;
   branchId: string;
 }) => {
+  const { openModal } = useModal();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
@@ -37,6 +41,13 @@ const ProductDiscountList = ({
 
     headers
   );
+
+  const viewProducts = (discount: any) => {
+    openModal({
+      view: <ShowProductsModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
 
   return (
     <WidgetCard
@@ -71,7 +82,7 @@ const ProductDiscountList = ({
           data={productsDiscountData?.data?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
-          columns={getColumns()}
+          columns={getColumns(viewProducts)}
           paginatorOptions={{
             pageSize,
             setPageSize,
