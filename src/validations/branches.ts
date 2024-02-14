@@ -9,6 +9,7 @@ export const branchInfoSchema = Yup.object().shape({
     .min(1)
     .required("Phone number is required")
     .matches(/^\d{9}$/, "Phone number must be 9 digits long"),
+  has_delivery: Yup.number().required("Delivery status is required"),
   telegram: Yup.string().optional(),
   facebook: Yup.string().optional(),
   whatsapp: Yup.string().optional(),
@@ -31,6 +32,7 @@ export type branchInfoType = {
   descriptionEnglish: string;
   descriptionAmharic: string;
   phone: string;
+  has_delivery: number;
   telegram?: string;
   facebook?: string;
   whatsapp?: string;
@@ -56,6 +58,7 @@ export const branchInfoEditSchema = Yup.object().shape({
     .required("Discount percentage is required")
     .min(0, "Discount percentage must be greater than or equal to 0")
     .max(100, "Discount percentage must be less than or equal to 100"),
+  has_delivery: Yup.number().required("Inperson is required"),
   telegram: Yup.string().optional(),
   facebook: Yup.string().optional(),
   whatsapp: Yup.string().optional(),
@@ -86,6 +89,7 @@ export type branchInfoEditType = {
   descriptionAmharic: string;
   phone: string;
   general_discount: number;
+  has_delivery: number;
   telegram?: string;
   facebook?: string;
   whatsapp?: string;
@@ -120,6 +124,7 @@ export interface NewValues {
   whatsapp: string | undefined;
   phone: string;
   general_discount: number;
+  has_delivery: number;
   specific_address: string;
   website?: string;
   branch_cover?: string[] | File[];

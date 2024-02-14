@@ -17,6 +17,8 @@ import AvaterPicker from "@/components/ui/form/avater-upload";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { toast } from "sonner";
 import LocationForm from "./LocationForm";
+import CustomSelect from "@/components/ui/form/select";
+import { deliverySupportType } from "../operational-manager/branch/add-branch";
 
 const AddBranchInfo = ({
   className,
@@ -37,6 +39,7 @@ const AddBranchInfo = ({
     nameAmharic: "",
     descriptionEnglish: "",
     descriptionAmharic: "",
+    has_delivery: 1,
     phone: "",
     telegram: "",
     facebook: "",
@@ -91,7 +94,7 @@ const AddBranchInfo = ({
           branchInfoSubmitHandler(values);
         }}
       >
-        {({}) => {
+        {({ setFieldValue }) => {
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -183,7 +186,28 @@ const AddBranchInfo = ({
                   <AvaterPicker
                     name="branch_cover"
                     label="Branch Cover"
+                    isMultiple={true}
                     className="col-span-2"
+                  />
+                </FormGroup>
+
+                <FormGroup
+                  title="Delivery Support"
+                  description="Does this branch support delivery ?"
+                  className={cn(className)}
+                >
+                  <CustomSelect
+                    name="has_delivery"
+                    label="Delivery Supported ?"
+                    options={deliverySupportType}
+                    defaultValue={deliverySupportType[0]}
+                    getOptionLabel={(option: any) => option.name}
+                    getOptionValue={(option: any) => option.value}
+                    onChange={(selectedOptions: any) => {
+                      setFieldValue("has_delivery", selectedOptions.value);
+                    }}
+                    noOptionsMessage={() => "Delivery Support loading..."}
+                    className="pt-2 col-span-2"
                   />
                 </FormGroup>
 

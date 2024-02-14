@@ -21,11 +21,6 @@ import moment from "moment";
 import { toast } from "sonner";
 import PageHeader from "@/app/shared/page-header";
 
-const bannerNeedType = [
-  { name: "Yes", value: true },
-  { name: "No", value: false },
-];
-
 const AddPackageDiscount = ({ className }: { className?: string }) => {
   const router = useRouter();
 

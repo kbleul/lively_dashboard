@@ -30,6 +30,8 @@ import EditMoreInfo from "./edit-more-info";
 import { workCustomDays } from "@/constants/form-constants";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
+import { deliverySupportType } from "./add-branch";
+import CustomSelect from "@/components/ui/form/select";
 
 const getSelectedDays = (selectedDaysArr: any[]): boolean[] => {
   const selectedDays = Array(7).fill(false);
@@ -116,6 +118,7 @@ const EditBranchForm = ({
       descriptionAmharic,
       descriptionEnglish,
       general_discount,
+      has_delivery,
       facebook,
       instagram,
       latitude,
@@ -132,6 +135,7 @@ const EditBranchForm = ({
       descriptionAmharic,
       descriptionEnglish,
       general_discount,
+      has_delivery,
       facebook,
       instagram,
       latitude,
@@ -227,6 +231,7 @@ const EditBranchForm = ({
     descriptionAmharic: ManagerData.description.amharic,
     phone: ManagerData.phone.substring(3),
     general_discount: ManagerData.general_discount,
+    has_delivery: ManagerData.has_delivery ? 1 : 0,
     telegram: ManagerData.socials?.telegram
       ? ManagerData.socials?.telegram
       : "",
@@ -311,6 +316,30 @@ const EditBranchForm = ({
                       prefix="+251"
                       name="phone"
                       className="col-span-2"
+                    />
+                  </FormGroup>
+
+                  <FormGroup
+                    title="Delivery Support"
+                    description="Does this branch support delivery ?"
+                    className={cn(className)}
+                  >
+                    <CustomSelect
+                      name="has_delivery"
+                      label="Delivery Supported ?"
+                      options={deliverySupportType}
+                      defaultValue={
+                        ManagerData.has_delivery
+                          ? deliverySupportType[0]
+                          : deliverySupportType[1]
+                      }
+                      getOptionLabel={(option: any) => option.name}
+                      getOptionValue={(option: any) => option.value}
+                      onChange={(selectedOptions: any) => {
+                        setFieldValue("has_delivery", selectedOptions.value);
+                      }}
+                      noOptionsMessage={() => "Delivery Support loading..."}
+                      className="pt-2 col-span-2"
                     />
                   </FormGroup>
 

@@ -19,6 +19,7 @@ import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineStorefront } from "react-icons/md";
 import PageHeader from "@/app/shared/page-header";
 import { BsThreeDots } from "react-icons/bs";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 const pageHeader = {
   title: "Store Owner",
@@ -264,23 +265,16 @@ const BranchCard = ({ data, placeId }: { data: any; placeId: string }) => {
           </div>
         )}
       </section>
-      {/* 
-      <div className="flex justify-end items-center mb-4">
-        <Button
-          color="primary"
-          className="mr-2 min-w-[125px] w-1/5  @xl:w-auto dark:bg-gray-100 dark:text-white dark:active:bg-gray-100 "
-        >
-          <Link
-            href={routes.operationalManager.places["branch-dashboard"](
-              placeId,
-              data.id
-            )}
-            className="flex items-center justify-center gap-2"
-          >
-            Manage
-          </Link>
-        </Button>
-      </div> */}
+
+      <div className="flex justify-start items-center gap-x-2 mb-4 px-4">
+        <CiDeliveryTruck size={24} color="black" />
+        <p className="font-medium">
+          Dilivery Support :{" "}
+          <span className="font-semibold">
+            {data.has_delivery ? "Yes" : "No"}
+          </span>
+        </p>
+      </div>
     </article>
   );
 };

@@ -16,13 +16,14 @@ import Image from "next/image";
 
 import { routes } from "@/config/routes";
 import { BranchDataType } from "@/types/branch";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 const BrancheList = ({ id }: { id: string }) => {
   const [page, setPage] = React.useState(1);
 
   const headers = useGetHeaders({ type: "Json" });
   const mybranchesData = useFetchData(
-    [queryKeys.getMyBranches, id],
+    [queryKeys.getMyBranches, page, id],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branches/${id}`,
     headers
   );
@@ -87,9 +88,7 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
           onMouseOut={() => setShowMenu(false)}
           src={branch.branch_cover.url}
           alt="Center Cover"
-          // height={400}
           priority
-          // width={500}
           fill
           className="object-cover rounded-t-lg group-hover:scale-105 transition-all duration-500 ease-in-out"
         />
@@ -120,7 +119,7 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
         </section>
       </div>
 
-      <div className="p-5 lg:p-7 mb-12">
+      <div className="p-5 lg:p-7">
         <Title as="h5" className="line-clamp-2">
           {branch.name.english}
         </Title>
@@ -128,7 +127,18 @@ const BranchCard = ({ id, branch }: { id: string; branch: BranchDataType }) => {
           {branch.description.english}
         </Text>
       </div>
-      <div className="absolute right-1 bottom-1 flex items-center justify-end gap-2 px-5 lg:px-7 pb-4">
+
+      <div className="flex justify-end items-center gap-x-2 mb-4 px-4">
+        <CiDeliveryTruck size={24} color="black" />
+        <p className="font-medium">
+          Dilivery Support :{" "}
+          <span className="font-semibold">
+            {branch.has_delivery ? "Yes" : "No"}
+          </span>
+        </p>
+      </div>
+
+      <div className="flex items-center justify-start gap-2 px-5 lg:px-7 pb-4">
         <Link href={routes.storeOwner.branch.dashboard(id, branch.id)}>
           <Button
             color="primary"
