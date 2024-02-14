@@ -29,9 +29,11 @@ const bannerNeedType = [
 
 const AddProductDiscount = ({
   className,
+  placeId,
   branchId,
 }: {
   className?: string;
+  placeId: string;
   branchId: string;
 }) => {
   const router = useRouter();
@@ -51,7 +53,10 @@ const AddProductDiscount = ({
     title: "Operations Manager",
     breadcrumb: [
       {
-        href: routes.operationalManager.places["branch-discounts"](branchId),
+        href: routes.operationalManager.places["branch-discounts"](
+          placeId,
+          branchId
+        ),
         name: "Product Discounts",
       },
       {
@@ -95,7 +100,10 @@ const AddProductDiscount = ({
         onSuccess: (res) => {
           toast.success("Discount Saved Successfully");
           router.push(
-            routes.operationalManager.places["branch-discounts"](branchId)
+            routes.operationalManager.places["branch-discounts"](
+              placeId,
+              branchId
+            )
           );
         },
         onError: (err) => {

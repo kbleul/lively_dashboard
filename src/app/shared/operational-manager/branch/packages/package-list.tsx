@@ -9,9 +9,10 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import { routes } from "@/config/routes";
-import PackageListCard from "./package-list-card copy";
-import ReorderPackages from "../reorder-packages-modal";
-import { useModal } from "../../modal-views/use-modal";
+import PackageListCard from "./package-list-card";
+
+import { useModal } from "@/app/shared/modal-views/use-modal";
+import ReorderPackages from "./reorder-packages-modal";
 
 const PackageList = ({
   placeId,
@@ -23,9 +24,10 @@ const PackageList = ({
   const headers = useGetHeaders({ type: "Json" });
   const { openModal } = useModal();
 
+  // const postMutation = useDynamicMutation();
   const packagesData = useFetchData(
     [queryKeys.getAllPackages],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-packages/${branchId}`,
 
     headers
   );
@@ -36,7 +38,12 @@ const PackageList = ({
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
-        <Link href={routes.storeOwner.branch.createPackage(placeId, branchId)}>
+        <Link
+          href={routes.operationalManager.places["create-packages"](
+            placeId,
+            branchId
+          )}
+        >
           <Button size="lg" color="primary">
             Add Packages
           </Button>
@@ -64,7 +71,6 @@ const PackageList = ({
             >
               Reorder Categories
             </button>
-
             {packagesData?.data?.data?.map((item: PackageDataType) => (
               <div key={item.category} className="w-full">
                 <PackageListCard data={item} branchId={branchId} />

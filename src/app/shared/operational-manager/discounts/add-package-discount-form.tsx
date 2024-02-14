@@ -22,16 +22,13 @@ import {
   createPackageDiscountSchema,
 } from "@/validations/discount";
 
-const bannerNeedType = [
-  { name: "Yes", value: true },
-  { name: "No", value: false },
-];
-
 const AddPackageDiscount = ({
   className,
+  placeId,
   branchId,
 }: {
   className?: string;
+  placeId: string;
   branchId: string;
 }) => {
   const router = useRouter();
@@ -49,8 +46,11 @@ const AddPackageDiscount = ({
     title: "Operations Manager",
     breadcrumb: [
       {
-        href: routes.operationalManager.places["branch-discounts"](branchId),
-        name: "Project Discounts",
+        href: routes.operationalManager.places["branch-discounts"](
+          placeId,
+          branchId
+        ),
+        name: "Package Discounts",
       },
       {
         name: "Create",
@@ -91,7 +91,10 @@ const AddPackageDiscount = ({
         onSuccess: (res) => {
           toast.success("Discount Saved Successfully");
           router.push(
-            routes.operationalManager.places["branch-discounts"](branchId)
+            routes.operationalManager.places["branch-discounts"](
+              placeId,
+              branchId
+            )
           );
         },
         onError: (err) => {

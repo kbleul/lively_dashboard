@@ -95,5 +95,13 @@ export type StoreType = {
   place_logo: string;
 };
 
+export const placesEditCoverSchema = Yup.object().shape({
+  logo: Yup.mixed().required("Logo is required"),
+});
+
+export type editPlaceLogoType = {
+  logo: string;
+};
+
 export type PlacesType = Yup.InferType<typeof placesSchema>;
 export type StorePlaceType = Yup.InferType<typeof storeSchema>;

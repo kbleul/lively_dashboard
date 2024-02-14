@@ -45,4 +45,5 @@ export const queryKeys = {
   getAllBanners: "getAllBanners",
   getAllClaimDiscounts: "getAllClaimDiscountsApi",
   getSingleClaimDiscount: "getSingleClaimDiscountsApi",
+  getAllPackageCategories: "getAllPackageCategoriesApi",
 };

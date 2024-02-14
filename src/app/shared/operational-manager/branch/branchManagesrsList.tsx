@@ -29,17 +29,23 @@ const pageHeader = {
   ],
 };
 
-const BranchManagesrsList = ({ branchId }: { branchId: string }) => {
+const BranchManagesrsList = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const headers = useGetHeaders({ type: "Json" });
-
-  const branchManagersData = useFetchData(
-    [queryKeys.getMyBranches],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-managers/${branchId}`,
-    headers
-  );
 
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const branchManagersData = useFetchData(
+    [queryKeys.getMyBranches, pageSize, currentPage],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-managers/${branchId}`,
+    headers
+  );
 
   if (
     branchManagersData?.isFetching ||
@@ -72,6 +78,7 @@ const BranchManagesrsList = ({ branchId }: { branchId: string }) => {
         action={
           <Link
             href={routes.operationalManager.places["create-branch-manager"](
+              placeId,
               branchId
             )}
           >

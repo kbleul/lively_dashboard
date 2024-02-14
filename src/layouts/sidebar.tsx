@@ -2,20 +2,21 @@
 
 import Link from "next/link";
 import {
-  Fragment,
   JSXElementConstructor,
   PromiseLikeOfReactNode,
   ReactElement,
   ReactNode,
   ReactPortal,
-  useEffect,
-  useState,
 } from "react";
 import { usePathname } from "next/navigation";
 import { Title } from "@/components/ui/text";
 import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
-import { PiCaretDownBold } from "react-icons/pi";
+import {
+  PiCaretDownBold,
+  PiFileImageDuotone,
+  PiNotepadDuotone,
+} from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
 import {
   branchManagerMenuItems,
@@ -32,9 +33,12 @@ import { UrlObject } from "url";
 import { toast } from "sonner";
 
 const OPBranchRoutes = [
+  "branch-dashboard",
+  "branch-manager",
   "edit-branch",
-  "places/branch-manager",
   "branch-discounts",
+  "branch-packages",
+  "branch-products",
 ];
 
 export default function Sidebar({ className }: { className?: string }) {
@@ -47,6 +51,14 @@ export default function Sidebar({ className }: { className?: string }) {
       label: "Branch Manager",
     },
     {
+      name: "Dashboard",
+      href: routes.operationalManager.places["branch-dashboard"](
+        pathname.split("/")[3],
+        pathname.split("/")[5]
+      ),
+      icon: <PiFileImageDuotone />,
+    },
+    {
       name: "Branch",
       href: "#",
       icon: <MdOutlineLocalGroceryStore />,
@@ -54,13 +66,8 @@ export default function Sidebar({ className }: { className?: string }) {
         {
           name: "Edit",
           href: routes.operationalManager.places["edit-branch"](
-            pathname.split("/")[4]
-          ),
-        },
-        {
-          name: "Create Discount",
-          href: routes.operationalManager.places["add-branch-discounts"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
       ],
@@ -73,7 +80,15 @@ export default function Sidebar({ className }: { className?: string }) {
         {
           name: "Managers",
           href: routes.operationalManager.places["branch-manager"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Create",
+          href: routes.operationalManager.places["create-branch-manager"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
       ],
@@ -86,7 +101,8 @@ export default function Sidebar({ className }: { className?: string }) {
         {
           name: "List",
           href: routes.operationalManager.places["branch-discounts"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
       ],
@@ -94,18 +110,27 @@ export default function Sidebar({ className }: { className?: string }) {
     {
       name: "Products",
       href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
+      icon: <PiNotepadDuotone />,
       dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-products"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
         {
           name: "Create Discount",
           href: routes.operationalManager.places["add-product-discounts"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
         {
           name: "Claimed Discounts",
           href: routes.operationalManager.places["claimed-product-discounts"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
       ],
@@ -113,18 +138,35 @@ export default function Sidebar({ className }: { className?: string }) {
     {
       name: "Package",
       href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
+      icon: <PiNotepadDuotone />,
       dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-packages"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        ,
+        {
+          name: "Create Package",
+          href: routes.operationalManager.places["create-packages"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
         {
           name: "Create Discount",
           href: routes.operationalManager.places["add-package-discounts"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
         {
           name: "Bookings",
           href: routes.operationalManager.places["package-bookings"](
-            pathname.split("/")[4]
+            pathname.split("/")[3],
+            pathname.split("/")[5]
           ),
         },
       ],

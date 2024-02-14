@@ -21,12 +21,22 @@ const pageHeader = {
   ],
 };
 
-const CreateBranchManagerForm = ({ branchId }: { branchId: string }) => {
+const CreateBranchManagerForm = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   return (
     <article>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
 
-      <AddBranchManger branchId={branchId} />
+      <AddBranchManger
+        placeId={placeId}
+        branchId={branchId}
+        isBranchMangeMode
+      />
     </article>
   );
 };

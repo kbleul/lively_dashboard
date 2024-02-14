@@ -24,7 +24,13 @@ const CategoriesArr = [
   "Expired Packages Discounts",
 ];
 
-const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
+const BranchDiscountsList = ({
+  placeId,
+  branchId,
+}: {
+  placeId: string;
+  branchId: string;
+}) => {
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = React.useState(CategoriesArr[0]);
@@ -35,27 +41,45 @@ const BranchDiscountsList = ({ branchId }: { branchId: string }) => {
   const CategoriesLinks = {
     [CategoriesArr[0]]: {
       queryKey: "discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](branchId),
+      link: routes.operationalManager.places["add-branch-discounts"](
+        placeId,
+        branchId
+      ),
     },
     [CategoriesArr[1]]: {
       queryKey: "expired-discount-place-branch",
-      link: routes.operationalManager.places["add-branch-discounts"](branchId),
+      link: routes.operationalManager.places["add-branch-discounts"](
+        placeId,
+        branchId
+      ),
     },
     [CategoriesArr[2]]: {
       queryKey: "discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](branchId),
+      link: routes.operationalManager.places["add-product-discounts"](
+        placeId,
+        branchId
+      ),
     },
     [CategoriesArr[3]]: {
       queryKey: "expired-discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](branchId),
+      link: routes.operationalManager.places["add-product-discounts"](
+        placeId,
+        branchId
+      ),
     },
     [CategoriesArr[4]]: {
       queryKey: "discount-packages",
-      link: routes.operationalManager.places["add-package-discounts"](branchId),
+      link: routes.operationalManager.places["add-package-discounts"](
+        placeId,
+        branchId
+      ),
     },
     [CategoriesArr[5]]: {
       queryKey: "expired-discount-packages",
-      link: routes.operationalManager.places["add-package-discounts"](branchId),
+      link: routes.operationalManager.places["add-package-discounts"](
+        placeId,
+        branchId
+      ),
     },
   };
 

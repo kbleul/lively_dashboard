@@ -53,38 +53,38 @@ export const getColumns = ({ deleteProduct }: Columns) => [
     ),
   },
 
-  {
-    // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.
-    title: <HeaderCell title="Actions" className="opacity-0" />,
-    dataIndex: "action",
-    key: "action",
-    width: 50,
-    render: (_: string, row: any) => (
-      <div className="flex items-center justify-end gap-3 pe-4">
-        <Tooltip
-          size="sm"
-          content={() => "View"}
-          placement="top"
-          color="invert"
-        >
-          <Link href={`${routes.operationalManager.places.view(row.id)}`}>
-            <ActionIcon
-              tag="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <GrFormView size={25} />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <ReusabelPopover
-          title={`Delete Product`}
-          icon={<FaTimes className="h-4 w-4" />}
-          description={`Are you sure you want to Delete this #${row.id} Product?`}
-          onDelete={() => deleteProduct(row.id)}
-        />
-      </div>
-    ),
-  },
+  // {
+  //   // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.
+  //   title: <HeaderCell title="Actions" className="opacity-0" />,
+  //   dataIndex: "action",
+  //   key: "action",
+  //   width: 50,
+  //   render: (_: string, row: any) => (
+  //     <div className="flex items-center justify-end gap-3 pe-4">
+  //       <Tooltip
+  //         size="sm"
+  //         content={() => "View"}
+  //         placement="top"
+  //         color="invert"
+  //       >
+  //         <Link href={`${routes.operationalManager.places.view(row.id)}`}>
+  //           <ActionIcon
+  //             tag="span"
+  //             size="sm"
+  //             variant="outline"
+  //             className="hover:text-gray-700"
+  //           >
+  //             <GrFormView size={25} />
+  //           </ActionIcon>
+  //         </Link>
+  //       </Tooltip>
+  //       <ReusabelPopover
+  //         title={`Delete Product`}
+  //         icon={<FaTimes className="h-4 w-4" />}
+  //         description={`Are you sure you want to Delete this #${row.id} Product?`}
+  //         onDelete={() => deleteProduct(row.id)}
+  //       />
+  //     </div>
+  //   ),
+  // },
 ];
