@@ -84,6 +84,10 @@ export const routes = {
       ) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed/${discountId}`,
     },
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/op/product-discount/${discountId}`,
+    },
   },
 
   // content cretor routes
@@ -150,6 +154,10 @@ export const routes = {
         `/so/${id}/branch/${branchId}/managers/edit-manager/${managerId}`,
       reviews: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/reviews`,
+    },
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/op/product-discount/${discountId}`,
     },
   },
   branchManger: {

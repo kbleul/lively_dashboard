@@ -34,6 +34,19 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
+    if (
+      req.nextUrl.pathname.startsWith("/op") &&
+      !(
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Operation_Manager") ||
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Admin")
+      )
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
     if (req.nextUrl.pathname.includes("claimed-product")) {
       if (
         req.nextauth.token?.user.roles
@@ -44,11 +57,9 @@ export default withAuth(
           req.nextUrl.pathname.split("/")[
             req.nextUrl.pathname.split("/").length - 1
           ];
+
         return NextResponse.rewrite(
-          new URL(
-            `/op/places/branch-discounts/${descountId}/products/claimed`,
-            req.url
-          )
+          new URL(`/op/product-discount/${descountId}`, req.url)
         );
       }
     }
@@ -69,6 +80,7 @@ export const config = {
   // restricted routes that need authentication
   matcher: [
     "/",
+    "/claimed-product/:path*",
     "/expert/:path*",
     "/op/:path*",
     "/contentc/:path*",
@@ -76,3 +88,34 @@ export const config = {
     "/so/:path*",
   ],
 };
+
+// const descountId =
+// req.nextUrl.pathname.split("/")[
+//   req.nextUrl.pathname.split("/").length - 1
+// ];
+
+// if (
+// req.nextauth.token?.user.roles
+//   ?.map((item) => item.name)
+//   .includes("Operation_Manager")
+// ) {
+// linkRole = "op/product-discount";
+// } else if (
+// req.nextauth.token?.user.roles
+//   ?.map((item) => item.name)
+//   .includes("Store_Owner")
+// ) {
+// linkRole = "so/product-discount";
+// } else if (
+// req.nextauth.token?.user.roles
+//   ?.map((item) => item.name)
+//   .includes("Branch_Manager")
+// ) {
+// linkRole = "bm/product-discount";
+// }
+
+// if (linkRole) {
+// return NextResponse.rewrite(
+//   new URL(`${linkRole}/${descountId}`, req.url)
+// );
+// }
