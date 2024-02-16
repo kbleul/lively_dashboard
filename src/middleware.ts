@@ -47,20 +47,47 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
-    if (req.nextUrl.pathname.includes("claimed-product")) {
+    if (
+      req.nextUrl.pathname.includes("claimed-product") &&
+      !req.nextUrl.pathname.includes("so")
+    ) {
+      const descountId =
+        req.nextUrl.pathname.split("/")[
+          req.nextUrl.pathname.split("/").length - 1
+        ];
+
+      let linkRole = null;
       if (
         req.nextauth.token?.user.roles
           ?.map((item) => item.name)
           .includes("Operation_Manager")
       ) {
-        const descountId =
-          req.nextUrl.pathname.split("/")[
-            req.nextUrl.pathname.split("/").length - 1
-          ];
+        linkRole = "/op";
+      }
 
-        return NextResponse.rewrite(
-          new URL(`/op/product-discount/${descountId}`, req.url)
+      if (
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Store_Owner")
+      ) {
+        linkRole = "/so";
+      }
+
+      if (
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Branch_Manager")
+      ) {
+        linkRole = "/bm";
+      }
+
+      if (linkRole) {
+        const newUrl = new URL(
+          `${linkRole}/product-discount/${descountId}`,
+          req.url
         );
+
+        return NextResponse.rewrite(newUrl);
       }
     }
   },
@@ -88,34 +115,3 @@ export const config = {
     "/so/:path*",
   ],
 };
-
-// const descountId =
-// req.nextUrl.pathname.split("/")[
-//   req.nextUrl.pathname.split("/").length - 1
-// ];
-
-// if (
-// req.nextauth.token?.user.roles
-//   ?.map((item) => item.name)
-//   .includes("Operation_Manager")
-// ) {
-// linkRole = "op/product-discount";
-// } else if (
-// req.nextauth.token?.user.roles
-//   ?.map((item) => item.name)
-//   .includes("Store_Owner")
-// ) {
-// linkRole = "so/product-discount";
-// } else if (
-// req.nextauth.token?.user.roles
-//   ?.map((item) => item.name)
-//   .includes("Branch_Manager")
-// ) {
-// linkRole = "bm/product-discount";
-// }
-
-// if (linkRole) {
-// return NextResponse.rewrite(
-//   new URL(`${linkRole}/${descountId}`, req.url)
-// );
-// }

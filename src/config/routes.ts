@@ -157,7 +157,7 @@ export const routes = {
     },
     product: {
       "claimed-product": (discountId: string) =>
-        `/op/product-discount/${discountId}`,
+        `/so/product-discount/${discountId}`,
     },
   },
   branchManger: {

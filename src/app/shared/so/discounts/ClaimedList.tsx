@@ -7,7 +7,6 @@ import React, { useEffect, useState } from "react";
 
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
-import { useRouter } from "next/navigation";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -25,7 +24,6 @@ const ClaimedList = ({
   const headers = useGetHeaders({ type: "Json" });
   const { openModal } = useModal();
 
-  const router = useRouter();
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
 

@@ -4,9 +4,9 @@ import React from "react";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import Loading from "../../loading";
 import { useRouter } from "next/navigation";
 import { routes } from "@/config/routes";
+import Loading from "@/app/(main)/op/loading";
 
 const Occupation = ({ params }: { params: { discountId: string } }) => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const Occupation = ({ params }: { params: { discountId: string } }) => {
 
   const getDiscountData = useFetchData(
     [queryKeys.getSingleClaimDiscount + discountId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/claimed-product-discount-detail/${discountId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/claimed-product-discount-detail/${discountId}`,
     headers
   );
 
@@ -46,10 +46,7 @@ const Occupation = ({ params }: { params: { discountId: string } }) => {
 
   localStorage.setItem("discountId", discountId);
   return router.push(
-    routes.operationalManager.places["claimed-product-discounts"](
-      placeId,
-      branchId
-    )
+    routes.storeOwner.branch["claimed-product-discounts"](placeId, branchId)
   );
 };
 
