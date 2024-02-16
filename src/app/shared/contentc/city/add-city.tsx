@@ -20,6 +20,7 @@ import { useModal } from "../../modal-views/use-modal";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
+import Loading from "../products/tags/Loading";
 
 export default function AddCityForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -35,6 +36,11 @@ export default function AddCityForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (cityData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: CommonToolsSchemaVlues = {
     nameAm: id ? cityData?.data?.data?.name?.amharic : "",
     nameEn: id ? cityData?.data?.data?.name?.english : "",
@@ -57,6 +63,9 @@ export default function AddCityForm({ id }: { id?: string }) {
           toast.success(
             id ? "City Edited Successfully" : "City Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingleCity, id], null);
+
           closeModal();
         },
         onError: (err) => {

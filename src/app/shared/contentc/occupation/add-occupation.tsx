@@ -20,18 +20,25 @@ import { useModal } from "../../modal-views/use-modal";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
+import Loading from "../products/tags/Loading";
 
 export default function AddOccupationForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const { closeModal } = useModal();
   const headers = useGetHeaders({ type: "Json" });
+
   const ocuppationData = useFetchData(
     [queryKeys.getSingleOccupation, id],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/occupations/${id}`,
     headers,
     !!id
   );
+
+  if (ocuppationData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: CommonToolsSchemaVlues = {
     nameAm: id ? ocuppationData?.data?.data?.name?.amharic : "",
     nameEn: id ? ocuppationData?.data?.data?.name?.english : "",
@@ -61,6 +68,10 @@ export default function AddOccupationForm({ id }: { id?: string }) {
               ? "Occupation Edited Successfully"
               : "Occupation Created Successfully"
           );
+
+          id &&
+            queryClient.setQueryData([queryKeys.getSingleOccupation, id], null);
+
           closeModal();
         },
         onError: (err) => {

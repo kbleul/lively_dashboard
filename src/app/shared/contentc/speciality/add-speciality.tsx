@@ -21,18 +21,25 @@ import { useModal } from "../../modal-views/use-modal";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import Spinner from "@/components/ui/spinner";
+import Loading from "../products/tags/Loading";
 
 export default function AddSpecilaityForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
   const postMutation = useDynamicMutation();
   const { closeModal } = useModal();
   const headers = useGetHeaders({ type: "Json" });
+
   const specialityData = useFetchData(
     [queryKeys.getSigleSpeciality, id],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/specialties/${id}`,
     headers,
     !!id
   );
+
+  if (specialityData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: SpecialitySchemaVlues = {
     nameAm: id ? specialityData?.data?.data?.name?.amharic : "",
     nameEn: id ? specialityData?.data?.data?.name?.english : "",
@@ -67,6 +74,10 @@ export default function AddSpecilaityForm({ id }: { id?: string }) {
               ? "Speciality Edited Successfully"
               : "Speciality Created Successfully"
           );
+
+          id &&
+            queryClient.setQueryData([queryKeys.getSigleSpeciality, id], null);
+
           closeModal();
         },
         onError: (err) => {

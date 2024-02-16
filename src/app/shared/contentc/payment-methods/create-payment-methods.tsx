@@ -20,6 +20,7 @@ import {
 } from "@/validations/language";
 import FilePicker from "@/components/ui/form/dropzone";
 import Image from "next/image";
+import Loading from "../products/tags/Loading";
 
 export default function AddPaymentForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -33,6 +34,11 @@ export default function AddPaymentForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (paymentMethod.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: PaymentMethodType = {
     bankNameEn: id ? paymentMethod?.data?.data?.bank_name?.english : "",
     bankNameAm: id ? paymentMethod?.data?.data?.bank_name?.amharic : "",
@@ -75,6 +81,9 @@ export default function AddPaymentForm({ id }: { id?: string }) {
               ? "Payment Method Edited Successfully"
               : "Payment Method Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingleCity, id], null);
+
           closeModal();
         },
         onError: (err) => {
