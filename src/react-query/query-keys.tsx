@@ -47,4 +47,6 @@ export const queryKeys = {
   getSingleClaimDiscount: "getSingleClaimDiscountsApi",
   getAllPackageCategories: "getAllPackageCategoriesApi",
   getAllBranchDiscounts: "getAllPackageCategoriesApi",
+  getSingleProductDiscount: "getSingleClaimProductsApi",
+  getSinglePackageDiscount: "getSingleClaimPackageApi",
 };

@@ -112,7 +112,7 @@ export const getColumns = (
             <GrFormView size={25} />
           </ActionIcon>
         </Tooltip>
-        {/* <Tooltip
+        <Tooltip
           size="sm"
           content={() => "Edit Discount"}
           placement="top"
@@ -130,12 +130,11 @@ export const getColumns = (
               size="sm"
               variant="outline"
               className="hover:text-gray-700"
-              onClick={() => viewProducts(row)}
             >
               <PencilIcon className="h-4 w-4" />
             </ActionIcon>
           </Link>
-        </Tooltip> */}
+        </Tooltip>
       </div>
     ),
   },

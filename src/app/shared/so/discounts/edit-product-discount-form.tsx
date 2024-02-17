@@ -9,7 +9,6 @@ import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
-import PageHeader from "../../page-header";
 import { routes } from "@/config/routes";
 import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
@@ -20,6 +19,10 @@ import {
 } from "@/validations/discount";
 import moment from "moment";
 import { toast } from "sonner";
+import PageHeader from "../../page-header";
+import { useState } from "react";
+import Spinner from "@/components/ui/spinner";
+import { Title } from "rizzui";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
@@ -30,33 +33,40 @@ const EditProductDiscount = ({
   className,
   placeId,
   branchId,
+  discountId,
 }: {
   className?: string;
   placeId: string;
   branchId: string;
+  discountId: string;
 }) => {
   const router = useRouter();
 
   const headers = useGetHeaders({ type: "Json" });
   const postMutation = useDynamicMutation();
 
-  const productsDiscount = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const discountData = useFetchData(
+    [queryKeys.getSingleProductDiscount + discountId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/show-discount-products/${discountId}`,
     headers
   );
 
   const productsData = useFetchData(
-    [queryKeys.getAllProducts + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}`,
+    [queryKeys.getAllProducts + branchId, searchQuery],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-products/${branchId}?search=${searchQuery}`,
     headers
   );
 
   const pageHeader = {
-    title: "Store Owner",
+    title: "Operations Manager",
     breadcrumb: [
       {
-        href: routes.storeOwner.branch["product-discounts"](placeId, branchId),
+        href: routes.operationalManager.places["branch-discounts"](
+          placeId,
+          branchId
+        ),
         name: "Product Discounts",
       },
       {
@@ -65,21 +75,34 @@ const EditProductDiscount = ({
     ],
   };
 
+  if (discountData.isFetching) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
+
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
+
+  const discount = discountData.data.data;
   const initialValues: CreateProductDiscountType = {
-    place_branch_products: [],
-    titleEnglish: "",
-    descriptionEnglish: "",
-    discount: 0,
-    promo_code: "",
-    tickets: 1,
-    banner: false,
-    start_date: undefined,
-    end_date: undefined,
+    place_branch_products: discount?.products.map(
+      (product: { id: string }) => product.id
+    ),
+    titleEnglish: discount?.title?.english,
+    descriptionEnglish: discount?.description?.english,
+    discount: discount?.discount,
+    promo_code: discount?.promo_code,
+    tickets: discount?.tickets,
+    banner: discount?.need_banner,
+    start_date: discount?.start_date,
+    end_date: discount?.end_date,
   };
 
-  const createOwnerSubmitHandler = async (
-    values: CreateProductDiscountType
-  ) => {
+  const updateSubmitHandler = async (values: CreateProductDiscountType) => {
     const formatedStartDate = moment(values.start_date).format("YYYY-MM-DD");
     const formatedEndDate = moment(values.end_date).format("YYYY-MM-DD");
 
@@ -90,20 +113,22 @@ const EditProductDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/discount-products`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/update-discount-products/${discountId}`,
         method: "POST",
         headers,
         body: {
           ...newValues,
           need_banner: values.banner,
+          _method: "patch",
         },
         onSuccess: (res) => {
-          toast.success("Discount Saved Successfully");
+          toast.success("Discount Updated Successfully");
           router.push(
             routes.storeOwner.branch["product-discounts"](placeId, branchId)
           );
         },
         onError: (err) => {
+          console.log(err);
           toast.error(err?.response?.data?.data);
         },
       });
@@ -121,7 +146,7 @@ const EditProductDiscount = ({
           initialValues={initialValues}
           validationSchema={createProductDiscountSchema}
           onSubmit={(values: CreateProductDiscountType) => {
-            createOwnerSubmitHandler(values);
+            updateSubmitHandler(values);
           }}
         >
           {({ setFieldValue }) => {
@@ -180,14 +205,18 @@ const EditProductDiscount = ({
                       name="banner"
                       label="Add banner ?"
                       options={bannerNeedType}
-                      defaultValue={bannerNeedType[0].value}
+                      defaultValue={
+                        discount?.need_banner
+                          ? bannerNeedType[0]
+                          : bannerNeedType[1]
+                      }
                       placeholder="Do you need banner"
                       getOptionLabel={(option: any) => option.name}
                       getOptionValue={(option: any) => option.value}
                       onChange={(selectedOptions: any) => {
                         setFieldValue("banner", selectedOptions.value);
                       }}
-                      noOptionsMessage={() => "Banner options here"}
+                      noOptionsMessage={() => "Loading Banner options "}
                       className="pt-2"
                     />
                   </FormGroup>
@@ -218,6 +247,7 @@ const EditProductDiscount = ({
                       name="place_branch_products"
                       label="Products"
                       options={productsData?.data?.data?.data}
+                      defaultValue={discount?.products}
                       placeholder="Select products"
                       getOptionLabel={(option: any) =>
                         `${option?.product_variant?.product?.title?.english} ${
@@ -241,11 +271,16 @@ const EditProductDiscount = ({
                         );
                         setFieldValue("place_branch_products", selectedIds);
                       }}
-                      noOptionsMessage={() => "Banner options here"}
+                      noOptionsMessage={() => "Products options here"}
                       isMulti
                       isSearchable
+                      setSearchQuery={setSearchQuery}
                       className="pt-2 col-span-2"
                     />
+                    {!productsData.isLoading &&
+                      productsData?.data?.data?.data.length === 0 && (
+                        <p>No products found for this branch</p>
+                      )}
                   </FormGroup>
                 </div>
                 <FormFooter

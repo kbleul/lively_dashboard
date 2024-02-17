@@ -1,11 +1,7 @@
 "use client";
 import { HeaderCell } from "@/components/ui/table";
-import { Title, Text } from "@/components/ui/text";
-import { Tooltip } from "@/components/ui/tooltip";
-import { ActionIcon } from "@/components/ui/action-icon";
-import PencilIcon from "@/components/icons/pencil";
-import { Avatar } from "@/components/ui/avatar";
-import DeletePopover from "@/components/delete-popover";
+import { Text } from "@/components/ui/text";
+
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge";
 import ReusabelPopover from "@/components/reusabel-popover";

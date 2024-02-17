@@ -21,13 +21,15 @@ import moment from "moment";
 import { toast } from "sonner";
 import PageHeader from "../../page-header";
 import { useState } from "react";
+import Spinner from "@/components/ui/spinner";
+import { Title } from "rizzui";
 
 const bannerNeedType = [
   { name: "Yes", value: true },
   { name: "No", value: false },
 ];
 
-const EdidProductDiscount = ({
+const EditProductDiscount = ({
   className,
   placeId,
   branchId,
@@ -44,6 +46,12 @@ const EdidProductDiscount = ({
   const postMutation = useDynamicMutation();
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const discountData = useFetchData(
+    [queryKeys.getSingleProductDiscount + discountId],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/show-discount-products/${discountId}`,
+    headers
+  );
 
   const productsData = useFetchData(
     [queryKeys.getAllProducts + branchId, searchQuery],
@@ -67,21 +75,34 @@ const EdidProductDiscount = ({
     ],
   };
 
+  if (discountData.isFetching) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
+
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
+
+  const discount = discountData.data.data;
   const initialValues: CreateProductDiscountType = {
-    place_branch_products: [],
-    titleEnglish: "",
-    descriptionEnglish: "",
-    discount: 10,
-    promo_code: "",
-    tickets: 1,
-    banner: true,
-    start_date: undefined,
-    end_date: undefined,
+    place_branch_products: discount?.products.map(
+      (product: { id: string }) => product.id
+    ),
+    titleEnglish: discount?.title?.english,
+    descriptionEnglish: discount?.description?.english,
+    discount: discount?.discount,
+    promo_code: discount?.promo_code,
+    tickets: discount?.tickets,
+    banner: discount?.need_banner,
+    start_date: discount?.start_date,
+    end_date: discount?.end_date,
   };
 
-  const createOwnerSubmitHandler = async (
-    values: CreateProductDiscountType
-  ) => {
+  const updateSubmitHandler = async (values: CreateProductDiscountType) => {
     const formatedStartDate = moment(values.start_date).format("YYYY-MM-DD");
     const formatedEndDate = moment(values.end_date).format("YYYY-MM-DD");
 
@@ -92,23 +113,25 @@ const EdidProductDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/discount-products`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/update-discount-products/${discountId}`,
         method: "POST",
         headers,
         body: {
           ...newValues,
           need_banner: values.banner,
+          _method: "patch",
         },
         onSuccess: (res) => {
-          toast.success("Discount Saved Successfully");
+          toast.success("Discount Updated Successfully");
           router.push(
-            routes.operationalManager.places["branch-discounts"](
+            routes.operationalManager.places["product-discounts"](
               placeId,
               branchId
             )
           );
         },
         onError: (err) => {
+          console.log(err);
           toast.error(err?.response?.data?.data);
         },
       });
@@ -126,10 +149,10 @@ const EdidProductDiscount = ({
           initialValues={initialValues}
           validationSchema={createProductDiscountSchema}
           onSubmit={(values: CreateProductDiscountType) => {
-            createOwnerSubmitHandler(values);
+            updateSubmitHandler(values);
           }}
         >
-          {({ values, setFieldValue, errors }) => {
+          {({ setFieldValue }) => {
             return (
               <Form className={"[&_label.block>span]:font-medium "}>
                 <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -185,14 +208,18 @@ const EdidProductDiscount = ({
                       name="banner"
                       label="Add banner ?"
                       options={bannerNeedType}
-                      defaultValue={bannerNeedType[0]}
+                      defaultValue={
+                        discount?.need_banner
+                          ? bannerNeedType[0]
+                          : bannerNeedType[1]
+                      }
                       placeholder="Do you need banner"
                       getOptionLabel={(option: any) => option.name}
                       getOptionValue={(option: any) => option.value}
                       onChange={(selectedOptions: any) => {
                         setFieldValue("banner", selectedOptions.value);
                       }}
-                      noOptionsMessage={() => "Banner options here"}
+                      noOptionsMessage={() => "Loading Banner options "}
                       className="pt-2"
                     />
                   </FormGroup>
@@ -223,6 +250,7 @@ const EdidProductDiscount = ({
                       name="place_branch_products"
                       label="Products"
                       options={productsData?.data?.data?.data}
+                      defaultValue={discount?.products}
                       placeholder="Select products"
                       getOptionLabel={(option: any) =>
                         `${option?.product_variant?.product?.title?.english} ${
@@ -272,4 +300,4 @@ const EdidProductDiscount = ({
   );
 };
 
-export default EdidProductDiscount;
+export default EditProductDiscount;
