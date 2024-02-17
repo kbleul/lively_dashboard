@@ -16,6 +16,7 @@ import Spinner from "@/components/ui/spinner";
 import { LanguageType, languageSchema } from "@/validations/language";
 import { Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
+import Loading from "../products/tags/Loading";
 
 export default function AddLanguageForm({ id }: { id?: string }) {
   const queryClient = useQueryClient();
@@ -29,6 +30,11 @@ export default function AddLanguageForm({ id }: { id?: string }) {
     headers,
     !!id
   );
+
+  if (languageData.isFetching) {
+    return <Loading id={id} />;
+  }
+
   const initialValues: LanguageType = {
     name: id ? languageData?.data?.data?.name : "",
   };
@@ -51,6 +57,9 @@ export default function AddLanguageForm({ id }: { id?: string }) {
           toast.success(
             id ? "Lnguage Edited Successfully" : "Lnguage Created Successfully"
           );
+
+          id && queryClient.setQueryData([queryKeys.getSingleCity, id], null);
+
           closeModal();
         },
         onError: (err) => {

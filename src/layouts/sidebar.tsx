@@ -64,8 +64,15 @@ export default function Sidebar({ className }: { className?: string }) {
       icon: <MdOutlineLocalGroceryStore />,
       dropdownItems: [
         {
-          name: "Edit",
+          name: "Edit Branch",
           href: routes.operationalManager.places["edit-branch"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.operationalManager.places["branch-discounts"](
             pathname.split("/")[3],
             pathname.split("/")[5]
           ),
@@ -94,20 +101,6 @@ export default function Sidebar({ className }: { className?: string }) {
       ],
     },
     {
-      name: "Discounts",
-      href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
-      dropdownItems: [
-        {
-          name: "List",
-          href: routes.operationalManager.places["branch-discounts"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-      ],
-    },
-    {
       name: "Products",
       href: "#",
       icon: <PiNotepadDuotone />,
@@ -120,8 +113,8 @@ export default function Sidebar({ className }: { className?: string }) {
           ),
         },
         {
-          name: "Create Discount",
-          href: routes.operationalManager.places["add-product-discounts"](
+          name: "Discounts",
+          href: routes.operationalManager.places["product-discounts"](
             pathname.split("/")[3],
             pathname.split("/")[5]
           ),
@@ -147,17 +140,9 @@ export default function Sidebar({ className }: { className?: string }) {
             pathname.split("/")[5]
           ),
         },
-        ,
         {
-          name: "Create Package",
-          href: routes.operationalManager.places["create-packages"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Create Discount",
-          href: routes.operationalManager.places["add-package-discounts"](
+          name: "Discounts",
+          href: routes.operationalManager.places["package-discounts"](
             pathname.split("/")[3],
             pathname.split("/")[5]
           ),

@@ -9,7 +9,9 @@ import React from "react";
 const Home = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
+
   if (status === "loading") return <PageLoader />;
+
   if (
     session?.user?.user?.roles
       ?.map((item: { name: string }) => item.name)

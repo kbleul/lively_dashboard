@@ -34,22 +34,60 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
-    if (req.nextUrl.pathname.includes("claimed-product")) {
+    if (
+      req.nextUrl.pathname.startsWith("/op") &&
+      !(
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Operation_Manager") ||
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Admin")
+      )
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
+    if (
+      req.nextUrl.pathname.includes("claimed-product") &&
+      !req.nextUrl.pathname.includes("so")
+    ) {
+      const descountId =
+        req.nextUrl.pathname.split("/")[
+          req.nextUrl.pathname.split("/").length - 1
+        ];
+
+      let linkRole = null;
       if (
         req.nextauth.token?.user.roles
           ?.map((item) => item.name)
           .includes("Operation_Manager")
       ) {
-        const descountId =
-          req.nextUrl.pathname.split("/")[
-            req.nextUrl.pathname.split("/").length - 1
-          ];
-        return NextResponse.rewrite(
-          new URL(
-            `/op/places/branch-discounts/${descountId}/products/claimed`,
-            req.url
-          )
+        linkRole = "/op";
+      }
+
+      if (
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Store_Owner")
+      ) {
+        linkRole = "/so";
+      }
+
+      if (
+        req.nextauth.token?.user.roles
+          ?.map((item) => item.name)
+          .includes("Branch_Manager")
+      ) {
+        linkRole = "/bm";
+      }
+
+      if (linkRole) {
+        const newUrl = new URL(
+          `${linkRole}/product-discount/${descountId}`,
+          req.url
         );
+
+        return NextResponse.rewrite(newUrl);
       }
     }
   },
@@ -69,6 +107,7 @@ export const config = {
   // restricted routes that need authentication
   matcher: [
     "/",
+    "/claimed-product/:path*",
     "/expert/:path*",
     "/op/:path*",
     "/contentc/:path*",

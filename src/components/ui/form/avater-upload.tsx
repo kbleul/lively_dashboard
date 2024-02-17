@@ -60,7 +60,6 @@ const AvaterPicker: React.FC<AvaterPickerProps> = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files);
     const file = event.target.files && event.target.files[0];
     if (file) {
       isMultiple

@@ -50,11 +50,19 @@ export const routes = {
         `/op/places/${placeId}/branch/${branchId}/branch-discounts`,
       "add-branch-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/create`,
+      "edit-branch-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/edit/${discountId}`,
 
       "list-packages": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-packages`,
       "create-packages": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-packages/create`,
+      "package-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages`,
       "add-package-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/create`,
       "package-bookings": (placeId: string, branchId: string) =>
@@ -62,8 +70,16 @@ export const routes = {
 
       "list-products": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-products`,
+      "product-discounts": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products`,
       "add-product-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/create`,
+      "edit-product-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/edit/${discountId}`,
 
       "claimed-product-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed`,
@@ -73,6 +89,10 @@ export const routes = {
         discountId: string
       ) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed/${discountId}`,
+    },
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/op/product-discount/${discountId}`,
     },
   },
 
@@ -125,6 +145,12 @@ export const routes = {
         `/so/${id}/branch/${branchId}/products/product-discounts`,
       "add-product-discount": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products/product-discounts/create`,
+      "edit-product-discount": (
+        id: string,
+        branchId: string,
+        dicountId: string
+      ) =>
+        `/so/${id}/branch/${branchId}/products/product-discounts/edit/${dicountId}`,
       "claimed-product-discounts": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products/claimed-product-discounts`,
 
@@ -132,6 +158,12 @@ export const routes = {
         `/so/${id}/branch/${branchId}/packages/package-discounts`,
       "add-package-discount": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/packages/package-discounts/create`,
+      "edit-package-discount": (
+        id: string,
+        branchId: string,
+        dicountId: string
+      ) =>
+        `/so/${id}/branch/${branchId}/packages/package-discounts/edit/${dicountId}`,
       managers: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/managers`,
       "add-manager": (id: string, branchId: string) =>
@@ -140,6 +172,10 @@ export const routes = {
         `/so/${id}/branch/${branchId}/managers/edit-manager/${managerId}`,
       reviews: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/reviews`,
+    },
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/so/product-discount/${discountId}`,
     },
   },
   branchManger: {

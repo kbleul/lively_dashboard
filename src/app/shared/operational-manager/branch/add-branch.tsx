@@ -9,6 +9,7 @@ import FormikInput from "@/components/ui/form/input";
 import cn from "@/utils/class-names";
 
 import useDynamicMutation from "@/react-query/usePostData";
+import CustomSelect from "@/components/ui/form/select";
 
 import FormikTextArea from "@/components/ui/form/formik-textarea";
 import { branchInfoSchema, branchInfoType } from "@/validations/branches";
@@ -17,6 +18,11 @@ import AvaterPicker from "@/components/ui/form/avater-upload";
 import LocationForm from "./LocationForm";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { toast } from "sonner";
+
+export const deliverySupportType = [
+  { name: "Yes", value: 1 },
+  { name: "No", value: 0 },
+];
 
 const AddBranchInfo = ({
   className,
@@ -38,6 +44,7 @@ const AddBranchInfo = ({
     descriptionEnglish: "",
     descriptionAmharic: "",
     phone: "",
+    has_delivery: 1,
     telegram: "",
     facebook: "",
     whatsapp: "",
@@ -91,7 +98,7 @@ const AddBranchInfo = ({
           branchInfoSubmitHandler(values);
         }}
       >
-        {({ errors, values, setFieldValue }) => {
+        {({ setFieldValue }) => {
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -185,6 +192,26 @@ const AddBranchInfo = ({
                     label="Branch Cover"
                     isMultiple={true}
                     className="col-span-2"
+                  />
+                </FormGroup>
+
+                <FormGroup
+                  title="Delivery Support"
+                  description="Does this branch support delivery ?"
+                  className={cn(className)}
+                >
+                  <CustomSelect
+                    name="has_delivery"
+                    label="Delivery Supported ?"
+                    options={deliverySupportType}
+                    defaultValue={deliverySupportType[0]}
+                    getOptionLabel={(option: any) => option.name}
+                    getOptionValue={(option: any) => option.value}
+                    onChange={(selectedOptions: any) => {
+                      setFieldValue("has_delivery", selectedOptions.value);
+                    }}
+                    noOptionsMessage={() => "Delivery Support loading..."}
+                    className="pt-2 col-span-2"
                   />
                 </FormGroup>
 

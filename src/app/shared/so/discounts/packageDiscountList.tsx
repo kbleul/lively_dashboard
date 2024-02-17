@@ -10,6 +10,11 @@ import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./discount-columns-packages";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import ShowPackagesModal from "../../operational-manager/discounts/ShowPackagesModal";
+import { useModal } from "../../modal-views/use-modal";
+import useDynamicMutation from "@/react-query/usePostData";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const CategoriesArr = ["Active", "Expired"];
 
@@ -20,13 +25,17 @@ const PackageDiscountList = ({
   placeId: string;
   branchId: string;
 }) => {
+  const { openModal } = useModal();
+  const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // const postMutation = useDynamicMutation();
+
   const packagesDiscountData = useFetchData(
     [queryKeys.getAllPackages, pageSize, currentPage, categoryLink],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/${
@@ -36,6 +45,35 @@ const PackageDiscountList = ({
     }/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
+
+  const viewPackages = (discount: any) => {
+    openModal({
+      view: <ShowPackagesModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
+
+  const updateHiddenStatus = async (sicountId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/publish-discount/${sicountId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllPackages],
+          });
+          toast.success("Package hiddent status updated Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <WidgetCard
@@ -70,7 +108,13 @@ const PackageDiscountList = ({
           data={packagesDiscountData?.data?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
-          columns={getColumns()}
+          columns={getColumns(
+            viewPackages,
+            placeId,
+            branchId,
+            updateHiddenStatus,
+            postMutation.isPending
+          )}
           paginatorOptions={{
             pageSize,
             setPageSize,

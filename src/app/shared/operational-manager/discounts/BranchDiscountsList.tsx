@@ -9,20 +9,12 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns as getColumnsProducts } from "./discount-columns_products";
 import { getColumns as getColumnsPackages } from "./discount-columns_packages";
 
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 
-const CategoriesArr = [
-  "Branch Discounts",
-  "Expired Branch Discounts",
-  "Products Discounts",
-  "Expired Products Discounts",
-  "Packages Discounts",
-  "Expired Packages Discounts",
-];
+const CategoriesArr = ["Branch Discounts", "Expired Branch Discounts"];
 
 const BranchDiscountsList = ({
   placeId,
@@ -53,38 +45,10 @@ const BranchDiscountsList = ({
         branchId
       ),
     },
-    [CategoriesArr[2]]: {
-      queryKey: "discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](
-        placeId,
-        branchId
-      ),
-    },
-    [CategoriesArr[3]]: {
-      queryKey: "expired-discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](
-        placeId,
-        branchId
-      ),
-    },
-    [CategoriesArr[4]]: {
-      queryKey: "discount-packages",
-      link: routes.operationalManager.places["add-package-discounts"](
-        placeId,
-        branchId
-      ),
-    },
-    [CategoriesArr[5]]: {
-      queryKey: "expired-discount-packages",
-      link: routes.operationalManager.places["add-package-discounts"](
-        placeId,
-        branchId
-      ),
-    },
   };
 
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllPackages, categoryLink, currentPage, pageSize],
+    [queryKeys.getAllBranchDiscounts, categoryLink, currentPage, pageSize],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
@@ -122,11 +86,7 @@ const BranchDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={
-              categoryLink === "Products Discounts"
-                ? getColumnsProducts()
-                : getColumnsPackages()
-            }
+            columns={getColumnsPackages()}
             paginatorOptions={{
               pageSize,
               setPageSize,

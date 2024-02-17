@@ -84,6 +84,7 @@ const AddProductForm = ({
               <SearchWidget
                 setSelectedProduct={setSelectedProduct}
                 placeId={placeId}
+                branchId={branchId}
               />
               <ErrorMessage
                 name={"product_variant_id"}

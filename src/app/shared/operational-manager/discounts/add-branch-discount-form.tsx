@@ -44,7 +44,7 @@ const AddBranchDiscount = ({
         name: "Branch Discounts",
       },
       {
-        name: "Create",
+        name: "Edit",
       },
     ],
   };

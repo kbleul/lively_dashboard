@@ -21,11 +21,6 @@ import moment from "moment";
 import { toast } from "sonner";
 import PageHeader from "@/app/shared/page-header";
 
-const bannerNeedType = [
-  { name: "Yes", value: true },
-  { name: "No", value: false },
-];
-
 const AddPackageDiscount = ({
   className,
   placeId,
@@ -214,7 +209,7 @@ const AddPackageDiscount = ({
                         );
                         setFieldValue("place_branch_packages", selectedIds);
                       }}
-                      noOptionsMessage={() => "Packages are not available"}
+                      noOptionsMessage={() => "Loading Packages"}
                       isMulti
                       isSearchable
                       className="pt-2 col-span-2"

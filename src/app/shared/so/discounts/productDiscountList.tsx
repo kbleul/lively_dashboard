@@ -10,6 +10,11 @@ import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./discount-columns-products";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import { useModal } from "../../modal-views/use-modal";
+import ShowProductsModal from "./ShowProductsModal";
+import useDynamicMutation from "@/react-query/usePostData";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const CategoriesArr = ["Active", "Expired"];
 
@@ -20,6 +25,10 @@ const ProductDiscountList = ({
   placeId: string;
   branchId: string;
 }) => {
+  const { openModal } = useModal();
+  const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
@@ -28,7 +37,7 @@ const ProductDiscountList = ({
   const [pageSize, setPageSize] = useState(10);
   // const postMutation = useDynamicMutation();
   const productsDiscountData = useFetchData(
-    [queryKeys.getAllPackages, pageSize, currentPage, categoryLink],
+    [queryKeys.getAllProducts, pageSize, currentPage, categoryLink],
     `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/${
       categoryLink === CategoriesArr[1]
         ? "expired-discount-products"
@@ -37,6 +46,35 @@ const ProductDiscountList = ({
 
     headers
   );
+
+  const viewProducts = (discount: any) => {
+    openModal({
+      view: <ShowProductsModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
+
+  const updateHiddenStatus = async (sicountId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/publish-discount/${sicountId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllPackages],
+          });
+          toast.success("Product hiddent status updated Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <WidgetCard
@@ -71,7 +109,13 @@ const ProductDiscountList = ({
           data={productsDiscountData?.data?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
-          columns={getColumns()}
+          columns={getColumns(
+            viewProducts,
+            placeId,
+            branchId,
+            updateHiddenStatus,
+            postMutation.isPending
+          )}
           paginatorOptions={{
             pageSize,
             setPageSize,

@@ -28,7 +28,7 @@ export const metaObject = (
     openGraph: openGraph ?? {
       title: title ? `${title} - Lively` : title,
       description,
-      url: "https://livelyexper.azurewebsites.net",
+      url: "https://dashboard.lively-et.com/",
       siteName: "Lively - Expert Dashboard", // https://developers.google.com/search/docs/appearance/site-names
       images: {
         url: "https://lively-landing-o64h8i5v7-unravel.vercel.app/thumbnail.png",

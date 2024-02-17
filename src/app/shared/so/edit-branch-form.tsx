@@ -32,6 +32,8 @@ import LocationForm from "./LocationForm";
 import { useQueryClient } from "@tanstack/react-query";
 import AvaterPicker from "@/components/ui/form/avater-upload";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import CustomSelect from "@/components/ui/form/select";
+import { deliverySupportType } from "../operational-manager/branch/add-branch";
 
 const BranchFormStepLink = ["places", "incomplete-places"];
 const BranchFormStepLabels = ["Branch Detail", "More Info."];
@@ -117,6 +119,7 @@ const EditBranchForm = ({
       descriptionAmharic,
       descriptionEnglish,
       general_discount,
+      has_delivery,
       facebook,
       instagram,
       latitude,
@@ -133,6 +136,7 @@ const EditBranchForm = ({
       descriptionAmharic,
       descriptionEnglish,
       general_discount,
+      has_delivery,
       facebook,
       instagram,
       latitude,
@@ -232,6 +236,7 @@ const EditBranchForm = ({
     descriptionAmharic: ManagerData.description.amharic,
     phone: ManagerData.phone.substring(3),
     general_discount: ManagerData.general_discount,
+    has_delivery: ManagerData.has_delivery ? 1 : 0,
     telegram: ManagerData.socials?.telegram
       ? ManagerData.socials?.telegram
       : "",
@@ -269,7 +274,7 @@ const EditBranchForm = ({
           branchInfoSubmitHandler(values);
         }}
       >
-        {({ values }) => {
+        {({ values, setFieldValue }) => {
           return (
             <Form className={"[&_label.block>span]:font-medium "}>
               <article className="relative mb-8">
@@ -399,6 +404,30 @@ const EditBranchForm = ({
                         suffix="%"
                         type="number"
                         color="primary"
+                      />
+                    </FormGroup>
+
+                    <FormGroup
+                      title="Delivery Support"
+                      description="Does this branch support delivery ?"
+                      className={cn(className)}
+                    >
+                      <CustomSelect
+                        name="has_delivery"
+                        label="Delivery Supported ?"
+                        options={deliverySupportType}
+                        defaultValue={
+                          ManagerData.has_delivery
+                            ? deliverySupportType[0]
+                            : deliverySupportType[1]
+                        }
+                        getOptionLabel={(option: any) => option.name}
+                        getOptionValue={(option: any) => option.value}
+                        onChange={(selectedOptions: any) => {
+                          setFieldValue("has_delivery", selectedOptions.value);
+                        }}
+                        noOptionsMessage={() => "Delivery Support loading..."}
+                        className="pt-2 col-span-2"
                       />
                     </FormGroup>
 

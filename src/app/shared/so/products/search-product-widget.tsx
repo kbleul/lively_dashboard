@@ -27,12 +27,14 @@ function SearchBox({
   onClose,
   setSelectedProduct,
   placeId,
+  branchId,
 }: {
   onClose: () => void;
   setSelectedProduct: React.Dispatch<
     React.SetStateAction<SearchProductData | null>
   >;
   placeId: string;
+  branchId: string;
 }) {
   const { setFieldValue } = useFormikContext();
   const headers = useGetHeaders({ type: "Json" });
@@ -40,7 +42,7 @@ function SearchBox({
   const [searchText, setSearchText] = useState("");
   const productsData = useFetchData(
     [queryKeys.getAllBranchProducts + "store", searchText],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products/${placeId}?search=${searchText}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/all-products/${placeId}/${branchId}?search=${searchText}`,
     headers
   );
 
@@ -160,6 +162,7 @@ export default function SearchWidget({
   icon,
   setSelectedProduct,
   placeId,
+  branchId,
 }: {
   className?: string;
   icon?: React.ReactNode;
@@ -167,6 +170,7 @@ export default function SearchWidget({
     React.SetStateAction<SearchProductData | null>
   >;
   placeId: string;
+  branchId: string;
 }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -216,6 +220,7 @@ export default function SearchWidget({
           onClose={() => setOpen(false)}
           setSelectedProduct={setSelectedProduct}
           placeId={placeId}
+          branchId={branchId}
         />
       </Modal>
     </>

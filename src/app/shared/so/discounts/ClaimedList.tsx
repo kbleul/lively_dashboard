@@ -3,11 +3,10 @@
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import WidgetCard from "@/components/cards/widget-card";
 import ControlledTable from "@/components/controlled-table";
-import { useRouter } from "next/navigation";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -25,7 +24,6 @@ const ClaimedList = ({
   const headers = useGetHeaders({ type: "Json" });
   const { openModal } = useModal();
 
-  const router = useRouter();
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
 
@@ -44,6 +42,17 @@ const ClaimedList = ({
       customSize: "550px",
     });
   };
+
+  useEffect(() => {
+    const savedDiscountId = localStorage.getItem("discountId");
+    setTimeout(() => {
+      if (savedDiscountId) {
+        handleView(savedDiscountId);
+
+        setTimeout(() => localStorage.removeItem("discountId"), 3000);
+      }
+    }, 6000);
+  }, []);
 
   const applyClaim = async (id: string) => {
     try {
