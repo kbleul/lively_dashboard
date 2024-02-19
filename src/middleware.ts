@@ -47,13 +47,14 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/access-denied", req.url));
     }
-    if (req.nextUrl.pathname.includes("claimed-product")) {
+    if (
+      req.nextUrl.pathname.includes("claimed-product") &&
+      !req.nextUrl.pathname.includes("/so")
+    ) {
       const descountId =
         req.nextUrl.pathname.split("/")[
           req.nextUrl.pathname.split("/").length - 1
         ];
-
-      console.log("=====>", descountId);
 
       let linkRole = null;
       if (
