@@ -36,6 +36,18 @@ const Occupation = ({ params }: { params: { discountId: string } }) => {
     return <Loading />;
   }
 
+  if (!getDiscountData.data.data.claimable) {
+    return (
+      <div className="w-full h-[100vh] flex flex-col text-center justify-center items-center">
+        <p>Unable to find the product claim id!</p>
+        <p>
+          You can maually navigate to the product claims section to approve the
+          claim
+        </p>
+      </div>
+    );
+  }
+
   const placeId =
     getDiscountData.data.data.claimable.place_branch_product.place_branch
       ?.place_id;

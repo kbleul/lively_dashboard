@@ -43,7 +43,7 @@ const ClaimedList = () => {
       if (savedDiscountId) {
         handleView(savedDiscountId);
 
-        setTimeout(() => localStorage.removeItem("discountId"), 3000);
+        setTimeout(() => localStorage.removeItem("discountId"), 1500);
       }
     }, 6000);
   }, []);

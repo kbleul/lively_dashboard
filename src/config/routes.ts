@@ -193,5 +193,9 @@ export const routes = {
 
     claimedDiscount: "/bm/products/claimed-discount",
     reviews: "/bm/reviews",
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/bm/product-discount/${discountId}`,
+    },
   },
 };
