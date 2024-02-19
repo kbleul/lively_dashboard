@@ -1,7 +1,10 @@
 "use client";
 
+import PencilIcon from "@/components/icons/pencil";
 import { HeaderCell } from "@/components/ui/table";
 import { Text } from "@/components/ui/text";
+import { routes } from "@/config/routes";
+import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
 
 import { IoCheckmarkOutline } from "react-icons/io5";
@@ -105,6 +108,27 @@ export const getColumns = (viewProducts: (discount: any) => void) => [
           >
             <GrFormView size={25} />
           </ActionIcon>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Edit Discount"}
+          placement="top"
+          color="invert"
+        >
+          <Link
+            href={routes.branchManger.editProductDiscount[
+              "edit-product-discount"
+            ](row.id)}
+          >
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <PencilIcon className="h-4 w-4" />
+            </ActionIcon>
+          </Link>
         </Tooltip>
       </div>
     ),

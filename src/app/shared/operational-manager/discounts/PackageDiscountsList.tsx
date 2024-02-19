@@ -97,7 +97,7 @@ const PackageDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsPackages(viewPackages)}
+            columns={getColumnsPackages(viewPackages, placeId, branchId)}
             paginatorOptions={{
               pageSize,
               setPageSize,

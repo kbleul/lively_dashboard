@@ -109,7 +109,7 @@ export const getColumns = (
             </ActionIcon>
           </Link>
         </Tooltip>
-        {/* <Tooltip
+        <Tooltip
           size="sm"
           content={() => "Change hidden Status"}
           placement="top"
@@ -134,7 +134,7 @@ export const getColumns = (
               </>
             )}
           </ActionIcon>
-        </Tooltip> */}
+        </Tooltip>
       </div>
     ),
   },

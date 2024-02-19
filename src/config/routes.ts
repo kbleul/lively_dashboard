@@ -65,6 +65,12 @@ export const routes = {
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages`,
       "add-package-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/create`,
+      "edit-package-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/edit/${discountId}`,
       "package-bookings": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/bookings`,
 
@@ -190,6 +196,10 @@ export const routes = {
 
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
+    editProductDiscount: {
+      "edit-product-discount": (discountId: string) =>
+        `/bm/products/discount/edit/${discountId}`,
+    },
 
     claimedDiscount: "/bm/products/claimed-discount",
     reviews: "/bm/reviews",

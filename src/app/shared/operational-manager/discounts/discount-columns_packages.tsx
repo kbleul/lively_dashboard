@@ -1,11 +1,18 @@
 "use client";
 
+import PencilIcon from "@/components/icons/pencil";
 import { HeaderCell } from "@/components/ui/table";
 import { Text } from "@/components/ui/text";
+import { routes } from "@/config/routes";
+import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
 import { ActionIcon, Tooltip } from "rizzui";
 
-export const getColumns = (viewPackages: (discount: any) => void) => [
+export const getColumns = (
+  viewPackages: (discount: any) => void,
+  placeId: string,
+  branchId: string
+) => [
   {
     title: <HeaderCell title="Title English" />,
     dataIndex: "title",
@@ -73,6 +80,29 @@ export const getColumns = (viewPackages: (discount: any) => void) => [
           >
             <GrFormView size={25} />
           </ActionIcon>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Edit Discount"}
+          placement="top"
+          color="invert"
+        >
+          <Link
+            href={routes.operationalManager.places["edit-package-discounts"](
+              placeId,
+              branchId,
+              row.id
+            )}
+          >
+            <ActionIcon
+              tag="span"
+              size="sm"
+              variant="outline"
+              className="hover:text-gray-700"
+            >
+              <PencilIcon className="h-4 w-4" />
+            </ActionIcon>
+          </Link>
         </Tooltip>
       </div>
     ),
