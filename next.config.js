@@ -34,6 +34,10 @@ const nextConfig = {
         hostname: "livelyexpertdev.azurewebsites.net",
         protocol: "https",
       },
+      {
+        hostname: "dashboard.lively-et.com",
+        protocol: "https",
+      },
 
 
     ],

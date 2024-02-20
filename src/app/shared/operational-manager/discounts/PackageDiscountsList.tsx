@@ -15,6 +15,9 @@ import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import { useModal } from "../../modal-views/use-modal";
 import ShowPackagesModal from "./ShowPackagesModal";
+import useDynamicMutation from "@/react-query/usePostData";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CategoriesArr = ["Packages Discounts", "Expired Packages Discounts"];
 
@@ -26,6 +29,8 @@ const PackageDiscountsList = ({
   branchId: string;
 }) => {
   const { openModal } = useModal();
+  const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
 
   const headers = useGetHeaders({ type: "Json" });
 
@@ -69,6 +74,28 @@ const PackageDiscountsList = ({
     });
   };
 
+  const updateHiddenStatus = async (dicountId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/publish-discount/${dicountId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllPackages],
+          });
+          toast.success("Package hiddent status updated Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <CustomCategoryButton
@@ -97,7 +124,13 @@ const PackageDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsPackages(viewPackages, placeId, branchId)}
+            columns={getColumnsPackages(
+              viewPackages,
+              placeId,
+              branchId,
+              updateHiddenStatus,
+              postMutation.isPending
+            )}
             paginatorOptions={{
               pageSize,
               setPageSize,

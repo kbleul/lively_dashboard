@@ -53,10 +53,10 @@ const PackageDiscountList = ({
     });
   };
 
-  const updateHiddenStatus = async (sicountId: string) => {
+  const updateHiddenStatus = async (dicountId: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/publish-discount/${sicountId}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/publish-discount/${dicountId}`,
         method: "POST",
         headers,
         body: {},

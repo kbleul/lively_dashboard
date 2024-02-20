@@ -15,6 +15,9 @@ import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import { queryKeys } from "@/react-query/query-keys";
 import { useModal } from "../../modal-views/use-modal";
 import ShowProductsModal from "./ShowProductsModal";
+import useDynamicMutation from "@/react-query/usePostData";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const CategoriesArr = ["Products Discounts", "Expired Products Discounts"];
 
@@ -26,20 +29,14 @@ const ProductDiscountsList = ({
   branchId: string;
 }) => {
   const { openModal } = useModal();
-
+  const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = React.useState(CategoriesArr[0]);
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
-
-  const viewProducts = (discount: any) => {
-    openModal({
-      view: <ShowProductsModal discount={discount} />,
-      customSize: "550px",
-    });
-  };
 
   const CategoriesLinks = {
     [CategoriesArr[0]]: {
@@ -69,6 +66,35 @@ const ProductDiscountsList = ({
       ? "Add " + categoryLink.split(" ")[1] + " " + categoryLink.split(" ")[2]
       : "Add " + categoryLink;
 
+  const viewProducts = (discount: any) => {
+    openModal({
+      view: <ShowProductsModal discount={discount} />,
+      customSize: "550px",
+    });
+  };
+
+  const updateHiddenStatus = async (dicountId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/publish-discount/${dicountId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllProducts],
+          });
+          toast.success("Product hiddent status updated Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <CustomCategoryButton
@@ -97,7 +123,13 @@ const ProductDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsProducts(viewProducts, placeId, branchId)}
+            columns={getColumnsProducts(
+              viewProducts,
+              placeId,
+              branchId,
+              updateHiddenStatus,
+              postMutation.isPending
+            )}
             paginatorOptions={{
               pageSize,
               setPageSize,
