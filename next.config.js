@@ -38,6 +38,14 @@ const nextConfig = {
         hostname: "dashboard.lively-et.com",
         protocol: "https",
       },
+      {
+        hostname: "api-dev.lively-et.com",
+        protocol: "https",
+      },
+      {
+        hostname: "api.lively-et.com",
+        protocol: "https",
+      },
 
 
     ],

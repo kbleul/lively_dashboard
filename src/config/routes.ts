@@ -18,6 +18,8 @@ export const routes = {
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
     banners: "/op/banners",
+    subscriptions: "/op/subscriptions",
+
     centers: {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",

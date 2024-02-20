@@ -37,6 +37,10 @@ export const operationalManagetMenuItems = [
         href: routes.operationalManager.banners,
       },
       {
+        name: "Subscriptions",
+        href: routes.operationalManager.subscriptions,
+      },
+      {
         name: "register experts",
         href: routes.operationalManager.experts.create,
       },
