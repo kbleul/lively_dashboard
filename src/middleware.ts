@@ -99,7 +99,6 @@ export default withAuth(
 
     callbacks: {
       authorized: ({ token }) => {
-        console.log("object");
         return !!token;
       },
     },

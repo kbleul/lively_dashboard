@@ -6,7 +6,6 @@ import { useModal } from "../../modal-views/use-modal";
 
 const ShowPlanModal = ({ plan }: { plan: any }) => {
   const { closeModal } = useModal();
-  console.log(plan);
   return (
     <article className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-7 flex items-center justify-between">

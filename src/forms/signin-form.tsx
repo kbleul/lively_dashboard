@@ -72,10 +72,6 @@ export default function SignInForm() {
 
   const searchURL = searchParams.get("callbackUrl");
 
-  console.log("search ===> ", searchURL);
-
-  // searchParams.keys().forEach((item) => console.log(item));
-
   const { data: session, status } = useSession();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
@@ -113,7 +109,6 @@ export default function SignInForm() {
           }
           setIsLoading(true);
 
-          console.log(redirectUrl, "re");
           signIn("credentials", {
             data: JSON.stringify(responseData?.data),
             redirect: true,

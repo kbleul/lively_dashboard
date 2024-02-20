@@ -27,15 +27,12 @@ export const authOptions: NextAuthOptions = {
       const baseUrlx = parsedUrl.origin + parsedUrl.pathname;
       const parameters = parsedUrl.searchParams;
 
-      console.log(parameters);
-
       if (parsedUrl.searchParams.has("callbackUrl")) {
         return `${baseUrl}${parsedUrl.searchParams.get("callbackUrl")}`;
       }
       if (parsedUrl.origin === baseUrl) {
         return url;
       }
-      console.log("33333");
 
       return baseUrl;
     },
