@@ -59,6 +59,11 @@ const assignRediresct = (role: any, params: string | null) => {
         );
       }
       return redirectUrl;
+
+    case role.includes("Admin"):
+      redirectUrl = routes.admin.dashboard;
+      return redirectUrl;
+
     default:
       redirectUrl = "";
       return redirectUrl;
