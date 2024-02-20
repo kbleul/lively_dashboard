@@ -6,65 +6,48 @@ import React, { useState } from "react";
 import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
-import { routes } from "@/config/routes";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns } from "./discount-columns-packages";
-import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
-import ShowPackagesModal from "../../operational-manager/discounts/ShowPackagesModal";
-import { useModal } from "../../modal-views/use-modal";
+import { routes } from "@/config/routes";
+import { useModal } from "@/app/shared/modal-views/use-modal";
+import { getColumns } from "./plans-columns";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import ShowPlanModal from "./ShowPlanModal";
 
-const CategoriesArr = ["Active", "Expired"];
-
-const PackageDiscountList = ({
-  placeId,
-  branchId,
-}: {
-  placeId: string;
-  branchId: string;
-}) => {
+const PlansList = () => {
   const { openModal } = useModal();
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
 
   const headers = useGetHeaders({ type: "Json" });
 
-  const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-
-  const packagesDiscountData = useFetchData(
-    [queryKeys.getAllPackages, pageSize, currentPage, categoryLink],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/${
-      categoryLink === CategoriesArr[1]
-        ? "expired-discount-packages"
-        : "discount-packages"
-    }/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+  // const postMutation = useDynamicMutation();
+  const plansData = useFetchData(
+    [queryKeys.getAllPlans],
+    `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}admin/plans`,
     headers
   );
 
-  const viewPackages = (discount: any) => {
+  const viewPlan = (plan: any) => {
     openModal({
-      view: <ShowPackagesModal discount={discount} />,
+      view: <ShowPlanModal plan={plan} />,
       customSize: "550px",
     });
   };
 
-  const updateHiddenStatus = async (dicountId: string) => {
+  const updateHiddenStatus = async (planId: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/publish-discount/${dicountId}`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}admin/active-inactive-plan/${planId}`,
         method: "POST",
         headers,
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllPackages],
+            queryKey: [queryKeys.getAllPlans],
           });
-          toast.success("Package hiddent status updated Successfully");
+          toast.success("Plan active status updated Successfully");
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);
@@ -81,47 +64,26 @@ const PackageDiscountList = ({
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
-        <Link
-          href={routes.storeOwner.branch["add-package-discount"](
-            placeId,
-            branchId
-          )}
-        >
+        <Link href={routes.admin["add-plans"]}>
           <Button size="lg" color="primary">
-            Add Package Discounts
+            Add Plan
           </Button>
         </Link>
       }
     >
-      <CustomCategoryButton
-        categoryLink={categoryLink}
-        setCategoryLink={setCategoryLink}
-        categoriesArr={CategoriesArr}
-        labels={CategoriesArr}
-      />
-
       <div className={"table-wrapper flex-grow"}>
         <ControlledTable
           variant={"modern"}
-          isLoading={packagesDiscountData.isFetching}
+          isLoading={plansData.isFetching}
           showLoadingText={true}
-          data={packagesDiscountData?.data?.data?.data}
+          data={plansData?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
           columns={getColumns(
-            viewPackages,
-            placeId,
-            branchId,
+            viewPlan,
             updateHiddenStatus,
             postMutation.isPending
           )}
-          paginatorOptions={{
-            pageSize,
-            setPageSize,
-            total: packagesDiscountData?.data?.data?.total,
-            current: currentPage,
-            onChange: (page: number) => setCurrentPage(page),
-          }}
           className={
             "overflow-hidden rounded-md border border-gray-200 text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
           }
@@ -131,4 +93,4 @@ const PackageDiscountList = ({
   );
 };
 
-export default PackageDiscountList;
+export default PlansList;

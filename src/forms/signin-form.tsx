@@ -9,7 +9,8 @@ import { toast } from "sonner";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import PageLoader from "@/components/loader/page-loader";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,13 +19,62 @@ import { Formik, Form } from "formik";
 import { LoginType, loginSchema } from "@/validations/auth.schema";
 import FormikInput from "@/components/ui/form/input";
 import FormikPasswordInput from "@/components/ui/form/password-input";
+
+const assignRediresct = (role: any, params: string | null) => {
+  let redirectUrl = "";
+
+  switch (true) {
+    case role.includes("Expert"):
+      redirectUrl = routes.expert.dashboard;
+      return redirectUrl;
+    case role.includes("Operation_Manager"):
+      redirectUrl = routes.operationalManager.dashboard;
+      if (params && params.includes("claimed-product")) {
+        redirectUrl = routes.operationalManager.product["claimed-product"](
+          params.split("/")[params.split("/").length - 1]
+        );
+      }
+      return redirectUrl;
+    case role.includes("Content_Creator"):
+      redirectUrl = routes.contentCreator.dashboard;
+      return redirectUrl;
+    case role.includes("Store_Owner"):
+      redirectUrl = routes.storeOwner.home;
+
+      if (params && params.includes("claimed-product")) {
+        redirectUrl = routes.storeOwner.product["claimed-product"](
+          params.split("/")[params.split("/").length - 1]
+        );
+      } else {
+        redirectUrl = routes.storeOwner.home;
+      }
+
+      return redirectUrl;
+    case role.includes("Branch_Manager"):
+      redirectUrl = routes.branchManger.dashboard;
+
+      if (params && params.includes("claimed-product")) {
+        redirectUrl = routes.branchManger.product["claimed-product"](
+          params.split("/")[params.split("/").length - 1]
+        );
+      }
+      return redirectUrl;
+    default:
+      redirectUrl = "";
+      return redirectUrl;
+  }
+};
+
 export default function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const searchURL = searchParams.get("callbackUrl");
+
   const { data: session, status } = useSession();
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
-
   const initialValues: LoginType = {
     phone: "",
     password: "",
@@ -44,17 +94,7 @@ export default function SignInForm() {
             (item: { name: string }) => item.name
           );
 
-          const redirectUrl = role.includes("Expert")
-            ? routes.expert.dashboard
-            : role.includes("Operation_Manager")
-            ? routes.operationalManager.dashboard
-            : role.includes("Content_Creator")
-            ? routes.contentCreator.dashboard
-            : role.includes("Store_Owner")
-            ? routes.storeOwner.home
-            : role.includes("Branch_Manager")
-            ? routes.branchManger.dashboard
-            : "";
+          const redirectUrl = assignRediresct(role, searchURL);
 
           if (
             !role.includes("Expert") &&
@@ -68,6 +108,7 @@ export default function SignInForm() {
             return;
           }
           setIsLoading(true);
+
           signIn("credentials", {
             data: JSON.stringify(responseData?.data),
             redirect: true,

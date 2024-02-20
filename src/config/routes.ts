@@ -18,6 +18,8 @@ export const routes = {
     occupation: "/op/occupation",
     registerExpert: "/op/register-experts",
     banners: "/op/banners",
+    subscriptions: "/op/subscriptions",
+
     centers: {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",
@@ -65,6 +67,12 @@ export const routes = {
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages`,
       "add-package-discounts": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/create`,
+      "edit-package-discounts": (
+        placeId: string,
+        branchId: string,
+        discountId: string
+      ) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/edit/${discountId}`,
       "package-bookings": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/packages/bookings`,
 
@@ -190,8 +198,22 @@ export const routes = {
 
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
+    editProductDiscount: {
+      "edit-product-discount": (discountId: string) =>
+        `/bm/products/discount/edit/${discountId}`,
+    },
 
     claimedDiscount: "/bm/products/claimed-discount",
     reviews: "/bm/reviews",
+    product: {
+      "claimed-product": (discountId: string) =>
+        `/bm/product-discount/${discountId}`,
+    },
+  },
+  admin: {
+    dashboard: "/admin",
+    plans: "/admin/plans",
+    "add-plans": "/admin/plans/create",
+    "edit-plan": (planId: string) => `/admin/plans/edit/${planId}`,
   },
 };

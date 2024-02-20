@@ -6,90 +6,58 @@ import { Text } from "@/components/ui/text";
 import { routes } from "@/config/routes";
 import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
-
-import { IoCheckmarkOutline } from "react-icons/io5";
-import { IoCloseOutline } from "react-icons/io5";
 import { ClipLoader } from "react-spinners";
-
-import { ActionIcon, Badge, Tooltip } from "rizzui";
+import { ActionIcon, Tooltip } from "rizzui";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa6";
 
 export const getColumns = (
-  viewProducts: (discount: any) => void,
-  updateHiddenStatus: (discountId: string) => void,
+  viewPlan: (plan: any) => void,
+  updateHiddenStatus: (planId: string) => Promise<void>,
   isLoading: boolean
 ) => [
   {
-    title: <HeaderCell title="Title English" />,
-    dataIndex: "title",
-    key: "title",
+    title: <HeaderCell title="Title" />,
+    dataIndex: "name",
+    key: "name",
     width: 50,
     render: (value: { english: string }) => (
       <Text className="font-medium text-gray-700">{value?.english}</Text>
     ),
   },
   {
-    title: <HeaderCell title="Promo_Code" />,
-    dataIndex: "promo_code",
-    key: "promo_code",
+    title: <HeaderCell title="Type" />,
+    dataIndex: "type",
+    key: "type",
     width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: <HeaderCell title="Discount" />,
-    dataIndex: "discount",
-    key: "discount",
+    title: <HeaderCell title="Price" />,
+    dataIndex: "price",
+    key: "price",
     width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: <HeaderCell title="Tickets" />,
-    dataIndex: "tickets",
-    key: "tickets",
+    title: <HeaderCell title="Currency" />,
+    dataIndex: "currency",
+    key: "currency",
     width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
   },
   {
-    title: <HeaderCell title="Days Left" />,
-    dataIndex: "left_days",
-    key: "left_days",
+    title: <HeaderCell title="Iteration" />,
+    dataIndex: "iteration",
+    key: "iteration",
     width: 50,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="Banner Requested" />,
-    dataIndex: "need_banner",
-    key: "need_banner",
-    width: 50,
-    render: (value: boolean) => (
-      <div className="flex items-center justify-center">
-        {value ? <IoCheckmarkOutline /> : <IoCloseOutline />}
-      </div>
-    ),
-  },
-  {
-    title: <HeaderCell title="Banner Status" />,
-    dataIndex: "banner_image",
-    key: "banner_image",
-    width: 50,
-    render: (value: any) => (
-      <div className="flex items-center justify-center">
-        {value && value !== "" ? (
-          <Badge color="primary" className="text-black bg-opacity-30">
-            Added
-          </Badge>
-        ) : (
-          <></>
-        )}
-      </div>
     ),
   },
   {
@@ -99,9 +67,9 @@ export const getColumns = (
     width: 50,
     render: (_: string, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
-        <Tooltip
+        {/* <Tooltip
           size="sm"
-          content={() => "View Products"}
+          content={() => "View Plan"}
           placement="top"
           color="invert"
         >
@@ -110,22 +78,18 @@ export const getColumns = (
             size="sm"
             variant="outline"
             className="hover:text-gray-700"
-            onClick={() => viewProducts(row)}
+            onClick={() => viewPlan(row)}
           >
             <GrFormView size={25} />
           </ActionIcon>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip
           size="sm"
           content={() => "Edit Discount"}
           placement="top"
           color="invert"
         >
-          <Link
-            href={routes.branchManger.editProductDiscount[
-              "edit-product-discount"
-            ](row.id)}
-          >
+          <Link href={routes.admin["edit-plan"](row.id)}>
             <ActionIcon
               tag="span"
               size="sm"
@@ -138,7 +102,7 @@ export const getColumns = (
         </Tooltip>
         <Tooltip
           size="sm"
-          content={() => "Change hidden Status"}
+          content={() => "Change active Status"}
           placement="top"
           color="invert"
         >
@@ -153,7 +117,7 @@ export const getColumns = (
               <ClipLoader color="#000" size={10} />
             ) : (
               <>
-                {row.is_hidden ? (
+                {row.active ? (
                   <FaToggleOff size={20} />
                 ) : (
                   <FaToggleOn size={20} className="text-green-400" />

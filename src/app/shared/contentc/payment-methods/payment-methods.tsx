@@ -21,7 +21,7 @@ const PaymentMethodsList = () => {
   const { openModal } = useModal();
   const paymentMethods = useFetchData(
     [queryKeys.getAllPaymentMethods],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/payment-methods`,
+    `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}content-creator/payment-methods`,
     headers
   );
 
@@ -29,7 +29,7 @@ const PaymentMethodsList = () => {
   const toggleMethod = async (id: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/make-hidden-payment-methods/${id}`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}content-creator/make-hidden-payment-methods/${id}`,
         method: "POST",
         headers,
         body: {},
@@ -49,21 +49,10 @@ const PaymentMethodsList = () => {
   };
 
   const [pageSize, setPageSize] = React.useState(10);
-  const {
-    isLoading,
-    sortConfig,
-    totalItems,
-    tableData,
-    currentPage,
-    searchTerm,
-    handleSort,
-    handleDelete,
-    handleSearch,
-    handlePaginate,
-    selectedRowKeys,
-    handleRowSelect,
-    handleSelectAll,
-  } = useTable(paymentMethods?.data ?? [], pageSize);
+  const { totalItems, currentPage, handlePaginate } = useTable(
+    paymentMethods?.data ?? [],
+    pageSize
+  );
 
   const onEditItem = (id: string) => {
     openModal({

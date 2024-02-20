@@ -6,16 +6,12 @@ import { Text } from "@/components/ui/text";
 import { routes } from "@/config/routes";
 import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
-import { ClipLoader } from "react-spinners";
 import { ActionIcon, Tooltip } from "rizzui";
-import { FaToggleOff, FaToggleOn } from "react-icons/fa6";
 
 export const getColumns = (
   viewPackages: (discount: any) => void,
   placeId: string,
-  branchId: string,
-  updateHiddenStatus: (discountId: string) => void,
-  isLoading: boolean
+  branchId: string
 ) => [
   {
     title: <HeaderCell title="Title English" />,
@@ -83,55 +79,6 @@ export const getColumns = (
             onClick={() => viewPackages(row)}
           >
             <GrFormView size={25} />
-          </ActionIcon>
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={() => "Edit Discount"}
-          placement="top"
-          color="invert"
-        >
-          <Link
-            href={routes.operationalManager.places["edit-package-discounts"](
-              placeId,
-              branchId,
-              row.id
-            )}
-          >
-            <ActionIcon
-              tag="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip>
-        <Tooltip
-          size="sm"
-          content={() => "Change hidden Status"}
-          placement="top"
-          color="invert"
-        >
-          <ActionIcon
-            tag="span"
-            size="sm"
-            variant="outline"
-            className="hover:text-gray-700"
-            onClick={() => updateHiddenStatus(row.id)}
-          >
-            {isLoading ? (
-              <ClipLoader color="#000" size={10} />
-            ) : (
-              <>
-                {row.is_hidden ? (
-                  <FaToggleOff size={20} />
-                ) : (
-                  <FaToggleOn size={20} className="text-green-400" />
-                )}
-              </>
-            )}
           </ActionIcon>
         </Tooltip>
       </div>

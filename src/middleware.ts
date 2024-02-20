@@ -49,7 +49,7 @@ export default withAuth(
     }
     if (
       req.nextUrl.pathname.includes("claimed-product") &&
-      !req.nextUrl.pathname.includes("so")
+      !req.nextUrl.pathname.includes("/so")
     ) {
       const descountId =
         req.nextUrl.pathname.split("/")[
@@ -98,7 +98,9 @@ export default withAuth(
     },
 
     callbacks: {
-      authorized: ({ token }) => !!token,
+      authorized: ({ token }) => {
+        return !!token;
+      },
     },
   }
 );

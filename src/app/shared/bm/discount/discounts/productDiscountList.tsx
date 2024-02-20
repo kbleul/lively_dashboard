@@ -12,12 +12,16 @@ import { getColumns } from "./discount-columns-products";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import ShowProductsModal from "./ShowProductsModal";
+import useDynamicMutation from "@/react-query/usePostData";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const CategoriesArr = ["Active", "Expired"];
 
 const ProductDiscountList = () => {
   const { openModal } = useModal();
-
+  const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
@@ -42,6 +46,27 @@ const ProductDiscountList = () => {
     });
   };
 
+  const updateHiddenStatus = async (dicountId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/publish-discount/${dicountId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllProducts],
+          });
+          toast.success("Product hiddent status updated Successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <WidgetCard
       title={"Discount"}
@@ -70,7 +95,11 @@ const ProductDiscountList = () => {
           data={productsDiscountData?.data?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
-          columns={getColumns(viewProducts)}
+          columns={getColumns(
+            viewProducts,
+            updateHiddenStatus,
+            postMutation.isPending
+          )}
           paginatorOptions={{
             pageSize,
             setPageSize,

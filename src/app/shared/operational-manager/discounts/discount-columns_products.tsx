@@ -8,13 +8,17 @@ import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
+import { ClipLoader } from "react-spinners";
+import { FaToggleOff, FaToggleOn } from "react-icons/fa6";
 
 import { ActionIcon, Badge, Tooltip } from "rizzui";
 
 export const getColumns = (
   viewProducts: (discount: any) => void,
   placeId: string,
-  branchId: string
+  branchId: string,
+  updateHiddenStatus: (discountId: string) => void,
+  isLoading: boolean
 ) => [
   {
     title: <HeaderCell title="Title English" />,
@@ -134,6 +138,32 @@ export const getColumns = (
               <PencilIcon className="h-4 w-4" />
             </ActionIcon>
           </Link>
+        </Tooltip>
+        <Tooltip
+          size="sm"
+          content={() => "Change hidden Status"}
+          placement="top"
+          color="invert"
+        >
+          <ActionIcon
+            tag="span"
+            size="sm"
+            variant="outline"
+            className="hover:text-gray-700"
+            onClick={() => updateHiddenStatus(row.id)}
+          >
+            {isLoading ? (
+              <ClipLoader color="#000" size={10} />
+            ) : (
+              <>
+                {row.is_hidden ? (
+                  <FaToggleOff size={20} />
+                ) : (
+                  <FaToggleOn size={20} className="text-green-400" />
+                )}
+              </>
+            )}
+          </ActionIcon>
         </Tooltip>
       </div>
     ),

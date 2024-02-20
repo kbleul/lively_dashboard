@@ -42,15 +42,13 @@ const EditPackageDiscount = ({
 
   const discountData = useFetchData(
     [queryKeys.getSingleProductDiscount + discountId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/show-discount-packages/${discountId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/show-discount-packages/${discountId}`,
     headers
   );
 
-  console.log("--->", discountData?.data?.data);
-
   const packagesDate = useFetchData(
     [queryKeys.getAllPackages + branchId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/branch-packages/${branchId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/branch-packages/${branchId}`,
     headers
   );
 
@@ -97,6 +95,8 @@ const EditPackageDiscount = ({
     end_date: discount?.end_date,
   };
 
+  console.log("woooooooooooooooo", discount?.title?.english);
+
   const updateDiscountSubmitHandler = async (
     values: CreatePackagetDiscountType
   ) => {
@@ -110,7 +110,7 @@ const EditPackageDiscount = ({
     };
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/update-discount-packages/${discountId}`,
+        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/update-discount-packages/${discountId}`,
         method: "POST",
         headers,
         body: {
@@ -120,7 +120,10 @@ const EditPackageDiscount = ({
         onSuccess: (res) => {
           toast.success("Discount updated Successfully");
           router.push(
-            routes.storeOwner.branch["package-discounts"](placeId, branchId)
+            routes.operationalManager.places["package-discounts"](
+              placeId,
+              branchId
+            )
           );
         },
         onError: (err) => {

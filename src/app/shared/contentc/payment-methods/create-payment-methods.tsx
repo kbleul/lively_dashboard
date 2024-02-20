@@ -30,7 +30,7 @@ export default function AddPaymentForm({ id }: { id?: string }) {
 
   const paymentMethod = useFetchData(
     [queryKeys.getSingleCity, id],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/payment-methods/${id}`,
+    `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}content-creator/payment-methods/${id}`,
     headers,
     !!id
   );
@@ -57,8 +57,8 @@ export default function AddPaymentForm({ id }: { id?: string }) {
     try {
       await postMutation.mutateAsync({
         url: id
-          ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/payment-methods/${id}`
-          : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}content-creator/payment-methods`,
+          ? `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}content-creator/payment-methods/${id}`
+          : `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}content-creator/payment-methods`,
         method: "POST",
         headers,
         body: {

@@ -9,10 +9,10 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns as getColumnsPackages } from "./discount-columns_packages";
 
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
+import { getColumns } from "./discount-columns_branches";
 
 const CategoriesArr = ["Branch Discounts", "Expired Branch Discounts"];
 
@@ -86,7 +86,7 @@ const BranchDiscountsList = ({
             data={productsDiscountData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsPackages()}
+            columns={getColumns()}
             paginatorOptions={{
               pageSize,
               setPageSize,

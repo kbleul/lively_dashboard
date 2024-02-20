@@ -8,29 +8,24 @@ import WidgetCard from "@/components/cards/widget-card";
 import { Button } from "rizzui";
 import Link from "next/link";
 import ControlledTable from "@/components/controlled-table";
-import { getColumns as getColumnsProducts } from "./discount-columns_products";
 
 import { routes } from "@/config/routes";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
-import { queryKeys } from "@/react-query/query-keys";
 import { useModal } from "../../modal-views/use-modal";
-import ShowProductsModal from "./ShowProductsModal";
 import useDynamicMutation from "@/react-query/usePostData";
-import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
+import { getColumns } from "./subscription-columns";
+import { queryKeys } from "@/react-query/query-keys";
+import ShowSubscriptionModal from "./ShowSubscriptionModal";
 
-const CategoriesArr = ["Products Discounts", "Expired Products Discounts"];
+const CategoriesArr = ["Requested", "Approved"];
 
-const ProductDiscountsList = ({
-  placeId,
-  branchId,
-}: {
-  placeId: string;
-  branchId: string;
-}) => {
+const SubscriptionsList = () => {
   const { openModal } = useModal();
   const postMutation = useDynamicMutation();
   const queryClient = useQueryClient();
+
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = React.useState(CategoriesArr[0]);
@@ -40,51 +35,39 @@ const ProductDiscountsList = ({
 
   const CategoriesLinks = {
     [CategoriesArr[0]]: {
-      queryKey: "discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](
-        placeId,
-        branchId
+      queryKey: "subscription-payment-requests",
+      link: routes.operationalManager.places["add-package-discounts"](
+        "placeId",
+        "branchId"
       ),
     },
     [CategoriesArr[1]]: {
-      queryKey: "expired-discount-products",
-      link: routes.operationalManager.places["add-product-discounts"](
-        placeId,
-        branchId
+      queryKey: "expired-discount-packages",
+      link: routes.operationalManager.places["add-package-discounts"](
+        "placeId",
+        "branchId"
       ),
     },
   };
 
-  const productsDiscountData = useFetchData(
-    [queryKeys.getAllProducts, categoryLink, currentPage, pageSize],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}/${branchId}?page=${currentPage}&per_page=${pageSize}`,
+  const subscriptionsData = useFetchData(
+    [queryKeys.getAllSubscriptions, categoryLink, currentPage, pageSize],
+    `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/${CategoriesLinks[categoryLink].queryKey}?page=${currentPage}&per_page=${pageSize}`,
     headers
   );
 
-  const addButtonLabel =
-    categoryLink.split(" ").length > 2
-      ? "Add " + categoryLink.split(" ")[1] + " " + categoryLink.split(" ")[2]
-      : "Add " + categoryLink;
-
-  const viewProducts = (discount: any) => {
-    openModal({
-      view: <ShowProductsModal discount={discount} />,
-      customSize: "550px",
-    });
-  };
-
-  const updateHiddenStatus = async (dicountId: string) => {
+  const approveRequest = async (subscriptionId: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/publish-discount/${dicountId}`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/approve-subscription-payment-requests/${subscriptionId}`,
         method: "POST",
         headers,
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
-            queryKey: [queryKeys.getAllProducts],
+            queryKey: [queryKeys.getAllSubscriptions],
           });
-          toast.success("Product hiddent status updated Successfully");
+          toast.success("Subscription approved successfully");
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);
@@ -93,6 +76,42 @@ const ProductDiscountsList = ({
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const rejectRequest = async (subscriptionId: string) => {
+    try {
+      await postMutation.mutateAsync({
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/reject-subscription-payment-requests/${subscriptionId}`,
+        method: "POST",
+        headers,
+        body: {},
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAllSubscriptions],
+          });
+          toast.success("Subscription rejected successfully");
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const viewSubscription = (subscription: any) => {
+    openModal({
+      view: (
+        <ShowSubscriptionModal
+          subscription={subscription}
+          isLoading={postMutation.isPending}
+          approveRequest={approveRequest}
+          rejectRequest={rejectRequest}
+        />
+      ),
+      customSize: "550px",
+    });
   };
 
   return (
@@ -104,36 +123,28 @@ const ProductDiscountsList = ({
         labels={CategoriesArr}
       />
       <WidgetCard
-        title={"Discount"}
+        title={"Subscriptions"}
         className={"flex flex-col"}
         headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
-        action={
-          <Link href={CategoriesLinks[categoryLink].link}>
-            <Button size="lg" color="primary">
-              {addButtonLabel}
-            </Button>
-          </Link>
-        }
       >
         <div className={"table-wrapper flex-grow"}>
           <ControlledTable
             variant={"modern"}
-            isLoading={productsDiscountData.isFetching}
+            isLoading={subscriptionsData.isFetching}
             showLoadingText={true}
-            data={productsDiscountData?.data?.data?.data}
+            data={subscriptionsData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumnsProducts(
-              viewProducts,
-              placeId,
-              branchId,
-              updateHiddenStatus,
+            columns={getColumns(
+              viewSubscription,
+              approveRequest,
+              rejectRequest,
               postMutation.isPending
             )}
             paginatorOptions={{
               pageSize,
               setPageSize,
-              total: productsDiscountData?.data?.data?.total,
+              total: subscriptionsData?.data?.data?.total,
               current: currentPage,
               onChange: (page: number) => setCurrentPage(page),
             }}
@@ -147,4 +158,4 @@ const ProductDiscountsList = ({
   );
 };
 
-export default ProductDiscountsList;
+export default SubscriptionsList;
