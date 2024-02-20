@@ -19,6 +19,7 @@ import {
 } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
 import {
+  adminMenuItems,
   branchManagerMenuItems,
   contentCretorMenuItems,
   expertMenuItems,
@@ -174,7 +175,7 @@ export default function Sidebar({ className }: { className?: string }) {
 
     const roleMenuItems: any = {
       Operation_Manager: operationalManagetDetermined,
-      Admin: operationalManagetMenuItems,
+      Admin: adminMenuItems,
       Content_Creator: contentCretorMenuItems,
       Branch_Manager: branchManagerMenuItems,
       Expert: expertMenuItems,

@@ -47,8 +47,15 @@ const Home = () => {
   ) {
     return router.push(routes.branchManger.dashboard);
   }
+  if (
+    session?.user?.user?.roles
+      ?.map((item: { name: string }) => item.name)
+      .includes(Role.Admin)
+  ) {
+    return router.push(routes.admin.dashboard);
+  }
 
-  return <div>Home</div>;
+  return <div>Default Home</div>;
 };
 
 export default Home;

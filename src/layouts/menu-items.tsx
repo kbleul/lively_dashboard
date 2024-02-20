@@ -4,7 +4,7 @@ import { PiNotepadDuotone } from "react-icons/pi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { PiToolboxThin } from "react-icons/pi";
-import { MdOutlineAttachMoney } from "react-icons/md";
+import { MdOutlineAttachMoney, MdOutlinePayment } from "react-icons/md";
 import { GrUserExpert } from "react-icons/gr";
 import { RiContactsBook2Line } from "react-icons/ri";
 import { MdOutlineContentPasteGo } from "react-icons/md";
@@ -249,6 +249,28 @@ export const branchManagerMenuItems = [
       {
         name: "List",
         href: routes.branchManger.reviews,
+      },
+    ],
+  },
+];
+
+export const adminMenuItems = [
+  {
+    name: "Admin Menu",
+  },
+  {
+    name: "Dashboard",
+    href: "/",
+    icon: <PiFileImageDuotone />,
+  },
+  {
+    name: "Plan",
+    href: "#",
+    icon: <MdOutlinePayment />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.admin.plans,
       },
     ],
   },

@@ -208,4 +208,10 @@ export const routes = {
         `/bm/product-discount/${discountId}`,
     },
   },
+  admin: {
+    dashboard: "/admin",
+    plans: "/admin/plans",
+    "add-plans": "/admin/plans/create",
+    "edit-plan": (planId: string) => `/admin/plans/edit/${planId}`,
+  },
 };
