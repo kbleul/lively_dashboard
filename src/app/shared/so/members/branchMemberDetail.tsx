@@ -30,8 +30,8 @@ const BranchMemberDetail = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   const branchMemberData = useFetchData(
-    [queryKeys.getSingleMember + userId],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/member-bookings/${branchId}/${userId}`,
+    [queryKeys.getSingleMember + userId, , pageSize, currentPage],
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/member-bookings/${branchId}/${userId}`,
     headers
   );
 

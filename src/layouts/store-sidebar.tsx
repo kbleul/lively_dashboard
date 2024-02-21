@@ -21,13 +21,15 @@ import {
   PiFileImageDuotone,
   PiNotepadDuotone,
 } from "react-icons/pi";
-import { CgArrowsExchange } from "react-icons/cg";
+import { CgArrowsExchange, CgProductHunt } from "react-icons/cg";
 import SimpleBar from "@/components/ui/simplebar";
 import Logo from "@/components/logo";
 import { useSession } from "next-auth/react";
 import { UrlObject } from "url";
 import { routes } from "@/config/routes";
 import { Toaster, toast } from "sonner";
+import { FaUserTie } from "react-icons/fa6";
+import { CiUser } from "react-icons/ci";
 
 export default function StoreSidebar({ className }: { className?: string }) {
   const [determineBranchMode, setDetermineBranchMode] = useState(false);
@@ -63,7 +65,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
     {
       name: "Managers",
       href: "#",
-      icon: <PiNotepadDuotone />,
+      icon: <FaUserTie />,
       dropdownItems: [
         {
           name: "List",
@@ -103,20 +105,13 @@ export default function StoreSidebar({ className }: { className?: string }) {
       icon: <PiNotepadDuotone />,
     },
     {
-      name: "Packages",
+      name: "Members",
       href: "#",
-      icon: <PiNotepadDuotone />,
+      icon: <CiUser />,
       dropdownItems: [
         {
           name: "List",
-          href: routes.storeOwner.branch.packages(
-            pathname.split("/")[2],
-            pathname.split("/")[4]
-          ),
-        },
-        {
-          name: "Discounts",
-          href: routes.storeOwner.branch["package-discounts"](
+          href: routes.storeOwner.branch["list-members"](
             pathname.split("/")[2],
             pathname.split("/")[4]
           ),
@@ -126,7 +121,7 @@ export default function StoreSidebar({ className }: { className?: string }) {
     {
       name: "Products",
       href: "#",
-      icon: <PiNotepadDuotone />,
+      icon: <CgProductHunt />,
       dropdownItems: [
         {
           name: "List",
@@ -152,9 +147,30 @@ export default function StoreSidebar({ className }: { className?: string }) {
       ],
     },
     {
-      name: "Managers",
+      name: "Packages",
       href: "#",
       icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.storeOwner.branch.packages(
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.storeOwner.branch["package-discounts"](
+            pathname.split("/")[2],
+            pathname.split("/")[4]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <FaUserTie />,
       dropdownItems: [
         {
           name: "List",
@@ -189,7 +205,10 @@ export default function StoreSidebar({ className }: { className?: string }) {
   ];
 
   useEffect(() => {
-    setDetermineBranchMode(pathname.split("/").includes("branch"));
+    setDetermineBranchMode(
+      pathname.split("/").includes("so") &&
+        pathname.split("/").includes("branch")
+    );
   }, [pathname]);
 
   const determineMenuItems = () => {

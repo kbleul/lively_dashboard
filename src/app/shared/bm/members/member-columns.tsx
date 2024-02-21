@@ -9,7 +9,7 @@ import { GrFormView } from "react-icons/gr";
 import Link from "next/link";
 import { routes } from "@/config/routes";
 
-export const getColumns = (placeId: string, branchId: string) => [
+export const getColumns = () => [
   {
     title: <HeaderCell title="First name" />,
     dataIndex: "first_name",
@@ -60,13 +60,7 @@ export const getColumns = (placeId: string, branchId: string) => [
           placement="top"
           color="invert"
         >
-          <Link
-            href={routes.storeOwner.branch["view-member"](
-              placeId,
-              branchId,
-              row.id
-            )}
-          >
+          <Link href={routes.branchManger["view-member"](row.id)}>
             <ActionIcon
               tag="span"
               size="sm"

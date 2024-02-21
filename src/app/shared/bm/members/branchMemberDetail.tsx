@@ -16,22 +16,14 @@ import Image from "next/image";
 import ControlledTable from "@/components/controlled-table";
 import { getColumns } from "./details-column";
 
-const BranchMemberDetail = ({
-  placeId,
-  branchId,
-  userId,
-}: {
-  placeId: string;
-  branchId: string;
-  userId: string;
-}) => {
+const BranchMemberDetail = ({ userId }: { userId: string }) => {
   const headers = useGetHeaders({ type: "Json" });
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   const branchMemberData = useFetchData(
     [queryKeys.getSingleMember + userId, pageSize, currentPage],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}operation-manager/member-bookings/${branchId}/${userId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/member-bookings/${userId}`,
     headers
   );
 

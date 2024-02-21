@@ -148,6 +148,12 @@ export const routes = {
         `/so/${id}/branch/${branchId}`,
       "edit-branch": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/edit-branch`,
+
+      "list-members": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members`,
+      "view-member": (id: string, branchId: string, userId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members/${userId}`,
+
       products: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products`,
       packages: (id: string, branchId: string) =>
@@ -201,6 +207,9 @@ export const routes = {
 
     products: "/bm/products",
     addProduct: "/bm/products/create-product",
+
+    "list-members": "/bm/branch-members",
+    "view-member": (userId: string) => `/bm/branch-members/${userId}`,
 
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",

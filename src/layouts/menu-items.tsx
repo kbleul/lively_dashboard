@@ -10,6 +10,8 @@ import { RiContactsBook2Line } from "react-icons/ri";
 import { MdOutlineContentPasteGo } from "react-icons/md";
 import { LiaProductHunt } from "react-icons/lia";
 import { TbServicemark } from "react-icons/tb";
+import { CiUser } from "react-icons/ci";
+import { CgProductHunt } from "react-icons/cg";
 // Note: do not add href in the label object, it is rendering as label
 
 export const operationalManagetMenuItems = [
@@ -210,7 +212,17 @@ export const branchManagerMenuItems = [
     // href: routes.file.dashboard,
     icon: <PiFileImageDuotone />,
   },
-
+  {
+    name: "Members",
+    href: "#",
+    icon: <CiUser />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.branchManger["list-members"],
+      },
+    ],
+  },
   {
     name: "Packages",
     href: "#",
@@ -220,16 +232,12 @@ export const branchManagerMenuItems = [
         name: "Packages",
         href: routes.branchManger.packages,
       },
-      // {
-      //   name: "Discount",
-      //   href: routes.branchManger.packageDiscount,
-      // },
     ],
   },
   {
     name: "Products",
     href: "#",
-    icon: <PiNotepadDuotone />,
+    icon: <CgProductHunt />,
     dropdownItems: [
       {
         name: "Products",

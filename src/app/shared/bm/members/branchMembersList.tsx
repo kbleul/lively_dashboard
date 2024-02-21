@@ -5,12 +5,9 @@ import Spinner from "@/components/ui/spinner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
-import Link from "next/link";
 import React, { useState } from "react";
 import { Title } from "rizzui";
-import { Button } from "@/components/ui/button";
 import ControlledTable from "@/components/controlled-table";
-import { routes } from "@/config/routes";
 import PageHeader from "@/app/shared/page-header";
 import { getColumns } from "./member-columns";
 
@@ -29,13 +26,7 @@ const pageHeader = {
   ],
 };
 
-const BranchMembersList = ({
-  placeId,
-  branchId,
-}: {
-  placeId: string;
-  branchId: string;
-}) => {
+const BranchMembersList = () => {
   const headers = useGetHeaders({ type: "Json" });
 
   const [pageSize, setPageSize] = useState(10);
@@ -43,7 +34,7 @@ const BranchMembersList = ({
 
   const branchMembersData = useFetchData(
     [queryKeys.getAllMembers, pageSize, currentPage],
-    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}store-owner/members/${branchId}`,
+    `${process.env.NEXT_PUBLIC_SERVICE_BACKEND_URL}branch-manager/members`,
     headers
   );
 
@@ -92,7 +83,7 @@ const BranchMembersList = ({
             data={branchMembersData?.data?.data?.data}
             scroll={{ x: 900 }}
             // @ts-ignore
-            columns={getColumns(placeId, branchId)}
+            columns={getColumns()}
             paginatorOptions={{
               pageSize: 1,
               setPageSize,

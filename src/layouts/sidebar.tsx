@@ -375,7 +375,10 @@ export default function Sidebar({ className }: { className?: string }) {
             })}
           </div>
 
-          {OPBranchRoutes.find((item: string) => pathname.includes(item)) && (
+          {OPBranchRoutes.find(
+            (item: string) =>
+              pathname.includes("/op/") && pathname.includes(item)
+          ) && (
             <Link
               href={"/op/places"}
               onClick={() =>
