@@ -105,6 +105,20 @@ export default function Sidebar({ className }: { className?: string }) {
       ],
     },
     {
+      name: "Members",
+      href: "#",
+      icon: <CiUser />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-members"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+    {
       name: "Products",
       href: "#",
       icon: <CgProductHunt />,
@@ -158,20 +172,6 @@ export default function Sidebar({ className }: { className?: string }) {
         //     pathname.split("/")[5]
         //   ),
         // },
-      ],
-    },
-    {
-      name: "Members",
-      href: "#",
-      icon: <CiUser />,
-      dropdownItems: [
-        {
-          name: "List",
-          href: routes.operationalManager.places["list-members"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
       ],
     },
   ];
