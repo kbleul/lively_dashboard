@@ -17,6 +17,7 @@ import {
   PiFileImageDuotone,
   PiNotepadDuotone,
 } from "react-icons/pi";
+import { FaUserTie } from "react-icons/fa6";
 import SimpleBar from "@/components/ui/simplebar";
 import {
   adminMenuItems,
@@ -28,7 +29,8 @@ import {
 import Logo from "@/components/logo";
 import { signOut, useSession } from "next-auth/react";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
-import { CgArrowsExchange } from "react-icons/cg";
+import { CgArrowsExchange, CgProductHunt } from "react-icons/cg";
+import { CiUser } from "react-icons/ci";
 import { routes } from "@/config/routes";
 import { UrlObject } from "url";
 import { toast } from "sonner";
@@ -40,6 +42,7 @@ const OPBranchRoutes = [
   "branch-discounts",
   "branch-packages",
   "branch-products",
+  "branch-members",
 ];
 
 export default function Sidebar({ className }: { className?: string }) {
@@ -83,7 +86,7 @@ export default function Sidebar({ className }: { className?: string }) {
     {
       name: "Managers",
       href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
+      icon: <FaUserTie />,
       dropdownItems: [
         {
           name: "Managers",
@@ -104,7 +107,7 @@ export default function Sidebar({ className }: { className?: string }) {
     {
       name: "Products",
       href: "#",
-      icon: <PiNotepadDuotone />,
+      icon: <CgProductHunt />,
       dropdownItems: [
         {
           name: "List",
@@ -148,9 +151,23 @@ export default function Sidebar({ className }: { className?: string }) {
             pathname.split("/")[5]
           ),
         },
+        // {
+        //   name: "Bookings",
+        //   href: routes.operationalManager.places["package-bookings"](
+        //     pathname.split("/")[3],
+        //     pathname.split("/")[5]
+        //   ),
+        // },
+      ],
+    },
+    {
+      name: "Members",
+      href: "#",
+      icon: <CiUser />,
+      dropdownItems: [
         {
-          name: "Bookings",
-          href: routes.operationalManager.places["package-bookings"](
+          name: "List",
+          href: routes.operationalManager.places["list-members"](
             pathname.split("/")[3],
             pathname.split("/")[5]
           ),

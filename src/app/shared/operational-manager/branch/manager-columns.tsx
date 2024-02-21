@@ -2,14 +2,6 @@
 
 import { HeaderCell } from "@/components/ui/table";
 import { Text } from "@/components/ui/text";
-import { Tooltip } from "@/components/ui/tooltip";
-import { ActionIcon } from "@/components/ui/action-icon";
-
-import { GrFormView } from "react-icons/gr";
-import { FaTimes } from "react-icons/fa";
-import ReusabelPopover from "@/components/reusabel-popover";
-import Link from "next/link";
-import { routes } from "@/config/routes";
 
 type Columns = {
   deleteProduct: (id: string) => void;

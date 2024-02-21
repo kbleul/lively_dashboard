@@ -97,7 +97,13 @@ export const routes = {
         discountId: string
       ) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed/${discountId}`,
+
+      "list-members": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members`,
+      "view-member": (placeId: string, branchId: string, userId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members/${userId}`,
     },
+
     product: {
       "claimed-product": (discountId: string) =>
         `/op/product-discount/${discountId}`,

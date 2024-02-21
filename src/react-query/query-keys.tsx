@@ -53,4 +53,6 @@ export const queryKeys = {
   getAllPlans: "getAllPlansApi",
   getSinglePlan: "getSinglePlanApi",
   getAllSubscriptions: "getAllSubscriptionsApi",
+  getAllMembers: "getAllMembersApi",
+  getSingleMember: "getAllSingleMemberApi",
 };

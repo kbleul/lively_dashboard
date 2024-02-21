@@ -51,7 +51,7 @@ export const operationalManagetMenuItems = [
     ],
   },
   {
-    name: "Appointments/Bookings",
+    name: "Bookings",
     href: routes.operationalManager.appointments,
     icon: <MdOutlineAttachMoney />,
   },
