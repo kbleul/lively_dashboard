@@ -43,8 +43,6 @@ const BranchMemberDetail = ({ userId }: { userId: string }) => {
     );
   }
 
-  console.log(branchMemberData.data.data);
-
   return (
     <>
       <article className="relative">

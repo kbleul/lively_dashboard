@@ -95,7 +95,6 @@ const EditPackageDiscount = ({
     end_date: discount?.end_date,
   };
 
-  console.log("woooooooooooooooo", discount?.title?.english);
 
   const updateDiscountSubmitHandler = async (
     values: CreatePackagetDiscountType

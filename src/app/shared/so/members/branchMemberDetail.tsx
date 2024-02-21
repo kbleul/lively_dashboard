@@ -51,9 +51,7 @@ const BranchMemberDetail = ({
     );
   }
 
-  console.log(branchMemberData.data.data);
 
-  console.log("-------------", branchMemberData?.data?.data?.bookings?.data);
   return (
     <>
       <article className="relative">
