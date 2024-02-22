@@ -1,6 +1,5 @@
 import AppointmentsList from "@/app/shared/expert/appointments/appointments-list";
 import React from "react";
-import { metaObject } from "@/config/site.config";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
 
