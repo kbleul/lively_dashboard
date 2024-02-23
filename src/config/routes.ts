@@ -8,6 +8,9 @@ export const routes = {
     profile: "/expert/profile",
     schedule: "/expert/schedule",
     appointments: "/expert/appointments",
+    "join-meeting": (roomCode: string) =>
+      `/expert/appointments/meeting/${roomCode}`,
+
     availability: "/expert/availability",
   },
   // operational routes =>op means operational manager

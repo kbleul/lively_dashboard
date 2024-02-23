@@ -55,4 +55,5 @@ export const queryKeys = {
   getAllSubscriptions: "getAllSubscriptionsApi",
   getAllMembers: "getAllMembersApi",
   getSingleMember: "getAllSingleMemberApi",
+  getMeetingRoomLink: "getMeetingRoomLinkApi",
 };

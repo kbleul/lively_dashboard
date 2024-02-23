@@ -98,3 +98,40 @@ export const handleForwardTimeSpan = (
 
   setViewedTimeSet({ from: viewedTimeSet.from + 4, to: viewedTimeSet.to + 4 });
 };
+
+export const getMaxDaysInMonth = (): number => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  // Create a new Date object for the current year and month
+  const targetDate = new Date(currentYear, currentMonth, 1);
+
+  // Get the maximum number of days in the current month
+  const maxDaysInMonth = new Date(
+    targetDate.getFullYear(),
+    targetDate.getMonth() + 1,
+    0
+  ).getDate();
+  return maxDaysInMonth;
+};
+
+export const getDateDayMap = () => {
+  const maxDaysInMonth = getMaxDaysInMonth();
+
+  const today = new Date();
+
+  const todayDayOfMonth = today.getDate();
+
+  if (todayDayOfMonth <= 7) {
+    return maxDaysInMonth <= 28 ? 4 : 5;
+  } else if (todayDayOfMonth <= 14) {
+    return maxDaysInMonth <= 28 ? 3 : 4;
+  } else if (todayDayOfMonth <= 21) {
+    return maxDaysInMonth <= 28 ? 2 : 3;
+  } else if (todayDayOfMonth <= 28) {
+    return maxDaysInMonth <= 28 ? 1 : 2;
+  } else {
+    return maxDaysInMonth <= 28 ? 0 : 1;
+  }
+};

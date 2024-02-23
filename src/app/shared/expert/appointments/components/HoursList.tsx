@@ -1,7 +1,9 @@
 import { IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
 import { getTimeAxis, handleBackTimeSpan, handleForwardTimeSpan } from "./util";
+import AppointmentCard from "./AppointmentCard";
 
 const checkDateTime = (
+  dateNumber: number | string,
   viewedScheduleArr?: any[],
   currentDay?: string,
   time?: string
@@ -16,16 +18,40 @@ const checkDateTime = (
   );
 
   let day: any = "";
+  let dayOfMonth = 0;
 
   if (appointment && appointment.date) {
     const date = new Date(appointment.date);
+    dayOfMonth = date.getDate();
 
-    day = date.toLocaleString("en-US", { weekday: "long" });
+    day = date.toLocaleString("en-US", { weekday: "long", timeZone: "UTC" });
+    // dateNumber !== 0 && console.log(dateNumber == dayOfMonth);
   }
 
+  const isDateBretween = (apponintmentDate: string) => {
+    if (typeof dateNumber === "string") {
+      dateNumber = parseInt(dateNumber);
+    }
+
+    const appointmentDateNumber = parseInt(
+      apponintmentDate.split("-")[apponintmentDate.split("-").length - 1]
+    );
+    if (
+      dateNumber >= appointmentDateNumber &&
+      appointmentDateNumber >= dayOfMonth
+    ) {
+      return true;
+    }
+
+    return false;
+  };
   return (
     <>
-      {appointment && day === currentDay ? day + "-" + appointment.time : "-"}
+      {appointment &&
+        day === currentDay &&
+        isDateBretween(appointment.date) && (
+          <AppointmentCard appointment={appointment} />
+        )}
     </>
   );
 };
@@ -36,6 +62,7 @@ const HoursList = ({
   setViewedTimeSet,
   currentDay,
   showTime,
+  dateNumber,
   className,
 }: {
   viewedTimeSet: {
@@ -51,6 +78,7 @@ const HoursList = ({
   viewedScheduleArr?: any[];
   currentDay?: string;
   showTime?: boolean;
+  dateNumber?: number | string;
   className?: { container?: string; para?: string };
 }) => {
   return (
@@ -77,14 +105,6 @@ const HoursList = ({
           </button>
         </section>
       )}
-      {/* {showTime && (
-        <button
-          className="w-10 py-2 mr-4 border bg-gray-100 hover:bg-gray-200  rounded-lg flex justify-center items-center"
-          onClick={() => handleBackTimeSpan(viewedTimeSet, setViewedTimeSet)}
-        >
-          <IoChevronBackSharp size={16} />
-        </button>
-      )} */}
 
       <section className="flex w-full">
         {getTimeAxis({ ...viewedTimeSet }).map((time) => (
@@ -99,7 +119,12 @@ const HoursList = ({
             {showTime ? (
               <p>{time}</p>
             ) : (
-              checkDateTime(viewedScheduleArr, currentDay, time)
+              checkDateTime(
+                dateNumber ? dateNumber : 0,
+                viewedScheduleArr,
+                currentDay,
+                time
+              )
             )}
           </div>
         ))}
