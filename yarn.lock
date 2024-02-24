@@ -57,7 +57,7 @@
   resolved "https://registry.yarnpkg.com/@100mslive/react-icons/-/react-icons-0.9.7.tgz#2338543518e2ac921125628ff5435080537a9f63"
   integrity sha512-+KuWQnbv/128AGckEfsI7qygL3XS2dnwEYveZcdGD1Axc0jhdA71LYjp9ZZ6W4wtcRapDb+Lr6VyDy2uk9itIg==
 
-"@100mslive/react-sdk@0.9.7":
+"@100mslive/react-sdk@0.9.7", "@100mslive/react-sdk@^0.9.7":
   version "0.9.7"
   resolved "https://registry.yarnpkg.com/@100mslive/react-sdk/-/react-sdk-0.9.7.tgz#f7842022daf2515d467e37747365232763853027"
   integrity sha512-u6GEdAnBy+9piF7NReQqYdaJ2OiWjjLrbqUF/DZiFjkP1eMDr9pTThgBWoZKaYAMoAHR5Ol6OzQGkEAcmXEFyQ==

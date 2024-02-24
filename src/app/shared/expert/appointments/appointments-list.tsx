@@ -6,11 +6,11 @@ import { getColumns } from "./columns";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import useDynamicMutation from "@/react-query/usePostData";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import CustomScheduleView from "./components/CustomScheduleView";
+import Spinner from "@/components/ui/spinner";
+import { Title } from "rizzui";
 export enum AppointmentType {
   Upcomming = "Upcomming",
   History = "History",
@@ -20,8 +20,6 @@ const CategoriesArr = ["Upcomming", "History"];
 
 export default function AppointmentsList() {
   const [activeTab, setActiveTab] = useState(CategoriesArr[0]);
-  const queryClient = useQueryClient();
-  const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
   const [currentPage, setCurrentPage] = React.useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -34,21 +32,20 @@ export default function AppointmentsList() {
     headers
   );
 
-  //   if (isLoading) {
-  //     return (
-  //       <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
-  //         <Spinner size="xl" />
+  if (appoitmentsList.isPending || appoitmentsList.isFetching) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
 
-  //         <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
-  //           Loading...
-  //         </Title>
-  //       </div>
-  //     );
-  //   }
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
 
   return (
     <>
-      {/* <AppintmentListTab setActiveTab={setActiveTab} activeTab={activeTab} /> */}
       <CustomCategoryButton
         categoryLink={activeTab}
         setCategoryLink={setActiveTab}

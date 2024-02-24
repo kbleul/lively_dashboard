@@ -1,8 +1,10 @@
-import AppointmentsList from "@/app/shared/expert/appointments/appointments-list";
+"use client";
+
 import React from "react";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
 import MeetingRoom from "@/app/shared/expert/appointments/MeetingRoom";
+import { HMSRoomProvider } from "@100mslive/react-sdk";
 
 const Meeting = ({ params }: { params: { roomCode: string } }) => {
   const pageHeader = {
@@ -23,13 +25,10 @@ const Meeting = ({ params }: { params: { roomCode: string } }) => {
     ],
   };
   return (
-    <>
-      <PageHeader
-        title={pageHeader.title}
-        breadcrumb={pageHeader.breadcrumb}
-      ></PageHeader>
+    <HMSRoomProvider>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
       <MeetingRoom roomCode={params.roomCode} />
-    </>
+    </HMSRoomProvider>
   );
 };
 

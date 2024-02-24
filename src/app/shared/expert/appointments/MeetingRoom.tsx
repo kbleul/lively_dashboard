@@ -2,10 +2,18 @@
 
 import React, { useState } from "react";
 import { HMSPrebuilt } from "@100mslive/roomkit-react";
-import Logo from "@public/logo.png";
+import {
+  selectIsConnectedToRoom,
+  useHMSActions,
+  useHMSStore,
+} from "@100mslive/react-sdk";
 
 const MeetingRoom = ({ roomCode }: { roomCode: string }) => {
   const [isMeetingOn, setIsMeetingOn] = useState(false);
+
+  const isConnected = useHMSStore(selectIsConnectedToRoom);
+  const hmsActions = useHMSActions();
+
   const handleJoin = () => {
     setIsMeetingOn(true);
   };
@@ -22,7 +30,6 @@ const MeetingRoom = ({ roomCode }: { roomCode: string }) => {
       <div className="h-[100vh] w-full">
         <HMSPrebuilt
           roomCode={roomCode}
-          logo="https://lively-et.com/static/media/logo.15e5bfa8f5041f4b2cc8a32834c821c0.svg"
           onJoin={handleJoin}
           onLeave={handleLeave}
         />

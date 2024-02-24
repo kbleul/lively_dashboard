@@ -1,7 +1,5 @@
 "use client";
 
-import Spinner from "@/components/ui/spinner";
-import { Title } from "rizzui";
 import { DaysAxis } from "./data";
 import HoursList from "./HoursList";
 import CalanderTimeHeader from "./CalanderTimeHeader";
@@ -15,14 +13,11 @@ const CustomScheduleView = ({
   apponintmentsList: any[];
 }) => {
   const today = new Date();
-  console.log("==", today);
 
   // Get the day of the month
   const todayDayOfMonth = today.getDate();
-  const todayAppointmentYear = today.getFullYear();
 
   const dayOfWeek = today.toLocaleString("en-US", { weekday: "long" });
-  console.log(todayDayOfMonth);
 
   const firstAppointmentDate = new Date(apponintmentsList[0].date);
 
@@ -31,24 +26,7 @@ const CustomScheduleView = ({
   });
   const firstAppointmentYear = firstAppointmentDate.getFullYear();
 
-  const lastAppointmentDate = new Date(
-    apponintmentsList[apponintmentsList.length - 1].date
-  );
-
-  const lastAppointmentMonth = firstAppointmentDate.toLocaleString("en-US", {
-    month: "long",
-  });
-  const lastAppointmentYear = firstAppointmentDate.getFullYear();
-
-  //   // Get the day of the week as a string
-  //   const firstAppointment = date.toLocaleString("en-US", { weekday: "long" });
-
-  console.log(firstAppointmentMonth); // Output: February
-  console.log(firstAppointmentYear); // Output: Tuesday
-  console.log(lastAppointmentMonth); // Output: February
-  console.log(lastAppointmentYear); // Output: Tuesday
-  //console.log({ apponintmentsList });
-
+  const [viewedWeek, setViewedWeek] = useState(0);
   const [viewedScheduleArr, setViewedScheduleArr] = useState([
     ...filterViewedSchedule(
       apponintmentsList,
@@ -91,7 +69,6 @@ const CustomScheduleView = ({
         dareee = todayDayOfMonth;
         index = currentIndex;
         loopindex = loopCounter;
-        console.log(todayDayOfMonth);
 
         return todayDayOfMonth;
       }
@@ -99,7 +76,6 @@ const CustomScheduleView = ({
 
     if (loopCounter > loopindex) {
       if (dareee < maxMonth) {
-        console.log(dareee);
         ++dareee;
 
         return dareee;
@@ -109,7 +85,6 @@ const CustomScheduleView = ({
     if (currentIndex > index && dareee >= todayDayOfMonth) {
       if (dareee < maxMonth) {
         ++dareee;
-        console.log(dareee);
 
         return dareee;
       }
@@ -131,7 +106,7 @@ const CustomScheduleView = ({
             key={day + "---days---" + index}
             className="flex justify-start gap-x-4 "
           >
-            <p className="w-[5%] text-center pt-4 text-lg font-medium">
+            <p className="w-[5%] text-center pt-4 text-sm font-medium">
               {getDateNumber(
                 loopCounter,
                 day === dayOfWeek,
@@ -160,12 +135,20 @@ const CustomScheduleView = ({
       </>
     );
   };
+
+  const renderedDays = Array.from({ length: getDateDayMap() }).map((_, index) =>
+    renderDays(index)
+  );
+
   return (
     <main className="border rounded-md">
       <CalanderMainHeader
         selectedMonth={firstAppointmentMonth}
         selectedYear={firstAppointmentYear}
         filterByMonth={filterByMonth}
+        viewedWeek={viewedWeek}
+        setViewedWeek={setViewedWeek}
+        weeksLength={renderedDays.length}
       />
 
       <CalanderTimeHeader
@@ -173,9 +156,7 @@ const CustomScheduleView = ({
         setViewedTimeSet={setViewedTimeSet}
       />
 
-      {Array.from({ length: getDateDayMap() }).map((_, index) =>
-        renderDays(index)
-      )}
+      {renderedDays[viewedWeek]}
     </main>
   );
 };

@@ -23,9 +23,6 @@ const checkDateTime = (
   if (appointment && appointment.date) {
     const date = new Date(appointment.date);
     dayOfMonth = date.getDate();
-
-    day = date.toLocaleString("en-US", { weekday: "long", timeZone: "UTC" });
-    // dateNumber !== 0 && console.log(dateNumber == dayOfMonth);
   }
 
   const isDateBretween = (apponintmentDate: string) => {
@@ -46,13 +43,13 @@ const checkDateTime = (
     return false;
   };
   return (
-    <>
+    <div className="my-2 h-[12vh] ">
       {appointment &&
         day === currentDay &&
         isDateBretween(appointment.date) && (
           <AppointmentCard appointment={appointment} />
         )}
-    </>
+    </div>
   );
 };
 
@@ -113,7 +110,7 @@ const HoursList = ({
             className={
               className && className.para
                 ? className?.para
-                : "w-1/4 h-[10vh] border border-dashed"
+                : "w-1/4 h-[14vh] border border-dashed px-2"
             }
           >
             {showTime ? (

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@100mslive/react-sdk": "^0.9.7",
     "@100mslive/roomkit-react": "^0.2.7",
     "@floating-ui/react": "^0.26.4",
     "@googlemaps/js-api-loader": "^1.16.2",
