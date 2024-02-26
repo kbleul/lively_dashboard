@@ -34,7 +34,7 @@ export type CreateProductDiscountType = {
 export const createPackageDiscountSchema = Yup.object().shape({
   place_branch_packages: Yup.array()
     .of(Yup.string())
-    .required("Projects are required"),
+    .required("Packages are required"),
   titleEnglish: Yup.string().required("Discount title is required"),
   descriptionEnglish: Yup.string().required("Package Description is required"),
   discount: Yup.number()

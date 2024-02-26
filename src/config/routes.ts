@@ -103,6 +103,8 @@ export const routes = {
 
       "list-members": (placeId: string, branchId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-members`,
+      "add-member": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members/create`,
       "view-member": (placeId: string, branchId: string, userId: string) =>
         `/op/places/${placeId}/branch/${branchId}/branch-members/${userId}`,
     },
