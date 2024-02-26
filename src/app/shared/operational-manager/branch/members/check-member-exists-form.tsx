@@ -3,19 +3,15 @@
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useRouter } from "next/navigation";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
-import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
 import { routes } from "@/config/routes";
-import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
-import { queryKeys } from "@/react-query/query-keys";
 import dynamic from "next/dynamic";
 
-import moment from "moment";
 import { toast } from "sonner";
 import {
   AddPackagesType,
@@ -23,19 +19,12 @@ import {
   searchMemberSchema,
   addPackagesSchema,
 } from "@/validations/members";
-import PageHeader from "@/app/shared/page-header";
-import Spinner from "@/components/ui/spinner";
+
 import { Title } from "rizzui";
-import { DatePicker } from "@/components/ui/datepicker";
-import { genderOptions } from "@/constants/form-constants";
+
 import SelectLoader from "@/components/loader/select-loader";
 import { useState } from "react";
 import Image from "next/image";
-
-const Select = dynamic(() => import("@/components/ui/select"), {
-  ssr: false,
-  loading: () => <SelectLoader />,
-});
 
 const CheckMemberExits = ({
   className,
@@ -150,7 +139,7 @@ const CheckMemberExits = ({
               searchMemberSubmitHandler(values);
             }}
           >
-            {({ values, setFieldValue, errors }) => {
+            {({}) => {
               return (
                 <Form className={"[&_label.block>span]:font-medium "}>
                   <div className="mb-10 grid gap-7 divide-y divide-dashed divide-gray-200 @2xl:gap-9 @3xl:gap-11">
@@ -168,34 +157,6 @@ const CheckMemberExits = ({
                         className="col-span-2"
                       />
                     </FormGroup>
-
-                    {/* <FormGroup
-                    title="Select Packages"
-                    description="Add packages for member"
-                    className="mb-36"
-                  >
-                    <CustomSelect
-                      name="place_branch_packages"
-                      label="Packages"
-                      options={packageOptions}
-                      placeholder="Packages"
-                      getOptionLabel={(option: any) => option.title.english}
-                      getOptionValue={(option: any) => option.id}
-                      onChange={(selectedOptions: any) => {
-                        const selectedIds = selectedOptions.map(
-                          (option: any) => option.id
-                        );
-                        setFieldValue("place_branch_packages", selectedIds);
-                      }}
-                      noOptionsMessage={() => "Packages are not available"}
-                      isMulti
-                      isSearchable
-                      className="pt-2 col-span-2"
-                    />
-                    {!packagesDate.isLoading && packageOptions.length === 0 && (
-                      <p>No packages found for this branch</p>
-                    )}
-                  </FormGroup> */}
                   </div>
                   <FormFooter
                     submitBtnText={"Search Memeber"}

@@ -5,17 +5,14 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { useRouter } from "next/navigation";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import FormikInput from "@/components/ui/form/input";
-import FormikTextArea from "@/components/ui/form/formik-textarea";
 import CustomSelect from "@/components/ui/form/select";
 import FormFooter from "@/components/form-footer";
 import FormGroup from "@/components/form-group";
 import { routes } from "@/config/routes";
-import cn from "@/utils/class-names";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import dynamic from "next/dynamic";
 
-import moment from "moment";
 import { toast } from "sonner";
 import { CreateMemberType, memberSchema } from "@/validations/members";
 import PageHeader from "@/app/shared/page-header";
@@ -33,11 +30,9 @@ const Select = dynamic(() => import("@/components/ui/select"), {
 });
 
 const CreateMemberFome = ({
-  className,
   placeId,
   branchId,
 }: {
-  className?: string;
   placeId: string;
   branchId: string;
 }) => {
