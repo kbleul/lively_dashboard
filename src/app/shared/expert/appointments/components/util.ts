@@ -135,3 +135,44 @@ export const getDateDayMap = () => {
     return maxDaysInMonth <= 28 ? 0 : 1;
   }
 };
+
+function getTimeInMilliseconds(timeString: string) {
+  const [hours, minutes, seconds] = timeString.split(":");
+  return (+hours * 60 * 60 + +minutes * 60 + +seconds) * 1000;
+}
+
+// Function to format milliseconds to time string
+function formatMillisecondsToTime(milliseconds: number) {
+  const date = new Date(milliseconds);
+  return date;
+}
+
+export const compareTimeBetweenIntervals = (
+  startingTime: string,
+  appointmentTime: string
+) => {
+  // Convert time strings to milliseconds
+
+  isTimeGreater(startingTime, appointmentTime);
+};
+
+export const isTimeGreater = (timeOne: string, timeTwo: string) => {
+  // Split the time strings into hours and minutes
+  const [hourOne, minuteOne] = timeOne.split(":");
+  const [hourTwo, minuteTwo] = timeTwo.split(":");
+
+  // Convert to integers for comparison
+  const timeOneValue = parseInt(hourOne, 10) * 60 + parseInt(minuteOne, 10);
+  const timeTwoValue = parseInt(hourTwo, 10) * 60 + parseInt(minuteTwo, 10);
+
+  // Check if timeTwo is greater than timeOne
+  const isTimeTwoGreater = timeTwoValue > timeOneValue;
+
+  // Check if timeOne is greater than timeTwo minus one hour (adjusted for negative values)
+  const timeTwoMinusOneHour = (timeTwoValue - 60) % (24 * 60);
+  const isTimeOneGreaterThanMinusOneHour = timeOneValue > timeTwoMinusOneHour;
+
+  // Return the combined result considering both conditions
+
+  return isTimeTwoGreater && isTimeOneGreaterThanMinusOneHour;
+};

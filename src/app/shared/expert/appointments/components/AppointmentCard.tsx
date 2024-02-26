@@ -22,16 +22,18 @@ const AppointmentCard = ({ appointment }: { appointment: any }) => {
       <section className="w-4 h-4 md:w-14 md:h-14 bg-gray-100   rounded-full overflow-hidden">
         {appointment?.user?.profile_image &&
           !appointment?.user?.profile_image.includes("ui-avatars.com/") && (
-            <Image
-              src={
-                appointment?.user?.profile_image &&
-                appointment?.user?.profile_image
-              }
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              alt={""}
-            />
+            <></>
+            // <Image
+            //   src={
+            //     appointment?.user?.profile_image &&
+            //     appointment?.user?.profile_image
+            //   }
+            //   layout="fill"
+            //   objectFit="cover"
+            //   objectPosition="center"
+            //   alt={""}
+            //   className="max-w-36  relative"
+            // />
           )}
       </section>
       <section className="hidden md:flex flex-col justify-start items-start ml-1 2xl:ml-2 ">

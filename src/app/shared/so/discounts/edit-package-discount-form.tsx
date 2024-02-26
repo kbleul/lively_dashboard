@@ -46,7 +46,6 @@ const EditPackageDiscount = ({
     headers
   );
 
-  console.log("--->", discountData?.data?.data);
 
   const packagesDate = useFetchData(
     [queryKeys.getAllPackages + branchId],

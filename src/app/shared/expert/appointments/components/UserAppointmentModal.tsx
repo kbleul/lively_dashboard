@@ -30,7 +30,6 @@ const UserAppointmentModal = ({ appointment }: { appointment: any }) => {
           if (res.status === 200) {
             let roomCode = res.data.split("meeting/");
             roomCode = roomCode[roomCode.length - 1];
-            console.log("--->", roomCode);
             router.push(routes.expert["join-meeting"](roomCode));
           }
         },
@@ -58,16 +57,17 @@ const UserAppointmentModal = ({ appointment }: { appointment: any }) => {
         <section className="w-20 h-20 bg-gray-100  rounded-full overflow-hidden">
           {appointment?.user?.profile_image &&
             !appointment?.user?.profile_image.includes("ui-avatars.com/") && (
-              <Image
-                src={
-                  appointment?.user?.profile_image &&
-                  appointment?.user?.profile_image
-                }
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
-                alt={""}
-              />
+              <></>
+              // <Image
+              //   src={
+              //     appointment?.user?.profile_image &&
+              //     appointment?.user?.profile_image
+              //   }
+              //   layout="fill"
+              //   objectFit="cover"
+              //   objectPosition="center"
+              //   alt={""}
+              // />
             )}
         </section>
         <section className="pt-1">

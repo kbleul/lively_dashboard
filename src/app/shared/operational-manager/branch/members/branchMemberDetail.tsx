@@ -51,8 +51,6 @@ const BranchMemberDetail = ({
     );
   }
 
-  console.log(branchMemberData.data.data);
-
   return (
     <>
       <article className="relative">

@@ -1,5 +1,11 @@
 import { IoChevronBackSharp, IoChevronForwardSharp } from "react-icons/io5";
-import { getTimeAxis, handleBackTimeSpan, handleForwardTimeSpan } from "./util";
+import {
+  compareTimeBetweenIntervals,
+  getTimeAxis,
+  handleBackTimeSpan,
+  handleForwardTimeSpan,
+  isTimeGreater,
+} from "./util";
 import AppointmentCard from "./AppointmentCard";
 
 const checkDateTime = (
@@ -12,16 +18,18 @@ const checkDateTime = (
     return <></>;
   }
 
-  const timeWithoutSuffix = time.split(" ")[0] + ":00";
-  const appointment = viewedScheduleArr.find((app) =>
-    app.time.includes(timeWithoutSuffix)
-  );
+  const timeWithoutSuffix = time.split(" ")[0]; //remove am pm
+  const appointment = viewedScheduleArr.find((app) => {
+    return isTimeGreater(timeWithoutSuffix, app.time);
+  });
 
   let day: any = "";
   let dayOfMonth = 0;
 
   if (appointment && appointment.date) {
     const date = new Date(appointment.date);
+    const options = { weekday: "long", timeZone: "UTC" };
+    day = date.toLocaleString("en-US", options);
     dayOfMonth = date.getDate();
   }
 
@@ -29,7 +37,7 @@ const checkDateTime = (
     if (typeof dateNumber === "string") {
       dateNumber = parseInt(dateNumber);
     }
-
+    console.log(dayOfMonth);
     const appointmentDateNumber = parseInt(
       apponintmentDate.split("-")[apponintmentDate.split("-").length - 1]
     );
@@ -42,13 +50,14 @@ const checkDateTime = (
 
     return false;
   };
+
   return (
     <div className="my-2 h-[12vh] ">
-      {appointment &&
-        day === currentDay &&
-        isDateBretween(appointment.date) && (
-          <AppointmentCard appointment={appointment} />
-        )}
+      {appointment && day === currentDay && (
+        // isDateBretween(appointment.date) &&
+        // <p>{"day " + day + " current" + currentDay}</p>
+        <AppointmentCard appointment={appointment} />
+      )}
     </div>
   );
 };
