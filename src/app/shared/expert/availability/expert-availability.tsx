@@ -19,6 +19,11 @@ import { DaysAxis } from "../appointments/components/data";
 import { Input, Title } from "rizzui";
 import Spinner from "@/components/ui/spinner";
 import { GoPlusCircle } from "react-icons/go";
+import {
+  addHour,
+  isValidTime,
+  isValidTimeStatus,
+} from "@/utils/time_manuplation";
 
 const ExpertAvailability = ({ className }: { className?: string }) => {
   const queryClient = useQueryClient();
@@ -28,7 +33,10 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
   const [selectedDayofWeek, setSelectedDayofWeek] = useState(DaysAxis[0]);
   const [startingTime, setStartingTime] = useState<string | null>(null);
   const [endingTime, setEndingTime] = useState<string | null>(null);
-  const [addTimes, setAddedTimes] = useState<
+
+  const [timeError, setTimeError] = useState<string | null>(null);
+
+  const [addedTimes, setAddedTimes] = useState<
     { startingTime: string; endingTime: string }[]
   >([]);
 
@@ -86,10 +94,75 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
     from: workCustomDays[0].from,
     to: workCustomDays[0].to,
   };
-  console.log(expertAvialbility?.data?.data);
+
   const expertAvialbleTime = expertAvialbility?.data?.data;
 
-  console.log(expertAvialbleTime);
+  const handleAddNewSlot = () => {
+    let timesSlots = expertAvialbleTime.flatMap(
+      (slot: any) => slot.opening_time + " - " + slot.closing_time
+    );
+    timesSlots = [
+      ...timesSlots,
+      ...addedTimes.flatMap(
+        (slot: any) => slot.startingTime + " - " + slot.endingTime
+      ),
+    ];
+
+    if (startingTime && endingTime) {
+      const isvalid = isValidTime(
+        timesSlots,
+        startingTime + " - " + endingTime
+      );
+
+      if (isvalid.status === isValidTimeStatus.ALLOWED.status) {
+        setAddedTimes((prev) => [...prev, { startingTime, endingTime }]);
+
+        setStartingTime(null);
+        setEndingTime(null);
+        setTimeError(null);
+
+        return;
+      }
+
+      setTimeError(isvalid.msg);
+    }
+  };
+
+  const handleChangeTime = (timeString: string) => {
+    let timesSlots = expertAvialbleTime.flatMap(
+      (slot: any) => slot.opening_time + " - " + slot.closing_time
+    );
+    timesSlots = [
+      ...timesSlots,
+      ...addedTimes.flatMap(
+        (slot: any) => slot.startingTime + " - " + slot.endingTime
+      ),
+    ];
+
+    const endTime = addHour(timeString, 1);
+
+    if (
+      isValidTime(timesSlots, timeString + ":00" + " - " + endTime + ":00")
+        .status === isValidTimeStatus.ALLOWED.status
+    ) {
+      console.log(
+        isValidTime(timesSlots, timeString + ":00"),
+        "--",
+        isValidTime(timesSlots, endTime + ":00")
+      );
+      setStartingTime(timeString + ":00");
+      setEndingTime(addHour(timeString, 1) + ":00");
+      setTimeError(null);
+    } else {
+      console.log(timeString);
+      console.log(isValidTime(timesSlots, timeString + ":00").status);
+      console.log(isValidTime(timesSlots, endTime + ":00").status);
+
+      setTimeError(
+        "Time slots need to have atleast 15 min gap with the existing slots."
+      );
+    }
+  };
 
   return (
     <Formik
@@ -110,9 +183,16 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
                   <section className="flex justify-start gap-4  flex-wrap mb-8">
                     {DaysAxis.map((day, index) => (
                       <button
-                        onClick={() =>
-                          day !== selectedDayofWeek && setSelectedDayofWeek(day)
-                        }
+                        onClick={() => {
+                          if (day !== selectedDayofWeek) {
+                            setStartingTime(null);
+                            setEndingTime(null);
+                            setTimeError(null);
+                            setAddedTimes([]);
+
+                            setSelectedDayofWeek(day);
+                          }
+                        }}
                         key={"appdayskey" + day + index}
                         type="button"
                         className={
@@ -142,7 +222,7 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
                         </button>
                       ))}
 
-                    {addTimes.map((time, index: number) => (
+                    {addedTimes.map((time, index: number) => (
                       <button
                         key={
                           "addedtimeAppkey" +
@@ -157,49 +237,48 @@ const ExpertAvailability = ({ className }: { className?: string }) => {
                     ))}
                   </section>
 
-                  <section className="shadow-md p-4 mt-4 border-t rounded-md">
-                    <Title as="h4" className="mt-4 mb-8 font-normal border-b">
+                  <section className=" p-4 mt-4 border-t rounded-md">
+                    <Title as="h4" className="mt-4 mb-8 font-normal ">
                       Add a new appointment slot for {selectedDayofWeek}
                     </Title>
 
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col md:flex-row gap-4 w-full">
                       <Input
                         autoComplete="off"
-                        // @ts-ignore
+                        className="w-full"
                         type="time"
                         label={"Starting Time"}
                         name={"name"}
-                        onChange={(e) =>
-                          setStartingTime(e.target.value + ":00")
-                        }
+                        value={startingTime ? startingTime : ""}
+                        onChange={(e) => handleChangeTime(e.target.value)}
                       />
                       <Input
                         autoComplete="off"
-                        // @ts-ignore
+                        className="w-full"
                         type="time"
                         label={"Ending Time"}
                         name={"name"}
+                        disabled
+                        value={endingTime ? endingTime : ""}
                         onChange={(e) => setEndingTime(e.target.value + ":00")}
                       />
                     </div>
+                    {timeError && (
+                      <p className="text-red-500 mt-3 text-right">
+                        * {timeError}
+                      </p>
+                    )}
 
-                    <button
-                      onClick={() => {
-                        if (startingTime && endingTime) {
-                          setAddedTimes((prev) => [
-                            ...prev,
-                            { startingTime, endingTime },
-                          ]);
-
-                          setStartingTime(null);
-                          setEndingTime(null);
-                        }
-                      }}
-                    >
-                      <GoPlusCircle />
-                    </button>
-
-                    <button className=""></button>
+                    <div className="mt-4 w-full flex justify-center items-center">
+                      <button
+                        type="button"
+                        onClick={handleAddNewSlot}
+                        className="flex gap-2 items-center font-semibold border rounded-md border-x-gray-200 px-6 py-2 mt-6"
+                      >
+                        <GoPlusCircle size={20} className="" />
+                        <p>Add time slot</p>
+                      </button>
+                    </div>
                   </section>
                 </div>
               ) : (
