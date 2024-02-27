@@ -28,8 +28,10 @@ const checkDateTime = (
 
   if (appointment && appointment.date) {
     const date = new Date(appointment.date);
+    // eslint-disable-next-line
     const options = { weekday: "long", timeZone: "UTC" };
-    day = date.toLocaleString("en-US", options);
+    // eslint-disable-next-line
+    day = date.toLocaleString("en-US");
     dayOfMonth = date.getDate();
   }
 

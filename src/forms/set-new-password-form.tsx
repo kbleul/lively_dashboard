@@ -16,16 +16,16 @@ import {
   setPasswordSchema,
 } from "@/validations/auth.schema";
 import FormikPasswordInput from "@/components/ui/form/password-input";
+import { useSession } from "next-auth/react";
 
-interface Props {
-  tempToken: string;
-}
-export default function SetNewPasswordForm({ tempToken }: Props) {
+export default function SetNewPasswordForm() {
+  const { data: session } = useSession();
+
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const postMutation = useDynamicMutation();
   const headers = {
-    Authorization: `Bearer ${tempToken}`,
+    Authorization: `Bearer ${session?.user.token}`,
     Accept: "application/json",
     "Content-Type": "application/json",
   };
@@ -46,9 +46,10 @@ export default function SetNewPasswordForm({ tempToken }: Props) {
           password: values.password,
         },
         onSuccess: () => {
-          router.push(routes.signIn);
           setIsLoading(true);
           toast.success("Password Reset Successfully");
+
+          router.push(routes.signIn);
         },
         onError: (err) => {
           toast.error(err?.response?.data?.message);
@@ -67,10 +68,12 @@ export default function SetNewPasswordForm({ tempToken }: Props) {
           <div className="flex flex-col w-full items-center justify-center">
             <Image src={Logo} alt="logo" className="h-[60px] object-contain" />
             <div className="flex flex-col items-center space-y-1 py-4">
-              <Title as="h6" className=" text-center   ">
-               Set Your New Password
+              <Title as="h5" className=" text-center   ">
+                Set Your New Password
               </Title>
-             
+              <Text as="p" className="font-medium">
+                You only need to do this once
+              </Text>
             </div>
           </div>
           <Formik
@@ -92,7 +95,7 @@ export default function SetNewPasswordForm({ tempToken }: Props) {
                   placeholder="Confirm Your Password"
                   color="primary"
                 />
-           
+
                 <Button
                   className="w-full hover:bg-primary"
                   type="submit"

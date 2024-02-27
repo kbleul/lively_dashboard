@@ -1,6 +1,6 @@
 import React from "react";
 import { metaObject } from "@/config/site.config";
-import BranchMembersList from "@/app/shared/so/members/branchMembersList";
+import CreateMemberForm from "@/app/shared/so/members/create-member-form";
 
 export const metadata = {
   ...metaObject("Members"),
@@ -9,9 +9,11 @@ export const metadata = {
 const ViewBranchMembers = ({
   params,
 }: {
-  params: { id: string; branchId: string };
+  params: { placeId: string; branchId: string };
 }) => {
-  return <BranchMembersList placeId={params.id} branchId={params.branchId} />;
+  return (
+    <CreateMemberForm placeId={params.placeId} branchId={params.branchId} />
+  );
 };
 
 export default ViewBranchMembers;

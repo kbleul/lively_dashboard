@@ -1,6 +1,7 @@
 export const routes = {
   signIn: "/signin",
   forgotPassword: "/forgot-password",
+  resetPassword: "/reset-password",
 
   //expert routes
   expert: {
@@ -156,6 +157,8 @@ export const routes = {
 
       "list-members": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/branch-members`,
+      "add-member": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members/create`,
       "view-member": (id: string, branchId: string, userId: string) =>
         `/so/${id}/branch/${branchId}/branch-members/${userId}`,
 
