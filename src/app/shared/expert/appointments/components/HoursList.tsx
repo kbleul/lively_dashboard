@@ -19,43 +19,44 @@ const checkDateTime = (
   }
 
   const timeWithoutSuffix = time.split(" ")[0]; //remove am pm
+
   const appointment = viewedScheduleArr.find((app) => {
-    return isTimeGreater(timeWithoutSuffix, app.time);
+    return isTimeGreater(timeWithoutSuffix + ":00", app.time);
   });
 
   let day: any = "";
   let dayOfMonth = 0;
+  let dayOfWeek = "";
 
   if (appointment && appointment.date) {
     const date = new Date(appointment.date);
     // eslint-disable-next-line
-    const options = { weekday: "long", timeZone: "UTC" };
+    dayOfWeek = date.toLocaleString("en-US", { weekday: "long" });
     // eslint-disable-next-line
     day = date.toLocaleString("en-US");
     dayOfMonth = date.getDate();
   }
 
-  const isDateBretween = (apponintmentDate: string) => {
-    if (typeof dateNumber === "string") {
-      dateNumber = parseInt(dateNumber);
-    }
-    console.log(dayOfMonth);
-    const appointmentDateNumber = parseInt(
-      apponintmentDate.split("-")[apponintmentDate.split("-").length - 1]
-    );
-    if (
-      dateNumber >= appointmentDateNumber &&
-      appointmentDateNumber >= dayOfMonth
-    ) {
-      return true;
-    }
+  // const isDateBretween = (apponintmentDate: string) => {
+  //   if (typeof dateNumber === "string") {
+  //     dateNumber = parseInt(dateNumber);
+  //   }
+  //   console.log(dayOfMonth);
+  //   const appointmentDateNumber = parseInt(
+  //     apponintmentDate.split("-")[apponintmentDate.split("-").length - 1]
+  //   );
+  //   if (
+  //     dateNumber >= appointmentDateNumber &&
+  //     appointmentDateNumber >= dayOfMonth
+  //   ) {
+  //     return true;
+  //   }
 
-    return false;
-  };
-
+  //   return false;
+  // };
   return (
     <div className="my-2 h-[12vh] ">
-      {appointment && day === currentDay && (
+      {appointment && dayOfWeek === currentDay && (
         // isDateBretween(appointment.date) &&
         // <p>{"day " + day + " current" + currentDay}</p>
         <AppointmentCard appointment={appointment} />
