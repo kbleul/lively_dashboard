@@ -31,6 +31,10 @@ const UserAppointmentModal = ({ appointment }: { appointment: any }) => {
             let roomCode = res.data.split("meeting/");
             roomCode = roomCode[roomCode.length - 1];
             router.push(routes.expert["join-meeting"](roomCode));
+            localStorage.setItem(
+              "appointmentDetails",
+              JSON.stringify(appointment)
+            );
           }
         },
         onError: (err) => {

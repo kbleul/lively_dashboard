@@ -13,6 +13,7 @@ export const routes = {
       `/expert/appointments/meeting/${roomCode}`,
 
     availability: "/expert/availability",
+    questionnaire: "/expert/questionnaire",
   },
   // operational routes =>op means operational manager
   operationalManager: {

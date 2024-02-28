@@ -7,6 +7,7 @@ import {
   useHMSActions,
   useHMSStore,
 } from "@100mslive/react-sdk";
+import SessionTimer from "./SessionTimer";
 
 const MeetingRoom = ({ roomCode }: { roomCode: string }) => {
   const [isMeetingOn, setIsMeetingOn] = useState(false);
@@ -27,7 +28,9 @@ const MeetingRoom = ({ roomCode }: { roomCode: string }) => {
         isMeetingOn ? "fixed top-0 right-0 left-0 z-50" : "w-full h-[100vh]"
       }
     >
-      <div className="h-[100vh] w-full">
+      <div className="h-[100vh] w-full relative">
+        <SessionTimer />
+
         <HMSPrebuilt
           roomCode={roomCode}
           onJoin={handleJoin}
