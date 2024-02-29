@@ -110,7 +110,7 @@ export const expertMenuItems = [
     icon: <PiNotepadDuotone />,
     dropdownItems: [
       {
-        name: "Appoitments",
+        name: "List",
         href: routes.expert.appointments,
       },
     ],

@@ -6,7 +6,11 @@ import { routes } from "@/config/routes";
 import MeetingRoom from "@/app/shared/expert/appointments/MeetingRoom";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 
-const Meeting = ({ params }: { params: { roomCode: string } }) => {
+const Meeting = ({
+  params,
+}: {
+  params: { clientId: string; roomCode: string };
+}) => {
   const pageHeader = {
     title: "Appointments",
     breadcrumb: [
@@ -27,7 +31,7 @@ const Meeting = ({ params }: { params: { roomCode: string } }) => {
   return (
     <HMSRoomProvider>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
-      <MeetingRoom roomCode={params.roomCode} />
+      <MeetingRoom clientId={params.clientId} roomCode={params.roomCode} />
     </HMSRoomProvider>
   );
 };

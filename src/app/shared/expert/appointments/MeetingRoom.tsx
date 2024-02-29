@@ -9,7 +9,13 @@ import {
 } from "@100mslive/react-sdk";
 import SessionTimer from "./SessionTimer";
 
-const MeetingRoom = ({ roomCode }: { roomCode: string }) => {
+const MeetingRoom = ({
+  clientId,
+  roomCode,
+}: {
+  clientId: string;
+  roomCode: string;
+}) => {
   const [isMeetingOn, setIsMeetingOn] = useState(false);
 
   const isConnected = useHMSStore(selectIsConnectedToRoom);

@@ -30,7 +30,9 @@ const UserAppointmentModal = ({ appointment }: { appointment: any }) => {
           if (res.status === 200) {
             let roomCode = res.data.split("meeting/");
             roomCode = roomCode[roomCode.length - 1];
-            router.push(routes.expert["join-meeting"](roomCode));
+            router.push(
+              routes.expert["join-meeting"](appointment.user_id, roomCode)
+            );
             localStorage.setItem(
               "appointmentDetails",
               JSON.stringify(appointment)

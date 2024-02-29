@@ -56,4 +56,5 @@ export const queryKeys = {
   getAllMembers: "getAllMembersApi",
   getSingleMember: "getAllSingleMemberApi",
   getMeetingRoomLink: "getMeetingRoomLinkApi",
+  getClient: "getClientApi",
 };

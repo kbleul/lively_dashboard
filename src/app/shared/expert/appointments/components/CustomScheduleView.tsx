@@ -19,7 +19,9 @@ const CustomScheduleView = ({
 
   const dayOfWeek = today.toLocaleString("en-US", { weekday: "long" });
 
-  const firstAppointmentDate = new Date(apponintmentsList[0].date);
+  const firstAppointmentDate = apponintmentsList[0]
+    ? new Date(apponintmentsList[0].date)
+    : new Date("1998-01-01");
 
   const firstAppointmentMonth = firstAppointmentDate.toLocaleString("en-US", {
     month: "long",

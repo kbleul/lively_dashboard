@@ -26,7 +26,7 @@ type QuestionnairsTypes = {
       }[];
 };
 
-const ClientIntake = () => {
+const ClientIntake = ({ clientId }: { clientId: string }) => {
   const postMutation = useDynamicMutation();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -84,7 +84,7 @@ const ClientIntake = () => {
           url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}expert/client-expert-intake-response`,
           method: "POST",
           headers,
-          body: { responses: valueToSubmit },
+          body: { responses: valueToSubmit, user_id: clientId },
           onSuccess: (res) => {
             toast.success("Client intake submitted!");
           },

@@ -9,11 +9,11 @@ export const routes = {
     profile: "/expert/profile",
     schedule: "/expert/schedule",
     appointments: "/expert/appointments",
-    "join-meeting": (roomCode: string) =>
-      `/expert/appointments/meeting/${roomCode}`,
-
     availability: "/expert/availability",
-    questionnaire: "/expert/questionnaire",
+
+    "join-meeting": (clientId: string, roomCode: string) =>
+      `/expert/${clientId}/meeting/${roomCode}`,
+    questionnaire: (clientId: string) => `/expert/${clientId}/questionnaire`,
   },
   // operational routes =>op means operational manager
   operationalManager: {
