@@ -48,21 +48,10 @@ const OccupationList = () => {
     }
   };
   const [pageSize, setPageSize] = React.useState(10);
-  const {
-    isLoading,
-    sortConfig,
-    totalItems,
-    tableData,
-    currentPage,
-    searchTerm,
-    handleSort,
-    handleDelete,
-    handleSearch,
-    handlePaginate,
-    selectedRowKeys,
-    handleRowSelect,
-    handleSelectAll,
-  } = useTable(cityData?.data ?? [], pageSize);
+  const { totalItems, currentPage, handlePaginate } = useTable(
+    cityData?.data ?? [],
+    pageSize
+  );
   const onEditItem = (id: string) => {
     openModal({
       view: <AddOccupationForm id={id} />,

@@ -207,6 +207,7 @@ export const routes = {
         `/so/product-discount/${discountId}`,
     },
   },
+
   branchManger: {
     dashboard: "/bm",
     packages: "/bm/packages",
@@ -234,10 +235,14 @@ export const routes = {
         `/bm/product-discount/${discountId}`,
     },
   },
+
   admin: {
     dashboard: "/admin",
     plans: "/admin/plans",
     "add-plans": "/admin/plans/create",
     "edit-plan": (planId: string) => `/admin/plans/edit/${planId}`,
+
+    reason: "/admin/reason",
+    "add-reason": "/admin/reason/create",
   },
 };

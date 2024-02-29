@@ -12,6 +12,7 @@ import { LiaProductHunt } from "react-icons/lia";
 import { TbServicemark } from "react-icons/tb";
 import { CiUser } from "react-icons/ci";
 import { CgProductHunt } from "react-icons/cg";
+import { MdOutlineReportProblem } from "react-icons/md";
 // Note: do not add href in the label object, it is rendering as label
 
 export const operationalManagetMenuItems = [
@@ -283,6 +284,17 @@ export const adminMenuItems = [
       {
         name: "List",
         href: routes.admin.plans,
+      },
+    ],
+  },
+  {
+    name: "Report Reasons",
+    href: "#",
+    icon: <MdOutlineReportProblem />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.admin.reason,
       },
     ],
   },
