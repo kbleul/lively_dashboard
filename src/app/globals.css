@@ -1224,6 +1224,10 @@ div[style="z-index: 1000001;"],
   left: 3rem;
 }
 
+#disabled-bg[disabled] {
+  background-color: #fff9f2 !important;
+}
+
 @media (max-width: 600px) {
   .branchlogo {
     bottom: -2rem;

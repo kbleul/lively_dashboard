@@ -11,9 +11,9 @@ const QuestionnaireDispatch = () => {
 
   return (
     <main className="grid grid-cols-4">
-      <section className="border col-span-1" />
+      <section className=" col-span-1" />
       <ClientIntake />
-      <section className="border col-span-1" />
+      <section className=" col-span-1" />
     </main>
   );
 };

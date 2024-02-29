@@ -57,6 +57,7 @@ const AddVariantForm = ({ id, type }: Props) => {
       console.log(err);
     }
   };
+
   return (
     <Formik
       initialValues={initalValues}

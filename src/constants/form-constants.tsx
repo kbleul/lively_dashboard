@@ -102,3 +102,24 @@ export const CreateBranchStoreSteps = [
     subTitle: "More information",
   },
 ];
+
+export const QuestionnairTypes = {
+  single: "single",
+  multiple: "multiple",
+  integer: "integer",
+  string: "string",
+  text: "text",
+  file: "file",
+  date: "date",
+  time: "time",
+  datetime: "datetime",
+  boolean: "boolean",
+  boolean_reason: "boolean_reason",
+};
+
+export const QuestionnairRadioItems = [
+  QuestionnairTypes.boolean,
+  QuestionnairTypes.boolean_reason,
+  QuestionnairTypes.multiple,
+  QuestionnairTypes.single,
+];

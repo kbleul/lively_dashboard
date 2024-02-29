@@ -165,13 +165,7 @@ export default function Sidebar({ className }: { className?: string }) {
             pathname.split("/")[5]
           ),
         },
-        // {
-        //   name: "Bookings",
-        //   href: routes.operationalManager.places["package-bookings"](
-        //     pathname.split("/")[3],
-        //     pathname.split("/")[5]
-        //   ),
-        // },
+       
       ],
     },
   ];
