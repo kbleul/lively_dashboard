@@ -26,8 +26,8 @@ const QuestionnaireDispatch = ({ clientId }: { clientId: string }) => {
   useEffect(() => {
     if (clientData.isFetched) {
       clientData?.data?.data?.expert_intake_taken
-        ? setViewedFormType(ClientFormTypes.INTAKE)
-        : setViewedFormType(ClientFormTypes.SESSION);
+        ? setViewedFormType(ClientFormTypes.SESSION)
+        : setViewedFormType(ClientFormTypes.INTAKE);
     }
   }, [clientData.isFetching, clientData.isFetched]);
 

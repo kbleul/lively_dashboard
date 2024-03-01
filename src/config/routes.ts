@@ -15,6 +15,7 @@ export const routes = {
       `/expert/${clientId}/meeting/${roomCode}`,
     questionnaire: (clientId: string) => `/expert/${clientId}/questionnaire`,
   },
+
   // operational routes =>op means operational manager
   operationalManager: {
     dashboard: "/op",

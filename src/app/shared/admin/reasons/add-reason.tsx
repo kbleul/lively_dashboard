@@ -33,7 +33,6 @@ export default function AddTagForm({ id }: { id?: string }) {
   if (reasonData.isFetching) {
     return <Loading id={id} />;
   }
-  console.log(reasonData?.data?.data);
   const initialValues: ReasonType = {
     reason: id ? reasonData?.data?.data?.reason : "",
   };

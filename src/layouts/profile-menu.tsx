@@ -16,6 +16,7 @@ function DropdownMenu() {
   const role = session?.user.user.roles?.map(
     (item: { name: string }) => item.name
   );
+
   const menuItems = [
     {
       name: "My Profile",
