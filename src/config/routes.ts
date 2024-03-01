@@ -11,6 +11,9 @@ export const routes = {
     appointments: "/expert/appointments",
     availability: "/expert/availability",
 
+    clients: "/expert/clients",
+    "client-detail": (clientId: string) => `/expert/clients/${clientId}`,
+
     "join-meeting": (clientId: string, roomCode: string) =>
       `/expert/${clientId}/meeting/${roomCode}`,
     questionnaire: (clientId: string) => `/expert/${clientId}/questionnaire`,

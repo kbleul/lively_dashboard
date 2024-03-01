@@ -98,6 +98,17 @@ export const expertMenuItems = [
     // href: routes.file.dashboard,
     icon: <PiFileImageDuotone />,
   },
+  {
+    name: "Clients",
+    href: "#",
+    icon: <CiUser />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.expert.clients,
+      },
+    ],
+  },
 
   {
     name: "Availability",

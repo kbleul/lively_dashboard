@@ -59,4 +59,7 @@ export const queryKeys = {
   getClient: "getClientApi",
   getAllReasons: "getAllReasonsApi",
   getSingleReasons: "getSingleReasonsApi",
+  getAllClients: "getAllClientsApi",
+  getSingleClient: "getSingleClient",
+  getClientAssessmentAnswers: "getClientAssessmentAnswersApi",
 };
