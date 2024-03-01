@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 const pageHeader = {
-  title: "Bookings",
+  title: "Report Reasons",
   breadcrumb: [
     {
       href: routes.admin.dashboard,

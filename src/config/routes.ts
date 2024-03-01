@@ -243,6 +243,5 @@ export const routes = {
     "edit-plan": (planId: string) => `/admin/plans/edit/${planId}`,
 
     reason: "/admin/reason",
-    "add-reason": "/admin/reason/create",
   },
 };

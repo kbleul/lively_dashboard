@@ -39,18 +39,18 @@ const ReasonsList = () => {
     });
   };
 
-  const updateHiddenStatus = async (planId: string) => {
+  const onDeleteItem = async (reasonId: string) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}admin/report-reasons`,
-        method: "POST",
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}admin/report-reasons/${reasonId}`,
+        method: "DELETE",
         headers,
         body: {},
         onSuccess: () => {
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllReasons],
           });
-          toast.success("Report reason updated Successfully");
+          toast.success("Report reason deleted Successfully");
         },
         onError: (err) => {
           toast.error(err?.response?.data?.data);
@@ -73,11 +73,17 @@ const ReasonsList = () => {
       className={"flex flex-col"}
       headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
       action={
-        <Link href={routes.admin["add-plans"]}>
-          <Button size="lg" color="primary">
-            Add Report Reason
-          </Button>
-        </Link>
+        <Button
+          size="lg"
+          color="primary"
+          onClick={() =>
+            openModal({
+              view: <AddReasonForm />,
+            })
+          }
+        >
+          Add Report Reason
+        </Button>
       }
     >
       <div className={"table-wrapper flex-grow"}>
@@ -88,12 +94,7 @@ const ReasonsList = () => {
           data={reportsData?.data?.data}
           scroll={{ x: 900 }}
           // @ts-ignore
-          columns={getColumns(
-            viewPlan,
-            onEditItem,
-            updateHiddenStatus,
-            postMutation.isPending
-          )}
+          columns={getColumns(onEditItem, onDeleteItem, postMutation.isPending)}
           className={
             "overflow-hidden rounded-md border border-gray-200 text-sm shadow-sm [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:h-60 [&_.rc-table-placeholder_.rc-table-expanded-row-fixed>div]:justify-center [&_.rc-table-row:last-child_td.rc-table-cell]:border-b-0 [&_thead.rc-table-thead]:border-t-0"
           }

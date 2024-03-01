@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HMSPrebuilt } from "@100mslive/roomkit-react";
 import {
   selectIsConnectedToRoom,
@@ -20,6 +20,12 @@ const MeetingRoom = ({
 
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   const hmsActions = useHMSActions();
+
+  useEffect(() => {
+    window.onunload = () => {
+      hmsActions.leave();
+    };
+  }, [hmsActions]);
 
   const handleJoin = () => {
     setIsMeetingOn(true);
