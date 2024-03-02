@@ -6,6 +6,7 @@ import { useFetchData } from "@/react-query/useFetchData";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import Spinner from "@/components/ui/spinner";
 import { Title } from "rizzui";
+import SessionForm from "./session-form";
 
 const ClientFormTypes = {
   INTAKE: "client-intake",
@@ -45,6 +46,9 @@ const QuestionnaireDispatch = ({ clientId }: { clientId: string }) => {
       <section className=" col-span-1" />
       {viewFormType === ClientFormTypes.INTAKE && (
         <ClientIntake clientId={clientId} />
+      )}
+      {viewFormType === ClientFormTypes.SESSION && (
+        <SessionForm clientId={clientId} />
       )}
       <section className=" col-span-1" />
     </main>

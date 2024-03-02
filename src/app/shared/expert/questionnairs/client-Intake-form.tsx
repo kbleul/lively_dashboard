@@ -145,7 +145,6 @@ const ClientIntake = ({ clientId }: { clientId: string }) => {
         initialValues={initalValues}
         onSubmit={(values) => {
           handleSubmitIntake(values);
-          console.log(values);
         }}
         validationSchema={schema}
       >

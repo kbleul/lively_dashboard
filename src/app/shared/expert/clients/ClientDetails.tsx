@@ -15,6 +15,9 @@ import ClientDetailsHeader from "./ClientDetailsHeader";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import ClientInfo from "./ClientInfo";
 import Assessments from "./Assessments";
+import UpcommingAppointments from "./UpcommingAppointment";
+import AppointmentsHistory from "./AppointmentsHistory";
+import SessionNotes from "./SessionNotes";
 
 const CategoriesArr = [
   "Personal Info",
@@ -79,8 +82,26 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
           <ClientInfo userData={clientData?.data?.data?.user} />
         )}
 
+        {categoryLink === CategoriesArr[1] && (
+          <SessionNotes
+            clientId={clientId}
+            clientData={clientData?.data?.data?.user}
+          />
+        )}
+
         {categoryLink === CategoriesArr[2] && (
-          <Assessments clientId={clientId} />
+          <Assessments
+            clientId={clientId}
+            clientData={clientData?.data?.data?.user}
+          />
+        )}
+
+        {categoryLink === CategoriesArr[3] && (
+          <UpcommingAppointments clientId={clientId} />
+        )}
+
+        {categoryLink === CategoriesArr[4] && (
+          <AppointmentsHistory clientId={clientId} />
         )}
       </section>
     </main>

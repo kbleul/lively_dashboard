@@ -48,7 +48,6 @@ const MeetingRoom = ({
   };
 
   const endSession = async () => {
-    console.log("object");
     const savedAppointment = localStorage.getItem("appointmentDetails");
     const appointmentData = savedAppointment
       ? JSON.parse(savedAppointment)

@@ -3,13 +3,18 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import React from "react";
-import { GrDocumentText } from "react-icons/gr";
 import { IoDocumentTextSharp } from "react-icons/io5";
-import { Button, Title } from "rizzui";
+import { Title } from "rizzui";
 import { useModal } from "../../modal-views/use-modal";
 import AssessmentAnswersModal from "./AssessmentAnswersModal";
 
-const Assessments = ({ clientId }: { clientId: string }) => {
+const Assessments = ({
+  clientId,
+  clientData,
+}: {
+  clientId: string;
+  clientData: any;
+}) => {
   const { openModal } = useModal();
 
   const headers = useGetHeaders({ type: "Json" });
@@ -37,7 +42,10 @@ const Assessments = ({ clientId }: { clientId: string }) => {
   const viewAssessmentAnswer = () => {
     openModal({
       view: (
-        <AssessmentAnswersModal assessmentAnswers={clientAssessmentAnswers} />
+        <AssessmentAnswersModal
+          assessmentAnswers={clientAssessmentAnswers}
+          clientName={clientData.first_name + " " + clientData.last_name}
+        />
       ),
       customSize: "700px",
     });

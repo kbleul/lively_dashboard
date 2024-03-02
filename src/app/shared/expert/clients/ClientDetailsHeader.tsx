@@ -21,9 +21,14 @@ const ClientDetailsHeader = ({ userData }: { userData: any }) => {
         <section className="branchlogo flex items-start mt-32 justify-start pl-2 md:pl-10">
           <section className="">
             <section
-              className="w-16 h-16 md:w-28 md:h-28 gap-x-4 border-4 border-white  bg-[#e1f7e6] rounded-full shadow-sm overflow-hidden  z-10"
+              className="w-16 h-16 md:w-28 md:h-28 gap-x-4 border-2 border-white  bg-[#e1f7e6] rounded-full shadow-sm overflow-hidden  z-10"
               style={{
-                backgroundImage: `url('${userData?.profile_image}')`,
+                backgroundImage: `url('${
+                  userData?.profile_image &&
+                  !userData?.profile_image.includes("ui-avatars.com")
+                    ? userData?.profile_image
+                    : "https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                }')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 zIndex: 100,

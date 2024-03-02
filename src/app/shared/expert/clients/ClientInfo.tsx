@@ -42,7 +42,7 @@ const ClientInfo = ({ userData }: { userData: any }) => {
       </div>
 
       {userData.email && (
-        <div className="w-full">
+        <div className="w-[84%]">
           <p className="w-[40%] font-medium text-base mb-1">Email</p>
           <p className="border rounded-md border-black p-3 capitalize font-medium w-full">
             {userData.email}

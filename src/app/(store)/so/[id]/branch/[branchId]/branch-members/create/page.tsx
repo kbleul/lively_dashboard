@@ -11,7 +11,6 @@ const ViewBranchMembers = ({
 }: {
   params: { placeId: string; branchId: string };
 }) => {
-  console.log("--", params.placeId, "==", params.branchId, "==");
   return (
     <CreateMemberForm placeId={params.placeId} branchId={params.branchId} />
   );
