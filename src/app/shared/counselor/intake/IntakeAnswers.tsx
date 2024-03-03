@@ -116,7 +116,11 @@ const CustomPaginate = (
           type="button"
           disabled={currentPage === 1}
           onClick={() => handlePageChange()}
-          className="border px-3 py-1 rounded-md text-sm"
+          className={
+            currentPage !== 1
+              ? "border px-3 py-1 rounded-md text-sm text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
+              : "border px-3 py-1 rounded-md text-sm"
+          }
         >
           Prev.
         </button>
