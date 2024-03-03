@@ -16,6 +16,7 @@ import { MdOutlineReportProblem } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
 import { FaUserMd } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
+import { HiOutlineDocumentText } from "react-icons/hi2";
 // Note: do not add href in the label object, it is rendering as label
 
 export const counselorMenuItems = [
@@ -54,6 +55,11 @@ export const counselorMenuItems = [
     name: "Appointments",
     href: routes.counselor.appointments,
     icon: <LuCalendarDays />,
+  },
+  {
+    name: "Intake Answers",
+    href: routes.counselor.intake,
+    icon: <HiOutlineDocumentText />,
   },
 ];
 

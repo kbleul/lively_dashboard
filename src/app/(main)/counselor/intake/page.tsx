@@ -1,32 +1,33 @@
-import React from "react";
 import { metaObject } from "@/config/site.config";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-import ClientsList from "@/app/shared/counselor/clients/ClientsList";
+import ExpertDashboard from "@/app/shared/expert/dashboard/dashboard";
+import IntakeAnswers from "@/app/shared/counselor/intake/IntakeAnswers";
 
 export const metadata = {
-  ...metaObject("Clients"),
+  ...metaObject("Dashboard"),
 };
 
 const pageHeader = {
-  title: "Clients",
+  title: "Intake Answers",
   breadcrumb: [
     {
       href: routes.counselor.dashboard,
       name: "Counselor",
     },
+
     {
-      name: "Clients",
+      name: "Intake Answers",
     },
   ],
 };
-const Clients = () => {
+
+export default function Intake() {
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
-      <ClientsList />
+
+      <IntakeAnswers />
     </>
   );
-};
-
-export default Clients;
+}

@@ -37,8 +37,8 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
 
   const clientData = useFetchData(
-    [queryKeys.getSingleClient + clientId, clientId],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}expert/${fetchCategoryLinks[categoryLink]}`,
+    [queryKeys.getUpcommingAppointments + clientId, clientId],
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/client-upcoming-appointments/${clientId}`,
     headers
   );
 
@@ -78,10 +78,10 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
       />
 
       <section className="my-2">
-        {categoryLink === CategoriesArr[0] && (
+        {/* {categoryLink === CategoriesArr[0] && (
           <ClientInfo userData={clientData?.data?.data?.user} />
-        )}
-
+        )} */}
+        {/* 
         {categoryLink === CategoriesArr[1] && (
           <SessionNotes
             clientId={clientId}
@@ -94,7 +94,7 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
             clientId={clientId}
             clientData={clientData?.data?.data?.user}
           />
-        )}
+        )} */}
 
         {categoryLink === CategoriesArr[3] && (
           <UpcommingAppointments clientId={clientId} />
