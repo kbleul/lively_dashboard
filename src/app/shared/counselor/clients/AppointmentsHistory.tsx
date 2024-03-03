@@ -6,7 +6,7 @@ import { useModal } from "../../modal-views/use-modal";
 import { useFetchData } from "@/react-query/useFetchData";
 import { getColumns } from "./history_columns";
 import { queryKeys } from "@/react-query/query-keys";
-import SessionForm from "../questionnairs/session-form";
+import SessionForm from "../../expert/questionnairs/session-form";
 
 const AppointmentsHistory = ({ clientId }: { clientId: string }) => {
   const headers = useGetHeaders({ type: "Json" });

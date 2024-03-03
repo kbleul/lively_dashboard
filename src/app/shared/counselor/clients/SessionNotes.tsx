@@ -86,14 +86,7 @@ const SessionNotes = ({
                   className="border border-black px-4 rounded-md py-1"
                   onClick={() =>
                     openModal({
-                      view: (
-                        <SessionNotesAnswersModal
-                          sessionNotesAnswers={note}
-                          clientName={
-                            clientData.first_name + " " + clientData.last_name
-                          }
-                        />
-                      ),
+                      view: <></>,
                       customSize: "600px",
                     })
                   }
