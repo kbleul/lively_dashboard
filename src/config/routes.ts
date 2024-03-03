@@ -3,7 +3,6 @@ export const routes = {
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
 
-  //expert routes
   counselor: {
     dashboard: "/counselor",
 
@@ -12,6 +11,9 @@ export const routes = {
       create: "/counselor/experts/register-experts",
     },
     "edit-expert": (id: string) => `/counselor/experts/edit/${id}`,
+
+    clients: "/counselor/clients",
+    appointments: `/counselor/appointments`,
   },
 
   expert: {

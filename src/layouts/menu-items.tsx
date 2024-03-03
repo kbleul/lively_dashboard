@@ -14,6 +14,8 @@ import { CiUser } from "react-icons/ci";
 import { CgProductHunt } from "react-icons/cg";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa6";
+import { FaUserMd } from "react-icons/fa";
+import { LuCalendarDays } from "react-icons/lu";
 // Note: do not add href in the label object, it is rendering as label
 
 export const counselorMenuItems = [
@@ -29,13 +31,29 @@ export const counselorMenuItems = [
   {
     name: "Experts",
     href: "#",
-    icon: <CiUser />,
+    icon: <FaUserMd />,
     dropdownItems: [
       {
         name: "List",
         href: routes.counselor.experts.list,
       },
     ],
+  },
+  {
+    name: "Clients",
+    href: "#",
+    icon: <CiUser />,
+    dropdownItems: [
+      {
+        name: "List",
+        href: routes.counselor.clients,
+      },
+    ],
+  },
+  {
+    name: "Appointments",
+    href: routes.counselor.appointments,
+    icon: <LuCalendarDays />,
   },
 ];
 
