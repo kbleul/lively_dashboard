@@ -11,11 +11,11 @@ const pageHeader = {
   title: "Register Expert",
   breadcrumb: [
     {
-      href: routes.operationalManager.dashboard,
+      href: routes.counselor.dashboard,
       name: "Dashboard",
     },
     {
-      href: routes.operationalManager.experts.list,
+      href: routes.counselor.experts.list,
       name: "Expert",
     },
     {
@@ -27,10 +27,7 @@ const pageHeader = {
 const RegisterExperts = () => {
   return (
     <>
-      <PageHeader
-        title={pageHeader.title}
-        breadcrumb={pageHeader.breadcrumb}
-      ></PageHeader>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
       <RegisterExpertForm />;
     </>
   );

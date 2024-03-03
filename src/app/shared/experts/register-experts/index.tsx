@@ -19,7 +19,11 @@ const RegisterExpertForm = () => {
         <ExpertInfoForm setActiveStep={setActiveStep} setUserId={setUserId} />
       )}
       {activeStep === 1 && (
-        <MoreInfoForm setActiveStep={setActiveStep} userId={user ?? userId} name={name}/>
+        <MoreInfoForm
+          setActiveStep={setActiveStep}
+          userId={user ?? userId}
+          name={name}
+        />
       )}
     </div>
   );

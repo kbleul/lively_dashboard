@@ -81,17 +81,6 @@ export const finishRegisterExpert = Yup.object({
   educational_document: Yup.mixed().required(
     "Educational Document is required"
   ),
-  inperson: Yup.boolean().required("Inperson is required"),
-  priceInPerson: Yup.string().when("inperson", {
-    is: true,
-    then: (schema) => schema.required("Price is required"),
-  }),
-  online: Yup.boolean().required("Inperson is required"),
-  isOneSelected: Yup.boolean().required("Inperson is required"),
-  priceInOnline: Yup.string().when("online", {
-    is: true,
-    then: (schema) => schema.required("Price is required"),
-  }),
   openingHours: Yup.array().of(
     Yup.object().shape({
       day: Yup.string().min(1).required("Day is required"),
@@ -123,11 +112,6 @@ type FinishRegisterExpert = {
   specialties: string[];
   expert_license: any;
   educational_document: any;
-  inperson: boolean;
-  priceInPerson: string;
-  online: boolean;
-  isOneSelected: boolean;
-  priceInOnline: string;
   openingHours: {
     isActive: boolean;
     day: string;
@@ -174,17 +158,6 @@ export const editExpertInfoSchema = Yup.object({
   specialties: Yup.array().of(
     Yup.string().min(1).required("Specialty is required")
   ),
-  inperson: Yup.boolean().required("Inperson is required"),
-  priceInPerson: Yup.string().when("inperson", {
-    is: true,
-    then: (schema) => schema.required("Price is required"),
-  }),
-  online: Yup.boolean().required("Inperson is required"),
-  isOneSelected: Yup.boolean().required("Inperson is required"),
-  priceInOnline: Yup.string().when("online", {
-    is: true,
-    then: (schema) => schema.required("Price is required"),
-  }),
 });
 
 type EditExpertInfoType = Yup.InferType<typeof editExpertInfoSchema>;

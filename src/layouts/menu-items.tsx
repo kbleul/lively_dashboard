@@ -13,74 +13,27 @@ import { TbServicemark } from "react-icons/tb";
 import { CiUser } from "react-icons/ci";
 import { CgProductHunt } from "react-icons/cg";
 import { MdOutlineReportProblem } from "react-icons/md";
+import { FaUserTie } from "react-icons/fa6";
 // Note: do not add href in the label object, it is rendering as label
 
-export const operationalManagetMenuItems = [
+export const counselorMenuItems = [
   {
-    name: "Operational Manager Menu",
-    label: "Operational Manager",
+    name: "Counselor Menu",
+    label: null,
   },
-  // label end
   {
     name: "Dashboard",
-    href: routes.operationalManager.dashboard,
-    icon: <MdOutlineDashboard />,
+    href: routes.counselor.dashboard,
+    icon: <PiFileImageDuotone />,
   },
-
-  {
-    name: "Tools",
-  },
-  {
-    name: "Lively Tools",
-    href: "#",
-    icon: <PiToolboxThin />,
-    dropdownItems: [
-      {
-        name: "Banners",
-        href: routes.operationalManager.banners,
-      },
-      {
-        name: "Subscriptions",
-        href: routes.operationalManager.subscriptions,
-      },
-      {
-        name: "register experts",
-        href: routes.operationalManager.experts.create,
-      },
-      {
-        name: "create Wellbeign Center",
-        href: routes.operationalManager.centers.create,
-      },
-    ],
-  },
-  {
-    name: "Bookings",
-    href: routes.operationalManager.appointments,
-    icon: <MdOutlineAttachMoney />,
-  },
-  {
-    name: "Contacts",
-    href: routes.operationalManager.contact,
-    icon: <RiContactsBook2Line />,
-  },
-
   {
     name: "Experts",
-    href: routes.operationalManager.experts.list,
-    icon: <GrUserExpert />,
-  },
-  {
-    name: "Places",
     href: "#",
-    icon: <MdOutlineLocalGroceryStore />,
+    icon: <CiUser />,
     dropdownItems: [
       {
-        name: "Places",
-        href: routes.operationalManager.places.list,
-      },
-      {
-        name: "Create Place",
-        href: routes.operationalManager.places.create,
+        name: "List",
+        href: routes.counselor.experts.list,
       },
     ],
   },
@@ -95,7 +48,6 @@ export const expertMenuItems = [
   {
     name: "Dashboard",
     href: "/",
-    // href: routes.file.dashboard,
     icon: <PiFileImageDuotone />,
   },
   {
@@ -128,6 +80,189 @@ export const expertMenuItems = [
     ],
   },
 ];
+
+export const operationalManagetMenuItems = [
+  {
+    name: "Operational Manager Menu",
+    label: "Operational Manager",
+  },
+  // label end
+  {
+    name: "Dashboard",
+    href: routes.operationalManager.dashboard,
+    icon: <MdOutlineDashboard />,
+  },
+
+  {
+    name: "Tools",
+  },
+  {
+    name: "Lively Tools",
+    href: "#",
+    icon: <PiToolboxThin />,
+    dropdownItems: [
+      {
+        name: "Banners",
+        href: routes.operationalManager.banners,
+      },
+      {
+        name: "Subscriptions",
+        href: routes.operationalManager.subscriptions,
+      },
+      {
+        name: "create Wellbeign Center",
+        href: routes.operationalManager.centers.create,
+      },
+    ],
+  },
+  {
+    name: "Bookings",
+    href: routes.operationalManager.appointments,
+    icon: <MdOutlineAttachMoney />,
+  },
+  {
+    name: "Contacts",
+    href: routes.operationalManager.contact,
+    icon: <RiContactsBook2Line />,
+  },
+  {
+    name: "Places",
+    href: "#",
+    icon: <MdOutlineLocalGroceryStore />,
+    dropdownItems: [
+      {
+        name: "Places",
+        href: routes.operationalManager.places.list,
+      },
+      {
+        name: "Create Place",
+        href: routes.operationalManager.places.create,
+      },
+    ],
+  },
+];
+
+export const operationalManagetAsBMMenuItems = (pathname: string) => {
+  return [
+    {
+      name: "Branch Manager Menu",
+      label: "Branch Manager",
+    },
+    {
+      name: "Dashboard",
+      href: routes.operationalManager.places["branch-dashboard"](
+        pathname.split("/")[3],
+        pathname.split("/")[5]
+      ),
+      icon: <PiFileImageDuotone />,
+    },
+    {
+      name: "Branch",
+      href: "#",
+      icon: <MdOutlineLocalGroceryStore />,
+      dropdownItems: [
+        {
+          name: "Edit Branch",
+          href: routes.operationalManager.places["edit-branch"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.operationalManager.places["branch-discounts"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Managers",
+      href: "#",
+      icon: <FaUserTie />,
+      dropdownItems: [
+        {
+          name: "Managers",
+          href: routes.operationalManager.places["branch-manager"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Create",
+          href: routes.operationalManager.places["create-branch-manager"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Members",
+      href: "#",
+      icon: <CiUser />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-members"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Products",
+      href: "#",
+      icon: <CgProductHunt />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-products"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.operationalManager.places["product-discounts"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Claimed Discounts",
+          href: routes.operationalManager.places["claimed-product-discounts"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+    {
+      name: "Package",
+      href: "#",
+      icon: <PiNotepadDuotone />,
+      dropdownItems: [
+        {
+          name: "List",
+          href: routes.operationalManager.places["list-packages"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+        {
+          name: "Discounts",
+          href: routes.operationalManager.places["package-discounts"](
+            pathname.split("/")[3],
+            pathname.split("/")[5]
+          ),
+        },
+      ],
+    },
+  ];
+};
 
 export const contentCretorMenuItems = [
   {

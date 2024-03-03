@@ -107,7 +107,8 @@ export default function SignInForm() {
             !role.includes("Admin") &&
             !role.includes("Content_Creator") &&
             !role.includes("Store_Owner") &&
-            !role.includes("Branch_Manager")
+            !role.includes("Branch_Manager") &&
+            !role.includes("Counselor")
           ) {
             toast.info("Account Not Found");
             return;

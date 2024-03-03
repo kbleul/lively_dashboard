@@ -4,6 +4,16 @@ export const routes = {
   resetPassword: "/reset-password",
 
   //expert routes
+  counselor: {
+    dashboard: "/counselor",
+
+    experts: {
+      list: "/counselor/experts",
+      create: "/counselor/experts/register-experts",
+    },
+    "edit-expert": (id: string) => `/counselor/experts/edit/${id}`,
+  },
+
   expert: {
     dashboard: "/expert",
     profile: "/expert/profile",
@@ -33,11 +43,6 @@ export const routes = {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",
       edit: (id: string) => `/op/centers/edit/${id}`,
-    },
-    experts: {
-      list: "/op/experts",
-      create: "/op/experts/register-experts",
-      edit: (id: string) => `/op/experts/edit/${id}`,
     },
     places: {
       list: "/op/places",

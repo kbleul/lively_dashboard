@@ -39,21 +39,14 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
     ),
   },
   {
-    title: <HeaderCell title="first name" />,
+    title: <HeaderCell title="Full name" />,
     dataIndex: "user",
     key: "user",
     width: 50,
-    render: (value: { first_name: string }) => (
-      <Text className="font-medium text-gray-700">{value?.first_name}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="last name" />,
-    dataIndex: "user",
-    key: "user",
-    width: 50,
-    render: (value: { last_name: string }) => (
-      <Text className="font-medium text-gray-700">{value?.last_name}</Text>
+    render: (value: { first_name: string; last_name: string }) => (
+      <Text className="font-medium text-gray-700">
+        {value?.first_name + " " + value?.last_name}
+      </Text>
     ),
   },
   {
@@ -63,26 +56,6 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
     width: 50,
     render: (value: { phone: string }) => (
       <Text className="font-medium text-gray-700">{value?.phone}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="Online Session" />,
-    dataIndex: "appointment_type",
-    key: "appointment_type",
-    width: 50,
-    render: (value: { phone: { price: string } }) => (
-      <Text className="font-medium text-gray-700">{value?.phone?.price}</Text>
-    ),
-  },
-  {
-    title: <HeaderCell title="Inperson Session" />,
-    dataIndex: "appointment_type",
-    key: "appointment_type",
-    width: 50,
-    render: (value: { in_person: { price: string } }) => (
-      <Text className="font-medium text-gray-700">
-        {value?.in_person?.price}
-      </Text>
     ),
   },
   {
@@ -103,8 +76,6 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
       <Text className="font-medium text-gray-700">{value?.name?.english}</Text>
     ),
   },
-
-  // status
   {
     // Need to avoid this issue -> <td> elements in a large <table> do not have table headers.
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -119,7 +90,7 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
           placement="top"
           color="invert"
         >
-          <Link href={routes.operationalManager.experts.edit(row.id)}>
+          <Link href={routes.counselor["edit-expert"](row.id)}>
             <ActionIcon
               tag="span"
               size="sm"

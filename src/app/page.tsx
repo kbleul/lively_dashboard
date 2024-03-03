@@ -15,6 +15,14 @@ const Home = () => {
   if (
     session?.user?.user?.roles
       ?.map((item: { name: string }) => item.name)
+      .includes(Role.Counselor)
+  ) {
+    return router.push(routes.counselor.dashboard);
+  }
+
+  if (
+    session?.user?.user?.roles
+      ?.map((item: { name: string }) => item.name)
       .includes(Role.Expert)
   ) {
     return router.push(routes.expert.dashboard);

@@ -91,7 +91,7 @@ export const getIncompleteColumns = ({ onDeleteExpert, type }: Columns) => [
         >
           <Link
             href={
-              routes.operationalManager.experts.create +
+              routes.counselor.experts.create +
               `?step=1&userId=${row.id}&name=${row?.first_name} ${row?.last_name}`
             }
           >
@@ -111,7 +111,7 @@ export const getIncompleteColumns = ({ onDeleteExpert, type }: Columns) => [
           placement="top"
           color="invert"
         >
-          <Link href={routes.operationalManager.experts.edit(row.id)}>
+          <Link href={routes.counselor["edit-expert"](row.id)}>
             <ActionIcon
               tag="span"
               size="sm"
