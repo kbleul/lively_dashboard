@@ -59,7 +59,7 @@ const AddCategoryForm = ({
         headers,
         body: {
           ...values,
-          _method: "PATCH",
+          _method: id ? "PATCH" : "POST",
         },
         onSuccess: (res: any) => {
           queryClient.invalidateQueries({
