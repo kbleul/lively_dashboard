@@ -13,7 +13,7 @@ import { TbServicemark } from "react-icons/tb";
 import { CiUser } from "react-icons/ci";
 import { CgProductHunt } from "react-icons/cg";
 import { MdOutlineReportProblem } from "react-icons/md";
-import { FaUserTie } from "react-icons/fa6";
+import { FaQuestion, FaUserTie } from "react-icons/fa6";
 import { FaUserMd } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi2";
@@ -60,6 +60,11 @@ export const counselorMenuItems = [
     name: "Intake Answers",
     href: routes.counselor.intake,
     icon: <HiOutlineDocumentText />,
+  },
+  {
+    name: "Questioner",
+    href: routes.counselor.assessments,
+    icon: <FaQuestion />,
   },
 ];
 

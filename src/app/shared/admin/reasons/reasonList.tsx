@@ -30,15 +30,6 @@ const ReasonsList = () => {
     headers
   );
 
-  const viewPlan = (plan: any) => {
-    openModal({
-      view: <></>,
-
-      //   <ShowPlanModal plan={plan} />,
-      customSize: "600px",
-    });
-  };
-
   const onDeleteItem = async (reasonId: string) => {
     try {
       await postMutation.mutateAsync({

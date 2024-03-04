@@ -16,6 +16,10 @@ export const routes = {
     appointments: `/counselor/appointments`,
 
     intake: `/counselor/intake`,
+
+    assessments: `/counselor/assessments`,
+    "add-assessments-questions": (categoryId: string) =>
+      `/counselor/assessments/${categoryId}/create-questions`,
   },
 
   expert: {
