@@ -134,7 +134,7 @@ const ViewQuestion = ({ categoryId }: { categoryId: string }) => {
                       placeholder="Write Your question here"
                       color="primary"
                       className=" border-b border-[#e2e2e2]"
-                      inputClassName="border-none"
+                      inputClassName="border-none text-lg"
                       disabled
                     />
                     <button
