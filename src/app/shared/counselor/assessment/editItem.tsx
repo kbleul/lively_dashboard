@@ -7,16 +7,20 @@ import useDynamicMutation from "@/react-query/usePostData";
 import { Form, Formik } from "formik";
 import React from "react";
 import { ActionIcon, Button, Title } from "rizzui";
-import { useFetchData } from "@/react-query/useFetchData";
 import { PiXBold } from "react-icons/pi";
 import { useModal } from "../../modal-views/use-modal";
+import { toast } from "sonner";
+import { queryKeys } from "@/react-query/query-keys";
+import { useQueryClient } from "@tanstack/react-query";
 
 const EditItem = ({
   item,
   type,
+  categoryId,
 }: {
   item: any;
   type: "Question" | "Option";
+  categoryId: string;
 }) => {
   const { closeModal } = useModal();
   console.log(item);
@@ -24,6 +28,7 @@ const EditItem = ({
   const headers = useGetHeaders({ type: "FormData" });
 
   const postMutation = useDynamicMutation();
+  const queryClient = useQueryClient();
 
   const questionSchema = Yup.object().shape({
     question: Yup.string().required("Question is required"),
@@ -32,6 +37,39 @@ const EditItem = ({
   const optionSchema = Yup.object().shape({
     choice_text: Yup.string().required("Choice text is required"),
   });
+
+  const updateItem = async (values: any) => {
+    try {
+      const valToSendQuestion = {
+        question: values.question,
+      };
+      const valToSendOptions = {
+        choice_text: values.choice_text,
+      };
+      await postMutation.mutateAsync({
+        url:
+          type === "Question"
+            ? `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/update-question/${item.id}`
+            : `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/update-question-option/${item.id}`,
+        method: "POST",
+        headers,
+        body: type === "Question" ? valToSendQuestion : valToSendOptions,
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getAssessmentCategoryQuestions + categoryId],
+          });
+
+          toast.success("Item  updated Successfully");
+          closeModal();
+        },
+        onError: (err) => {
+          toast.error(err?.response?.data?.data);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const initialValues = {
     question: type === "Question" ? item.question_text.english : "",
@@ -54,9 +92,9 @@ const EditItem = ({
       <Formik
         initialValues={type === "Option" ? initialValuesOptions : initialValues}
         validationSchema={type === "Option" ? optionSchema : questionSchema}
-        onSubmit={(values: {}) => {
+        onSubmit={(values: { question: string } | { choice_text: string }) => {
           console.log(values);
-          //   createPQuestionsHandeler(values);
+          updateItem(values);
         }}
       >
         {({}) => {

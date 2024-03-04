@@ -144,6 +144,7 @@ const ViewQuestion = ({ categoryId }: { categoryId: string }) => {
                             <EditItem
                               item={questionsData.data.data[index]}
                               type="Question"
+                              categoryId={categoryId}
                             />
                           ),
                           customSize: "550px",
@@ -185,6 +186,7 @@ const ViewQuestion = ({ categoryId }: { categoryId: string }) => {
                                     ]
                                   }
                                   type="Option"
+                                  categoryId={categoryId}
                                 />
                               ),
                               customSize: "550px",
