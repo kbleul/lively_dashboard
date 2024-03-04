@@ -1,7 +1,7 @@
 import React from "react";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-import AddQuestionForm from "@/app/shared/counselor/assessment/add-question-form";
+import ViewQuestion from "@/app/shared/counselor/assessment/view-questions";
 
 const Appointment = ({ params }: { params: { categoryId: string } }) => {
   const pageHeader = {
@@ -16,14 +16,17 @@ const Appointment = ({ params }: { params: { categoryId: string } }) => {
         name: "Self-assessment",
       },
       {
-        name: "Create questions",
+        name: "Category",
+      },
+      {
+        name: "View questions",
       },
     ],
   };
   return (
     <>
       <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
-      <AddQuestionForm categoryId={params.categoryId} />
+      <ViewQuestion categoryId={params.categoryId} />
     </>
   );
 };

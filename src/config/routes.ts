@@ -20,6 +20,8 @@ export const routes = {
     assessments: `/counselor/assessments`,
     "add-assessments-questions": (categoryId: string) =>
       `/counselor/assessments/${categoryId}/create-questions`,
+    "view-assessments-questions": (categoryId: string) =>
+      `/counselor/assessments/${categoryId}/view-questions`,
   },
 
   expert: {

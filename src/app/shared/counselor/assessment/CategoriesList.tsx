@@ -14,6 +14,7 @@ import ViewCategory from "./view-category-modal";
 import { BsThreeDots } from "react-icons/bs";
 import Link from "next/link";
 import { routes } from "@/config/routes";
+import { useRouter } from "next/navigation";
 
 const CategoriesList = () => {
   const { openModal } = useModal();
@@ -78,7 +79,7 @@ const CategoriesList = () => {
                     </p>
                   </div>
 
-                  {category.status === 1 && (
+                  {!category.active && (
                     <div className="px-4">
                       <p className="text-white font-medium bg-red-400 rounded-full px-2 py-1 text-xs">
                         Hidden
@@ -104,9 +105,11 @@ const CategoriesList = () => {
                   className="w-full border border-[#5F5F5F] text-[#5F5F5F] bg-white hover:text-white hover:border-none mt-4 mb-2"
                 >
                   <Link
-                    href={routes.counselor["add-assessments-questions"](
-                      category.id
-                    )}
+                    href={
+                      routes.counselor["add-assessments-questions"](
+                        category.id
+                      ) + `?number_of_questions=${category.count}`
+                    }
                   >
                     Add Question
                   </Link>
@@ -120,46 +123,59 @@ const CategoriesList = () => {
 };
 
 const SideMenu = ({ category }: { category: any }) => {
+  const router = useRouter();
+
   const { openModal } = useModal();
 
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <section className="absolute top-3 right-3">
+    <section className=" w-full">
       <Button
         color="primary"
         variant="outline"
         onClick={() => setShowMenu((prev) => !prev)}
-        className="text-black bg-white z-50  rounded-full border-white py-1 px-[0.6rem] flex justify-center items-center"
+        className="text-black bg-white z-50  rounded-full border-white absolute top-3 right-3 py-1 px-[0.6rem] flex justify-center items-center"
       >
         <BsThreeDots size={20} />
       </Button>
       {showMenu && (
         <div
-          className="absolute top-8 right-10 border bg-white "
+          className="absolute top-12 right-10 border bg-white flex flex-col"
           onMouseEnter={() => setShowMenu(true)}
         >
           <button
             type="button"
-            className="py-1 px-8 border-b"
+            className="py-2 hover:bg-gray-100 px-6 border-b"
             onClick={() =>
               openModal({
                 view: <ViewCategory category={category} />,
               })
             }
           >
-            View
+            view category
           </button>
           <button
             type="button"
-            className="py-1 px-8"
+            className="py-2 hover:bg-gray-100 px-6 border-b"
             onClick={() =>
               openModal({
                 view: <AddCategoryForm id={category.id} />,
               })
             }
           >
-            Edit
+            edit category
+          </button>
+          <button
+            type="button"
+            className="py-2 hover:bg-gray-100 px-6"
+            onClick={() =>
+              router.push(
+                routes.counselor["view-assessments-questions"](category.id)
+              )
+            }
+          >
+            view questions
           </button>
         </div>
       )}

@@ -127,15 +127,15 @@ const AddCategoryForm = ({
                     className="flex gap-3 justify-end border rounded-xl px-4 py-2"
                   >
                     <p>Toggle Status: </p>
-                    {categoryData.data.data.status == 0 ? (
-                      <FaToggleOff
-                        size={24}
-                        onClick={() => updateStatusSubmitHandler(id)}
-                      />
-                    ) : (
+                    {categoryData.data.data.active ? (
                       <FaToggleOn
                         size={24}
+                        onClick={() => updateStatusSubmitHandler(id)}
                         className="text-green-400"
+                      />
+                    ) : (
+                      <FaToggleOff
+                        size={24}
                         onClick={() => updateStatusSubmitHandler(id)}
                       />
                     )}
