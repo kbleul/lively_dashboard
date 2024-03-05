@@ -81,13 +81,6 @@ export const finishRegisterExpert = Yup.object({
   educational_document: Yup.mixed().required(
     "Educational Document is required"
   ),
-  openingHours: Yup.array().of(
-    Yup.object().shape({
-      day: Yup.string().min(1).required("Day is required"),
-      from: Yup.string().min(1).required("From is required"),
-      to: Yup.string().min(1).required("To is required"),
-    })
-  ),
 });
 
 type Education = {
@@ -112,12 +105,6 @@ type FinishRegisterExpert = {
   specialties: string[];
   expert_license: any;
   educational_document: any;
-  openingHours: {
-    isActive: boolean;
-    day: string;
-    from: string;
-    to: string;
-  }[];
 };
 
 // edit

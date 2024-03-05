@@ -4,9 +4,9 @@ import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
 import ExpertAvailability from "@/app/shared/expert/availability/expert-availability";
 export const metadata = {
-    ...metaObject("Availability"),
-  };
-  
+  ...metaObject("Availability"),
+};
+
 const Availability = () => {
   const pageHeader = {
     title: "Availability",
@@ -23,14 +23,10 @@ const Availability = () => {
   };
   return (
     <>
-      <PageHeader
-        title={pageHeader.title}
-        breadcrumb={pageHeader.breadcrumb}
-      ></PageHeader>
+      <PageHeader title={pageHeader.title} breadcrumb={pageHeader.breadcrumb} />
       <ExpertAvailability />
     </>
   );
 };
 
 export default Availability;
-

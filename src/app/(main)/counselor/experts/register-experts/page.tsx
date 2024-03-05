@@ -1,8 +1,8 @@
-import RegisterExpertForm from "@/app/shared/experts/register-experts";
 import React from "react";
 import { metaObject } from "@/config/site.config";
 import { routes } from "@/config/routes";
 import PageHeader from "@/app/shared/page-header";
+import RegisterExpertForm from "@/app/shared/experts/register-experts";
 
 export const metadata = {
   ...metaObject("Register Experts"),

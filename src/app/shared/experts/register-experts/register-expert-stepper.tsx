@@ -1,5 +1,6 @@
 import React from "react";
 import { Stepper, Step } from "@/components/ui/stepper";
+import { MdOutlineMoreTime } from "react-icons/md";
 
 interface Props {
   activeStep: number;
@@ -51,6 +52,14 @@ const RegisterExpertStepper = ({ activeStep }: Props) => {
             />
           </svg>
         }
+      />
+
+      <Step
+        variant="solid"
+        color="primary"
+        title="Availability."
+        description="Add yor Availability"
+        icon={<MdOutlineMoreTime size={22} />}
       />
     </Stepper>
   );

@@ -101,12 +101,6 @@ export const getColumns = ({ onDeleteExpert, type }: Columns) => [
             </ActionIcon>
           </Link>
         </Tooltip>
-        <ReusabelPopover
-          title={`Delete Expert`}
-          icon={<AiTwotoneDelete className="h-4 w-4" />}
-          description={`Are you sure you want to Delete this  Expert?`}
-          onDelete={() => onDeleteExpert(row.id)}
-        />
       </div>
     ),
   },

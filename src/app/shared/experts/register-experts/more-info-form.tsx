@@ -23,9 +23,6 @@ import {
   type FinishRegisterExpert,
   finishRegisterExpert,
 } from "@/validations/create-expert.schema";
-import { appendDefaultSecond } from "@/utils/append-second";
-import { useRouter } from "next/navigation";
-import { routes } from "@/config/routes";
 import { Button, Title } from "rizzui";
 import Spinner from "@/components/ui/spinner";
 
@@ -33,14 +30,12 @@ interface Props {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   userId: string;
   name: string | null;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MoreInfoForm = ({ userId, name }: Props) => {
-  const router = useRouter();
+const MoreInfoForm = ({ setActiveStep, userId, name, setUserId }: Props) => {
   const postMutation = useDynamicMutation();
-  const [customDaysChecked, setCustomDaysChecked] = useState(
-    Array(7).fill(true)
-  );
+
   const headers = useGetHeaders({ type: "FormData" });
   const initialValues: FinishRegisterExpert = {
     occupation: "",
@@ -62,7 +57,6 @@ const MoreInfoForm = ({ userId, name }: Props) => {
     ],
     expert_license: null,
     educational_document: null,
-    openingHours: workCustomDays,
   };
 
   const cityData = useFetchData(
@@ -96,15 +90,10 @@ const MoreInfoForm = ({ userId, name }: Props) => {
           experiences: values.experiences,
           expert_license: values.expert_license,
           educational_document: values.educational_document,
-          availabilities: values.openingHours.map((hours: any) => ({
-            day_of_week: hours.day,
-            opening_time: appendDefaultSecond(hours.from),
-            closing_time: appendDefaultSecond(hours.to),
-          })),
-          // _method: "PATCH",
         },
-        onSuccess: () => {
-          router.push(routes.counselor.experts.list);
+        onSuccess: (res) => {
+          setUserId(res.data.id);
+          setActiveStep((prev) => ++prev);
           toast.success("Information Saved Successfully");
         },
         onError: (err) => {
@@ -208,7 +197,8 @@ const MoreInfoForm = ({ userId, name }: Props) => {
                         >
                           education
                         </Text>
-                        {values.education.map((info, i) => (
+                        _
+                        {values.education.map((_, i) => (
                           <div
                             key={i}
                             className="border p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
@@ -350,49 +340,6 @@ const MoreInfoForm = ({ userId, name }: Props) => {
                   label="Educational Document"
                   className="col-span-2"
                 />
-
-                {/*  */}
-                <div className="col-span-2">
-                  <Text as="span" className="text-primary block capitalize">
-                    Avalability Time
-                  </Text>
-                  {values.openingHours.map((_: any, index: number) => (
-                    <div className="flex items-end  gap-2 w-full " key={index}>
-                      <Checkbox
-                        checked={customDaysChecked[index]}
-                        variant="flat"
-                        color="primary"
-                        className="font-medium"
-                        onChange={(e) => {
-                          const isChecked = e.target.checked;
-                          setCustomDaysChecked((prevChecked) => {
-                            const newChecked = [...prevChecked];
-                            newChecked[index] = isChecked;
-                            return newChecked;
-                          });
-                        }}
-                      />
-
-                      <FormikInput
-                        name={`openingHours[${index}].day`}
-                        label="Day"
-                        disabled
-                      />
-                      <FormikInput
-                        name={`openingHours[${index}].from`}
-                        label="Opening Time"
-                        disabled={!customDaysChecked[index]}
-                        type="time24"
-                      />
-                      <FormikInput
-                        name={`openingHours[${index}].to`}
-                        label="Closing Time"
-                        type="time24"
-                        disabled={!customDaysChecked[index]}
-                      />
-                    </div>
-                  ))}
-                </div>
               </FormBlockWrapper>
             </div>
 
