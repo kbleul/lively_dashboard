@@ -8,7 +8,7 @@ import { GrFormView } from "react-icons/gr";
 import { ActionIcon, Tooltip } from "rizzui";
 
 type Columns = {
-  handleEdit: (id: string) => void;
+  handleEdit: (id: string, isView?: boolean) => void;
 };
 
 export const getColumns = ({ handleEdit }: Columns) => [
