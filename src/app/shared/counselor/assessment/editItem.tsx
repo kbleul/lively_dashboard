@@ -58,6 +58,9 @@ const EditItem = ({
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAssessmentCategoryQuestions + categoryId],
           });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getQuickAssessmentQuestions],
+          });
 
           toast.success("Item  updated Successfully");
           closeModal();

@@ -92,6 +92,9 @@ const AddCategoryForm = ({
           queryClient.invalidateQueries({
             queryKey: [queryKeys.getAllAssessmentCategory],
           });
+          queryClient.invalidateQueries({
+            queryKey: [queryKeys.getQuickAssessmentQuestions],
+          });
           toast.success("Status Update Successfully");
           closeModal();
         },

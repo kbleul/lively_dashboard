@@ -12,7 +12,7 @@ import {
   assessmentQuestionschema,
 } from "@/validations/assessment";
 import { Form, Formik } from "formik";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { Button, Title } from "rizzui";

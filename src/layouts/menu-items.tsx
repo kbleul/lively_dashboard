@@ -63,8 +63,18 @@ export const counselorMenuItems = [
   },
   {
     name: "Questioner",
-    href: routes.counselor.assessments,
+    href: "#",
     icon: <FaQuestion />,
+    dropdownItems: [
+      {
+        name: "Self Assessment",
+        href: routes.counselor.assessments,
+      },
+      {
+        name: "Quick Self Assessment",
+        href: routes.counselor["quick-self-assessment"],
+      },
+    ],
   },
 ];
 

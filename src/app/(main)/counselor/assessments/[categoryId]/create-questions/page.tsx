@@ -13,7 +13,7 @@ const Appointment = ({ params }: { params: { categoryId: string } }) => {
       },
       {
         href: routes.counselor.assessments,
-        name: "Self-assessment",
+        name: "Self-assessment-category",
       },
       {
         name: "Create questions",

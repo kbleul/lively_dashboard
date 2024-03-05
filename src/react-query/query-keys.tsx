@@ -67,4 +67,5 @@ export const queryKeys = {
   getAppointmentsHistory: "getAppointmentsHistoryApi",
   getAllAssessmentCategory: "getAllAssessmentCategoryApi",
   getAssessmentCategoryQuestions: "getAllAssessmentCategoryQuestionsApi",
+  getQuickAssessmentQuestions: "getQuickAssessmentQuestionsApi",
 };

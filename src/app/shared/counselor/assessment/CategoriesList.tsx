@@ -41,7 +41,7 @@ const CategoriesList = () => {
 
   return (
     <article>
-      <div className="flex justify-end">
+      <div className="flex justify-end mb-6">
         <Button
           size="lg"
           color="primary"
@@ -60,7 +60,7 @@ const CategoriesList = () => {
         {categoriesList.data.data &&
           categoriesList.data.data.map((category: any) => (
             <section
-              className="w-[23%] border rounded-xl shadow-md overflow-hidden relative"
+              className="w-[23%] mb-4 border rounded-xl shadow-md overflow-hidden relative"
               key={category.id}
             >
               <div className="h-[14vh] w-full overflow-hidden relative">
@@ -81,7 +81,7 @@ const CategoriesList = () => {
 
                   {!category.active && (
                     <div className="px-4">
-                      <p className="text-white font-medium bg-red-400 rounded-full px-2 py-1 text-xs">
+                      <p className="text-white font-medium bg-red-500 rounded-full px-2 py-1 text-xs">
                         Hidden
                       </p>
                     </div>
@@ -95,23 +95,31 @@ const CategoriesList = () => {
                 <Title as="h6" className="text-lg font-medium">
                   {truncateAmharicText(category.name.english, 30)}
                 </Title>
-                <p className="py-1">
+                <p className="py-1 h-12">
                   {truncateAmharicText(category.description.english, 40)}
                 </p>
 
                 <Button
                   color="primary"
                   type="button"
-                  className="w-full border border-[#5F5F5F] text-[#5F5F5F] bg-white hover:text-white hover:border-none mt-4 mb-2"
+                  className={
+                    category.has_questions
+                      ? "w-full text-white bg-gradient-to-r from-[#008579] to-[#00BA63] hover:text-white hover:border-none mt-4 mb-2"
+                      : "w-full border border-[#5F5F5F] text-[#5F5F5F] bg-white hover:text-white hover:border-none mt-4 mb-2"
+                  }
                 >
                   <Link
                     href={
-                      routes.counselor["add-assessments-questions"](
-                        category.id
-                      ) + `?number_of_questions=${category.count}`
+                      category.has_questions
+                        ? routes.counselor["view-assessments-questions"](
+                            category.id
+                          )
+                        : routes.counselor["add-assessments-questions"](
+                            category.id
+                          ) + `?number_of_questions=${category.count}`
                     }
                   >
-                    Add Question
+                    {category.has_questions ? "View Question" : "Add Question"}
                   </Link>
                 </Button>
               </div>

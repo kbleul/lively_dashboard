@@ -22,6 +22,8 @@ export const routes = {
       `/counselor/assessments/${categoryId}/create-questions`,
     "view-assessments-questions": (categoryId: string) =>
       `/counselor/assessments/${categoryId}/view-questions`,
+
+    "quick-self-assessment": `/counselor/assessments/quick-assessment`,
   },
 
   expert: {

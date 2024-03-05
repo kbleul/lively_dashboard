@@ -32,6 +32,10 @@ export type assessmentQuestionType = {
   options: string[];
 };
 
+export const singleAssessmentQuestionSchema = Yup.object().shape({
+  question_text: Yup.string().required("Question is required"),
+  options: Yup.array().of(Yup.string()),
+});
 export type assessmentQuestionsType = {
   questions: assessmentQuestionType[];
 };
