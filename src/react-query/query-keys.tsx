@@ -68,4 +68,5 @@ export const queryKeys = {
   getAllAssessmentCategory: "getAllAssessmentCategoryApi",
   getAssessmentCategoryQuestions: "getAllAssessmentCategoryQuestionsApi",
   getQuickAssessmentQuestions: "getQuickAssessmentQuestionsApi",
+  getAllJournalPrompts: "getAllJournalPromptsApi",
 };

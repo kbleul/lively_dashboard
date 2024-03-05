@@ -24,6 +24,8 @@ export const routes = {
       `/counselor/assessments/${categoryId}/view-questions`,
 
     "quick-self-assessment": `/counselor/assessments/quick-assessment`,
+
+    "journal-prompts": `/counselor/journal-prompts`,
   },
 
   expert: {

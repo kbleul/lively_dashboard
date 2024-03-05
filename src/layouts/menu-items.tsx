@@ -17,6 +17,7 @@ import { FaQuestion, FaUserTie } from "react-icons/fa6";
 import { FaUserMd } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi2";
+import { BsJournalPlus } from "react-icons/bs";
 // Note: do not add href in the label object, it is rendering as label
 
 export const counselorMenuItems = [
@@ -75,6 +76,11 @@ export const counselorMenuItems = [
         href: routes.counselor["quick-self-assessment"],
       },
     ],
+  },
+  {
+    name: "Journal",
+    href: routes.counselor["journal-prompts"],
+    icon: <BsJournalPlus />,
   },
 ];
 

@@ -6,7 +6,6 @@ import { useGetHeaders } from "@/hooks/use-get-headers";
 import useDynamicMutation from "@/react-query/usePostData";
 import {
   assessmentQuestionType,
-  assessmentQuestionsType,
   singleAssessmentQuestionSchema,
 } from "@/validations/assessment";
 import { Form, Formik } from "formik";
