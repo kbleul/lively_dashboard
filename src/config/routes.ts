@@ -14,6 +14,7 @@ export const routes = {
 
     clients: "/counselor/clients",
     appointments: `/counselor/appointments`,
+    reports: `/counselor/reports`,
 
     intake: `/counselor/intake`,
 

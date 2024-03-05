@@ -5,7 +5,6 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { Avatar } from "@/components/ui/avatar";
 
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { GrFormView } from "react-icons/gr";
 import { routes } from "@/config/routes";
