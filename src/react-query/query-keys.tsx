@@ -66,6 +66,9 @@ export const queryKeys = {
   getUpcommingAppointments: "getUpcommingAppointmentsApi",
   getAppointmentsHistory: "getAppointmentsHistoryApi",
   getAllAssessmentCategory: "getAllAssessmentCategoryApi",
+  getAllMindfulnessCategory: "getAllMindfulnessCategoryApi",
+  getAllMindfulnessExercises: "getAllMindfulnessExercisesApi",
+
   getAssessmentCategoryQuestions: "getAllAssessmentCategoryQuestionsApi",
   getQuickAssessmentQuestions: "getQuickAssessmentQuestionsApi",
   getAllJournalPrompts: "getAllJournalPromptsApi",

@@ -27,6 +27,10 @@ export const routes = {
 
     "journal-prompts": `/counselor/journal-prompts`,
 
+    mindfulness: `/counselor/exercises/mindfulness`,
+    "mindfulness-exercises": (categoryId: string) =>
+      `/counselor/exercises/mindfulness/${categoryId}`,
+
     reports: `/counselor/reports`,
     quotes: `/counselor/quotes`,
   },
