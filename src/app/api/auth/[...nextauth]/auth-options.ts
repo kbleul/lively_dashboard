@@ -24,8 +24,6 @@ export const authOptions: NextAuthOptions = {
     },
     async redirect({ url, baseUrl }) {
       const parsedUrl = new URL(url, baseUrl);
-      const baseUrlx = parsedUrl.origin + parsedUrl.pathname;
-      const parameters = parsedUrl.searchParams;
 
       if (parsedUrl.searchParams.has("callbackUrl")) {
         return `${baseUrl}${parsedUrl.searchParams.get("callbackUrl")}`;

@@ -1,15 +1,51 @@
 export const routes = {
   signIn: "/signin",
   forgotPassword: "/forgot-password",
+  resetPassword: "/reset-password",
 
-  //expert routes
+  counselor: {
+    dashboard: "/counselor",
+
+    experts: {
+      list: "/counselor/experts",
+      create: "/counselor/experts/register-experts",
+    },
+    "edit-expert": (id: string) => `/counselor/experts/edit/${id}`,
+
+    clients: "/counselor/clients",
+    appointments: `/counselor/appointments`,
+
+    intake: `/counselor/intake`,
+
+    assessments: `/counselor/assessments`,
+    "add-assessments-questions": (categoryId: string) =>
+      `/counselor/assessments/${categoryId}/create-questions`,
+    "view-assessments-questions": (categoryId: string) =>
+      `/counselor/assessments/${categoryId}/view-questions`,
+
+    "quick-self-assessment": `/counselor/assessments/quick-assessment`,
+
+    "journal-prompts": `/counselor/journal-prompts`,
+
+    reports: `/counselor/reports`,
+    quotes: `/counselor/quotes`,
+  },
+
   expert: {
     dashboard: "/expert",
     profile: "/expert/profile",
     schedule: "/expert/schedule",
     appointments: "/expert/appointments",
     availability: "/expert/availability",
+
+    clients: "/expert/clients",
+    "client-detail": (clientId: string) => `/expert/clients/${clientId}`,
+
+    "join-meeting": (clientId: string, roomCode: string) =>
+      `/expert/${clientId}/meeting/${roomCode}`,
+    questionnaire: (clientId: string) => `/expert/${clientId}/questionnaire`,
   },
+
   // operational routes =>op means operational manager
   operationalManager: {
     dashboard: "/op",
@@ -24,11 +60,6 @@ export const routes = {
       list: "/op/centers",
       create: "/op/centers/create-wellbeing-center",
       edit: (id: string) => `/op/centers/edit/${id}`,
-    },
-    experts: {
-      list: "/op/experts",
-      create: "/op/experts/register-experts",
-      edit: (id: string) => `/op/experts/edit/${id}`,
     },
     places: {
       list: "/op/places",
@@ -97,7 +128,15 @@ export const routes = {
         discountId: string
       ) =>
         `/op/places/${placeId}/branch/${branchId}/branch-discounts/products/claimed/${discountId}`,
+
+      "list-members": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members`,
+      "add-member": (placeId: string, branchId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members/create`,
+      "view-member": (placeId: string, branchId: string, userId: string) =>
+        `/op/places/${placeId}/branch/${branchId}/branch-members/${userId}`,
     },
+
     product: {
       "claimed-product": (discountId: string) =>
         `/op/product-discount/${discountId}`,
@@ -142,6 +181,14 @@ export const routes = {
         `/so/${id}/branch/${branchId}`,
       "edit-branch": (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/edit-branch`,
+
+      "list-members": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members`,
+      "add-member": (id: string, branchId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members/create`,
+      "view-member": (id: string, branchId: string, userId: string) =>
+        `/so/${id}/branch/${branchId}/branch-members/${userId}`,
+
       products: (id: string, branchId: string) =>
         `/so/${id}/branch/${branchId}/products`,
       packages: (id: string, branchId: string) =>
@@ -186,6 +233,7 @@ export const routes = {
         `/so/product-discount/${discountId}`,
     },
   },
+
   branchManger: {
     dashboard: "/bm",
     packages: "/bm/packages",
@@ -195,6 +243,9 @@ export const routes = {
 
     products: "/bm/products",
     addProduct: "/bm/products/create-product",
+
+    "list-members": "/bm/branch-members",
+    "view-member": (userId: string) => `/bm/branch-members/${userId}`,
 
     productsDiscount: "/bm/products/discount",
     createProductDiscount: "/bm/products/discount/create",
@@ -210,10 +261,13 @@ export const routes = {
         `/bm/product-discount/${discountId}`,
     },
   },
+
   admin: {
     dashboard: "/admin",
     plans: "/admin/plans",
     "add-plans": "/admin/plans/create",
     "edit-plan": (planId: string) => `/admin/plans/edit/${planId}`,
+
+    reason: "/admin/reason",
   },
 };

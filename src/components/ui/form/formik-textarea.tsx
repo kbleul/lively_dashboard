@@ -57,7 +57,7 @@ const FormikTextArea: React.FC<FormikTextAreaProps> = ({
           label={label}
           name={name}
           placeholder={placeholder}
-          className={cn("[&>label>span]:font-medium ", className)}
+          className={cn("[&>label>span]:font-medium customScroll", className)}
           color={color}
           disabled={disabled}
         />

@@ -22,7 +22,7 @@ export default function ForgotPasswordForm() {
   const postMutation = useDynamicMutation();
   const headers = useGetHeaders({ type: "Json" });
   const [tempPhone, setTempPhone] = useState("");
-  const [tempToken,setTempToken] = useState("")
+  const [tempToken, setTempToken] = useState("");
   const initialValues: ForgotPasswordType = {
     phone: "",
   };
@@ -103,9 +103,13 @@ export default function ForgotPasswordForm() {
         </div>
       )}
       {activeStep === 2 && (
-        <OtpForm phone={tempPhone} setActiveStep={setActiveStep} setTempToken={setTempToken} />
+        <OtpForm
+          phone={tempPhone}
+          setActiveStep={setActiveStep}
+          setTempToken={setTempToken}
+        />
       )}
-      {activeStep === 3 && <SetNewPasswordForm tempToken={tempToken}/>}
+      {activeStep === 3 && <SetNewPasswordForm />}
     </>
   );
 }

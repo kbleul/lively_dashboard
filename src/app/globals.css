@@ -1224,9 +1224,35 @@ div[style="z-index: 1000001;"],
   left: 3rem;
 }
 
+.customScroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#disabled-bg[disabled] {
+  background-color: #fff9f2 !important;
+}
+
 @media (max-width: 600px) {
   .branchlogo {
     bottom: -2rem;
     left: 1rem;
+  }
+}
+@media screen and (min-width: 500px) {
+  /* Show scrollbar */
+  .customScroll::-webkit-scrollbar {
+    display: block;
+    width: 2px; /* Adjust the width of the scrollbar */
+    height: 4px;
+  }
+
+  /* Customize scrollbar color */
+  .customScroll::-webkit-scrollbar-thumb {
+    background-color: #cbcbf7; /* Set the color of the scrollbar thumb */
+  }
+
+  .customScroll::-webkit-scrollbar-track {
+    background-color: #acf2bb; /* Set the color of the scrollbar track */
   }
 }

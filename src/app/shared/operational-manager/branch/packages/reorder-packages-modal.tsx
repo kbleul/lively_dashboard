@@ -112,8 +112,6 @@ const ReorderPackages = ({ branchId }: { branchId: string }) => {
     oldIndex: number;
     newIndex: number;
   }) => {
-    console.log(oldIndex, newIndex);
-
     if (categoriesList) {
       const oldArray = [...categoriesList];
       const newArray = arrayMoveImmutable(oldArray, oldIndex, newIndex);

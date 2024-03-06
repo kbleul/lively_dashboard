@@ -42,7 +42,7 @@ const SubscriptionsList = () => {
       ),
     },
     [CategoriesArr[1]]: {
-      queryKey: "expired-discount-packages",
+      queryKey: "approved-subscription-payments",
       link: routes.operationalManager.places["add-package-discounts"](
         "placeId",
         "branchId"

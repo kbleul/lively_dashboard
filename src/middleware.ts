@@ -4,6 +4,15 @@ import { NextResponse } from "next/server";
 export default withAuth(
   function middleware(req: NextRequestWithAuth) {
     if (
+      req.nextUrl.pathname.startsWith("/counselor") &&
+      !req.nextauth.token?.user.roles
+        ?.map((item) => item.name)
+        .includes("Counselor")
+    ) {
+      return NextResponse.rewrite(new URL("/access-denied", req.url));
+    }
+
+    if (
       req.nextUrl.pathname.startsWith("/op") &&
       !(
         req.nextauth.token?.user.roles
@@ -115,5 +124,6 @@ export const config = {
     "/contentc/:path*",
     "/bm/:path*",
     "/so/:path*",
+    "/counselor/:path*",
   ],
 };

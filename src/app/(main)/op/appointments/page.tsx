@@ -1,14 +1,14 @@
 import { metaObject } from "@/config/site.config";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-import AppointmentsList from "@/app/shared/operational-manager/appointments/appointments";
+import BookingsList from "@/app/shared/operational-manager/appointments/appointments";
 
 export const metadata = {
   ...metaObject("Appointments"),
 };
 
 const pageHeader = {
-  title: "Appointments & Bookings",
+  title: "Bookings",
   breadcrumb: [
     {
       href: routes.operationalManager.dashboard,
@@ -16,7 +16,7 @@ const pageHeader = {
     },
 
     {
-      name: "Appointments",
+      name: "Bookings",
     },
   ],
 };
@@ -29,7 +29,7 @@ export default function Appointments() {
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <AppointmentsList />
+      <BookingsList />
     </>
   );
 }

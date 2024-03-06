@@ -44,7 +44,7 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
   const expertInfoSubmitHandler = async (values: RegisterExpertInfoType) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}operation-manager/register-expert`,
+        url: `${process.env.NEXT_PUBLIC_AUTH_BACKEND_URL}counsellor/register-expert`,
         method: "POST",
         headers,
         body: {
@@ -113,7 +113,7 @@ const ExpertInfoForm = ({ setActiveStep, setUserId }: Props) => {
               <FormikInput
                 type="number"
                 label="phone Number"
-                placeholder="Enter phoneNumber"
+                placeholder="Enter phone number"
                 color="primary"
                 prefix="+251"
                 name="phoneNumber"

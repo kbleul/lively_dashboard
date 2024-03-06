@@ -13,23 +13,22 @@ import { Title } from "@/components/ui/text";
 import { Collapse } from "@/components/ui/collapse";
 import cn from "@/utils/class-names";
 import {
-  PiCaretDownBold,
-  PiFileImageDuotone,
-  PiNotepadDuotone,
+  PiCaretDownBold
 } from "react-icons/pi";
 import SimpleBar from "@/components/ui/simplebar";
 import {
   adminMenuItems,
   branchManagerMenuItems,
   contentCretorMenuItems,
+  counselorMenuItems,
   expertMenuItems,
+  operationalManagetAsBMMenuItems,
   operationalManagetMenuItems,
 } from "./menu-items";
 import Logo from "@/components/logo";
 import { signOut, useSession } from "next-auth/react";
-import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { CgArrowsExchange } from "react-icons/cg";
-import { routes } from "@/config/routes";
+
 import { UrlObject } from "url";
 import { toast } from "sonner";
 
@@ -40,124 +39,12 @@ const OPBranchRoutes = [
   "branch-discounts",
   "branch-packages",
   "branch-products",
+  "branch-members",
 ];
 
 export default function Sidebar({ className }: { className?: string }) {
   const { data: session } = useSession();
   const pathname = usePathname();
-
-  const operationalManagetAsBMMenuItems = [
-    {
-      name: "Branch Manager Menu",
-      label: "Branch Manager",
-    },
-    {
-      name: "Dashboard",
-      href: routes.operationalManager.places["branch-dashboard"](
-        pathname.split("/")[3],
-        pathname.split("/")[5]
-      ),
-      icon: <PiFileImageDuotone />,
-    },
-    {
-      name: "Branch",
-      href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
-      dropdownItems: [
-        {
-          name: "Edit Branch",
-          href: routes.operationalManager.places["edit-branch"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Discounts",
-          href: routes.operationalManager.places["branch-discounts"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-      ],
-    },
-    {
-      name: "Managers",
-      href: "#",
-      icon: <MdOutlineLocalGroceryStore />,
-      dropdownItems: [
-        {
-          name: "Managers",
-          href: routes.operationalManager.places["branch-manager"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Create",
-          href: routes.operationalManager.places["create-branch-manager"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-      ],
-    },
-    {
-      name: "Products",
-      href: "#",
-      icon: <PiNotepadDuotone />,
-      dropdownItems: [
-        {
-          name: "List",
-          href: routes.operationalManager.places["list-products"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Discounts",
-          href: routes.operationalManager.places["product-discounts"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Claimed Discounts",
-          href: routes.operationalManager.places["claimed-product-discounts"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-      ],
-    },
-    {
-      name: "Package",
-      href: "#",
-      icon: <PiNotepadDuotone />,
-      dropdownItems: [
-        {
-          name: "List",
-          href: routes.operationalManager.places["list-packages"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Discounts",
-          href: routes.operationalManager.places["package-discounts"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-        {
-          name: "Bookings",
-          href: routes.operationalManager.places["package-bookings"](
-            pathname.split("/")[3],
-            pathname.split("/")[5]
-          ),
-        },
-      ],
-    },
-  ];
 
   const determineMenuItems = () => {
     const roles = session?.user?.user.roles;
@@ -170,7 +57,7 @@ export default function Sidebar({ className }: { className?: string }) {
     const operationalManagetDetermined = OPBranchRoutes.find((item: string) =>
       pathname.includes(item)
     )
-      ? operationalManagetAsBMMenuItems
+      ? operationalManagetAsBMMenuItems(pathname)
       : operationalManagetMenuItems;
 
     const roleMenuItems: any = {
@@ -179,6 +66,7 @@ export default function Sidebar({ className }: { className?: string }) {
       Content_Creator: contentCretorMenuItems,
       Branch_Manager: branchManagerMenuItems,
       Expert: expertMenuItems,
+      Counselor: counselorMenuItems,
     };
 
     const sidenav = roles.reduce((acc: any[], role) => {
@@ -358,7 +246,10 @@ export default function Sidebar({ className }: { className?: string }) {
             })}
           </div>
 
-          {OPBranchRoutes.find((item: string) => pathname.includes(item)) && (
+          {OPBranchRoutes.find(
+            (item: string) =>
+              pathname.includes("/op/") && pathname.includes(item)
+          ) && (
             <Link
               href={"/op/places"}
               onClick={() =>

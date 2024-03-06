@@ -48,21 +48,10 @@ const TagsList = () => {
     }
   };
   const [pageSize, setPageSize] = React.useState(10);
-  const {
-    isLoading,
-    sortConfig,
-    totalItems,
-    tableData,
-    currentPage,
-    searchTerm,
-    handleSort,
-    handleDelete,
-    handleSearch,
-    handlePaginate,
-    selectedRowKeys,
-    handleRowSelect,
-    handleSelectAll,
-  } = useTable(languageData?.data ?? [], pageSize);
+  const { totalItems, currentPage, handlePaginate } = useTable(
+    languageData?.data ?? [],
+    pageSize
+  );
 
   const onEditItem = (id: string) => {
     openModal({
@@ -108,11 +97,6 @@ const TagsList = () => {
               current: currentPage,
               onChange: (page: number) => handlePaginate(page),
             },
-            // paginatorClassName: cn(
-            //   "mt-4 lg:mt-5",
-            //   noGutter && "px-5 lg:px-7",
-            //   paginatorClassName
-            // ),
           }}
         />
       </div>

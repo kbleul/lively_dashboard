@@ -95,8 +95,6 @@ const EditPackageDiscount = ({
     end_date: discount?.end_date,
   };
 
-  console.log("woooooooooooooooo", discount?.title?.english);
-
   const updateDiscountSubmitHandler = async (
     values: CreatePackagetDiscountType
   ) => {
@@ -135,8 +133,17 @@ const EditPackageDiscount = ({
     }
   };
 
-  if (packagesDate.isFetching || packagesDate.isLoading) return;
+  if (packagesDate.isFetching || packagesDate.isLoading) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
 
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
   const packageOptions: any[] = [];
 
   packagesDate.data.data.forEach((item: any) => {

@@ -21,6 +21,8 @@ import {
   CreatePackagetDiscountType,
   createPackageDiscountSchema,
 } from "@/validations/discount";
+import Spinner from "@/components/ui/spinner";
+import { Title } from "rizzui";
 
 const AddPackageDiscount = ({
   className,
@@ -105,9 +107,17 @@ const AddPackageDiscount = ({
       console.log(err);
     }
   };
+  if (packagesDate.isFetching || packagesDate.isLoading) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
 
-  if (packagesDate.isFetching || packagesDate.isLoading) return;
-
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
   const packageOptions: any[] = [];
 
   packagesDate.data.data.forEach((item: any) => {

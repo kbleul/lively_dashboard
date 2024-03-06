@@ -5,4 +5,5 @@ export enum Role {
   Branch_Manager = "Branch_Manager",
   Content_Creator = "Content_Creator",
   Admin = "Admin",
+  Counselor = "Counselor",
 }

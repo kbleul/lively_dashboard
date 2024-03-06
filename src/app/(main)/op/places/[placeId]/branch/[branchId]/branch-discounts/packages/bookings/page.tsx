@@ -1,7 +1,7 @@
 import { metaObject } from "@/config/site.config";
 import PageHeader from "@/app/shared/page-header";
 import { routes } from "@/config/routes";
-import AppointmentsList from "@/app/shared/operational-manager/appointments/appointments";
+import BookingsList from "@/app/shared/operational-manager/branch/bookings/bookings";
 
 export const metadata = {
   ...metaObject("Appointments"),
@@ -36,7 +36,7 @@ export default function Bookings({
         breadcrumb={pageHeader.breadcrumb}
       ></PageHeader>
 
-      <AppointmentsList />
+      <BookingsList branchId={params.branchId} />
     </>
   );
 }

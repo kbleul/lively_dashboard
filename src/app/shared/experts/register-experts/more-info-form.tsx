@@ -1,30 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { Controller, SubmitHandler } from "react-hook-form";
-import FormFooter, { negMargin } from "@/components/form-footer";
+import FormFooter from "@/components/form-footer";
 import useDynamicMutation from "@/react-query/usePostData";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert } from "@/components/ui/alert";
-import { Password } from "@/components/ui/password";
-import { Button } from "@/components/ui/button";
-import { FaPerson } from "react-icons/fa6";
-import dynamic from "next/dynamic";
-import SelectLoader from "@/components/loader/select-loader";
+
 import { toast } from "sonner";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import FormGroup, { FormBlockWrapper } from "@/components/form-group";
-import { genderOptions, workCustomDays } from "@/constants/form-constants";
-import { DatePicker } from "@/components/ui/datepicker";
-import Upload from "@/components/ui/upload";
-import { Text, Title } from "@/components/ui/text";
+import { FormBlockWrapper } from "@/components/form-group";
+import { workCustomDays } from "@/constants/form-constants";
+
+import { Text } from "@/components/ui/text";
 import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
-import * as Yup from "yup";
-import { AdvancedCheckbox } from "@/components/ui/advanced-checkbox";
-import { Formik, Form, FieldArray, Field, ErrorMessage } from "formik";
+import { Formik, Form, FieldArray } from "formik";
 import FormikInput from "@/components/ui/form/input";
 import CustomSelect from "@/components/ui/form/select";
-import { RiVidiconLine } from "react-icons/ri";
 import { ActionIcon } from "@/components/ui/action-icon";
 import { PiTrashBold } from "react-icons/pi";
 import AvaterPicker from "@/components/ui/form/avater-upload";
@@ -32,22 +23,19 @@ import {
   type FinishRegisterExpert,
   finishRegisterExpert,
 } from "@/validations/create-expert.schema";
-import { appendDefaultSecond } from "@/utils/append-second";
-import { useRouter } from "next/navigation";
-import { routes } from "@/config/routes";
+import { Button, Title } from "rizzui";
+import Spinner from "@/components/ui/spinner";
 
 interface Props {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
   userId: string;
   name: string | null;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
-  const router = useRouter();
+const MoreInfoForm = ({ setActiveStep, userId, name, setUserId }: Props) => {
   const postMutation = useDynamicMutation();
-  const [customDaysChecked, setCustomDaysChecked] = useState(
-    Array(7).fill(true)
-  );
+
   const headers = useGetHeaders({ type: "FormData" });
   const initialValues: FinishRegisterExpert = {
     occupation: "",
@@ -69,33 +57,28 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
     ],
     expert_license: null,
     educational_document: null,
-    openingHours: workCustomDays,
-    online: false,
-    priceInOnline: "",
-    inperson: false,
-    priceInPerson: "",
-    isOneSelected: false,
   };
 
   const cityData = useFetchData(
     [queryKeys.getAllCities],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/cities`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/cities`,
     headers
   );
   const occupationData = useFetchData(
     [queryKeys.getAllOccupations],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/occupations`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/occupations`,
     headers
   );
   const specialityData = useFetchData(
     [queryKeys.getAllSpecilities],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/specialties`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/specialties`,
     headers
   );
+
   const expertInfoSubmitHandler = async (values: any) => {
     try {
       await postMutation.mutateAsync({
-        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}operation-manager/finish-expert-registration`,
+        url: `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/finish-expert-registration`,
         method: "POST",
         headers,
         body: {
@@ -107,19 +90,10 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
           experiences: values.experiences,
           expert_license: values.expert_license,
           educational_document: values.educational_document,
-          in_person_active: values.inperson,
-          in_person_per_session: values.priceInPerson,
-          phone_active: values.online,
-          phone_per_session: values.priceInOnline,
-          availabilities: values.openingHours.map((hours: any) => ({
-            day_of_week: hours.day,
-            opening_time: appendDefaultSecond(hours.from),
-            closing_time: appendDefaultSecond(hours.to),
-          })),
-          // _method: "PATCH",
         },
-        onSuccess: () => {
-          router.push(routes.operationalManager.experts.list);
+        onSuccess: (res) => {
+          setUserId(res.data.id);
+          setActiveStep((prev) => ++prev);
           toast.success("Information Saved Successfully");
         },
         onError: (err) => {
@@ -130,6 +104,23 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
       console.log(err);
     }
   };
+
+  if (
+    cityData.isFetching ||
+    occupationData.isFetching ||
+    specialityData.isFetching
+  ) {
+    return (
+      <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
+        <Spinner size="xl" />
+
+        <Title as="h6" className="-me-2 mt-4 font-medium text-gray-500">
+          Loading...
+        </Title>
+      </div>
+    );
+  }
+
   return (
     <Formik
       initialValues={initialValues}
@@ -206,7 +197,8 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
                         >
                           education
                         </Text>
-                        {values.education.map((info, i) => (
+                        _
+                        {values.education.map((_, i) => (
                           <div
                             key={i}
                             className="border p-2 rounded-md grid grid-cols-1 md:grid-cols-2 gap-3 items-start w-full"
@@ -348,111 +340,6 @@ const MoreInfoForm = ({ setActiveStep, userId, name }: Props) => {
                   label="Educational Document"
                   className="col-span-2"
                 />
-
-                {/* in person of price */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 col-span-2">
-                  <div className="col-span-2">
-                    <p className="font-medium">Meeting In</p>
-                  </div>
-                  <div>
-                    <AdvancedCheckbox
-                      name="inperson"
-                      color="primary"
-                      onChange={(e) => {
-                        setFieldValue("inperson", e.target.checked);
-                        setFieldValue("isOneSelected", e.target.checked);
-                      }}
-                      className="w-full grid flex-grow gap-3 rounded-xl border border-gray-200 p-6 text-gray-600 hover:cursor-pointer hover:border-gray-700"
-                      inputClassName="[&:checked:enabled~span]:ring-1 [&:checked:enabled~span]:ring-offset-0 [&:checked:enabled~span]:ring-gray-700 [&:checked:enabled~span]:border-gray-700"
-                    >
-                      <FaPerson />
-                      <Text className="font-semibold">Inperson</Text>
-                    </AdvancedCheckbox>
-                    {values.inperson && (
-                      <FormikInput
-                        type="number"
-                        name="priceInPerson"
-                        label="Price In Person"
-                        className="col-span-2"
-                        color="primary"
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <AdvancedCheckbox
-                      name="online"
-                      color="primary"
-                      onChange={(e) => {
-                        setFieldValue("online", e.target.checked);
-                        setFieldValue("isOneSelected", e.target.checked);
-                      }}
-                      className="w-full grid flex-grow gap-3 rounded-xl border border-gray-200 p-6 text-gray-600 hover:cursor-pointer hover:border-gray-700"
-                      inputClassName="[&:checked:enabled~span]:ring-1 [&:checked:enabled~span]:ring-offset-0 [&:checked:enabled~span]:ring-gray-700 [&:checked:enabled~span]:border-gray-700"
-                    >
-                      <RiVidiconLine />
-                      <Text className="font-semibold">Online</Text>
-                    </AdvancedCheckbox>
-                    {values.online && (
-                      <FormikInput
-                        type="number"
-                        name="priceInOnline"
-                        label="Price Online"
-                        className="col-span-2"
-                        color="primary"
-                      />
-                    )}
-                  </div>
-                  <div className="col-span-2">
-                    {!values.isOneSelected && (
-                      <p className="text-sm text-red-500 font-medium">
-                        Pleason Select one of The Meting Type
-                      </p>
-                    )}
-                    <p className="font-medium">Meeting In</p>
-                  </div>
-                </div>
-                {/*  */}
-                <div className="col-span-2">
-                  <Text as="span" className="text-primary block capitalize">
-                    Avalability Time
-                  </Text>
-                  {values.openingHours.map((_: any, index: number) => (
-                    <div className="flex items-end  gap-2 w-full " key={index}>
-                      <Checkbox
-                        checked={customDaysChecked[index]}
-                        variant="flat"
-                        color="primary"
-                        className="font-medium"
-                        onChange={(e) => {
-                          const isChecked = e.target.checked;
-                          setCustomDaysChecked((prevChecked) => {
-                            const newChecked = [...prevChecked];
-                            newChecked[index] = isChecked;
-                            return newChecked;
-                          });
-                        }}
-                      />
-
-                      <FormikInput
-                        name={`openingHours[${index}].day`}
-                        label="Day"
-                        disabled
-                      />
-                      <FormikInput
-                        name={`openingHours[${index}].from`}
-                        label="Opening Time"
-                        disabled={!customDaysChecked[index]}
-                        type="time24"
-                      />
-                      <FormikInput
-                        name={`openingHours[${index}].to`}
-                        label="Closing Time"
-                        type="time24"
-                        disabled={!customDaysChecked[index]}
-                      />
-                    </div>
-                  ))}
-                </div>
               </FormBlockWrapper>
             </div>
 

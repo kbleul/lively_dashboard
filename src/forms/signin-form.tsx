@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import useDynamicMutation from "@/react-query/usePostData";
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import PageLoader from "@/components/loader/page-loader";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -59,6 +59,11 @@ const assignRediresct = (role: any, params: string | null) => {
         );
       }
       return redirectUrl;
+
+    case role.includes("Admin"):
+      redirectUrl = routes.admin.dashboard;
+      return redirectUrl;
+
     default:
       redirectUrl = "";
       return redirectUrl;
@@ -102,7 +107,8 @@ export default function SignInForm() {
             !role.includes("Admin") &&
             !role.includes("Content_Creator") &&
             !role.includes("Store_Owner") &&
-            !role.includes("Branch_Manager")
+            !role.includes("Branch_Manager") &&
+            !role.includes("Counselor")
           ) {
             toast.info("Account Not Found");
             return;
@@ -112,7 +118,11 @@ export default function SignInForm() {
           signIn("credentials", {
             data: JSON.stringify(responseData?.data),
             redirect: true,
-            callbackUrl: redirectUrl,
+            callbackUrl:
+              responseData?.data?.user.hasOwnProperty("need_create_password") &&
+              responseData?.data?.user?.need_create_password
+                ? routes.resetPassword
+                : redirectUrl,
           });
           toast.success("Login Successfull, Redirecting...");
         },
