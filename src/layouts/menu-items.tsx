@@ -16,7 +16,7 @@ import { FaQuestion, FaUserTie } from "react-icons/fa6";
 import { FaUserMd } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi2";
-import { BsJournalPlus } from "react-icons/bs";
+import { BsChatLeftQuote, BsJournalPlus } from "react-icons/bs";
 import { IoFlagOutline } from "react-icons/io5";
 // Note: do not add href in the label object, it is rendering as label
 
@@ -81,6 +81,11 @@ export const counselorMenuItems = [
     name: "Journal",
     href: routes.counselor["journal-prompts"],
     icon: <BsJournalPlus />,
+  },
+  {
+    name: "Quotes",
+    href: routes.counselor.quotes,
+    icon: <BsChatLeftQuote />,
   },
   {
     name: "Reports",

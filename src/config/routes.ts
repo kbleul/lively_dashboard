@@ -14,7 +14,6 @@ export const routes = {
 
     clients: "/counselor/clients",
     appointments: `/counselor/appointments`,
-    reports: `/counselor/reports`,
 
     intake: `/counselor/intake`,
 
@@ -27,6 +26,9 @@ export const routes = {
     "quick-self-assessment": `/counselor/assessments/quick-assessment`,
 
     "journal-prompts": `/counselor/journal-prompts`,
+
+    reports: `/counselor/reports`,
+    quotes: `/counselor/quotes`,
   },
 
   expert: {

@@ -18,7 +18,7 @@ const CustomCategoryButton = ({
           onClick={() => setCategoryLink(category)}
           className={
             categoryLink === category
-              ? "bg-inherit text-black border-b-2 border-b-black font-semibold text-left md:text-center text-[0.8rem] md:sm"
+              ? "bg-inherit text-[#00BA63] border-b-2 border-b-[#00BA63] font-semibold text-left md:text-center text-[0.8rem] md:sm"
               : "bg-inherit text-black text-left md:text-center text-[0.8rem] md:sm"
           }
         >
