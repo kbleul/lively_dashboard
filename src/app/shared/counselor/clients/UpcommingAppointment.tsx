@@ -15,7 +15,7 @@ const UpcommingAppointments = ({ clientId }: { clientId: string }) => {
 
   const appointments = useFetchData(
     [queryKeys.getUpcommingAppointments + clientId, clientId],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}expert/client-upcoming-appointments/${clientId}`,
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/client-upcoming-appointments/${clientId}`,
     headers
   );
 

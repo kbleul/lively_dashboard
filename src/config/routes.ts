@@ -13,7 +13,10 @@ export const routes = {
     "edit-expert": (id: string) => `/counselor/experts/edit/${id}`,
 
     clients: "/counselor/clients",
+    "client-details": (clientId: string) => `/counselor/clients/${clientId}`,
+
     appointments: `/counselor/appointments`,
+    "session-notes": `/counselor/session-notes`,
 
     intake: `/counselor/intake`,
 

@@ -18,6 +18,8 @@ import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi2";
 import { BsChatLeftQuote, BsJournalPlus } from "react-icons/bs";
 import { IoFlagOutline } from "react-icons/io5";
+import { CgNotes } from "react-icons/cg";
+
 // Note: do not add href in the label object, it is rendering as label
 
 export const counselorMenuItems = [
@@ -61,6 +63,11 @@ export const counselorMenuItems = [
     name: "Intake Answers",
     href: routes.counselor.intake,
     icon: <HiOutlineDocumentText />,
+  },
+  {
+    name: "Session Notes",
+    href: routes.counselor["session-notes"],
+    icon: <CgNotes />,
   },
   {
     name: "Questioner",

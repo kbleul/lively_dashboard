@@ -25,7 +25,7 @@ export const getColumns = () => [
     title: <HeaderCell title="Expert" />,
     dataIndex: "appointable",
     key: "appointable",
-    width: 50,
+    width: 100,
     render: (appointable: {
       user: { first_name: string; last_name: string };
     }) => (
@@ -38,7 +38,7 @@ export const getColumns = () => [
     title: <HeaderCell title="Phone" />,
     dataIndex: "appointable",
     key: "appointable",
-    width: 50,
+    width: 100,
     render: (appointable: { user: { phone: string } }) => (
       <Text className="font-medium text-gray-700">
         +{appointable.user.phone}
@@ -49,7 +49,7 @@ export const getColumns = () => [
     title: <HeaderCell title="Date" />,
     dataIndex: "date",
     key: "date",
-    width: 50,
+    width: 100,
     render: (date: string) => (
       <Text className="font-medium text-gray-700">{date}</Text>
     ),
@@ -58,7 +58,7 @@ export const getColumns = () => [
     title: <HeaderCell title="Status" />,
     dataIndex: "status",
     key: "status",
-    width: 50,
+    width: 100,
     render: (status: string) => (
       <Badge
         className={
@@ -73,54 +73,37 @@ export const getColumns = () => [
       </Badge>
     ),
   },
-  {
-    title: <HeaderCell title="Session Notes" />,
-    dataIndex: "has_session_summary",
-    key: "has_session_summary",
-    width: 50,
-    render: (has_session_summary: boolean) => (
-      <Badge
-        className={
-          has_session_summary
-            ? "whitespace-nowrap bg-[#0cad09] rounded-md"
-            : "whitespace-nowrap bg-[#FF9900] rounded-md"
-        }
-      >
-        {has_session_summary ? "Included" : "Not included"}
-      </Badge>
-    ),
-  },
-  // {
-  //   title: <HeaderCell title="Actions" className="opacity-0" />,
-  //   dataIndex: "action",
-  //   key: "action",
-  //   width: 50,
-  //   render: (_: string, row: any) => (
-  //     <div className="flex items-center justify-center gap-3 ">
-  //       <Tooltip
-  //         size="sm"
-  //         content={() =>
-  //           row.has_session_summary
-  //             ? "View session notes"
-  //             : "Session notes not added"
-  //         }
-  //         placement="top"
-  //         color="invert"
-  //       >
-  //         <ActionIcon
-  //           tag="span"
+  //   {
+  //     title: <HeaderCell title="Actions" className="opacity-0" />,
+  //     dataIndex: "action",
+  //     key: "action",
+  //     width: 100,
+  //     render: (_: string, row: any) => (
+  //       <div className="flex items-center justify-center gap-3 ">
+  //         <Tooltip
   //           size="sm"
-  //           variant="outline"
-  //           className="hover:text-gray-700"
-  //           onClick={() => row.has_session_summary && viewNotes(row.id)}
+  //           content={() =>
+  //             row.has_session_summary
+  //               ? "View session notes"
+  //               : "Session notes not added"
+  //           }
+  //           placement="top"
+  //           color="invert"
   //         >
-  //           <GrFormView
-  //             size={24}
-  //             color={row.has_session_summary ? "black" : "gray"}
-  //           />
-  //         </ActionIcon>
-  //       </Tooltip>
-  //     </div>
-  //   ),
-  // },
+  //           <ActionIcon
+  //             tag="span"
+  //             size="sm"
+  //             variant="outline"
+  //             className="hover:text-gray-700"
+  //             onClick={() => {}}
+  //           >
+  //             <GrFormView
+  //               size={24}
+  //               color={row.has_session_summary ? "black" : "gray"}
+  //             />
+  //           </ActionIcon>
+  //         </Tooltip>
+  //       </div>
+  //     ),
+  //   },
 ];

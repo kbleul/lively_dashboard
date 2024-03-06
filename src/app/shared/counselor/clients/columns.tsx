@@ -89,7 +89,7 @@ export const getColumns = () => [
           placement="top"
           color="invert"
         >
-          <Link href={routes.expert["client-detail"](row.id)}>
+          <Link href={routes.counselor["client-details"](row.id)}>
             <ActionIcon
               tag="span"
               size="sm"

@@ -20,9 +20,9 @@ import AppointmentsHistory from "./AppointmentsHistory";
 import SessionNotes from "./SessionNotes";
 
 const CategoriesArr = [
-  "Personal Info",
-  "Notes",
-  "Assessment Answers",
+  // "Personal Info",
+  // "Notes",
+  // "Assessment Answers",
   "Upcoming Appointment",
   "Appointment History",
 ];
@@ -53,12 +53,13 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
       </div>
     );
   }
+  console.log(clientData.data.data.data);
 
   return (
     <main className="">
       <div className="flex justify-start">
         <Link
-          href={routes.expert.clients}
+          href={routes.counselor.clients}
           className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-black"
         >
           <IoArrowBack />
@@ -96,11 +97,11 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
           />
         )} */}
 
-        {categoryLink === CategoriesArr[3] && (
+        {/* {categoryLink === CategoriesArr[0] && (
           <UpcommingAppointments clientId={clientId} />
-        )}
+        )} */}
 
-        {categoryLink === CategoriesArr[4] && (
+        {categoryLink === CategoriesArr[1] && (
           <AppointmentsHistory clientId={clientId} />
         )}
       </section>
