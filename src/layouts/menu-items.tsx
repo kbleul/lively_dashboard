@@ -182,10 +182,10 @@ export const operationalManagetMenuItems = [
         name: "Subscriptions",
         href: routes.operationalManager.subscriptions,
       },
-      {
-        name: "create Wellbeign Center",
-        href: routes.operationalManager.centers.create,
-      },
+      // {
+      //   name: "create Wellbeign Center",
+      //   href: routes.operationalManager.centers.create,
+      // },
     ],
   },
   {

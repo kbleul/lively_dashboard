@@ -73,12 +73,6 @@ const MindfulnessCategoriesList = () => {
                 />
 
                 <section className="absolute bottom-2 flex justify-center gap-1">
-                  <div className="px-4">
-                    <p className="text-white  font-medium bg-black rounded-full px-2 py-1 text-xs">
-                      {category.count} questions
-                    </p>
-                  </div>
-
                   {!category.active && (
                     <div className="px-4">
                       <p className="text-white font-medium bg-red-500 rounded-full px-2 py-1 text-xs">

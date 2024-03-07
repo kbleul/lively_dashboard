@@ -6,20 +6,18 @@ import { ActionIcon } from "@/components/ui/action-icon";
 import { Avatar } from "@/components/ui/avatar";
 
 import { Badge } from "@/components/ui/badge";
-import { HiOutlineDocumentPlus } from "react-icons/hi2";
+import { GrFormView } from "react-icons/gr";
 
-export const getColumns = (
-  addSessionSummary: (appointmentId: string) => void
-) => [
+export const getColumns = (viewFeedback: (appointmentId: string) => void) => [
   {
     title: <HeaderCell title="Profile" />,
     dataIndex: "user",
     key: "user",
-    width: 50,
+    width: 100,
     render: (value: { profile_image: string; first_name: string }) => (
       <div>
         {value?.profile_image &&
-        value?.profile_image.includes("ui-avatars.com") ? (
+        !value?.profile_image.includes("ui-avatars.com") ? (
           <Avatar name={value?.first_name} src={value?.profile_image} />
         ) : (
           <Avatar
@@ -36,7 +34,7 @@ export const getColumns = (
     title: <HeaderCell title="Name" />,
     dataIndex: "user",
     key: "user",
-    width: 50,
+    width: 100,
     render: (value: { first_name: string; last_name: string }) => (
       <Text className="font-medium text-gray-700">
         {value?.first_name + " " + value?.last_name}
@@ -47,7 +45,7 @@ export const getColumns = (
     title: <HeaderCell title="phone number" />,
     dataIndex: "user",
     key: "user",
-    width: 50,
+    width: 100,
     render: (value: { phone: string }) => (
       <Text className="font-medium text-gray-700">+{value?.phone}</Text>
     ),
@@ -56,7 +54,7 @@ export const getColumns = (
     title: <HeaderCell title="Booked Date" />,
     dataIndex: "date",
     key: "date",
-    width: 50,
+    width: 100,
     render: (value: string) => (
       <Text className="font-medium text-gray-700">{value}</Text>
     ),
@@ -65,7 +63,7 @@ export const getColumns = (
     title: <HeaderCell title="Summury" />,
     dataIndex: "has_session_summary",
     key: "has_session_summary",
-    width: 50,
+    width: 100,
     render: (value: string) => (
       <Badge
         className={
@@ -82,7 +80,7 @@ export const getColumns = (
     title: <HeaderCell title="Status" />,
     dataIndex: "status",
     key: "status",
-    width: 50,
+    width: 100,
     render: (value: string) => (
       <Badge className="whitespace-nowrap bg-white border border-[#00BA63] text-[#00BA63] rounded-md">
         {value}
@@ -90,16 +88,16 @@ export const getColumns = (
     ),
   },
   {
-    title: <HeaderCell title="Actions" />,
+    title: <HeaderCell title="Feedbacks" />,
     dataIndex: "action",
     key: "action",
-    width: 50,
+    width: 100,
     render: (_: string, row: any) => (
       <div className="flex items-center justify-center gap-3 pe-4">
         {!row.has_session_summary && (
           <Tooltip
             size="sm"
-            content={() => "Add session summary"}
+            content={() => "View feedback"}
             placement="top"
             color="invert"
           >
@@ -107,10 +105,10 @@ export const getColumns = (
               tag="span"
               size="sm"
               variant="outline"
-              onClick={() => addSessionSummary(row.id)}
+              onClick={() => viewFeedback(row.id)}
               className="hover:text-gray-700"
             >
-              <HiOutlineDocumentPlus size={18} />
+              <GrFormView size={18} />
             </ActionIcon>
           </Tooltip>
         )}

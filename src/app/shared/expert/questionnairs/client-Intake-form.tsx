@@ -14,6 +14,7 @@ import {
 } from "@/constants/form-constants";
 import RadioSelect from "@/components/ui/form/radio";
 import { toast } from "sonner";
+import { ClientFormTypes } from "./QuestionnaireDispatch";
 
 type QuestionnairsTypes = {
   responses:
@@ -26,7 +27,13 @@ type QuestionnairsTypes = {
       }[];
 };
 
-const ClientIntake = ({ clientId }: { clientId: string }) => {
+const ClientIntake = ({
+  clientId,
+  setViewedFormType,
+}: {
+  clientId: string;
+  setViewedFormType: React.Dispatch<React.SetStateAction<string | null>>;
+}) => {
   const postMutation = useDynamicMutation();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -87,6 +94,7 @@ const ClientIntake = ({ clientId }: { clientId: string }) => {
           body: { responses: valueToSubmit, user_id: clientId },
           onSuccess: (res) => {
             toast.success("Client intake submitted!");
+            setViewedFormType(ClientFormTypes.SESSION);
           },
           onError: (err) => {
             toast.error(err?.response?.data?.data);

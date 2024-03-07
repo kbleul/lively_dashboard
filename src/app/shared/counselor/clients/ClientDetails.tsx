@@ -14,31 +14,23 @@ import { routes } from "@/config/routes";
 import ClientDetailsHeader from "./ClientDetailsHeader";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import ClientInfo from "./ClientInfo";
-import Assessments from "./Assessments";
 import UpcommingAppointments from "./UpcommingAppointment";
 import AppointmentsHistory from "./AppointmentsHistory";
-import SessionNotes from "./SessionNotes";
 
 const CategoriesArr = [
-  // "Personal Info",
-  // "Notes",
-  // "Assessment Answers",
+  "Personal Info",
   "Upcoming Appointment",
   "Appointment History",
 ];
 
 const ClientDetails = ({ clientId }: { clientId: string }) => {
-  const fetchCategoryLinks = {
-    [CategoriesArr[0]]: `client-detail/${clientId}`,
-  };
-
   const headers = useGetHeaders({ type: "Json" });
 
   const [categoryLink, setCategoryLink] = useState(CategoriesArr[0]);
 
   const clientData = useFetchData(
-    [queryKeys.getUpcommingAppointments + clientId, clientId],
-    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/client-upcoming-appointments/${clientId}`,
+    [queryKeys.getSingleClient + clientId, clientId],
+    `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}counsellor/client-detail/${clientId}`,
     headers
   );
 
@@ -79,30 +71,23 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
       />
 
       <section className="my-2">
-        {/* {categoryLink === CategoriesArr[0] && (
+        {categoryLink === CategoriesArr[0] && (
           <ClientInfo userData={clientData?.data?.data?.user} />
-        )} */}
-        {/* 
+        )}
+
         {categoryLink === CategoriesArr[1] && (
-          <SessionNotes
-            clientId={clientId}
-            clientData={clientData?.data?.data?.user}
-          />
+          <UpcommingAppointments clientId={clientId} />
         )}
 
         {categoryLink === CategoriesArr[2] && (
-          <Assessments
+          <AppointmentsHistory
             clientId={clientId}
-            clientData={clientData?.data?.data?.user}
+            clientName={
+              clientData?.data?.data?.user?.first_name +
+              " " +
+              clientData?.data?.data?.user?.last_name
+            }
           />
-        )} */}
-
-        {/* {categoryLink === CategoriesArr[0] && (
-          <UpcommingAppointments clientId={clientId} />
-        )} */}
-
-        {categoryLink === CategoriesArr[1] && (
-          <AppointmentsHistory clientId={clientId} />
         )}
       </section>
     </main>

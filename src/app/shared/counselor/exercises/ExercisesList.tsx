@@ -8,17 +8,16 @@ import { useFetchData } from "@/react-query/useFetchData";
 import { queryKeys } from "@/react-query/query-keys";
 import Spinner from "@/components/ui/spinner";
 import Image from "next/image";
-import { truncateAmharicText } from "@/utils/trim-text";
 import { BsThreeDots } from "react-icons/bs";
-import Link from "next/link";
-import { routes } from "@/config/routes";
-import { useRouter } from "next/navigation";
-import ViewCategory from "./view-category-modal";
+
 import AddExerciseForm from "./add-exercise";
 import { LuDot } from "react-icons/lu";
+import AudioPlayer from "./audioPlayer";
+import { FaCirclePlay } from "react-icons/fa6";
 
 const ExercisesList = ({ categoryId }: { categoryId: string }) => {
   const { openModal } = useModal();
+  const [playingExercise, setPlayingExercise] = useState<any>(null);
 
   const headers = useGetHeaders({ type: "Json" });
 
@@ -41,7 +40,7 @@ const ExercisesList = ({ categoryId }: { categoryId: string }) => {
   }
 
   const ExerciseData = exercisesList?.data?.data;
-
+  console.log(exercisesList?.data?.data);
   return (
     <article>
       <div className="flex justify-end mb-6">
@@ -59,12 +58,23 @@ const ExercisesList = ({ categoryId }: { categoryId: string }) => {
         </Button>
       </div>
 
+      {playingExercise && (
+        <section className="flex justify-start">
+          <AudioPlayer
+            exerciseData={playingExercise}
+            setPlayingExercise={setPlayingExercise}
+          />
+        </section>
+      )}
+
       <section className="flex flex-wrap justify-start gap-[4%]">
         {ExerciseData.map((exercise: any) => (
           <AudioCard
             key={exercise.id}
             categoryId={categoryId}
             exercise={exercise}
+            playingExercise={playingExercise}
+            setPlayingExercise={setPlayingExercise}
           />
         ))}
       </section>
@@ -75,9 +85,13 @@ const ExercisesList = ({ categoryId }: { categoryId: string }) => {
 const AudioCard = ({
   categoryId,
   exercise,
+  playingExercise,
+  setPlayingExercise,
 }: {
   categoryId: string;
   exercise: any;
+  playingExercise: any;
+  setPlayingExercise: React.Dispatch<any>;
 }) => {
   const { openModal } = useModal();
 
@@ -95,11 +109,19 @@ const AudioCard = ({
           <p className="">{exercise.master.amharic}</p>
         </div>
 
-        {!exercise.active && (
-          <p className="border px-3 py-1 bg-red-400 text-white  rounded-full w-fit text-xs font-semibold ">
-            Hidden
-          </p>
-        )}
+        <div className="flex gap-4 items-center">
+          <button className="" onClick={() => setPlayingExercise(exercise)}>
+            {(!playingExercise || playingExercise.id !== exercise.id) && (
+              <FaCirclePlay size={20} />
+            )}
+          </button>
+
+          {!exercise.active && (
+            <p className="border px-3 py-1 bg-red-400 text-white  rounded-full w-fit text-xs font-semibold ">
+              Hidden
+            </p>
+          )}
+        </div>
 
         <section className="absolute top-3 right-3 ">
           <Button
