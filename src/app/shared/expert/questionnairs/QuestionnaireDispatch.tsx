@@ -8,7 +8,7 @@ import Spinner from "@/components/ui/spinner";
 import { Title } from "rizzui";
 import SessionForm from "./session-form";
 
-const ClientFormTypes = {
+export const ClientFormTypes = {
   INTAKE: "client-intake",
   SESSION: "session-review",
   PROGRESS: "client-progress",
@@ -45,7 +45,10 @@ const QuestionnaireDispatch = ({ clientId }: { clientId: string }) => {
     <main className="grid grid-cols-4">
       <section className=" col-span-1" />
       {viewFormType === ClientFormTypes.INTAKE && (
-        <ClientIntake clientId={clientId} />
+        <ClientIntake
+          clientId={clientId}
+          setViewedFormType={setViewedFormType}
+        />
       )}
       {viewFormType === ClientFormTypes.SESSION && (
         <SessionForm clientId={clientId} />
