@@ -33,12 +33,7 @@ const AppointmentsHistory = ({
 
   const viewFeedback = (appointmentId: string) => {
     openModal({
-      view: (
-        <ViewFeedbackModal
-          appointmentId={appointmentId}
-          clientName={clientName}
-        />
-      ),
+      view: <ViewFeedbackModal appointmentId={appointmentId} />,
       customSize: "500px",
     });
   };
