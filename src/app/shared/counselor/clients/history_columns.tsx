@@ -16,16 +16,16 @@ export const getColumns = (viewFeedback: (appointmentId: string) => void) => [
     width: 100,
     render: (value: { profile_image: string; first_name: string }) => (
       <div>
-        {value?.profile_image &&
-        !value?.profile_image.includes("ui-avatars.com") ? (
-          <Avatar name={value?.first_name} src={value?.profile_image} />
-        ) : (
+        {!value?.profile_image ||
+        value?.profile_image.includes("ui-avatars.com") ? (
           <Avatar
             name={"user profile"}
             src={
               "https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
             }
           />
+        ) : (
+          <Avatar name={value?.first_name} src={value?.profile_image} />
         )}
       </div>
     ),
