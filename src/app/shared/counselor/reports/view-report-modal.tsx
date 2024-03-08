@@ -52,7 +52,7 @@ const ViewReport = ({ report }: { report: any }) => {
         <div className="flex justify-center items-center text-white bg-gradient-to-r from-[#008579] to-[#00BA63] rounded-full w-12 h-12 ">
           <CiUser size={20} />
         </div>
-        <p className="text-2xl font-medium">{report.unique_code}</p>
+        <p className="text-2xl">{report.unique_code}</p>
       </div>
     </article>
   );
