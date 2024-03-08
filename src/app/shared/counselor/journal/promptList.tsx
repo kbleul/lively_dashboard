@@ -56,7 +56,7 @@ const PromptsList = () => {
   return (
     <>
       <WidgetCard
-        title={"Branch Managers"}
+        title={"Journal Prompts"}
         className={"flex flex-col"}
         headerClassName="widget-card-header flex-col sm:flex-row [&>.ps-2]:ps-0 [&>.ps-2]:w-full sm:[&>.ps-2]:w-auto [&>.ps-2]:mt-3 sm:[&>.ps-2]:mt-0"
         action={

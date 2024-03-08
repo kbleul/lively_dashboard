@@ -14,14 +14,16 @@ import { routes } from "@/config/routes";
 import ClientDetailsHeader from "./ClientDetailsHeader";
 import CustomCategoryButton from "@/components/ui/CustomCategoryButton";
 import ClientInfo from "./ClientInfo";
-import Assessments from "./Assessments";
+import Inkake from "./Intake";
 import UpcommingAppointments from "./UpcommingAppointment";
 import AppointmentsHistory from "./AppointmentsHistory";
 import SessionNotes from "./SessionNotes";
+import Assessment from "./Assessments";
 
 const CategoriesArr = [
   "Personal Info",
   "Notes",
+  "Intake Answers",
   "Assessment Answers",
   "Upcoming Appointment",
   "Appointment History",
@@ -90,17 +92,24 @@ const ClientDetails = ({ clientId }: { clientId: string }) => {
         )}
 
         {categoryLink === CategoriesArr[2] && (
-          <Assessments
+          <Inkake
             clientId={clientId}
             clientData={clientData?.data?.data?.user}
           />
         )}
 
         {categoryLink === CategoriesArr[3] && (
-          <UpcommingAppointments clientId={clientId} />
+          <Assessment
+            clientId={clientId}
+            clientData={clientData?.data?.data?.user}
+          />
         )}
 
         {categoryLink === CategoriesArr[4] && (
+          <UpcommingAppointments clientId={clientId} />
+        )}
+
+        {categoryLink === CategoriesArr[5] && (
           <AppointmentsHistory clientId={clientId} />
         )}
       </section>
