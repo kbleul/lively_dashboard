@@ -1,28 +1,19 @@
 "use client";
 import { useGetHeaders } from "@/hooks/use-get-headers";
-import { queryKeys } from "@/react-query/query-keys";
 import { useFetchData } from "@/react-query/useFetchData";
 import React from "react";
 import WidgetCard from "@/components/cards/widget-card";
-import { Button, Title } from "rizzui";
-import Link from "next/link";
+import { Title } from "rizzui";
 import ControlledTable from "@/components/controlled-table";
-import { routes } from "@/config/routes";
 import { useModal } from "@/app/shared/modal-views/use-modal";
 import useDynamicMutation from "@/react-query/usePostData";
-import { useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import AddReasonForm from "./add-reason";
 import { getColumns } from "./reports-columns";
-import Loading from "../../contentc/products/tags/Loading";
 import Spinner from "@/components/ui/spinner";
 import ViewReport from "./view-report-modal";
-// import ShowPlanModal from "./ShowPlanModal";
 
 const ReportsList = () => {
   const { openModal } = useModal();
   const postMutation = useDynamicMutation();
-  const queryClient = useQueryClient();
 
   const headers = useGetHeaders({ type: "Json" });
 
@@ -43,8 +34,6 @@ const ReportsList = () => {
       </div>
     );
   }
-
-  console.log(reportsData.data.data.data);
 
   const onViewItem = (report: any) => {
     openModal({
