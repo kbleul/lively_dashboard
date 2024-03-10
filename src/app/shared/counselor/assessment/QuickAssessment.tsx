@@ -153,7 +153,7 @@ const QuickAssessment = () => {
   return (
     <article>
       <div className="flex justify-end mb-6">
-        <Button
+        {/* <Button
           size="lg"
           color="primary"
           className="text-white bg-gradient-to-r from-[#008579] to-[#00BA63]"
@@ -181,7 +181,7 @@ const QuickAssessment = () => {
           }
         >
           Add Questions
-        </Button>
+        </Button> */}
       </div>
 
       {QuickAssessmentQuestions.length === 0 ? (

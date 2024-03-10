@@ -44,8 +44,11 @@ export default function AddQuoteForm({
     return <Loading id={id} />;
   }
   const initialValues: quotesType = {
-    author: id ? quoteData?.data?.data?.author : "",
-    body: id ? quoteData?.data?.data?.body : "",
+    authorEnglish: id ? quoteData?.data?.data?.author?.english : "",
+    authorAmharic: id ? quoteData?.data?.data?.author?.amharic : "",
+
+    bodyEnglish: id ? quoteData?.data?.data?.body?.english : "",
+    bodyAmharic: id ? quoteData?.data?.data?.body?.amharic : "",
   };
 
   const createQuotes = async (values: quotesType) => {
@@ -111,17 +114,32 @@ export default function AddQuoteForm({
           {() => (
             <Form className="flex flex-col items-start space-y-2">
               <FormikInput
-                label="Authors"
-                placeholder="Enter Authors Name"
+                label="Amharic author name"
+                placeholder="Enter amharic author name"
                 color="primary"
-                name="author"
+                name="authorAmharic"
               />
+              <FormikInput
+                label="English author name"
+                placeholder="Enter english author name"
+                color="primary"
+                name="authorEnglish"
+              />
+
               <FormikTextArea
-                label="Body"
-                placeholder={`Enter ${categoryLink} body`}
+                label="Amharic Body"
+                placeholder={`Enter amharic ${categoryLink} body`}
                 color="primary"
-                name="body"
+                name="bodyAmharic"
               />
+
+              <FormikTextArea
+                label="English Body"
+                placeholder={`Enter english ${categoryLink} body`}
+                color="primary"
+                name="bodyEnglish"
+              />
+
               {!isView && (
                 <Button
                   color="primary"

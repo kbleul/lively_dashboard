@@ -17,7 +17,9 @@ export const getColumns = () => [
     width: 100,
     render: (user: { first_name: string; last_name: string }) => (
       <Text className="font-medium text-gray-700">
-        {truncateAmharicText(user.first_name + " " + user.last_name, 15)}
+        {user
+          ? truncateAmharicText(user.first_name + " " + user.last_name, 15)
+          : "-"}
       </Text>
     ),
   },

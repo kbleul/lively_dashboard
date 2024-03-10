@@ -57,13 +57,6 @@ export default function AppointmentsList() {
     );
   }
 
-  const viewNotes = (appointmentId: string) => {
-    openModal({
-      view: <SessionNotesAnswersModal appointmentId={appointmentId} />,
-      customSize: "600px",
-    });
-  };
-
   return (
     <>
       <CustomCategoryButton
