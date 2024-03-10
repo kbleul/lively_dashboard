@@ -15,6 +15,7 @@ export type CategoriesType = {
   number_of_question: number;
   image: string;
 };
+
 export const mindfulnessCategoriesSchema = Yup.object().shape({
   nameEnglish: Yup.string().required("English category name is required"),
   nameAmharic: Yup.string().required("Amharic Category name is required"),
@@ -25,6 +26,17 @@ export const mindfulnessCategoriesSchema = Yup.object().shape({
     "Amharic category description is required"
   ),
   image: Yup.mixed().required("Cover image is required"),
+});
+
+export const editMindfulnessCategoriesSchema = Yup.object().shape({
+  nameEnglish: Yup.string().required("English category name is required"),
+  nameAmharic: Yup.string().required("Amharic Category name is required"),
+  descriptionEnglish: Yup.string().required(
+    "English category description is required"
+  ),
+  descriptionAmharic: Yup.string().required(
+    "Amharic category description is required"
+  ),
 });
 
 export type mindfulnessCategoriesType = {
