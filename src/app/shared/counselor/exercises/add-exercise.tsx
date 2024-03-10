@@ -49,9 +49,13 @@ const AddExerciseForm = ({
 
   const initialValues: mindfulnessExerciseType = {
     titleAmharic: id ? exerciseData.data.data.title.amharic : "",
+    titleEnglish: id ? exerciseData.data.data.title.english : "",
     masterAmharic: id ? exerciseData.data.data.master.amharic : "",
-    duration: id ? exerciseData.data.data.duration : "",
+    masterEnglish: id ? exerciseData.data.data.master.english : "",
+    durationAmharic: id ? exerciseData.data.data.duration.amharic : "",
+    durationEnglish: id ? exerciseData.data.data.duration.english : "",
     audioAmharic: "",
+    audioEnglish: "",
   };
 
   const createCategorySubmitHandler = async (
@@ -161,30 +165,71 @@ const AddExerciseForm = ({
                 className="mb-4"
               />
               <FormikInput
+                name="titleEnglish"
+                label="English Title"
+                placeholder="Enter english title"
+                color="primary"
+                className="mb-4"
+              />
+
+              <FormikInput
                 name="masterAmharic"
-                label="Narrator"
-                placeholder="Enter narrators name"
+                label="Narrator name in Amharic"
+                placeholder="Enter narrators name in amharic"
                 color="primary"
                 className="mb-4"
               />
               <FormikInput
-                name="duration"
-                label="Duration"
-                placeholder="Enter exercise duration"
+                name="masterEnglish"
+                label="Narrator name in English"
+                placeholder="Enter narrators name in english"
                 color="primary"
                 className="mb-4"
               />
 
-              <FilePicker name="audioAmharic" label="Upload Audio" />
+              <FormikInput
+                name="durationAmharic"
+                label="Amharic Duration"
+                placeholder="Enter amharic audio duration"
+                color="primary"
+                className="mb-4"
+              />
+              <FormikInput
+                name="durationEnglish"
+                label="English Duration"
+                placeholder="Enter english audio duration"
+                color="primary"
+                className="mb-4"
+              />
+
+              <FilePicker name="audioAmharic" label="Upload Amharic Audio" />
 
               {id && exerciseData?.data?.data?.audio?.amharic?.url && (
-                <div className="flex gap-4">
+                <div className="flex gap-4 mb-4">
                   <p className="mt-3 font-medium ">
-                    Current audio :
+                    Current amharic audio :
                     <span className="underline font-normal ml-2">
                       {
                         exerciseData.data.data.audio.amharic.url.split("/")[
                           exerciseData.data.data.audio.amharic.url.split("/")
+                            .length - 1
+                        ]
+                      }
+                    </span>
+                  </p>
+                </div>
+              )}
+
+              <FilePicker name="audioEnglish" label="Upload English Audio" />
+
+              {id && exerciseData?.data?.data?.audio?.english?.url && (
+                <div className="flex gap-4 mb-4">
+                  <p className="mt-3 font-medium ">
+                    Current english audio :
+                    <span className="underline font-normal ml-2">
+                      {
+                        exerciseData.data.data.audio.english.url.split("/")[
+                          exerciseData.data.data.audio.english.url.split("/")
                             .length - 1
                         ]
                       }
