@@ -28,6 +28,17 @@ export const mindfulnessCategoriesSchema = Yup.object().shape({
   image: Yup.mixed().required("Cover image is required"),
 });
 
+export const editMindfulnessCategoriesSchema = Yup.object().shape({
+  nameEnglish: Yup.string().required("English category name is required"),
+  nameAmharic: Yup.string().required("Amharic Category name is required"),
+  descriptionEnglish: Yup.string().required(
+    "English category description is required"
+  ),
+  descriptionAmharic: Yup.string().required(
+    "Amharic category description is required"
+  ),
+});
+
 export type mindfulnessCategoriesType = {
   nameAmharic: string;
   nameEnglish: string;

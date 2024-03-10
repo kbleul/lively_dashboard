@@ -18,7 +18,6 @@ import { useModal } from "../../modal-views/use-modal";
 import { Button, Title } from "rizzui";
 import { useFetchData } from "@/react-query/useFetchData";
 import Loading from "../../contentc/products/tags/Loading";
-import Image from "next/image";
 import { FaToggleOff, FaToggleOn } from "react-icons/fa6";
 import FilePicker from "@/components/ui/form/audio-upload";
 
