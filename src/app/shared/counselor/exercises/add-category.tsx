@@ -9,7 +9,6 @@ import { Formik, Form } from "formik";
 import {
   mindfulnessCategoriesType,
   mindfulnessCategoriesSchema,
-  editMindfulnessCategoriesSchema,
 } from "@/validations/assessment";
 import FormikTextArea from "@/components/ui/form/formik-textarea";
 import FilePicker from "@/components/ui/form/dropzone";
@@ -48,7 +47,9 @@ const AddCategoryForm = ({
 
   const initialValues: mindfulnessCategoriesType = {
     nameEnglish: id ? categoryData.data.data.name.english : "",
+    nameAmharic: id ? categoryData.data.data.name.amharic : "",
     descriptionEnglish: id ? categoryData.data.data.description.english : "",
+    descriptionAmharic: id ? categoryData.data.data.description.amharic : "",
     image: "",
   };
 
@@ -122,9 +123,7 @@ const AddCategoryForm = ({
     <article className="p-8">
       <Formik
         initialValues={initialValues}
-        validationSchema={
-          id ? editMindfulnessCategoriesSchema : mindfulnessCategoriesSchema
-        }
+        validationSchema={mindfulnessCategoriesSchema}
         onSubmit={(values: mindfulnessCategoriesType) =>
           createCategorySubmitHandler(values)
         }
@@ -161,18 +160,33 @@ const AddCategoryForm = ({
 
               <FormikInput
                 name="nameEnglish"
-                label="Category Name"
-                placeholder="Enter your category name"
+                label="English Category Name"
+                placeholder="Enter your category name in english"
                 color="primary"
                 className="mb-4"
               />
 
-              <FormikTextArea
-                name="descriptionEnglish"
-                label="Description"
-                placeholder="Write a description"
+              <FormikInput
+                name="nameAmharic"
+                label="Amharic Category Name "
+                placeholder="Enter your category name in amharic"
+                color="primary"
                 className="mb-4"
               />
+              <FormikTextArea
+                name="descriptionEnglish"
+                label="Description english"
+                placeholder="Write english description"
+                className="mb-4"
+              />
+
+              <FormikTextArea
+                name="descriptionAmharic"
+                label="Description amharic"
+                placeholder="Write amharic description"
+                className="mb-4"
+              />
+
               <FilePicker name="image" label="Cover Image" className="mb-4" />
 
               {id && categoryData.data.data && (
