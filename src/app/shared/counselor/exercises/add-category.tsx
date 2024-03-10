@@ -9,6 +9,7 @@ import { Formik, Form } from "formik";
 import {
   mindfulnessCategoriesType,
   mindfulnessCategoriesSchema,
+  editMindfulnessCategoriesSchema,
 } from "@/validations/assessment";
 import FormikTextArea from "@/components/ui/form/formik-textarea";
 import FilePicker from "@/components/ui/form/dropzone";
@@ -121,7 +122,9 @@ const AddCategoryForm = ({
     <article className="p-8">
       <Formik
         initialValues={initialValues}
-        validationSchema={mindfulnessCategoriesSchema}
+        validationSchema={
+          id ? editMindfulnessCategoriesSchema : mindfulnessCategoriesSchema
+        }
         onSubmit={(values: mindfulnessCategoriesType) =>
           createCategorySubmitHandler(values)
         }

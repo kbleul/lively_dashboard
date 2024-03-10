@@ -40,7 +40,6 @@ const ExercisesList = ({ categoryId }: { categoryId: string }) => {
   }
 
   const ExerciseData = exercisesList?.data?.data;
-  console.log(exercisesList?.data?.data);
   return (
     <article>
       <div className="flex justify-end mb-6">
