@@ -1,4 +1,13 @@
 "use client";
+
+import { Lily_Script_One } from "next/font/google";
+
+const lily = Lily_Script_One({
+  weight: "400", // if single weight, otherwise you use array like [400, 500, 700],
+  style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
+  subsets: ["latin"],
+});
+
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import React from "react";
 import * as Yup from "yup";
@@ -14,6 +23,7 @@ import {
 } from "@/constants/form-constants";
 import RadioSelect from "@/components/ui/form/radio";
 import { toast } from "sonner";
+import { ClientFormTypes } from "./QuestionnaireDispatch";
 
 type QuestionnairsTypes = {
   responses:
@@ -26,7 +36,13 @@ type QuestionnairsTypes = {
       }[];
 };
 
-const ClientIntake = ({ clientId }: { clientId: string }) => {
+const ClientIntake = ({
+  clientId,
+  setViewedFormType,
+}: {
+  clientId: string;
+  setViewedFormType: React.Dispatch<React.SetStateAction<string | null>>;
+}) => {
   const postMutation = useDynamicMutation();
 
   const headers = useGetHeaders({ type: "FormData" });
@@ -87,6 +103,7 @@ const ClientIntake = ({ clientId }: { clientId: string }) => {
           body: { responses: valueToSubmit, user_id: clientId },
           onSuccess: (res) => {
             toast.success("Client intake submitted!");
+            setViewedFormType(ClientFormTypes.SESSION);
           },
           onError: (err) => {
             toast.error(err?.response?.data?.data);
@@ -152,7 +169,13 @@ const ClientIntake = ({ clientId }: { clientId: string }) => {
           <Form className="w-full ">
             <main className="">
               <article className="px-4 rounded-xl shadow-md bg-[#FFF9F2] mb-4 pb-4 md:col-span-8 w-full flex flex-col items-start space-y-1">
-                <Title as="h5" className="py-4 text-center">
+                <Title
+                  as="h5"
+                  className={
+                    lily.className +
+                    " py-4 text-center font-bold text-3xl text-[#5B3F3F]"
+                  }
+                >
                   Client Intake
                 </Title>
                 <FieldArray name="responses">

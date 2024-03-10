@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import logoImg from "@public/logo.png";
+// import favicon from "@public/favicon.ico";
+
 // import logoIconImg from "@public/logo-short.svg";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
@@ -12,7 +14,7 @@ export const siteConfig = {
   title: "Lively - Expert Dashboard",
   description: `Discover a healthier life with Lively! Find Medicine, Browse Wellness Products, Join Events, Read Articles. Download Lively on Google Play & App Store!`,
   logo: logoImg,
-  // icon: logoIconImg,
+  // icon: favicon,
   mode: MODE.LIGHT,
   // TODO: favicon
 };

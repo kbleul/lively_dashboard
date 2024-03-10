@@ -24,6 +24,10 @@ const assignRediresct = (role: any, params: string | null) => {
   let redirectUrl = "";
 
   switch (true) {
+    case role.includes("Counselor"):
+      redirectUrl = routes.counselor.dashboard;
+      return redirectUrl;
+
     case role.includes("Expert"):
       redirectUrl = routes.expert.dashboard;
       return redirectUrl;

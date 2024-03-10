@@ -9,17 +9,15 @@ import { ActionIcon, Tooltip } from "rizzui";
 import { truncateAmharicText } from "@/utils/trim-text";
 
 export const getColumns = (onViewItem: (reasonId: any) => void) => [
-  // {
-  //   title: <HeaderCell title="Report Reason" />,
-  //   dataIndex: "reason",
-  //   key: "reason",
-  //   width: 50,
-  //   render: (value: string) => (
-  //     <Text className="font-medium text-gray-700">
-  //       {truncateAmharicText(value, 70)}
-  //     </Text>
-  //   ),
-  // },
+  {
+    title: <HeaderCell title="Client Id" />,
+    dataIndex: "unique_code",
+    key: "unique_code",
+    width: 50,
+    render: (unique_code: string) => (
+      <Text className="font-medium text-gray-700">{unique_code}</Text>
+    ),
+  },
   {
     title: <HeaderCell title="Expert Name" />,
     dataIndex: "reportable",

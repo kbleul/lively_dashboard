@@ -5,7 +5,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { PiToolboxThin } from "react-icons/pi";
 import { MdOutlineAttachMoney, MdOutlinePayment } from "react-icons/md";
-import { RiContactsBook2Line } from "react-icons/ri";
+import { RiContactsBook2Line, RiShapesLine } from "react-icons/ri";
 import { MdOutlineContentPasteGo } from "react-icons/md";
 import { LiaProductHunt } from "react-icons/lia";
 import { TbServicemark } from "react-icons/tb";
@@ -18,6 +18,8 @@ import { LuCalendarDays } from "react-icons/lu";
 import { HiOutlineDocumentText } from "react-icons/hi2";
 import { BsChatLeftQuote, BsJournalPlus } from "react-icons/bs";
 import { IoFlagOutline } from "react-icons/io5";
+import { CgNotes } from "react-icons/cg";
+
 // Note: do not add href in the label object, it is rendering as label
 
 export const counselorMenuItems = [
@@ -63,6 +65,11 @@ export const counselorMenuItems = [
     icon: <HiOutlineDocumentText />,
   },
   {
+    name: "Session Notes",
+    href: routes.counselor["session-notes"],
+    icon: <CgNotes />,
+  },
+  {
     name: "Questioner",
     href: "#",
     icon: <FaQuestion />,
@@ -74,6 +81,17 @@ export const counselorMenuItems = [
       {
         name: "Quick Self Assessment",
         href: routes.counselor["quick-self-assessment"],
+      },
+    ],
+  },
+  {
+    name: "Exercises",
+    href: "#",
+    icon: <RiShapesLine />,
+    dropdownItems: [
+      {
+        name: "Mindfulness",
+        href: routes.counselor.mindfulness,
       },
     ],
   },
@@ -164,10 +182,10 @@ export const operationalManagetMenuItems = [
         name: "Subscriptions",
         href: routes.operationalManager.subscriptions,
       },
-      {
-        name: "create Wellbeign Center",
-        href: routes.operationalManager.centers.create,
-      },
+      // {
+      //   name: "create Wellbeign Center",
+      //   href: routes.operationalManager.centers.create,
+      // },
     ],
   },
   {

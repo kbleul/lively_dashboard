@@ -1,8 +1,16 @@
 "use client";
+
+import { Lily_Script_One } from "next/font/google";
+
+const lily = Lily_Script_One({
+  weight: "400", // if single weight, otherwise you use array like [400, 500, 700],
+  style: "normal", // if single style, otherwise you use array like ['normal', 'italic']
+  subsets: ["latin"],
+});
 import { useGetHeaders } from "@/hooks/use-get-headers";
 import React from "react";
 import { Form, Formik } from "formik";
-import { Button, Textarea, Title } from "rizzui";
+import { Button, Title } from "rizzui";
 import Spinner from "@/components/ui/spinner";
 import useDynamicMutation from "@/react-query/usePostData";
 
@@ -88,17 +96,23 @@ const SessionForm = ({
   };
 
   return (
-    <article className=" col-span-2 ">
+    <article className="col-span-2 ">
       <Formik
         initialValues={initalValues}
         onSubmit={(values) => handleSubmotSessionNotes(values)}
         validationSchema={sessionNotesSchema}
       >
         {({}) => (
-          <Form className="w-full ">
-            <main className="">
-              <article className="px-4 rounded-xl shadow-md bg-[#FFF9F2] mb-4 pb-4 md:col-span-8 w-full flex flex-col items-start space-y-1">
-                <Title as="h5" className="py-4 text-center w-full">
+          <Form className="w-full">
+            <main className=" ml-4">
+              <article className="px-4 rounded-xl border bg-[#FFF9F2] mb-4 pb-4 md:col-span-8 w-full flex flex-col items-start space-y-1">
+                <Title
+                  as="h5"
+                  className={
+                    lily.className +
+                    " pb-4 pt-8 text-center font-bold text-3xl text-[#5B3F3F] w-full"
+                  }
+                >
                   Session Notes
                 </Title>
 

@@ -7,11 +7,11 @@ import { PiXBold } from "react-icons/pi";
 import { ActionIcon, Title } from "rizzui";
 import { useModal } from "../../modal-views/use-modal";
 
-const AssessmentAnswersModal = ({
-  assessmentAnswers,
+const IntakeAnswersModal = ({
+  intakeAnswers,
   clientName,
 }: {
-  assessmentAnswers: any;
+  intakeAnswers: any;
   clientName: string;
 }) => {
   const { closeModal } = useModal();
@@ -41,7 +41,7 @@ const AssessmentAnswersModal = ({
             </p>
           </div>
 
-          {assessmentAnswers.map((answer: any, index: number) => (
+          {intakeAnswers.map((answer: any, index: number) => (
             <article
               className="my-4 px-8 py-2 border-b border-dashed"
               key={answer.question.id}
@@ -135,4 +135,4 @@ const DispatchAnswerUI = ({ answer }: { answer: any }) => {
   }
 };
 
-export default AssessmentAnswersModal;
+export default IntakeAnswersModal;

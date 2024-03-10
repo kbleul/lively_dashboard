@@ -13,7 +13,10 @@ export const routes = {
     "edit-expert": (id: string) => `/counselor/experts/edit/${id}`,
 
     clients: "/counselor/clients",
+    "client-detail": (clientId: string) => `/counselor/clients/${clientId}`,
+
     appointments: `/counselor/appointments`,
+    "session-notes": `/counselor/session-notes`,
 
     intake: `/counselor/intake`,
 
@@ -26,6 +29,10 @@ export const routes = {
     "quick-self-assessment": `/counselor/assessments/quick-assessment`,
 
     "journal-prompts": `/counselor/journal-prompts`,
+
+    mindfulness: `/counselor/exercises/mindfulness`,
+    "mindfulness-exercises": (categoryId: string) =>
+      `/counselor/exercises/mindfulness/${categoryId}`,
 
     reports: `/counselor/reports`,
     quotes: `/counselor/quotes`,

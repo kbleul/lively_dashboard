@@ -6,9 +6,9 @@ import React from "react";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { Title } from "rizzui";
 import { useModal } from "../../modal-views/use-modal";
-import AssessmentAnswersModal from "./AssessmentAnswersModal";
+import AssessmentAnswersModal from "./IntakeAnswersModal";
 
-const Assessments = ({
+const Intake = ({
   clientId,
   clientData,
 }: {
@@ -19,13 +19,13 @@ const Assessments = ({
 
   const headers = useGetHeaders({ type: "Json" });
 
-  const assessmentAnswers = useFetchData(
+  const intakeAnswers = useFetchData(
     [queryKeys.getClientAssessmentAnswers + clientId, clientId],
     `${process.env.NEXT_PUBLIC_WELLBEING_BACKEND_URL}expert/client-intake-responses/${clientId}`,
     headers
   );
 
-  if (assessmentAnswers.isPending || assessmentAnswers.isFetching) {
+  if (intakeAnswers.isPending || intakeAnswers.isFetching) {
     return (
       <div className="grid h-full min-h-[128px] flex-grow place-content-center items-center justify-center">
         <Spinner size="xl" />
@@ -37,13 +37,13 @@ const Assessments = ({
     );
   }
 
-  const clientAssessmentAnswers = assessmentAnswers?.data?.data;
+  const clientAssessmentAnswers = intakeAnswers?.data?.data;
 
   const viewAssessmentAnswer = () => {
     openModal({
       view: (
         <AssessmentAnswersModal
-          assessmentAnswers={clientAssessmentAnswers}
+          intakeAnswers={clientAssessmentAnswers}
           clientName={clientData.first_name + " " + clientData.last_name}
         />
       ),
@@ -54,12 +54,12 @@ const Assessments = ({
   return (
     <article>
       <Title as="h4" className="font-medium">
-        Assessment Answers
+        Client and Expert Intake Answers
       </Title>
 
       {clientAssessmentAnswers && clientAssessmentAnswers.length === 0 && (
         <section className="mt-10 w-full flex justify-center">
-          <Title as="h6">No Assessment Answers found for client!</Title>
+          <Title as="h6">No Intake Answers found for client!</Title>
         </section>
       )}
 
@@ -70,7 +70,7 @@ const Assessments = ({
               <IoDocumentTextSharp size={32} color="#00BA63" />
             </div>
 
-            <p className="text-lg">Assessment Answers</p>
+            <p className="text-lg">Intake Answers</p>
           </section>
 
           <div className="flex items-center gap-3 justify-self-end">
@@ -88,4 +88,4 @@ const Assessments = ({
   );
 };
 
-export default Assessments;
+export default Intake;
